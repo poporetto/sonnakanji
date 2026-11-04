@@ -15,19 +15,15 @@ const kunMore = k.kun.slice(5);
     <img class="art" src={artPath(k.kanji)} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
   </div>
 
-  <div class="panel glyph-panel">
-    <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means {k.meanings[0]}</span></h1>
-  </div>
-
-  <div class="panel title">
-    <p class="meaning">{k.meanings[0]}</p>
+  <header class="panel title">
+    <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span><span class="meaning">{k.meanings[0]}</span></h1>
     {k.meanings.length > 1 && <p class="also">{k.meanings.slice(1).join(', ')}</p>}
     <p class="meta">
       <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
       <span class="chip plain">{position} of {total}</span>
       <span class="chip plain">{k.strokes} strokes</span>
     </p>
-  </div>
+  </header>
 
   <div class="panel story">
     <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
@@ -109,18 +105,18 @@ const kunMore = k.kun.slice(5);
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .kcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; touch-action: pan-y; will-change: transform; }
   .kcard > * { min-width: 0; grid-column: 1 / -1; }
-  .kcard > .art-panel, .kcard > .glyph-panel { grid-column: auto; }
+  .kcard > .art-panel, .kcard > .title { grid-column: auto; }
   .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
   .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
   .art-panel { background: var(--tint); padding: 8px; display: grid; place-items: center; }
   .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
-  .glyph-panel { display: grid; place-items: center; padding: 8px; }
-  .glyph-panel h1 { margin: 0; font-weight: 500; }
-  .glyph-panel .glyph { display: block; font: 500 clamp(92px, 28vw, 150px)/1 var(--jp); }
-  .title .meaning { margin: 0; font-size: clamp(30px, 8vw, 40px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
-  .also { margin: 8px 0 0; color: var(--muted); }
-  .meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
-  .chip { padding: 3px 12px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 14px; font-weight: 800; text-decoration: none; }
+  .title { display: grid; align-content: center; justify-items: center; text-align: center; padding: 14px 10px; }
+  .title h1 { margin: 0; font-weight: 400; display: grid; justify-items: center; gap: 4px; }
+  .title .glyph { font: 500 clamp(76px, 23vw, 112px)/1 var(--jp); }
+  .title .meaning { font-size: clamp(22px, 6vw, 32px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
+  .also { margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.3; }
+  .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 8px 0 0; }
+  .chip { padding: 2px 10px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 13px; font-weight: 800; text-decoration: none; }
   .chip.plain { background: var(--wash); color: var(--muted); }
   .story { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; background: var(--tint); color: var(--on-tint); }
   .story img { display: block; width: 64px; height: auto; }
@@ -160,8 +156,13 @@ const kunMore = k.kun.slice(5);
   @media (min-width: 760px) {
     .kcard { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
     .kcard > * { grid-column: span 3; }
-    .kcard > .art-panel, .kcard > .glyph-panel { grid-column: span 2; grid-row: span 2; }
-    .kcard > .title, .kcard > .story { grid-column: span 2; }
+    .kcard > .art-panel { grid-column: span 2; grid-row: span 2; }
+    .kcard > .title, .kcard > .story { grid-column: span 4; }
+    .title { grid-template-columns: auto minmax(0, 1fr); column-gap: 22px; justify-items: start; text-align: left; }
+    .title h1 { display: contents; }
+    .title .glyph { grid-row: span 3; }
+    .title .meaning { align-self: end; }
+    .meta { justify-content: flex-start; }
     .panel { padding: 22px; }
   }
   .kcard.enter-left { animation: enter-left .24s ease-out; }
