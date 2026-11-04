@@ -3,7 +3,7 @@
 Kanji mnemonics for the JLPT: a static, SEO-friendly Astro site with one page per
 kanji, swipeable cards and browser-based spaced repetition (FSRS). N5 and N4 are
 complete. N3, N2 and N1 are in beta: they have readings, strokes and words, but no
-drawings or mnemonics yet, and stay out of the sitemap and search until they do.
+drawings or mnemonics yet.
 There is no database. Review progress lives in the visitor's `localStorage`.
 
 ```bash

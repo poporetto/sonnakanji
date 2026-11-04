@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { allKanji, isBeta, kanjiPath, LEVELS } from '../lib/kanji';
+import { allKanji, kanjiPath, LEVELS } from '../lib/kanji';
 
 export const GET: APIRoute = ({ site }) => {
-  const paths = ['/', '/jlpt/', ...LEVELS.map((l) => `/jlpt/${l.slug}/`), '/learn-kanji-with-pictures/', '/review/', '/about/', ...allKanji.filter((k) => !isBeta(k)).map((k) => kanjiPath(k.kanji))];
+  const paths = ['/', '/jlpt/', ...LEVELS.map((l) => `/jlpt/${l.slug}/`), '/learn-kanji-with-pictures/', '/review/', '/about/', ...allKanji.map((k) => kanjiPath(k.kanji))];
   const urls = paths.map((p) => `<url><loc>${new URL(p, site).href}</loc></url>`).join('');
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`,

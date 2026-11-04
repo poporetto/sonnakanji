@@ -51,6 +51,6 @@ const jsonLd = {
   ],
 };
 ---
-<Base {title} {description} {jsonLd} noindex={beta} prefetch={[kanjiPath(next.kanji), kanjiPath(prev.kanji)]}>
+<Base {title} {description} {jsonLd} prefetch={[kanjiPath(next.kanji), kanjiPath(prev.kanji)]}>
   <KanjiCard {k} {position} total={sameLevel.length} {prev} {next} />
 </Base>
