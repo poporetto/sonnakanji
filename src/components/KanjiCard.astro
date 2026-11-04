@@ -14,29 +14,25 @@ const kunShown = k.kun.slice(0, 5);
 const kunMore = k.kun.slice(5);
 ---
 <article class="kcard" id="card" style={`--tint:${tint}`} data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
-  <div class="panel art-panel">
+  <div class="hero">
+    <p class="meta">
+      <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
+      {beta && <span class="chip">Beta</span>}
+      <span class="plain">{position} of {total}</span>
+      <span class="plain">{k.strokes} strokes</span>
+    </p>
     <img class="art" src={art} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
-  </div>
-
-  <header class="panel title">
     <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span><span class="meaning">{k.meanings[0]}</span></h1>
     <button type="button" class="write" id="write" aria-label={`Write ${k.kanji} stroke by stroke`}></button>
     {k.meanings.length > 1 && <p class="also">{k.meanings.slice(1).join(', ')}</p>}
-  </header>
-
-  <p class="meta">
-    <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
-    {beta && <span class="beta on-paper">Beta</span>}
-    <span class="chip plain">{position} of {total}</span>
-    <span class="chip plain">{k.strokes} strokes</span>
-  </p>
-
-  <div class="panel story">
-    <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
-    <p class="mnemonic">{k.mnemonic}</p>
+    <div class="story">
+      <img src="/mascot/bear.webp" alt="" width="56" height="44" loading="lazy" />
+      <p class="mnemonic">{k.mnemonic}</p>
+    </div>
   </div>
 
-  <section class="panel read" aria-label="Readings">
+  <div class="details">
+  <section class="read" aria-label="Readings">
     <div>
       <h2>On'yomi</h2>
       <ul class="readings">{k.on.length ? k.on.map((r) => <li><b lang="ja">{r.kana}</b><span class="romaji">{r.romaji}</span></li>) : <li>None</li>}</ul>
@@ -53,7 +49,7 @@ const kunMore = k.kun.slice(5);
     </div>
   </section>
 
-  <section class="panel build" aria-labelledby="build-h">
+  <section class="build" aria-labelledby="build-h">
     <h2 id="build-h">{parts.length > 1 ? "How it's built" : 'Stroke order'}</h2>
     <div class="build-row">
       <button type="button" class="stroke-btn" id="play" aria-label={`Play stroke order for ${k.kanji}`}>
@@ -74,7 +70,7 @@ const kunMore = k.kun.slice(5);
   </section>
 
   {k.words.length > 0 && (
-    <section class="panel" aria-labelledby="words-h">
+    <section class="words-block" aria-labelledby="words-h">
       <h2 id="words-h">Common words</h2>
       <ul class="words">
         {k.words.map((w) => (
@@ -85,7 +81,7 @@ const kunMore = k.kun.slice(5);
   )}
 
   {k.glyphs.length > 0 && (
-    <figure class="panel evolution">
+    <figure class="evolution">
       <h2>Through history</h2>
       <ol>
         {k.glyphs.map((g) => (
@@ -99,6 +95,7 @@ const kunMore = k.kun.slice(5);
       {k.trad && <figcaption>Written <span lang="ja">{k.trad}</span> before Japan's postwar reform.</figcaption>}
     </figure>
   )}
+  </div>
 </article>
 
 <nav class="pager" aria-label="Kanji cards">
@@ -109,48 +106,55 @@ const kunMore = k.kun.slice(5);
 
 <style is:global>
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .kcard { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; touch-action: pan-y; will-change: transform; }
-  .kcard > * { min-width: 0; grid-column: 1 / -1; }
-  .kcard > .art-panel, .kcard > .title { grid-column: auto; }
-  .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
-  .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
-  .art-panel { background: var(--tint); padding: 4px; display: grid; place-items: center; }
-  .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
-  .title { display: grid; align-content: center; justify-items: center; gap: 4px; text-align: center; padding: 12px 10px; }
-  .title h1 { display: contents; }
-  .title .glyph { font: 500 clamp(76px, 23vw, 112px)/1 var(--jp); }
-  .title .meaning { font-size: clamp(22px, 6vw, 32px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
-  .title .glyph { grid-area: 1 / 1; }
-  .write { grid-area: 1 / 1; place-self: center; width: clamp(92px, 28vw, 124px); aspect-ratio: 1; padding: 0; border: 0; border-radius: 18px; background: none; cursor: pointer; touch-action: manipulation; }
-  .write .strokes { width: 100%; height: 100%; stroke-width: 6.5; pointer-events: none; }
-  .title.writing .glyph { visibility: hidden; }
-  .strokes .ghost path { stroke: var(--line-ghost); stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-  .also { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.3; }
-  .meta { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 2px; }
-  .chip { position: relative; padding: 2px 10px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 13px; font-weight: 800; text-decoration: none; }
+  .kcard { display: grid; gap: 28px; touch-action: pan-y; will-change: transform; }
+  .kcard > * { min-width: 0; }
+  /* The card stays pastel in dark mode, so its contents keep the light inks. */
+  .hero {
+    --ink: var(--on-tint); --muted: #4f4a60; --line-ghost: #211d2e1f;
+    --p0: #d9503a; --p1: #2f78b8; --p2: #2f9467; --p3: #7f55d6; --p4: #b57a14;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; column-gap: 8px;
+    padding: 14px 16px 16px; border-radius: 28px; background: var(--tint); color: var(--on-tint);
+  }
+  .hero > * { min-width: 0; }
+  .hero h1 { display: contents; }
+  .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; font-size: 13px; font-weight: 600; }
+  .chip { position: relative; padding: 2px 10px; border-radius: 999px; background: #ffffffa8; color: var(--on-tint); text-decoration: none; }
   a.chip::after { content: ""; position: absolute; inset: -10px -4px; }
-  .chip.plain { background: var(--wash); color: var(--muted); }
-  .story { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; background: var(--tint); color: var(--on-tint); }
-  .story img { display: block; width: 64px; height: auto; }
-  .mnemonic { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.35; }
-  .read { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  .art { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+  .glyph { grid-area: 2 / 2; font: 500 clamp(96px, 30vw, 128px)/1 var(--jp); text-align: center; }
+  .write { grid-area: 2 / 2; place-self: center; width: clamp(104px, 31vw, 132px); aspect-ratio: 1; padding: 0; border: 0; border-radius: 18px; background: none; cursor: pointer; touch-action: manipulation; }
+  .write .strokes { width: 100%; height: 100%; stroke-width: 6.5; pointer-events: none; }
+  .hero.writing .glyph { visibility: hidden; }
+  .strokes .ghost path { stroke: var(--line-ghost); stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  .meaning { grid-column: 1 / -1; font: 600 clamp(30px, 8.5vw, 40px)/1.08 var(--display); letter-spacing: -.025em; text-transform: capitalize; }
+  .also { grid-column: 1 / -1; margin: 2px 0 0; color: var(--muted); font-size: 15px; line-height: 1.3; }
+  .story { grid-column: 1 / -1; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: center; margin-top: 12px; padding: 12px 14px; border-radius: 20px; background: #ffffff8c; }
+  .story img { display: block; width: 56px; height: auto; cursor: pointer; transform-origin: 50% 90%; }
+  .story img.wiggle { animation: wiggle .5s cubic-bezier(.16, 1, .3, 1); }
+  @keyframes wiggle { 30% { transform: rotate(-8deg); } 65% { transform: rotate(6deg); } }
+  .mnemonic { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.35; }
+  .details { display: grid; gap: 12px; align-content: start; }
+  .read > div, .build, .evolution { padding: 16px; border-radius: 22px; }
+  .read > div { background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
+  .build, .evolution { background: var(--wash); }
+  .words-block { padding: 8px 4px; }
+  .details h2 { font: 600 14px var(--body); letter-spacing: 0; color: var(--muted); margin: 0 0 10px; }
+  .read { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  .read h2 { margin-bottom: 8px; }
   .readings { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
   .readings li { display: grid; }
   .readings b { font: 500 20px/1.2 var(--jp); }
   .readings span { color: var(--muted); font-size: 15px; font-weight: 600; }
   .more { margin-top: 2px; font-size: 14px; font-weight: 700; color: var(--muted); }
   .build-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-  .stroke-btn { display: grid; justify-items: center; gap: 2px; border: 0; background: var(--wash); color: var(--ink); border-radius: 18px; padding: 8px; cursor: pointer; font: 700 13px var(--body); touch-action: manipulation; }
+  .stroke-btn { display: grid; justify-items: center; gap: 2px; border: 0; background: var(--surface); color: var(--ink); border-radius: 18px; padding: 8px; cursor: pointer; font: 600 13px var(--body); touch-action: manipulation; }
   .stroke-btn:active { transform: var(--press); }
   .strokes { display: block; width: 116px; height: 116px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .strokes .guide { stroke: var(--muted); stroke-opacity: .3; stroke-width: .6; stroke-dasharray: 2 2; }
   .strokes .p0 { stroke: var(--p0); } .strokes .p1 { stroke: var(--p1); } .strokes .p2 { stroke: var(--p2); } .strokes .p3 { stroke: var(--p3); } .strokes .p4 { stroke: var(--p4); }
   .strokes.play > path:not(.guide) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .42s ease-in-out forwards; animation-delay: calc(var(--i) * .45s); }
   @keyframes draw { to { stroke-dashoffset: 0; } }
-  .story img { cursor: pointer; transform-origin: 50% 90%; }
-  .story img.wiggle { animation: wiggle .5s cubic-bezier(.16, 1, .3, 1); }
-  @keyframes wiggle { 30% { transform: rotate(-8deg); } 65% { transform: rotate(6deg); } }
-  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-weight: 700; flex: 1 1 130px; }
+  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-weight: 600; flex: 1 1 130px; }
   .parts li { display: flex; align-items: center; gap: 10px; }
   .part-chip { font: 500 26px/1 var(--jp); }
   .part-chip.p0 { color: var(--p0); } .part-chip.p1 { color: var(--p1); } .part-chip.p2 { color: var(--p2); } .part-chip.p3 { color: var(--p3); } .part-chip.p4 { color: var(--p4); }
@@ -168,16 +172,11 @@ const kunMore = k.kun.slice(5);
   .pager .btn { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
   .swipe-hint { display: none; text-align: center; font-size: 14px; margin: 10px 0 0; }
   @media (pointer: coarse) { .swipe-hint { display: block; } }
-  @media (min-width: 760px) {
-    .kcard { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
-    .kcard > * { grid-column: span 3; }
-    .kcard > .art-panel { grid-column: span 2; grid-row: span 3; }
-    .kcard > .title, .kcard > .story, .kcard > .meta { grid-column: span 4; }
-    .title { grid-template-columns: auto minmax(0, 1fr); column-gap: 22px; row-gap: 2px; justify-items: start; text-align: left; }
-    .title .glyph, .write { grid-column: 1; grid-row: 1 / span 2; }
-    .title .meaning { grid-column: 2; align-self: end; }
-    .also { grid-column: 2; }
-    .panel { padding: 22px; }
+  @media (min-width: 720px) {
+    .kcard { grid-template-columns: clamp(320px, 44%, 420px) minmax(0, 1fr); gap: clamp(28px, 5vw, 48px); align-items: start; }
+    .hero { position: sticky; top: 84px; padding: 18px 20px 20px; }
+    .glyph { font-size: clamp(96px, 11vw, 124px); }
+    .write { width: clamp(104px, 12vw, 132px); }
   }
   .kcard.enter-left { animation: enter-left .24s ease-out; }
   .kcard.enter-right { animation: enter-right .24s ease-out; }
@@ -217,7 +216,7 @@ const kunMore = k.kun.slice(5);
   document.getElementById('play')!.addEventListener('click', () => replay(diagram));
 
   // Tapping the big kanji writes it in place, then hands back to the real text.
-  const title = document.querySelector<HTMLElement>('.title')!;
+  const hero = document.querySelector<HTMLElement>('.hero')!;
   const write = document.getElementById('write')!;
   let finish = 0;
   write.addEventListener('click', () => {
@@ -229,11 +228,11 @@ const kunMore = k.kun.slice(5);
     ghost.append(...[...svg.querySelectorAll('path')].map((path) => path.cloneNode() as SVGPathElement));
     svg.prepend(ghost);
     write.replaceChildren(svg);
-    title.classList.add('writing');
+    hero.classList.add('writing');
     svg.classList.add('play');
     clearTimeout(finish);
     finish = window.setTimeout(() => {
-      title.classList.remove('writing');
+      hero.classList.remove('writing');
       write.replaceChildren();
     }, (svg.querySelectorAll(':scope > path').length * 450) + 700);
   });

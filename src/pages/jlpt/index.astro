@@ -25,7 +25,7 @@ const total = counts.reduce((a, b) => a + b, 0);
 </Base>
 
 <style>
-  h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; font-weight: 800; letter-spacing: -.03em; }
+  h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; font-weight: 600; letter-spacing: -.03em; }
   .lead { max-width: 60ch; }
   .levels { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .level { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius); background: var(--tint); color: var(--on-tint); text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
@@ -33,5 +33,5 @@ const total = counts.reduce((a, b) => a + b, 0);
   @media (hover: hover) { .level:hover { transform: translateY(-3px); } }
   .glyph { font: 500 48px/1 var(--jp); }
   .info { display: grid; font-weight: 600; }
-  .info b { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .info b { font: 600 20px var(--display); display: flex; align-items: center; gap: 8px; }
 </style>

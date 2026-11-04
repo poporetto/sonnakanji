@@ -59,12 +59,12 @@ const jsonLd = {
 <style>
   .intro { display: grid; gap: 16px; align-items: center; padding-block: 8px; }
   .how a { display: inline-block; padding-block: 11px; }
-  .pitch img { display: block; width: 130px; height: auto; margin-bottom: 8px; }
-  h1 { font-size: clamp(42px, 11vw, 68px); font-weight: 800; line-height: 1.04; letter-spacing: -.03em; margin: 0 0 12px; }
+  .pitch img { display: block; width: 92px; height: auto; margin-bottom: 10px; }
+  h1 { font-size: clamp(46px, 13vw, 76px); font-weight: 600; line-height: 1; letter-spacing: -.035em; margin: 0 0 14px; }
   .pitch p { font-size: 18px; max-width: 32em; margin: 0; color: var(--muted); }
   .how { margin-top: 2px !important; font-size: 15px !important; }
   .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px !important; }
-  .bento { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .bento { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .bento li { min-width: 0; }
   .flip { position: relative; display: grid; border-radius: 22px; padding: 4px; color: var(--on-tint); text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
   .flip:active { transform: var(--press); }
@@ -76,14 +76,14 @@ const jsonLd = {
   @media (hover: hover) { .bento:hover .flip * { animation-play-state: paused; } .flip:hover { transform: translateY(-3px); } }
   @media (prefers-reduced-motion: reduce) { .flip img, .flip span { animation: none; } }
   .few { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  h2 { margin: 34px 0 12px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  h2 { margin: 38px 0 14px; font-size: 26px; }
   .levels { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
   .level { display: flex; gap: 14px; align-items: center; color: var(--on-tint); border-radius: var(--radius); padding: 18px 20px; text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
   .level:active { transform: var(--press); }
   @media (hover: hover) { .level:hover { transform: translateY(-3px); } }
-  .count { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
-  .info { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
-  .info b { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 800; }
+  .count { font: 600 44px/1 var(--display); letter-spacing: -.03em; min-width: 2.3ch; }
+  .info { display: grid; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.35; }
+  .info b { display: flex; align-items: center; gap: 8px; font: 600 18px var(--display); }
   @media (min-width: 760px) {
     .intro { grid-template-columns: 1.1fr 1fr; gap: 28px; }
     .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
