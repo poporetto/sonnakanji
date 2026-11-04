@@ -34,7 +34,7 @@ const jsonLd = {
   <p class="muted count" id="trail-count" data-total={list.length}>0 of {list.length} kanji reviewed</p>
   <ul class="grid">
     {list.map((k, i) => (
-      <li><KanjiTile {k} index={i} /></li>
+      <li><KanjiTile {k} index={i} eager={i < 12} /></li>
     ))}
   </ul>
 </Base>

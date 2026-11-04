@@ -20,12 +20,13 @@ const kunMore = k.kun.slice(5);
     <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span><span class="meaning">{k.meanings[0]}</span></h1>
     <button type="button" class="write" id="write" aria-label={`Write ${k.kanji} stroke by stroke`}></button>
     {k.meanings.length > 1 && <p class="also">{k.meanings.slice(1).join(', ')}</p>}
-    <p class="meta">
-      <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
-      <span class="chip plain">{position} of {total}</span>
-      <span class="chip plain">{k.strokes} strokes</span>
-    </p>
   </header>
+
+  <p class="meta">
+    <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
+    <span class="chip plain">{position} of {total}</span>
+    <span class="chip plain">{k.strokes} strokes</span>
+  </p>
 
   <div class="panel story">
     <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
@@ -105,24 +106,24 @@ const kunMore = k.kun.slice(5);
 
 <style is:global>
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .kcard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; touch-action: pan-y; will-change: transform; }
+  .kcard { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; touch-action: pan-y; will-change: transform; }
   .kcard > * { min-width: 0; grid-column: 1 / -1; }
   .kcard > .art-panel, .kcard > .title { grid-column: auto; }
   .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
   .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
-  .art-panel { background: var(--tint); padding: 8px; display: grid; place-items: center; }
+  .art-panel { background: var(--tint); padding: 4px; display: grid; place-items: center; }
   .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
-  .title { display: grid; align-content: center; justify-items: center; text-align: center; padding: 14px 10px; }
-  .title h1 { margin: 0; font-weight: 400; display: grid; justify-items: center; gap: 4px; }
+  .title { display: grid; align-content: center; justify-items: center; gap: 4px; text-align: center; padding: 12px 10px; }
+  .title h1 { display: contents; }
   .title .glyph { font: 500 clamp(76px, 23vw, 112px)/1 var(--jp); }
   .title .meaning { font-size: clamp(22px, 6vw, 32px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
-  .title { position: relative; }
-  .write { position: absolute; top: 10px; left: 50%; width: clamp(84px, 25vw, 124px); aspect-ratio: 1; margin-left: calc(clamp(84px, 25vw, 124px) / -2); padding: 0; border: 0; border-radius: 18px; background: none; cursor: pointer; touch-action: manipulation; }
+  .title .glyph { grid-area: 1 / 1; }
+  .write { grid-area: 1 / 1; place-self: center; width: clamp(92px, 28vw, 124px); aspect-ratio: 1; padding: 0; border: 0; border-radius: 18px; background: none; cursor: pointer; touch-action: manipulation; }
   .write .strokes { width: 100%; height: 100%; stroke-width: 6.5; pointer-events: none; }
   .title.writing .glyph { visibility: hidden; }
   .strokes .ghost path { stroke: var(--line-ghost); stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
-  .also { margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.3; }
-  .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 8px 0 0; }
+  .also { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.3; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; margin: -2px 2px; }
   .chip { position: relative; padding: 2px 10px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 13px; font-weight: 800; text-decoration: none; }
   a.chip::after { content: ""; position: absolute; inset: -10px -4px; }
   .chip.plain { background: var(--wash); color: var(--muted); }
@@ -167,14 +168,12 @@ const kunMore = k.kun.slice(5);
   @media (min-width: 760px) {
     .kcard { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
     .kcard > * { grid-column: span 3; }
-    .kcard > .art-panel { grid-column: span 2; grid-row: span 2; }
-    .kcard > .title, .kcard > .story { grid-column: span 4; }
-    .title { grid-template-columns: auto minmax(0, 1fr); column-gap: 22px; justify-items: start; text-align: left; }
-    .title h1 { display: contents; }
-    .title .glyph { grid-row: span 3; }
-    .title .meaning { align-self: end; }
-    .meta { justify-content: flex-start; }
-    .write { top: 50%; left: 22px; width: 116px; margin: -58px 0 0; }
+    .kcard > .art-panel { grid-column: span 2; grid-row: span 3; }
+    .kcard > .title, .kcard > .story, .kcard > .meta { grid-column: span 4; }
+    .title { grid-template-columns: auto minmax(0, 1fr); column-gap: 22px; row-gap: 2px; justify-items: start; text-align: left; }
+    .title .glyph, .write { grid-column: 1; grid-row: 1 / span 2; }
+    .title .meaning { grid-column: 2; align-self: end; }
+    .also { grid-column: 2; }
     .panel { padding: 22px; }
   }
   .kcard.enter-left { animation: enter-left .24s ease-out; }

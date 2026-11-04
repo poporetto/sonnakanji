@@ -11,6 +11,7 @@
   --star: #8f5f0c;
   --stamp: #c64f38;
   --line-ghost: #e6decd;
+  --track: #e9dec4;
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E");
   --star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.2 6.1L12 17l-5.5 2.9 1.2-6.1-4.5-4.2 6.1-.8z' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E");
   --press: scale(.97);
@@ -31,6 +32,7 @@
     --star: #f0c063;
     --stamp: #f2997f;
     --line-ghost: #4a4238;
+    --track: #453d32;
     --grain-opacity: .15;
     --soft: 0 1px 2px #0003;
     color-scheme: dark;
@@ -68,6 +70,9 @@ main { padding-block: 8px 48px; }
 .site-bar nav a:hover { background: var(--wash); }
 .site-bar nav a[aria-current] { background: var(--t1); color: var(--on-tint); }
 .site-foot { color: var(--muted); font-size: 14px; padding-block: 8px 28px; }
+.site-foot p { margin: 0; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.foot-links a { display: inline-block; padding-block: 11px; }
 
 .btn {
   display: inline-block; border: 0; background: var(--surface); color: var(--ink); box-shadow: var(--soft);
@@ -99,7 +104,7 @@ details[open] > summary::before { transform: rotate(90deg); }
 }
 /* The bear walks along any progress bar. */
 .trail { position: relative; margin-top: 40px; }
-.trail-track { height: 10px; border-radius: 999px; background: var(--wash); overflow: hidden; }
+.trail-track { height: 10px; border-radius: 999px; background: var(--track); overflow: hidden; }
 .trail-track i { display: block; height: 100%; width: var(--done, 0%); background: var(--t2); transition: width .45s cubic-bezier(.2, .8, .2, 1); }
 .walker {
   position: absolute; left: clamp(0px, calc(var(--done, 0%) - 19px), calc(100% - 38px)); bottom: 7px; width: 38px; height: auto;
