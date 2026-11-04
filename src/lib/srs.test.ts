@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Rating } from 'ts-fsrs';
-import { buildQueue, currentStreak, emptyStore, grade, parseStore, preview, summarize } from './srs.ts';
+import { buildQueue, currentStreak, emptyStore, formatWait, grade, learnedMilestone, nextDue, parseStore, preview, streakMilestone, summarize } from './srs.ts';
 
 const now = new Date('2026-11-04T09:00:00');
 const kanji = ['一', '二', '三', '四'];
@@ -71,4 +71,26 @@ test('backups from before streaks still load', () => {
   const s = emptyStore() as Partial<ReturnType<typeof emptyStore>>;
   delete s.streak;
   assert.equal(parseStore(JSON.stringify(s)).streak.count, 0);
+});
+
+test('nextDue finds the soonest card, or nothing for a fresh deck', () => {
+  const s = emptyStore();
+  assert.equal(nextDue(s, kanji, 'meaning'), null);
+  const easy = grade(s, '一', 'meaning', Rating.Easy, now);
+  const again = grade(s, '二', 'meaning', Rating.Again, now);
+  assert.equal(+nextDue(s, kanji, 'meaning')!, Math.min(+easy, +again));
+});
+
+test('milestones only fire when a threshold is crossed', () => {
+  assert.equal(learnedMilestone(8, 12), 10);
+  assert.equal(learnedMilestone(10, 12), null);
+  assert.equal(learnedMilestone(0, 60), 50);
+  assert.equal(streakMilestone(2, 3), 3);
+  assert.equal(streakMilestone(3, 3), null);
+});
+
+test('waits read naturally in a sentence', () => {
+  assert.equal(formatWait(new Date(+now + 60000), now), '1 minute');
+  assert.equal(formatWait(new Date(+now + 5 * 3600000), now), '5 hours');
+  assert.equal(formatWait(new Date(+now + 6 * 86400000), now), '6 days');
 });

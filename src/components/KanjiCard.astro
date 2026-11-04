@@ -18,6 +18,7 @@ const kunMore = k.kun.slice(5);
 
   <header class="panel title">
     <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span><span class="meaning">{k.meanings[0]}</span></h1>
+    <button type="button" class="write" id="write" aria-label={`Write ${k.kanji} stroke by stroke`}></button>
     {k.meanings.length > 1 && <p class="also">{k.meanings.slice(1).join(', ')}</p>}
     <p class="meta">
       <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
@@ -115,6 +116,11 @@ const kunMore = k.kun.slice(5);
   .title h1 { margin: 0; font-weight: 400; display: grid; justify-items: center; gap: 4px; }
   .title .glyph { font: 500 clamp(76px, 23vw, 112px)/1 var(--jp); }
   .title .meaning { font-size: clamp(22px, 6vw, 32px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
+  .title { position: relative; }
+  .write { position: absolute; top: 10px; left: 50%; width: clamp(84px, 25vw, 124px); aspect-ratio: 1; margin-left: calc(clamp(84px, 25vw, 124px) / -2); padding: 0; border: 0; border-radius: 18px; background: none; cursor: pointer; touch-action: manipulation; }
+  .write .strokes { width: 100%; height: 100%; stroke-width: 6.5; pointer-events: none; }
+  .title.writing .glyph { visibility: hidden; }
+  .strokes .ghost path { stroke: var(--line-ghost); stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
   .also { margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.3; }
   .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin: 8px 0 0; }
   .chip { position: relative; padding: 2px 10px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 13px; font-weight: 800; text-decoration: none; }
@@ -135,8 +141,11 @@ const kunMore = k.kun.slice(5);
   .strokes { display: block; width: 116px; height: 116px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
   .strokes .guide { stroke: var(--muted); stroke-opacity: .3; stroke-width: .6; stroke-dasharray: 2 2; }
   .strokes .p0 { stroke: var(--p0); } .strokes .p1 { stroke: var(--p1); } .strokes .p2 { stroke: var(--p2); } .strokes .p3 { stroke: var(--p3); } .strokes .p4 { stroke: var(--p4); }
-  .strokes.play path:not(.guide) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .42s ease-in-out forwards; animation-delay: calc(var(--i) * .45s); }
+  .strokes.play > path:not(.guide) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .42s ease-in-out forwards; animation-delay: calc(var(--i) * .45s); }
   @keyframes draw { to { stroke-dashoffset: 0; } }
+  .story img { cursor: pointer; transform-origin: 50% 90%; }
+  .story img.wiggle { animation: wiggle .5s cubic-bezier(.16, 1, .3, 1); }
+  @keyframes wiggle { 30% { transform: rotate(-8deg); } 65% { transform: rotate(6deg); } }
   .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-weight: 700; flex: 1 1 130px; }
   .parts li { display: flex; align-items: center; gap: 10px; }
   .part-chip { font: 500 26px/1 var(--jp); }
@@ -165,6 +174,7 @@ const kunMore = k.kun.slice(5);
     .title .glyph { grid-row: span 3; }
     .title .meaning { align-self: end; }
     .meta { justify-content: flex-start; }
+    .write { top: 50%; left: 22px; width: 116px; margin: -58px 0 0; }
     .panel { padding: 22px; }
   }
   .kcard.enter-left { animation: enter-left .24s ease-out; }
@@ -196,10 +206,40 @@ const kunMore = k.kun.slice(5);
     if (e.key === 'ArrowLeft') go('right');
   });
 
-  document.getElementById('play')?.addEventListener('click', (e) => {
-    const svg = (e.currentTarget as HTMLElement).querySelector('.strokes')!;
+  const replay = (svg: Element) => {
     svg.classList.remove('play');
     void svg.getBoundingClientRect();
     svg.classList.add('play');
+  };
+  const diagram = document.querySelector('#play .strokes')!;
+  document.getElementById('play')!.addEventListener('click', () => replay(diagram));
+
+  // Tapping the big kanji writes it in place, then hands back to the real text.
+  const title = document.querySelector<HTMLElement>('.title')!;
+  const write = document.getElementById('write')!;
+  let finish = 0;
+  write.addEventListener('click', () => {
+    const svg = diagram.cloneNode(true) as SVGSVGElement;
+    svg.querySelector('.guide')?.remove();
+    svg.classList.remove('play');
+    const ghost = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    ghost.classList.add('ghost');
+    ghost.append(...[...svg.querySelectorAll('path')].map((path) => path.cloneNode() as SVGPathElement));
+    svg.prepend(ghost);
+    write.replaceChildren(svg);
+    title.classList.add('writing');
+    svg.classList.add('play');
+    clearTimeout(finish);
+    finish = window.setTimeout(() => {
+      title.classList.remove('writing');
+      write.replaceChildren();
+    }, (svg.querySelectorAll(':scope > path').length * 450) + 700);
+  });
+
+  document.querySelector('.story img')?.addEventListener('click', (e) => {
+    const bear = e.currentTarget as HTMLElement;
+    bear.classList.remove('wiggle');
+    void bear.offsetWidth;
+    bear.classList.add('wiggle');
   });
 </script>

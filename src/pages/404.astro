@@ -2,7 +2,33 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Page not found | SonnaKanji" description="This page does not exist." noindex>
-  <img src="/mascot/bear.webp" alt="" width="170" height="134" />
-  <h1>That page doesn't exist</h1>
-  <p><a class="btn primary" href="/">Back to SonnaKanji</a></p>
+  <div class="lost">
+    <img src="/mascot/bear.webp" alt="" width="170" height="134" />
+    <h1>The bear can't find that page</h1>
+    <p class="muted">It may have moved, or the link may be mistyped. Here's a kanji to learn instead.</p>
+    <p class="actions">
+      <a class="btn primary" id="surprise" href="/jlpt/n5/">Show me a kanji</a>
+      <a class="btn" href="/">Back to SonnaKanji</a>
+    </p>
+  </div>
 </Base>
+
+<style>
+  .lost { padding-block: 16px; }
+  .lost img { display: block; width: 170px; height: auto; }
+  h1 { font-size: clamp(32px, 8vw, 46px); font-weight: 800; letter-spacing: -.03em; margin: 12px 0 8px; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>
+
+<script>
+  // Stays a working link to N5 if the card list can't load.
+  fetch('/cards.json')
+    .then((r) => r.json())
+    .then((cards: { k: string; m: string[]; u: string }[]) => {
+      const pick = cards[Math.floor(Math.random() * cards.length)];
+      const link = document.getElementById('surprise') as HTMLAnchorElement;
+      link.href = pick.u;
+      link.textContent = `Learn ${pick.k}: ${pick.m[0]}`;
+    })
+    .catch(() => {});
+</script>

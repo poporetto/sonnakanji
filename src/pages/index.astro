@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import KanjiTile from '../components/KanjiTile.astro';
-import { allKanji, artPath, byLevel, LEVELS } from '../lib/kanji';
+import { allKanji, artPath, byLevel, kanjiPath, LEVELS } from '../lib/kanji';
 
 const pick = (chars: string) => [...chars].map((c) => allKanji.find((k) => k.kanji === c)!);
 const collage = pick('休木山明');
@@ -30,11 +30,14 @@ const jsonLd = {
       </p>
       <p class="how"><a href="/learn-kanji-with-pictures/">How learning kanji with pictures works</a></p>
     </div>
-    <div class="bento" aria-hidden="true">
+    <ul class="bento">
       {collage.map((k, i) => (
-        <div style={`background:var(--t${i % 5})`}><img src={artPath(k.kanji)} alt="" width="200" height="200" /></div>
+        <li><a class="flip" href={kanjiPath(k.kanji)} style={`background:var(--t${i % 5});--n:${i}`}>
+          <img src={artPath(k.kanji)} alt={`Drawing for ${k.kanji}, ${k.meanings[0]}`} width="200" height="200" />
+          <span lang="ja" aria-hidden="true">{k.kanji}</span>
+        </a></li>
       ))}
-    </div>
+    </ul>
   </section>
 
   <h2>Pick your level</h2>
@@ -61,9 +64,17 @@ const jsonLd = {
   .pitch p { font-size: 18px; max-width: 32em; margin: 0; color: var(--muted); }
   .how { margin-top: 2px !important; font-size: 15px !important; }
   .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px !important; }
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .bento div { border-radius: 22px; padding: 4px; }
-  .bento img { display: block; width: 100%; height: auto; }
+  .bento { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .bento li { min-width: 0; }
+  .flip { position: relative; display: grid; border-radius: 22px; padding: 4px; color: var(--on-tint); text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
+  .flip:active { transform: var(--press); }
+  .flip > * { grid-area: 1 / 1; }
+  .flip img { display: block; width: 100%; height: auto; animation: show-pic 12s ease-in-out infinite; animation-delay: calc(var(--n) * 3s); }
+  .flip span { display: grid; place-items: center; font: 500 clamp(44px, 13vw, 92px)/1 var(--jp); opacity: 0; animation: show-kanji 12s ease-in-out infinite; animation-delay: calc(var(--n) * 3s); }
+  @keyframes show-pic { 0%, 62%, 100% { opacity: 1; transform: none; } 70%, 92% { opacity: 0; transform: scale(.92); } }
+  @keyframes show-kanji { 0%, 62%, 100% { opacity: 0; transform: scale(1.08); } 70%, 92% { opacity: 1; transform: none; } }
+  @media (hover: hover) { .bento:hover .flip * { animation-play-state: paused; } .flip:hover { transform: translateY(-3px); } }
+  @media (prefers-reduced-motion: reduce) { .flip img, .flip span { animation: none; } }
   .few { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   h2 { margin: 34px 0 12px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
   .levels { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
@@ -75,7 +86,7 @@ const jsonLd = {
   .info b { font-size: 18px; font-weight: 800; }
   @media (min-width: 760px) {
     .intro { grid-template-columns: 1.1fr 1fr; gap: 28px; }
-    .bento { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
     .few { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   }
 </style>

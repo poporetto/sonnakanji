@@ -9,6 +9,8 @@
   --t0: #fbd9cf; --t1: #fbe7ae; --t2: #cfe9d6; --t3: #cfe2f0; --t4: #e4d8ee;
   --accent: #f4b39e;
   --star: #8f5f0c;
+  --stamp: #c64f38;
+  --line-ghost: #e6decd;
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E");
   --star-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.2 6.1L12 17l-5.5 2.9 1.2-6.1-4.5-4.2 6.1-.8z' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E");
   --press: scale(.97);
@@ -27,12 +29,15 @@
     --p0: #f2997f; --p1: #8cc4e4; --p2: #97d3a9; --p3: #c9a6e4; --p4: #f0c063;
     --glyph-filter: invert(1);
     --star: #f0c063;
+    --stamp: #f2997f;
+    --line-ghost: #4a4238;
     --grain-opacity: .15;
     --soft: 0 1px 2px #0003;
     color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; background: var(--bg); scrollbar-color: var(--accent) transparent; }
 ::selection { background: var(--t1); color: var(--on-tint); }
 input, select, textarea { caret-color: var(--p0); }
@@ -84,13 +89,21 @@ details[open] > summary::before { transform: rotate(90deg); }
 .grid { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
 .tile { display: block; position: relative; text-decoration: none; background: var(--tint); color: var(--on-tint); border-radius: 22px; padding: 4px 4px 8px; text-align: center; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
 .tile:active { transform: var(--press); }
-.tile img { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+.tile img { display: block; width: 100%; height: auto; aspect-ratio: 1; transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
 .tile .txt { display: grid; padding-inline: 4px; }
 .tile b { font: 500 22px/1.2 var(--jp); }
 .tile span { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .tile.done::after {
   content: ""; position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; background: var(--star);
   -webkit-mask: var(--star-mask) center / contain no-repeat; mask: var(--star-mask) center / contain no-repeat;
+}
+/* The bear walks along any progress bar. */
+.trail { position: relative; margin-top: 40px; }
+.trail-track { height: 10px; border-radius: 999px; background: var(--wash); overflow: hidden; }
+.trail-track i { display: block; height: 100%; width: var(--done, 0%); background: var(--t2); transition: width .45s cubic-bezier(.2, .8, .2, 1); }
+.walker {
+  position: absolute; left: clamp(0px, calc(var(--done, 0%) - 19px), calc(100% - 38px)); bottom: 7px; width: 38px; height: auto;
+  transform: scaleX(-1); transition: left .45s cubic-bezier(.2, .8, .2, 1); pointer-events: none;
 }
 .prose { max-width: 68ch; }
 .prose li { margin-bottom: 6px; }
@@ -99,6 +112,7 @@ details[open] > summary::before { transform: rotate(90deg); }
 @media (hover: hover) {
   .btn:hover { transform: translateY(-2px); }
   .tile:hover { transform: translateY(-3px); }
+  .tile:hover img { transform: rotate(-3deg) scale(1.05); }
 }
 
 @view-transition { navigation: auto; }

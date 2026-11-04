@@ -44,7 +44,10 @@ import Base from '../layouts/Base.astro';
 
     <section id="session" hidden>
       <div class="progress"><span id="remaining"></span><button class="link" id="quit">End session</button></div>
-      <div class="bar" aria-hidden="true"><i id="bar-fill"></i></div>
+      <div class="trail" id="trail" aria-hidden="true">
+        <img class="walker" src="/mascot/bear.webp" alt="" width="38" height="30" />
+        <div class="trail-track"><i></i></div>
+      </div>
       <div class="flash" id="flash" tabindex="0" role="button" aria-label="Show answer">
         <span class="swipe-tag again" id="tag-again">Again</span>
         <span class="swipe-tag good" id="tag-good">Good</span>
@@ -57,9 +60,15 @@ import Base from '../layouts/Base.astro';
 
     <section id="done" hidden>
       <div id="confetti" aria-hidden="true"></div>
-      <img src="/mascot/bear.webp" alt="" width="170" height="134" />
-      <h2>Nice work!</h2>
+      <div class="award">
+        <img src="/mascot/bear.webp" alt="" width="170" height="134" />
+        <span class="stamp" id="stamp" lang="ja" role="img" aria-label="Stamp: well done"><b>よくでき<br />ました</b></span>
+      </div>
+      <h2 id="done-title">Nice work!</h2>
       <p id="done-msg"></p>
+      <p id="milestone" class="milestone" hidden></p>
+      <ul class="practised" id="practised"></ul>
+      <p id="next-up" class="muted"></p>
       <button class="btn primary" id="again">Back to review</button>
     </section>
   </div>
@@ -89,8 +98,7 @@ import Base from '../layouts/Base.astro';
   .backup .btn { font-size: 14px; padding: 10px 14px; margin: 0 6px 8px 0; }
   #reset.armed { background: var(--t0); color: var(--on-tint); }
   .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-  .bar { height: 10px; border-radius: 999px; background: var(--wash); overflow: hidden; margin-bottom: 14px; }
-  .bar i { display: block; height: 100%; width: 0; background: var(--t2); transition: width .25s; }
+  #trail { margin-block: 36px 14px; }
   .link { background: none; border: 0; color: inherit; text-decoration: underline; text-underline-offset: 3px; font: inherit; cursor: pointer; padding: 10px 0; margin-block: -10px; }
   .flash {
     position: relative; background: var(--surface); border-radius: var(--radius); box-shadow: var(--soft);
@@ -121,6 +129,22 @@ import Base from '../layouts/Base.astro';
   .grades button:nth-child(4) { background: var(--t3); }
   .grades small { font-weight: 700; font-size: 12px; }
   #done { position: relative; text-align: center; padding-block: 32px; }
+  .award { position: relative; width: 240px; height: 150px; margin: 0 auto 8px; }
+  .award img { position: absolute; left: 0; bottom: 0; width: 170px; height: auto; }
+  .stamp {
+    position: absolute; right: 0; top: 0; width: 104px; height: 104px; display: grid; place-items: center; border-radius: 50%;
+    color: var(--stamp); box-shadow: 0 0 0 4px var(--stamp), inset 0 0 0 2px var(--stamp); outline: 2px solid transparent; transform: rotate(-11deg);
+    font: 800 19px/1.2 var(--jp); text-align: center; animation: stamp .36s cubic-bezier(.16, 1, .3, 1) .2s backwards;
+  }
+  .stamp b { font-weight: 800; }
+  @keyframes stamp { from { opacity: 0; transform: rotate(-24deg) scale(2); } 60% { opacity: 1; } }
+  .milestone { display: inline-block; margin: 0 0 12px; padding: 6px 16px; border-radius: 999px; background: var(--t1); color: var(--on-tint); font-size: 16px !important; font-weight: 800 !important; }
+  .practised { list-style: none; margin: 14px auto; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 370px; }
+  .practised a { display: block; width: 56px; height: 56px; border-radius: 14px; }
+  .practised img { display: block; width: 100%; height: 100%; }
+  .practised li { animation: pop .3s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(.5s + var(--i) * 40ms); }
+  .practised .more-count { display: grid; place-items: center; width: 56px; height: 56px; color: var(--muted); font-size: 14px; font-weight: 800; }
+  @keyframes pop { from { opacity: 0; transform: scale(.6); } }
   #done h2 { font-size: 46px; font-weight: 800; margin: 0 0 8px; }
   #done p { font-size: 17px; font-weight: 600; }
   #confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 30; }
@@ -130,7 +154,7 @@ import Base from '../layouts/Base.astro';
 
 <script>
   import {
-    buildQueue, currentStreak, formatInterval, GRADES, grade, loadStore, parseStore, preview, saveStore, summarize, emptyStore,
+    buildQueue, currentStreak, formatInterval, formatWait, learnedMilestone, nextDue, streakMilestone, GRADES, grade, loadStore, parseStore, preview, saveStore, summarize, emptyStore,
     introducedToday, type Mode, type Store,
   } from '../lib/srs';
   import { attachSwipe } from '../lib/swipe';
@@ -149,6 +173,9 @@ import Base from '../layouts/Base.astro';
   let queue: string[] = [];
   let reviewed = 0;
   let sessionSize = 0;
+  let practised = new Set<string>();
+  let learnedBefore = 0;
+  let streakBefore = 0;
   let mode: Mode = 'meaning';
   let revealed = false;
 
@@ -169,7 +196,10 @@ import Base from '../layouts/Base.astro';
     $('s-learned').textContent = String(learned);
     $('s-streak').textContent = String(currentStreak(store, now));
     start.disabled = due + newToday === 0;
-    start.textContent = due + newToday ? `Start ${due + newToday} cards` : 'All caught up for today';
+    const next = nextDue(store, list, s.mode);
+    start.textContent = due + newToday
+      ? `Start ${due + newToday} ${due + newToday === 1 ? 'card' : 'cards'}`
+      : next ? `All caught up. Next card in ${formatWait(next, now)}` : 'All caught up for today';
   }
 
   function readForm() {
@@ -209,7 +239,7 @@ import Base from '../layouts/Base.astro';
     front.hidden = false;
     $('grades').hidden = true;
     $('remaining').textContent = `${queue.length} left`;
-    $('bar-fill').style.width = `${(1 - queue.length / Math.max(sessionSize, queue.length)) * 100}%`;
+    $('trail').style.setProperty('--done', `${(1 - queue.length / Math.max(sessionSize, queue.length)) * 100}%`);
     $('hint').textContent = 'Tap the card or press Space to reveal';
     flash.classList.remove('revealed');
     flash.setAttribute('role', 'button');
@@ -277,6 +307,7 @@ import Base from '../layouts/Base.astro';
     if (!revealed) return;
     const now = new Date();
     const c = queue.shift()!;
+    practised.add(c);
     const due = grade(store, c, mode, rating, now);
     saveStore(store);
     reviewed++;
@@ -287,13 +318,50 @@ import Base from '../layouts/Base.astro';
   }
 
   function finish() {
+    const now = new Date();
+    const all = cards.map((c) => c.k);
+    const count = practised.size;
     $('done-msg').textContent = reviewed
-      ? `You reviewed ${reviewed} ${reviewed === 1 ? 'card' : 'cards'}. Come back tomorrow for the next batch.`
+      ? `You practised ${count} kanji in ${reviewed} ${reviewed === 1 ? 'review' : 'reviews'}.`
       : 'Nothing was reviewed this time.';
+    $('stamp').hidden = !reviewed;
+    $('done-title').textContent = reviewed ? 'Nice work!' : 'See you next time';
+
+    const shown = [...practised].slice(0, 15);
+    const hidden = practised.size - shown.length;
+    $('practised').replaceChildren(...shown.map((k, i) => {
+      const c = byKanji.get(k)!;
+      const li = document.createElement('li');
+      li.style.setProperty('--i', String(i));
+      li.style.setProperty('background', `var(--t${i % 5})`);
+      li.style.borderRadius = '14px';
+      const a = document.createElement('a');
+      a.href = c.u;
+      const img = document.createElement('img');
+      img.src = c.a;
+      img.alt = `${c.k}, ${c.m[0]}`;
+      a.append(img);
+      li.append(a);
+      return li;
+    }), ...(hidden > 0 ? [Object.assign(el('li', 'more-count'), { textContent: `+${hidden}` })] : []));
+
+    const next = nextDue(store, inLevel(), mode);
+    $('next-up').textContent = !reviewed || !next
+      ? ''
+      : next <= now ? 'More cards are ready now.' : `Your next card is ready in ${formatWait(next, now)}.`;
+
+    const learned = learnedMilestone(learnedBefore, summarize(store, all, mode, now).learned);
+    const streakNow = currentStreak(store, now);
+    const streak = streakMilestone(streakBefore, streakNow);
+    const line = streak ? `${streak} days in a row!` : learned ? `${learned} kanji learned!` : '';
+    $('milestone').textContent = line;
+    $('milestone').hidden = !line;
+
     show('done');
-    if (reviewed) celebrate();
+    if (line) celebrate();
   }
 
+  // Confetti is kept for milestones, so it still means something after months of use.
   function celebrate() {
     const box = $('confetti');
     const colors = ['--t0', '--t1', '--t2', '--t3', '--t4'];
@@ -311,7 +379,11 @@ import Base from '../layouts/Base.astro';
     mode = store.settings.mode;
     queue = buildQueue(store, inLevel(), mode, store.settings.newPerDay, new Date());
     reviewed = 0;
+    practised = new Set();
     sessionSize = queue.length;
+    const now = new Date();
+    learnedBefore = summarize(store, cards.map((c) => c.k), mode, now).learned;
+    streakBefore = currentStreak(store, now);
     if (!queue.length) return;
     show('session');
     renderCard();

@@ -27,6 +27,11 @@ const jsonLd = {
     <a class="btn primary" href={`/review/?level=${level.id}`}>Review {level.id}</a>
     <a class="btn" href={kanjiPath(list[0].kanji)}>Start from the first card</a>
   </p>
+  <div class="trail" id="trail">
+    <img class="walker" src="/mascot/bear.webp" alt="" width="38" height="30" />
+    <div class="trail-track"><i></i></div>
+  </div>
+  <p class="muted count" id="trail-count" data-total={list.length}>0 of {list.length} kanji reviewed</p>
   <ul class="grid">
     {list.map((k, i) => (
       <li><KanjiTile {k} index={i} /></li>
@@ -36,6 +41,7 @@ const jsonLd = {
 
 <style>
   h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; font-weight: 800; letter-spacing: -.03em; }
+  .count { margin: 6px 0 0; font-size: 14px; font-weight: 700; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
 </style>
 
@@ -44,7 +50,12 @@ const jsonLd = {
 
   // Stars come from this browser's review history, so they appear after load.
   const seen = new Set(Object.keys(loadStore().cards).map((key) => key.split(':')[1]));
-  document.querySelectorAll<HTMLElement>('.tile[data-k]').forEach((el) => {
-    if (seen.has(el.dataset.k!)) el.classList.add('done');
-  });
+  const tiles = [...document.querySelectorAll<HTMLElement>('.tile[data-k]')];
+  const done = tiles.filter((el) => seen.has(el.dataset.k!));
+  done.forEach((el) => el.classList.add('done'));
+
+  const count = document.getElementById('trail-count')!;
+  const total = Number(count.dataset.total);
+  count.textContent = done.length === total ? `All ${total} kanji reviewed` : `${done.length} of ${total} kanji reviewed`;
+  document.getElementById('trail')!.style.setProperty('--done', `${(done.length / total) * 100}%`);
 </script>

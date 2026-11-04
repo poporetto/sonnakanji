@@ -134,6 +134,30 @@ export function grade(store: Store, kanji: string, mode: Mode, rating: Grade, no
   return next.due;
 }
 
+// Soonest scheduled card, so the finish screen can say when to come back.
+export function nextDue(store: Store, kanji: string[], mode: Mode) {
+  const dues = kanji.flatMap((k) => store.cards[cardKey(k, mode)]?.due ?? []);
+  return dues.length ? new Date(Math.min(...dues.map(Number))) : null;
+}
+
+const LEARNED_MILESTONES = [10, 25, 50, 79, 100, 150, 200, 245];
+const STREAK_MILESTONES = [3, 7, 14, 30, 60, 100, 365];
+
+// The largest milestone passed between two totals, if any.
+const crossed = (marks: number[], before: number, after: number) =>
+  [...marks].reverse().find((m) => before < m && after >= m) ?? null;
+export const learnedMilestone = (before: number, after: number) => crossed(LEARNED_MILESTONES, before, after);
+export const streakMilestone = (before: number, after: number) => crossed(STREAK_MILESTONES, before, after);
+
+// The same wait as a phrase, for sentences rather than compact buttons.
+export function formatWait(due: Date, now: Date) {
+  const mins = Math.max(Math.round((+due - +now) / 60000), 1);
+  const unit = (n: number, name: string) => `${n} ${name}${n === 1 ? '' : 's'}`;
+  if (mins < 60) return unit(mins, 'minute');
+  const hours = Math.round(mins / 60);
+  return hours < 24 ? unit(hours, 'hour') : unit(Math.round(hours / 24), 'day');
+}
+
 export function formatInterval(due: Date, now: Date) {
   const mins = Math.max(Math.round((+due - +now) / 60000), 1);
   if (mins < 60) return `${mins}m`;

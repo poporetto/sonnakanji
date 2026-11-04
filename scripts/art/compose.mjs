@@ -8,7 +8,18 @@ const toScene = (n) => 6 + n * (188 / 109);
 const scalePath = (d) => d.replace(/-?\d*\.?\d+/g, (n) => (Number(n) * (188 / 109)).toFixed(1));
 
 // The kanji's real strokes, mapped from KanjiVG's 109-unit box into the drawing.
-const strokePaths = (vg) => vg.strokes.map((st) => `<path transform="translate(6 6)" d="${st.absD}"/>`).join('');
+const strokePaths = (vg, part = null) => vg.strokes.filter((st) => part === null || st.part === part).map((st) => `<path transform="translate(6 6)" d="${st.absD}"/>`).join('');
+
+// Same order as --p0..--p4 on the card, so a part keeps its colour everywhere.
+const PART_COLORS = ['#d4583f', '#3f7ea3', '#4b8f5e', '#8a5aa8', '#b57a14'];
+
+// The kanji behind a compound's objects, in the same colours as its part list.
+function tintedKanji(vg) {
+  const width = Math.max(5, 11 - Math.max(vg.strokes.length - 8, 0) * 0.5);
+  const inParts = vg.parts.map((p, i) => `<g stroke="${p.el ? PART_COLORS[i % 5] : '#7a6c5a'}" stroke-opacity=".45" stroke-width="${width}">${strokePaths(vg, i)}</g>`).join('');
+  const loose = vg.strokes.some((st) => st.part < 0) ? `<g stroke="#7a6c5a" stroke-opacity=".45" stroke-width="${width}">${strokePaths(vg, -1)}</g>` : '';
+  return inParts + loose;
+}
 
 function partBox(vg, index) {
   const pts = vg.strokes.filter((st) => st.part === index).flatMap((st) => st.pts);
@@ -19,10 +30,12 @@ function partBox(vg, index) {
 }
 
 // One layer: "name[:arg...] x y [scale] [f] [r45]", "name[:arg...] @part [scale] [f] [r45]"
-// to sit on a component of the kanji, or "strokes:color[:width]" for the kanji itself.
+// to sit on a component of the kanji, "strokes:color[:width]" for the kanji as an
+// object, or "kanji" for the character tinted by part.
 function layer(spec, vg, base) {
   const [id, ...rest] = spec.trim().split(/\s+/);
   const [name, ...args] = id.split(':');
+  if (name === 'kanji') return tintedKanji(vg);
   if (name === 'strokes') {
     const color = C[args[0]] ?? args[0];
     // Dense kanji get finer strokes so the drawing still shows through.
@@ -36,9 +49,13 @@ function layer(spec, vg, base) {
   let x, y, scale, opts;
   if (rest[0]?.startsWith('@')) {
     const box = partBox(vg, Number(rest[0].slice(1)));
-    ({ x, y } = box);
     opts = rest.slice(1);
-    scale = (box.size / 100) * Number(opts.find((t) => /^[\d.]+$/.test(t)) ?? 1);
+    scale = Math.min((box.size / 100) * Number(opts.find((t) => /^[\d.]+$/.test(t)) ?? 1), 1.1);
+    // Objects stay whole, even when their part hugs the edge of the kanji.
+    const reach = 58 * scale;
+    const keepIn = (v) => Math.min(Math.max(v, reach + 2), 198 - reach);
+    x = keepIn(box.x);
+    y = keepIn(box.y);
   } else {
     [x, y] = rest;
     opts = rest.slice(2);
