@@ -9,11 +9,9 @@ export function getStaticPaths() {
 const { level } = Astro.props;
 const list = byLevel(level.id);
 const title = level.beta
-  ? `All ${list.length.toLocaleString('en')} JLPT ${level.id} kanji (beta) | SonnaKanji`
+  ? `All ${list.length.toLocaleString('en')} JLPT ${level.id} kanji with mnemonics (beta) | SonnaKanji`
   : `All ${list.length} JLPT ${level.id} kanji with mnemonics | SonnaKanji`;
-const description = level.beta
-  ? `Every JLPT ${level.id} kanji with its meaning, on'yomi and kun'yomi readings, stroke order and common words. Now in beta, with free spaced repetition review.`
-  : `Every JLPT ${level.id} kanji with its meaning, on'yomi and kun'yomi readings, a picture-based mnemonic and spaced repetition review.`;
+const description = `Every JLPT ${level.id} kanji with its meaning, on'yomi and kun'yomi readings, a picture-based mnemonic and spaced repetition review.`;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -27,7 +25,7 @@ const jsonLd = {
 <Base {title} {description} {jsonLd}>
   <h1>JLPT {level.id} kanji{level.beta && <span class="beta">Beta</span>}</h1>
   {level.beta
-    ? <p class="muted">{level.blurb} This level is in beta: readings, stroke order and example words are ready, and drawings and mnemonics are still being made. Levels come from unofficial lists, so expect some rough edges. Kanji you've reviewed get a star.</p>
+    ? <p class="muted">{level.blurb} This level is in beta, so its drawings and mnemonics are first drafts and may change. Kanji you've reviewed get a star.</p>
     : <p class="muted">{level.blurb} Open any card for its picture, mnemonic and readings. Kanji you've reviewed get a star.</p>}
   <p class="actions">
     <a class="btn primary" href={`/review/?level=${level.id}`}>Review {level.id}</a>

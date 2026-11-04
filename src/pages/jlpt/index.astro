@@ -7,10 +7,10 @@ const total = counts.reduce((a, b) => a + b, 0);
 ---
 <Base
   title="JLPT kanji by level, N5 to N1 | SonnaKanji"
-  description={`All ${total} JLPT kanji from N5 to N1. N5 and N4 have drawings and mnemonics; N3, N2 and N1 are in beta with readings, stroke order and example words.`}
+  description={`All ${total} JLPT kanji from N5 to N1. Each has a drawing, a mnemonic, readings and stroke order. N3, N2 and N1 are in beta.`}
 >
   <h1>Kanji by level</h1>
-  <p class="muted lead">Start at N5 and work up. N3, N2 and N1 are in beta: their readings, strokes and words are ready, and their drawings and mnemonics are still being made.</p>
+  <p class="muted lead">Start at N5 and work up. N3, N2 and N1 are in beta, so their drawings and mnemonics are first drafts and may change.</p>
   <ul class="levels">
     {LEVELS.map((l, i) => {
       const first = byLevel(l.id)[0];

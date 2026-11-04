@@ -15,9 +15,7 @@ const kunMore = k.kun.slice(5);
 ---
 <article class="kcard" id="card" style={`--tint:${tint}`} data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
   <div class="panel art-panel">
-    {art
-      ? <img class="art" src={art} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
-      : <StrokeDiagram k={k} />}
+    <img class="art" src={art} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
   </div>
 
   <header class="panel title">
@@ -33,11 +31,9 @@ const kunMore = k.kun.slice(5);
     <span class="chip plain">{k.strokes} strokes</span>
   </p>
 
-  <div class={k.mnemonic ? 'panel story' : 'panel story soon'}>
+  <div class="panel story">
     <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
-    {k.mnemonic
-      ? <p class="mnemonic">{k.mnemonic}</p>
-      : <p class="mnemonic">This level is in beta. The bear is still working on this kanji's drawing and mnemonic.</p>}
+    <p class="mnemonic">{k.mnemonic}</p>
   </div>
 
   <section class="panel read" aria-label="Readings">
@@ -119,11 +115,6 @@ const kunMore = k.kun.slice(5);
   .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
   .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
   .art-panel { background: var(--tint); padding: 4px; display: grid; place-items: center; }
-  /* The panel stays pastel in dark mode, so its diagram keeps the light-mode inks. */
-  .art-panel .strokes { width: 100%; max-width: 280px; height: auto; aspect-ratio: 1; stroke: var(--on-tint); stroke-width: 3.4; }
-  .art-panel .strokes .guide { stroke: var(--on-tint); }
-  .art-panel .strokes .p0 { stroke: #d4583f; } .art-panel .strokes .p1 { stroke: #3f7ea3; } .art-panel .strokes .p2 { stroke: #4b8f5e; } .art-panel .strokes .p3 { stroke: #8a5aa8; } .art-panel .strokes .p4 { stroke: #b57a14; }
-  .story.soon .mnemonic { font-size: 16px; font-weight: 600; }
   .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
   .title { display: grid; align-content: center; justify-items: center; gap: 4px; text-align: center; padding: 12px 10px; }
   .title h1 { display: contents; }

@@ -60,10 +60,5 @@ export const isBeta = (k: Kanji) => betaLevels.has(k.level);
 export const partName = (p: KanjiPart) => names[p.original ?? p.el ?? ''] ?? names[p.el ?? ''] ?? null;
 export const slugOf = (c: string) => (slugs as Record<string, string>)[c];
 export const kanjiPath = (c: string) => `/kanji/${slugOf(c)}/`;
-const levelOf = new Map(allKanji.map((k) => [k.kanji, k.level]));
-
-// Beta kanji have no drawing yet, so callers fall back to the character itself.
 export const artPath = (c: string) =>
-  betaLevels.has(levelOf.get(c) ?? '')
-    ? null
-    : (handArt as Record<string, string>)[c] ?? `/art/${c.codePointAt(0)!.toString(16)}.svg`;
+  (handArt as Record<string, string>)[c] ?? `/art/${c.codePointAt(0)!.toString(16)}.svg`;

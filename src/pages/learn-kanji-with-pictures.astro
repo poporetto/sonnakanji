@@ -61,7 +61,7 @@ const jsonLd = {
     <h2>Start with your level</h2>
     <div class="levels">
       {LEVELS.map((l, i) => (
-        <a class="level" style={`background:var(--t${i % 5})`} href={`/jlpt/${l.slug}/`}><b>JLPT {l.id} kanji</b><span>{byLevel(l.id).length} {l.beta ? 'cards, in beta' : 'picture cards'}</span></a>
+        <a class="level" style={`background:var(--t${i % 5})`} href={`/jlpt/${l.slug}/`}><b>JLPT {l.id} kanji</b><span>{byLevel(l.id).length} picture cards{l.beta ? ', in beta' : ''}</span></a>
       ))}
       <a class="level" style="background:var(--wash)" href="/review/"><b>Review</b><span>Free spaced repetition</span></a>
     </div>

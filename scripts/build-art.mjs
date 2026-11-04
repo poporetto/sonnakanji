@@ -5,7 +5,10 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { renderScene } from './art/compose.mjs';
 import { svgPathProperties } from 'svg-path-properties';
-import { scenes } from './art/scenes.mjs';
+import { scenes as drawn } from './art/scenes.mjs';
+import { scenes as drafted } from './art/scenes-auto.mjs';
+
+const scenes = { ...drafted, ...drawn };
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const out = path.join(ROOT, 'public/art');
@@ -28,7 +31,7 @@ function prepare(vg) {
     }),
   };
 }
-const missing = records.filter((r) => (r.level === 'N5' || r.level === 'N4') && !scenes[r.kanji]).map((r) => r.kanji);
+const missing = kanji.filter((k) => !scenes[k]);
 if (missing.length) throw new Error(`No scene for: ${missing.join(' ')}`);
 
 // Hand drawings in art-source/hand/<kanji>.<ext> replace the generated scene.
@@ -45,7 +48,7 @@ await writeFile(path.join(ROOT, 'src/data/hand-art.json'), JSON.stringify(hand))
 
 let bytes = 0;
 for (const [i, k] of kanji.entries()) {
-  if (hand[k] || !scenes[k]) continue;
+  if (hand[k]) continue;
   const [scene, ...layers] = scenes[k];
   const svg = renderScene(scene, layers, i + 1, prepare(records[i].vg));
   bytes += svg.length;
