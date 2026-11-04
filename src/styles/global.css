@@ -25,7 +25,7 @@
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #211d18; --surface: #2c2720; --wash: #38322a; --ink: #f4ecdd; --muted: #bdb09c; --on-tint: #3e3226;
     --p0: #f2997f; --p1: #8cc4e4; --p2: #97d3a9; --p3: #c9a6e4; --p4: #f0c063;
     --glyph-filter: invert(1);
@@ -37,6 +37,18 @@
     --soft: 0 1px 2px #0003;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #211d18; --surface: #2c2720; --wash: #38322a; --ink: #f4ecdd; --muted: #bdb09c; --on-tint: #3e3226;
+  --p0: #f2997f; --p1: #8cc4e4; --p2: #97d3a9; --p3: #c9a6e4; --p4: #f0c063;
+  --glyph-filter: invert(1);
+  --star: #f0c063;
+  --stamp: #f2997f;
+  --line-ghost: #4a4238;
+  --track: #453d32;
+  --grain-opacity: .15;
+  --soft: 0 1px 2px #0003;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -98,6 +110,11 @@ details[open] > summary::before { transform: rotate(90deg); }
 .tile .txt { display: grid; padding-inline: 4px; }
 .tile b { font: 500 22px/1.2 var(--jp); }
 .tile span { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.tile.plain { padding: 16px 6px 12px; }
+.tile.plain b { display: block; font-size: 42px; line-height: 1.15; }
+.beta.on-paper { background: var(--t4); color: var(--on-tint); }
+.beta { display: inline-block; padding: 1px 9px; border-radius: 999px; background: var(--surface); color: var(--ink); font: 800 12px/1.5 var(--body); letter-spacing: .02em; }
+.gear { padding-inline: 10px !important; }
 .tile.done::after {
   content: ""; position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; background: var(--star);
   -webkit-mask: var(--star-mask) center / contain no-repeat; mask: var(--star-mask) center / contain no-repeat;
@@ -121,6 +138,8 @@ details[open] > summary::before { transform: rotate(90deg); }
 }
 
 @view-transition { navigation: auto; }
+[data-romaji="off"] .romaji { display: none; }
+[data-motion="reduced"] *, [data-motion="reduced"] *::before, [data-motion="reduced"] *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

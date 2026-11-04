@@ -3,8 +3,9 @@ import { artPath, kanjiPath, type Kanji } from '../lib/kanji';
 
 interface Props { k: Kanji; index: number; eager?: boolean }
 const { k, index, eager = false } = Astro.props;
+const art = artPath(k.kanji);
 ---
-<a class="tile" data-k={k.kanji} href={kanjiPath(k.kanji)} style={`--tint:var(--t${index % 5})`}>
-  <img src={artPath(k.kanji)} alt={`Drawing for ${k.kanji}, ${k.meanings[0]}`} width="200" height="200" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+<a class={art ? 'tile' : 'tile plain'} data-k={k.kanji} href={kanjiPath(k.kanji)} style={`--tint:var(--t${index % 5})`}>
+  {art && <img src={art} alt={`Drawing for ${k.kanji}, ${k.meanings[0]}`} width="200" height="200" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
   <div class="txt"><b lang="ja">{k.kanji}</b><span>{k.meanings[0]}</span></div>
 </a>

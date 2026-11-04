@@ -1,7 +1,9 @@
 # SonnaKanji
 
-Kanji mnemonics for JLPT N5 and N4: a static, SEO-friendly Astro site with one
-page per kanji, swipeable cards and browser-based spaced repetition (FSRS).
+Kanji mnemonics for the JLPT: a static, SEO-friendly Astro site with one page per
+kanji, swipeable cards and browser-based spaced repetition (FSRS). N5 and N4 are
+complete. N3, N2 and N1 are in beta: they have readings, strokes and words, but no
+drawings or mnemonics yet, and stay out of the sitemap and search until they do.
 There is no database. Review progress lives in the visitor's `localStorage`.
 
 ```bash
@@ -27,9 +29,8 @@ production domain automatically; set `SITE_URL` in Vercel to override it.
 | `public/art/` | `npm run art` | SVGs rendered from the scenes; rerun after editing a scene |
 
 `npm run data` caches every response in `.cache/`, so reruns are offline and
-never touch the hand-written files. To add N3, add `3` to `LEVELS` in
-`scripts/build-data.mjs` and to `LEVELS` in `src/lib/kanji.ts`, then write its
-mnemonics.
+never touch the hand-written files. To finish a beta level, add its scenes and
+mnemonics, then set `beta: false` in `src/lib/kanji.ts`.
 
 ## Licences
 

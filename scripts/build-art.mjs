@@ -28,7 +28,7 @@ function prepare(vg) {
     }),
   };
 }
-const missing = kanji.filter((k) => !scenes[k]);
+const missing = records.filter((r) => (r.level === 'N5' || r.level === 'N4') && !scenes[r.kanji]).map((r) => r.kanji);
 if (missing.length) throw new Error(`No scene for: ${missing.join(' ')}`);
 
 // Hand drawings in art-source/hand/<kanji>.<ext> replace the generated scene.
@@ -45,7 +45,7 @@ await writeFile(path.join(ROOT, 'src/data/hand-art.json'), JSON.stringify(hand))
 
 let bytes = 0;
 for (const [i, k] of kanji.entries()) {
-  if (hand[k]) continue;
+  if (hand[k] || !scenes[k]) continue;
   const [scene, ...layers] = scenes[k];
   const svg = renderScene(scene, layers, i + 1, prepare(records[i].vg));
   bytes += svg.length;

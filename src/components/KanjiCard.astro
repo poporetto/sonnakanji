@@ -1,11 +1,13 @@
 ---
-import { artPath, kanjiPath, partName, type Kanji } from '../lib/kanji';
+import { artPath, isBeta, kanjiPath, partName, type Kanji } from '../lib/kanji';
 import Icon from './Icon.astro';
 import StrokeDiagram from './StrokeDiagram.astro';
 
 interface Props { k: Kanji; position: number; total: number; prev: Kanji; next: Kanji }
 const { k, position, total, prev, next } = Astro.props;
 const tint = `var(--t${position % 5})`;
+const art = artPath(k.kanji);
+const beta = isBeta(k);
 const parts = k.vg.parts.filter((p) => p.el);
 const meaning = k.meanings.join(', ');
 const kunShown = k.kun.slice(0, 5);
@@ -13,7 +15,9 @@ const kunMore = k.kun.slice(5);
 ---
 <article class="kcard" id="card" style={`--tint:${tint}`} data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
   <div class="panel art-panel">
-    <img class="art" src={artPath(k.kanji)} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
+    {art
+      ? <img class="art" src={art} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
+      : <StrokeDiagram k={k} />}
   </div>
 
   <header class="panel title">
@@ -24,27 +28,30 @@ const kunMore = k.kun.slice(5);
 
   <p class="meta">
     <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
+    {beta && <span class="beta on-paper">Beta</span>}
     <span class="chip plain">{position} of {total}</span>
     <span class="chip plain">{k.strokes} strokes</span>
   </p>
 
-  <div class="panel story">
+  <div class={k.mnemonic ? 'panel story' : 'panel story soon'}>
     <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
-    <p class="mnemonic">{k.mnemonic}</p>
+    {k.mnemonic
+      ? <p class="mnemonic">{k.mnemonic}</p>
+      : <p class="mnemonic">This level is in beta. The bear is still working on this kanji's drawing and mnemonic.</p>}
   </div>
 
   <section class="panel read" aria-label="Readings">
     <div>
       <h2>On'yomi</h2>
-      <ul class="readings">{k.on.length ? k.on.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>) : <li>None</li>}</ul>
+      <ul class="readings">{k.on.length ? k.on.map((r) => <li><b lang="ja">{r.kana}</b><span class="romaji">{r.romaji}</span></li>) : <li>None</li>}</ul>
     </div>
     <div>
       <h2>Kun'yomi</h2>
-      <ul class="readings">{k.kun.length ? kunShown.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>) : <li>None</li>}</ul>
+      <ul class="readings">{k.kun.length ? kunShown.map((r) => <li><b lang="ja">{r.kana}</b><span class="romaji">{r.romaji}</span></li>) : <li>None</li>}</ul>
       {kunMore.length > 0 && (
         <details class="more">
           <summary>{kunMore.length} more</summary>
-          <ul class="readings">{kunMore.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>)}</ul>
+          <ul class="readings">{kunMore.map((r) => <li><b lang="ja">{r.kana}</b><span class="romaji">{r.romaji}</span></li>)}</ul>
         </details>
       )}
     </div>
@@ -112,6 +119,11 @@ const kunMore = k.kun.slice(5);
   .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
   .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
   .art-panel { background: var(--tint); padding: 4px; display: grid; place-items: center; }
+  /* The panel stays pastel in dark mode, so its diagram keeps the light-mode inks. */
+  .art-panel .strokes { width: 100%; max-width: 280px; height: auto; aspect-ratio: 1; stroke: var(--on-tint); stroke-width: 3.4; }
+  .art-panel .strokes .guide { stroke: var(--on-tint); }
+  .art-panel .strokes .p0 { stroke: #d4583f; } .art-panel .strokes .p1 { stroke: #3f7ea3; } .art-panel .strokes .p2 { stroke: #4b8f5e; } .art-panel .strokes .p3 { stroke: #8a5aa8; } .art-panel .strokes .p4 { stroke: #b57a14; }
+  .story.soon .mnemonic { font-size: 16px; font-weight: 600; }
   .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
   .title { display: grid; align-content: center; justify-items: center; gap: 4px; text-align: center; padding: 12px 10px; }
   .title h1 { display: contents; }

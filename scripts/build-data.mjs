@@ -12,7 +12,10 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const CACHE = path.join(ROOT, '.cache');
 const GLYPHS = path.join(ROOT, 'public/glyphs');
 const UA = 'sonnakanji-data-build/0.1 (https://github.com/poporetto/sonnakanji)';
-const LEVELS = [5, 4];
+const LEVELS = [5, 4, 3, 2, 1];
+// Beta levels get dictionary and stroke data only for now. Wiktionary and Commons
+// are slow to crawl politely, so their origins and ancient forms come later.
+const FULL_LEVELS = [5, 4];
 
 // Kyūjitai for shinjitai whose etymology and ancient forms are filed under the
 // traditional character on Wiktionary and Commons.
@@ -166,11 +169,27 @@ await mkdir(GLYPHS, { recursive: true });
 const lists = Object.fromEntries(
   await Promise.all(LEVELS.map(async (l) => [l, await api(`kanji/jlpt-${l}`)])),
 );
-const known = new Set(LEVELS.flatMap((l) => lists[l]));
+// Example words prefer kanji a learner at this level has already met.
+const knownAt = (level) => new Set(LEVELS.filter((l) => (level >= 4 ? l >= 4 : l >= level)).flatMap((l) => lists[l]));
 const chars = LEVELS.flatMap((l) => lists[l].map((c) => [c, l]));
 
+// Fill the cache for beta levels in parallel, so the loop below stays simple.
+const urls = (c) => [
+  `https://kanjiapi.dev/v1/kanji/${encodeURIComponent(c)}`,
+  `https://kanjiapi.dev/v1/words/${encodeURIComponent(c)}`,
+  `https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${c.codePointAt(0).toString(16).padStart(5, '0')}.svg`,
+];
+const pending = chars.filter(([, l]) => !FULL_LEVELS.includes(l)).flatMap(([c]) => urls(c));
+let done = 0;
+await Promise.all(Array.from({ length: 8 }, async () => {
+  while (pending.length) {
+    await cached(pending.pop());
+    if (++done % 500 === 0) console.log(`fetched ${done}`);
+  }
+}));
+
 // Ancient forms, shinjitai first, then the kyūjitai.
-const titles = chars.flatMap(([c]) =>
+const titles = chars.filter(([, l]) => FULL_LEVELS.includes(l)).flatMap(([c]) =>
   [c, KYUJITAI[c]].filter(Boolean).flatMap((x) =>
     ERAS.flatMap(([, , suffixes]) => suffixes.map((s) => `File:${x}-${s}.svg`)),
   ),
@@ -185,11 +204,12 @@ const radicalLookup = new Map();
 for (const [c, level] of chars) {
   const k = await api(`kanji/${encodeURIComponent(c)}`);
   const trad = KYUJITAI[c];
-  const origin = (await wiktionaryOrigin(c)) ?? (trad ? await wiktionaryOrigin(trad) : null);
-  if (!origin) gaps.origin.push(c);
+  const full = FULL_LEVELS.includes(level);
+  const origin = full ? (await wiktionaryOrigin(c)) ?? (trad ? await wiktionaryOrigin(trad) : null) : null;
+  if (full && !origin) gaps.origin.push(c);
 
   const glyphs = [];
-  for (const [era, label, suffixes] of ERAS) {
+  for (const [era, label, suffixes] of full ? ERAS : []) {
     let found = null;
     for (const x of [c, trad].filter(Boolean)) {
       for (const s of suffixes) {
@@ -209,7 +229,7 @@ for (const [c, level] of chars) {
       page: found.page, license: found.license, artist: found.artist,
     });
   }
-  if (!glyphs.length) gaps.glyphs.push(c);
+  if (full && !glyphs.length) gaps.glyphs.push(c);
 
   const hex = c.codePointAt(0).toString(16).padStart(5, '0');
   const vgRaw = await cached(`https://raw.githubusercontent.com/KanjiVG/kanjivg/master/kanji/${hex}.svg`);
@@ -217,7 +237,7 @@ for (const [c, level] of chars) {
   if (vg.strokes.length !== k.stroke_count) gaps.vg.push(`${c}(${vg.strokes.length}/${k.stroke_count})`);
 
   const wordEntries = await api(`words/${encodeURIComponent(c)}`);
-  const words = pickWords(wordEntries, c, known);
+  const words = pickWords(wordEntries, c, knownAt(level));
   if (!words.length) gaps.words.push(c);
 
   records.push({

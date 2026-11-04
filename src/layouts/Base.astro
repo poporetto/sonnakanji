@@ -27,6 +27,16 @@ const here = Astro.url.pathname;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      // Applied before first paint so saved settings never flash. See lib/prefs.ts.
+      try {
+        const p = JSON.parse(localStorage.getItem('sonnakanji.prefs.v1') || '{}');
+        const root = document.documentElement;
+        if (p.theme === 'light' || p.theme === 'dark') root.dataset.theme = p.theme;
+        if (p.romaji === false) root.dataset.romaji = 'off';
+        if (p.motion === false) root.dataset.motion = 'reduced';
+      } catch {}
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#f8edc9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2a2118" media="(prefers-color-scheme: dark)" />
@@ -38,9 +48,11 @@ const here = Astro.url.pathname;
       <div class="wrap"><div class="site-bar">
         <a class="brand" href="/"><img src="/mascot/bear.webp" alt="" width="48" height="38" />SonnaKanji</a>
         <nav aria-label="Main">
-          <a href="/jlpt/n5/" aria-current={here.startsWith('/jlpt/n5') ? 'page' : undefined}>N5</a>
-          <a href="/jlpt/n4/" aria-current={here.startsWith('/jlpt/n4') ? 'page' : undefined}>N4</a>
+          <a href="/jlpt/" aria-current={here.startsWith('/jlpt') ? 'page' : undefined}>Levels</a>
           <a href="/review/" aria-current={here.startsWith('/review') ? 'page' : undefined}>Review</a>
+          <a class="gear" href="/settings/" aria-label="Settings" aria-current={here.startsWith('/settings') ? 'page' : undefined}>
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10" /><circle cx="16" cy="7" r="2.4" /><circle cx="8" cy="17" r="2.4" /></svg>
+          </a>
         </nav>
       </div></div>
     </header>

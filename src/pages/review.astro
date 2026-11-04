@@ -2,8 +2,8 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base
-  title="Free kanji SRS review for JLPT N5 and N4 | SonnaKanji"
-  description="Review JLPT N5 and N4 kanji with spaced repetition, like Anki. Free, no sign-up, and your progress stays in your browser."
+  title="Free JLPT kanji SRS review, N5 to N1 | SonnaKanji"
+  description="Review JLPT kanji from N5 to N1 with spaced repetition, like Anki. Free, no sign-up, and your progress stays in your browser."
 >
   <div class="review">
     <section id="setup">
@@ -18,7 +18,7 @@ import Base from '../layouts/Base.astro';
       </div>
       <form id="settings" class="settings">
         <label>Level
-          <span class="select"><select name="level"><option value="all">N5 + N4</option><option value="N5">N5</option><option value="N4">N4</option></select></span>
+          <span class="select"><select name="level"><option value="all">All levels</option><option value="N5">N5</option><option value="N4">N4</option><option value="N3">N3 (beta)</option><option value="N2">N2 (beta)</option><option value="N1">N1 (beta)</option></select></span>
         </label>
         <label>Test me on
           <span class="select"><select name="mode">
@@ -32,14 +32,7 @@ import Base from '../layouts/Base.astro';
         </label>
       </form>
       <button class="btn primary start" id="start" disabled>Loading…</button>
-      <details class="backup">
-        <summary>Back up or move progress</summary>
-        <p class="muted">Progress lives only in this browser. Clearing site data erases it, so keep a backup.</p>
-        <button class="btn" id="export">Download backup</button>
-        <label class="btn">Restore backup<input id="import" type="file" accept="application/json" hidden /></label>
-        <button class="btn" id="reset">Reset all progress</button>
-        <p id="backup-msg" class="muted" role="status"></p>
-      </details>
+      <p class="backup"><a href="/settings/">Back up or reset your progress in Settings</a></p>
     </section>
 
     <section id="session" hidden>
@@ -93,10 +86,8 @@ import Base from '../layouts/Base.astro';
   .settings select { appearance: none; -webkit-appearance: none; min-height: 44px; max-width: 100%; font: 700 16px var(--body); padding: 8px 34px 8px 14px; border-radius: 14px; border: 0; background: var(--surface); color: var(--ink); box-shadow: var(--soft); cursor: pointer; }
   .start { width: 100%; padding: 14px; font-size: 18px; }
   .start:disabled { background: var(--wash); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
-  .backup { margin-top: 22px; font-size: 15px; font-weight: 600; }
-  .backup summary { font-weight: 800; }
-  .backup .btn { font-size: 14px; padding: 10px 14px; margin: 0 6px 8px 0; }
-  #reset.armed { background: var(--t0); color: var(--on-tint); }
+  .backup { margin-top: 18px; font-size: 15px; font-weight: 700; color: var(--muted); }
+  .backup a { display: inline-block; padding-block: 11px; }
   .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   #trail { margin-block: 36px 14px; }
   .link { background: none; border: 0; color: inherit; text-decoration: underline; text-underline-offset: 3px; font: inherit; cursor: pointer; padding: 10px 0; margin-block: -10px; }
@@ -142,6 +133,9 @@ import Base from '../layouts/Base.astro';
   .practised { list-style: none; margin: 14px auto; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 370px; }
   .practised a { display: block; width: 56px; height: 56px; border-radius: 14px; }
   .practised img { display: block; width: 100%; height: 100%; }
+  .practised .solo { display: grid; place-items: center; height: 100%; color: var(--on-tint); text-decoration: none; font: 500 28px/1 var(--jp); }
+  .practised a { text-decoration: none; }
+  .flash .pic.solo { grid-template-columns: auto; }
   .practised li { animation: pop .3s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(.5s + var(--i) * 40ms); }
   .practised .more-count { display: grid; place-items: center; width: 56px; height: 56px; color: var(--muted); font-size: 14px; font-weight: 800; }
   @keyframes pop { from { opacity: 0; transform: scale(.6); } }
@@ -154,13 +148,13 @@ import Base from '../layouts/Base.astro';
 
 <script>
   import {
-    buildQueue, currentStreak, formatInterval, formatWait, learnedMilestone, nextDue, streakMilestone, GRADES, grade, loadStore, parseStore, preview, saveStore, summarize, emptyStore,
+    buildQueue, currentStreak, formatInterval, formatWait, learnedMilestone, nextDue, streakMilestone, GRADES, grade, loadStore, preview, saveStore, summarize,
     introducedToday, type Mode, type Store,
   } from '../lib/srs';
   import { attachSwipe } from '../lib/swipe';
   import { Rating, type Grade } from 'ts-fsrs';
 
-  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string; u: string }
+  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string | null; u: string }
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const form = $<HTMLFormElement>('settings');
@@ -256,10 +250,15 @@ import Base from '../layouts/Base.astro';
     }
 
     const pic = el('div', 'pic');
-    const art = document.createElement('img');
-    art.src = c.a;
-    art.alt = `Drawing for ${c.k}`;
-    pic.append(art, el('div', 'big', c.k, 'ja'));
+    if (c.a) {
+      const art = document.createElement('img');
+      art.src = c.a;
+      art.alt = `Drawing for ${c.k}`;
+      pic.append(art);
+    } else {
+      pic.classList.add('solo');
+    }
+    pic.append(el('div', 'big', c.k, 'ja'));
     back.append(pic, el('div', 'answer', c.m.join(', ')));
     if (c.on.length) {
       const r = el('div', 'rd');
@@ -271,7 +270,7 @@ import Base from '../layouts/Base.astro';
       r.append(el('small', '', 'kun '), el('span', '', c.kun.slice(0, 4).join('、'), 'ja'));
       back.append(r);
     }
-    back.append(el('p', 'note', c.n));
+    if (c.n) back.append(el('p', 'note', c.n));
     const link = el('a', '', 'Open full card') as HTMLAnchorElement;
     link.href = c.u;
     link.target = '_blank';
@@ -337,10 +336,14 @@ import Base from '../layouts/Base.astro';
       li.style.borderRadius = '14px';
       const a = document.createElement('a');
       a.href = c.u;
-      const img = document.createElement('img');
-      img.src = c.a;
-      img.alt = `${c.k}, ${c.m[0]}`;
-      a.append(img);
+      if (c.a) {
+        const img = document.createElement('img');
+        img.src = c.a;
+        img.alt = `${c.k}, ${c.m[0]}`;
+        a.append(img);
+      } else {
+        a.append(el('span', 'solo', c.k, 'ja'));
+      }
       li.append(a);
       return li;
     }), ...(hidden > 0 ? [Object.assign(el('li', 'more-count'), { textContent: `+${hidden}` })] : []));
@@ -417,49 +420,8 @@ import Base from '../layouts/Base.astro';
   $('quit').addEventListener('click', finish);
   $('again').addEventListener('click', () => { show('setup'); refresh(); });
 
-  $('export').addEventListener('click', () => {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(store)], { type: 'application/json' }));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'sonnakanji-backup.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  });
-  $<HTMLInputElement>('import').addEventListener('change', async (e) => {
-    const input = e.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (!file) return;
-    try {
-      store = parseStore(await file.text());
-      saveStore(store);
-      writeForm();
-      refresh();
-      $('backup-msg').textContent = 'Backup restored.';
-    } catch {
-      $('backup-msg').textContent = "That file isn't a SonnaKanji backup.";
-    }
-    input.value = '';
-  });
-  // Erasing is permanent, so the button asks once more in place.
-  const reset = $<HTMLButtonElement>('reset');
-  let disarm = 0;
-  const armReset = (armed: boolean) => {
-    reset.classList.toggle('armed', armed);
-    reset.textContent = armed ? 'Tap again to erase everything' : 'Reset all progress';
-    clearTimeout(disarm);
-    if (armed) disarm = window.setTimeout(() => armReset(false), 4000);
-  };
-  reset.addEventListener('click', () => {
-    if (!reset.classList.contains('armed')) return armReset(true);
-    armReset(false);
-    store = { ...emptyStore(), settings: store.settings };
-    saveStore(store);
-    refresh();
-    $('backup-msg').textContent = 'Progress erased.';
-  });
-
   const levelParam = new URLSearchParams(location.search).get('level');
-  if (levelParam === 'N5' || levelParam === 'N4') store.settings.level = levelParam;
+  if (levelParam && /^N[1-5]$/.test(levelParam)) store.settings.level = levelParam as Store['settings']['level'];
   writeForm();
 
   fetch('/cards.json')

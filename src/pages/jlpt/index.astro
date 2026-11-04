@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { byLevel, kanjiPath, LEVELS } from '../../lib/kanji';
+
+const counts = LEVELS.map((l) => byLevel(l.id).length);
+const total = counts.reduce((a, b) => a + b, 0);
+---
+<Base
+  title="JLPT kanji by level, N5 to N1 | SonnaKanji"
+  description={`All ${total} JLPT kanji from N5 to N1. N5 and N4 have drawings and mnemonics; N3, N2 and N1 are in beta with readings, stroke order and example words.`}
+>
+  <h1>Kanji by level</h1>
+  <p class="muted lead">Start at N5 and work up. N3, N2 and N1 are in beta: their readings, strokes and words are ready, and their drawings and mnemonics are still being made.</p>
+  <ul class="levels">
+    {LEVELS.map((l, i) => {
+      const first = byLevel(l.id)[0];
+      return (
+        <li><a class="level" style={`--tint:var(--t${i % 5})`} href={`/jlpt/${l.slug}/`}>
+          <span class="glyph" lang="ja" aria-hidden="true">{first.kanji}</span>
+          <span class="info"><b>JLPT {l.id}{l.beta && <span class="beta">Beta</span>}</b><span>{byLevel(l.id).length} kanji</span></span>
+        </a></li>
+      );
+    })}
+  </ul>
+</Base>
+
+<style>
+  h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; font-weight: 800; letter-spacing: -.03em; }
+  .lead { max-width: 60ch; }
+  .levels { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .level { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius); background: var(--tint); color: var(--on-tint); text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
+  .level:active { transform: var(--press); }
+  @media (hover: hover) { .level:hover { transform: translateY(-3px); } }
+  .glyph { font: 500 48px/1 var(--jp); }
+  .info { display: grid; font-weight: 600; }
+  .info b { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+</style>

@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import { allKanji, artPath, byLevel, kanjiPath, LEVELS } from '../lib/kanji';
 
 const pick = (c: string) => allKanji.find((k) => k.kanji === c)!;
-const title = 'Learn Kanji with Pictures: A Simple Method for JLPT N5 and N4';
-const description = `Learn kanji with pictures that follow each character's real shape. See how the method works, try examples, and study ${allKanji.length} JLPT N5 and N4 kanji for free.`;
+const title = 'Learn Kanji with Pictures: A Simple Method for the JLPT';
+const description = `Learn kanji with pictures that follow each character's real shape. See how the method works, try examples, and study JLPT kanji for free, from N5 up.`;
 const url = new URL('/learn-kanji-with-pictures/', Astro.site).href;
 const steps = [
   ['See the picture', 'Each drawing is built on the real strokes, so the shape and the meaning arrive together.'],
@@ -61,9 +61,9 @@ const jsonLd = {
     <h2>Start with your level</h2>
     <div class="levels">
       {LEVELS.map((l, i) => (
-        <a class="level" style={`background:var(--t${i * 2 + 1})`} href={`/jlpt/${l.slug}/`}><b>JLPT {l.id} kanji</b><span>{byLevel(l.id).length} picture cards</span></a>
+        <a class="level" style={`background:var(--t${i % 5})`} href={`/jlpt/${l.slug}/`}><b>JLPT {l.id} kanji</b><span>{byLevel(l.id).length} {l.beta ? 'cards, in beta' : 'picture cards'}</span></a>
       ))}
-      <a class="level" style="background:var(--t2)" href="/review/"><b>Review</b><span>Free spaced repetition</span></a>
+      <a class="level" style="background:var(--wash)" href="/review/"><b>Review</b><span>Free spaced repetition</span></a>
     </div>
   </article>
 </Base>

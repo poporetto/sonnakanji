@@ -13,7 +13,7 @@ export interface Store {
   cards: Record<string, Card>;
   // Number of new cards introduced per mode on a given local day.
   introduced: { day: string; counts: Partial<Record<Mode, number>> };
-  settings: { level: 'all' | 'N5' | 'N4'; mode: Mode; newPerDay: number };
+  settings: { level: 'all' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'; mode: Mode; newPerDay: number };
   // Consecutive days with at least one review.
   streak: { day: string; count: number };
 }
@@ -140,7 +140,7 @@ export function nextDue(store: Store, kanji: string[], mode: Mode) {
   return dues.length ? new Date(Math.min(...dues.map(Number))) : null;
 }
 
-const LEARNED_MILESTONES = [10, 25, 50, 79, 100, 150, 200, 245];
+const LEARNED_MILESTONES = [10, 25, 50, 79, 100, 150, 200, 245, 500, 1000, 2000];
 const STREAK_MILESTONES = [3, 7, 14, 30, 60, 100, 365];
 
 // The largest milestone passed between two totals, if any.

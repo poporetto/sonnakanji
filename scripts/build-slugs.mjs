@@ -16,18 +16,19 @@ const clean = (s) => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-
 const used = new Set(Object.values(slugs));
 for (const r of records) {
   if (slugs[r.kanji]) continue;
-  const meaning = (fixes[r.kanji] ?? r.meanings.filter((m) => !/radical|\*\*|katakana|counter for|sign of/.test(m)))[0];
-  const reading = (r.kun[0] ?? r.on[0]).romaji;
-  const base = `${clean(meaning)}-${clean(reading)}`;
-  const alt = `${base}-${clean((r.on[0] ?? r.kun[0]).romaji)}`;
-  const slug = used.has(base) ? alt : base;
-  if (used.has(slug)) throw new Error(`Slug clash for ${r.kanji}: ${slug}`);
+  const meaning = (fixes[r.kanji] ?? r.meanings.filter((m) => !/radical|\*\*|katakana|counter for|sign of/.test(m)))[0] ?? r.meanings[0] ?? 'kanji';
+  const hex = r.kanji.codePointAt(0).toString(16);
+  const words = clean(meaning).split('-').slice(0, 4).join('-') || 'kanji';
+  const base = `${words}-${clean((r.kun[0] ?? r.on[0])?.romaji ?? hex) || hex}`;
+  const alt = `${base}-${clean((r.on[0] ?? r.kun[0])?.romaji ?? hex) || hex}`;
+  const slug = [base, alt, `${base}-${hex}`].find((option) => !used.has(option));
   used.add(slug);
   slugs[r.kanji] = slug;
 }
 writeFileSync(slugFile, `${JSON.stringify(slugs, null, 0)}\n`);
 
-const redirects = records.map((r) => ({
+// Only N5 and N4 ever had /kanji/字/ URLs, so only they need redirects.
+const redirects = records.filter((r) => r.level === 'N5' || r.level === 'N4').map((r) => ({
   source: `/kanji/${encodeURIComponent(r.kanji)}/`,
   destination: `/kanji/${slugs[r.kanji]}/`,
   permanent: true,

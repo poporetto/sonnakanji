@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Settings | SonnaKanji" description="Choose your theme and display options, and back up your review progress." noindex>
+  <div class="settings-page">
+    <h1>Settings</h1>
+
+    <section class="group" aria-labelledby="look-h">
+      <h2 id="look-h">Display</h2>
+      <fieldset class="row">
+        <legend>Theme</legend>
+        <div class="choices">
+          <label><input type="radio" name="theme" value="system" /><span>System</span></label>
+          <label><input type="radio" name="theme" value="light" /><span>Light</span></label>
+          <label><input type="radio" name="theme" value="dark" /><span>Dark</span></label>
+        </div>
+      </fieldset>
+      <label class="row switch">
+        <span><b>Show romaji</b><small>Latin spelling under each reading.</small></span>
+        <input type="checkbox" id="romaji" role="switch" />
+      </label>
+      <label class="row switch">
+        <span><b>Animations</b><small>Turn off for less movement on screen.</small></span>
+        <input type="checkbox" id="motion" role="switch" />
+      </label>
+    </section>
+
+    <section class="group" aria-labelledby="progress-h">
+      <h2 id="progress-h">Your progress</h2>
+      <p class="muted">Progress lives only in this browser. Clearing site data erases it, so keep a backup.</p>
+      <div class="actions">
+        <button class="btn" id="export">Download backup</button>
+        <label class="btn">Restore backup<input id="import" type="file" accept="application/json" hidden /></label>
+        <button class="btn" id="reset">Reset all progress</button>
+      </div>
+      <p id="backup-msg" class="muted" role="status"></p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .settings-page { max-width: 560px; margin: 0 auto; display: grid; gap: 14px; }
+  h1 { font-size: clamp(36px, 9vw, 52px); font-weight: 800; letter-spacing: -.03em; margin: 12px 0 0; }
+  .group { display: grid; gap: 14px; background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
+  h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0; }
+  .group p { margin: 0; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 44px; margin: 0; padding: 0; border: 0; }
+  legend { float: left; padding: 0; font-weight: 800; }
+  fieldset.row { display: block; }
+  .row b { display: block; font-weight: 800; }
+  .row small { display: block; color: var(--muted); font-size: 14px; }
+  .choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; clear: both; margin-top: 8px; padding: 4px; background: var(--wash); border-radius: 16px; }
+  .choices input { position: absolute; opacity: 0; }
+  .choices span { display: grid; place-items: center; min-height: 44px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+  .choices input:checked + span { background: var(--surface); box-shadow: var(--soft); }
+  .choices input:focus-visible + span { outline: 3px solid var(--p1); outline-offset: 2px; }
+  .switch { cursor: pointer; }
+  .switch input { appearance: none; -webkit-appearance: none; flex: none; position: relative; width: 52px; height: 32px; margin: 0; border-radius: 999px; background: var(--track); cursor: pointer; transition: background .2s; }
+  .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); box-shadow: var(--soft); transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
+  .switch input:checked { background: var(--p2); }
+  .switch input:checked::after { transform: translateX(20px); }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .actions .btn { font-size: 14px; background: var(--wash); box-shadow: none; }
+  #reset.armed { background: var(--t0); color: var(--on-tint); }
+</style>
+
+<script>
+  import { loadPrefs, savePrefs, type Theme } from '../lib/prefs';
+  import { emptyStore, loadStore, parseStore, saveStore, type Store } from '../lib/srs';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const prefs = loadPrefs();
+  const romaji = $<HTMLInputElement>('romaji');
+  const motion = $<HTMLInputElement>('motion');
+
+  document.querySelectorAll<HTMLInputElement>('[name=theme]').forEach((radio) => {
+    radio.checked = radio.value === prefs.theme;
+    radio.addEventListener('change', () => {
+      prefs.theme = radio.value as Theme;
+      savePrefs(prefs);
+    });
+  });
+  romaji.checked = prefs.romaji;
+  motion.checked = prefs.motion;
+  romaji.addEventListener('change', () => { prefs.romaji = romaji.checked; savePrefs(prefs); });
+  motion.addEventListener('change', () => { prefs.motion = motion.checked; savePrefs(prefs); });
+
+  let store: Store = loadStore();
+  const msg = $('backup-msg');
+
+  $('export').addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(store)], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sonnakanji-backup.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  $<HTMLInputElement>('import').addEventListener('change', async (e) => {
+    const input = e.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    try {
+      store = parseStore(await file.text());
+      saveStore(store);
+      msg.textContent = 'Backup restored.';
+    } catch {
+      msg.textContent = "That file isn't a SonnaKanji backup.";
+    }
+    input.value = '';
+  });
+
+  // Erasing is permanent, so the button asks once more in place.
+  const reset = $<HTMLButtonElement>('reset');
+  let disarm = 0;
+  const armReset = (armed: boolean) => {
+    reset.classList.toggle('armed', armed);
+    reset.textContent = armed ? 'Tap again to erase everything' : 'Reset all progress';
+    clearTimeout(disarm);
+    if (armed) disarm = window.setTimeout(() => armReset(false), 4000);
+  };
+  reset.addEventListener('click', () => {
+    if (!reset.classList.contains('armed')) return armReset(true);
+    armReset(false);
+    store = { ...emptyStore(), settings: store.settings };
+    saveStore(store);
+    msg.textContent = 'Progress erased.';
+  });
+</script>

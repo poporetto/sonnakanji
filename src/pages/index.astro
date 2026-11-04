@@ -11,12 +11,12 @@ const jsonLd = {
   '@type': 'WebSite',
   name: 'SonnaKanji',
   url: Astro.site?.href,
-  description: 'Illustrated kanji mnemonics for JLPT N5 and N4 with free spaced repetition review.',
+  description: 'Illustrated JLPT kanji mnemonics with free spaced repetition review, from N5 to N1.',
 };
 ---
 <Base
-  title="SonnaKanji: learn JLPT N5 and N4 kanji with pictures"
-  description="245 JLPT N5 and N4 kanji, each drawn so the picture matches the shape of the character. Swipe through mnemonics, readings and stroke order, then review for free with spaced repetition."
+  title="SonnaKanji: learn JLPT kanji with pictures, N5 to N1"
+  description="Learn JLPT kanji with pictures. 245 N5 and N4 kanji drawn to match their shape, with mnemonics and stroke order, plus N3 to N1 in beta and free spaced repetition."
   {jsonLd}
 >
   <section class="intro">
@@ -43,9 +43,9 @@ const jsonLd = {
   <h2>Pick your level</h2>
   <div class="levels">
     {LEVELS.map((l, i) => (
-      <a class="level" style={`background:var(--t${i * 2 + 1})`} href={`/jlpt/${l.slug}/`}>
+      <a class="level" style={`background:var(--t${i % 5})`} href={`/jlpt/${l.slug}/`}>
         <span class="count">{byLevel(l.id).length}</span>
-        <span class="info"><b>JLPT {l.id} kanji</b><span>{l.blurb}</span></span>
+        <span class="info"><b>JLPT {l.id} kanji{l.beta && <span class="beta">Beta</span>}</b><span>{l.blurb}</span></span>
       </a>
     ))}
   </div>
@@ -83,7 +83,7 @@ const jsonLd = {
   @media (hover: hover) { .level:hover { transform: translateY(-3px); } }
   .count { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
   .info { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
-  .info b { font-size: 18px; font-weight: 800; }
+  .info b { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 800; }
   @media (min-width: 760px) {
     .intro { grid-template-columns: 1.1fr 1fr; gap: 28px; }
     .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
