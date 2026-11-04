@@ -1,0 +1,10 @@
+---
+import { artPath, kanjiPath, type Kanji } from '../lib/kanji';
+
+interface Props { k: Kanji }
+const { k } = Astro.props;
+---
+<a class="tile" data-k={k.kanji} href={kanjiPath(k.kanji)}>
+  <img src={artPath(k.kanji)} alt={`Drawing for ${k.kanji}, ${k.meanings[0]}`} width="200" height="200" loading="lazy" decoding="async" />
+  <div class="txt"><b lang="ja">{k.kanji}</b><span>{k.meanings[0]}</span></div>
+</a>

@@ -14,6 +14,8 @@ export interface Store {
   // Number of new cards introduced per mode on a given local day.
   introduced: { day: string; counts: Partial<Record<Mode, number>> };
   settings: { level: 'all' | 'N5' | 'N4'; mode: Mode; newPerDay: number };
+  // Consecutive days with at least one review.
+  streak: { day: string; count: number };
 }
 
 const KEY = 'sonnakanji.srs.v1';
@@ -24,6 +26,7 @@ export const emptyStore = (): Store => ({
   cards: {},
   introduced: { day: '', counts: {} },
   settings: { level: 'all', mode: 'meaning', newPerDay: 10 },
+  streak: { day: '', count: 0 },
 });
 
 export const dayOf = (d: Date) =>
@@ -44,6 +47,7 @@ export function parseStore(text: string | null): Store {
     ...base,
     ...data,
     settings: { ...base.settings, ...data.settings },
+    streak: data.streak ?? base.streak,
     cards: Object.fromEntries(Object.entries(data.cards).map(([k, c]) => [k, revive(c)])),
   };
 }
@@ -102,12 +106,26 @@ export function preview(store: Store, kanji: string, mode: Mode, now: Date) {
   return Object.fromEntries(GRADES.map(({ rating }) => [rating, options[rating].card.due])) as Record<Grade, Date>;
 }
 
+function touchStreak(store: Store, now: Date) {
+  const today = dayOf(now);
+  if (store.streak.day === today) return;
+  const yesterday = dayOf(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1));
+  store.streak = { day: today, count: store.streak.day === yesterday ? store.streak.count + 1 : 1 };
+}
+
+// The streak still counts until a full day has been missed.
+export function currentStreak(store: Store, now: Date) {
+  const yesterday = dayOf(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1));
+  return store.streak.day === dayOf(now) || store.streak.day === yesterday ? store.streak.count : 0;
+}
+
 // Returns the next due date so the session can bring back cards due again soon.
 export function grade(store: Store, kanji: string, mode: Mode, rating: Grade, now: Date) {
   const key = cardKey(kanji, mode);
   const isNew = !store.cards[key];
   const next = scheduler.next(store.cards[key] ?? createEmptyCard(now), now, rating).card;
   store.cards[key] = next;
+  touchStreak(store, now);
   if (isNew) {
     const day = dayOf(now);
     if (store.introduced.day !== day) store.introduced = { day, counts: {} };

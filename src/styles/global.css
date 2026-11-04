@@ -1,67 +1,99 @@
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/nunito';
+@import '@fontsource/zen-maru-gothic/500.css';
+@import '@fontsource/zen-maru-gothic/700.css';
+
+/* Sticker sheet: thick ink outlines, hard shadows and bright paper colours. */
 :root {
-  --paper: #f6f1e7;
-  --card: #fffdf8;
-  --ink: #23201b;
-  --muted: #6f675a;
-  --line: #e2d9c8;
-  --seal: #c8371f;
-  --seal-ink: #fff;
-  --p0: #c8371f; --p1: #1f6f8b; --p2: #5c7a29; --p3: #8a5a9e; --p4: #b5791a;
+  --bg: #efeaff; --dot: #dcd3fb; --surface: #ffffff; --ink: #1c1633; --muted: #5d5580; --outline: #1c1633;
+  --coral: #ff5a5f; --sun: #ffd23f; --mint: #5dd39e; --sky: #4d96ff; --grape: #9b5de5; --bubble: #fff3b0;
+  --tint-coral: #ffd9da; --tint-sun: #ffeeb0; --tint-mint: #c9f4e0; --tint-sky: #cfe2ff; --tint-grape: #e6d8fb;
+  --on-color: #1c1633;
+  --p0: #e6393f; --p1: #2b6fe0; --p2: #1f9d68; --p3: #7f3fd1; --p4: #c97a00;
   --glyph-filter: none;
-  --radius: 18px;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif CJK JP", "Noto Serif JP", serif;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Roboto, sans-serif;
-  color-scheme: light dark;
+  --radius: 22px;
+  --shadow: 5px 5px 0 var(--outline);
+  --shadow-sm: 3px 3px 0 var(--outline);
+  --display: 'Bricolage Grotesque Variable', 'Zen Maru Gothic', system-ui, sans-serif;
+  --body: 'Nunito Variable', 'Zen Maru Gothic', system-ui, sans-serif;
+  --jp: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', sans-serif;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #17150f; --card: #211e17; --ink: #efe9dc; --muted: #a59c8c; --line: #38332a;
-    --seal: #e8573c;
-    --p0: #f07a60; --p1: #5fb6d3; --p2: #a3c563; --p3: #c49ad6; --p4: #e3ae55;
-    --glyph-filter: invert(1) sepia(.2);
+    --bg: #15112b; --dot: #231c45; --surface: #241e47; --ink: #f4f1ff; --muted: #b5acd8; --outline: #0a0718;
+    --bubble: #3b3163; --tint-coral: #4d2436; --tint-sun: #4a3d1c; --tint-mint: #1d4238; --tint-sky: #233a66; --tint-grape: #3b2a63;
+    --p0: #ff8084; --p1: #7fb2ff; --p2: #5dd39e; --p3: #c49cff; --p4: #ffc24d;
+    --glyph-filter: invert(1);
+    color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--paper); color: var(--ink);
-  font: 16px/1.6 var(--sans); overflow-x: hidden;
+  margin: 0; color: var(--ink); font: 500 16px/1.6 var(--body); overflow-x: hidden;
+  background: var(--bg) radial-gradient(var(--dot) 1.6px, transparent 1.7px) 0 0 / 22px 22px;
 }
 a { color: inherit; }
-h1, h2, h3 { line-height: 1.2; }
-.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
-.site-head { border-bottom: 1px solid var(--line); }
-.site-head .wrap { display: flex; align-items: center; gap: 16px; height: 56px; }
-.brand { font: 700 19px var(--serif); text-decoration: none; display: flex; gap: 8px; align-items: center; white-space: nowrap; }
-.brand i { background: var(--seal); color: var(--seal-ink); font-style: normal; border-radius: 5px; width: 26px; height: 26px; display: grid; place-items: center; font-size: 16px; }
-.site-head nav { margin-left: auto; display: flex; gap: 14px; font-size: 15px; }
-.site-head nav a { text-decoration: none; color: var(--muted); padding: 6px 0; }
-.site-head nav a:hover, .site-head nav a[aria-current] { color: var(--ink); }
-main { padding: 24px 0 56px; }
-.site-foot { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; padding: 20px 0 32px; }
-.btn {
-  display: inline-block; border: 1px solid var(--line); background: var(--card); color: var(--ink);
-  border-radius: 12px; padding: 10px 16px; font: 600 15px var(--sans); text-decoration: none; cursor: pointer;
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; }
+:lang(ja) { font-family: var(--jp); }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 16px; }
+main { padding-block: 20px 56px; }
+
+.site-head { position: sticky; top: 0; z-index: 20; padding-block: 10px; }
+.site-head .wrap { display: flex; }
+.site-bar {
+  flex: 1; display: flex; align-items: center; gap: 12px; min-width: 0; padding: 6px 8px 6px 12px;
+  background: var(--surface); border: 3px solid var(--outline); border-radius: 999px; box-shadow: var(--shadow-sm);
 }
-.btn.primary { background: var(--seal); border-color: var(--seal); color: var(--seal-ink); }
-.btn:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
-.badge { display: inline-block; background: var(--seal); color: var(--seal-ink); font: 700 12px var(--sans); padding: 2px 8px; border-radius: 6px; text-decoration: none; }
+.brand { font: 800 19px var(--display); text-decoration: none; display: flex; gap: 8px; align-items: center; letter-spacing: -.02em; }
+.brand i {
+  background: var(--coral); color: var(--on-color); font: 700 15px var(--jp); border: 2.5px solid var(--outline);
+  border-radius: 10px; width: 30px; height: 30px; display: grid; place-items: center; transform: rotate(-6deg);
+}
+.site-bar nav { margin-left: auto; display: flex; gap: 2px; font-weight: 800; font-size: 15px; }
+.site-bar nav a { text-decoration: none; padding: 6px 11px; border-radius: 999px; }
+.site-bar nav a:hover { background: var(--tint-sun); }
+.site-bar nav a[aria-current] { background: var(--sun); color: var(--on-color); }
+.site-foot { color: var(--muted); font-size: 14px; padding-block: 8px 32px; }
+
+.btn {
+  display: inline-block; border: 3px solid var(--outline); background: var(--surface); color: var(--ink);
+  border-radius: 14px; padding: 9px 16px; font: 800 15px var(--body); text-decoration: none; cursor: pointer;
+  box-shadow: var(--shadow-sm); transition: transform .1s, box-shadow .1s;
+}
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--outline); }
+.btn:active { transform: translate(3px, 3px); box-shadow: none; }
+.btn.primary { background: var(--coral); color: var(--on-color); }
+.btn:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+.badge {
+  display: inline-block; background: var(--sun); color: var(--on-color); border: 2.5px solid var(--outline);
+  font: 800 12px var(--body); padding: 2px 9px; border-radius: 999px; text-decoration: none;
+}
+.badge.n4 { background: var(--mint); }
 .muted { color: var(--muted); }
+
 .grid {
-  list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px;
+  list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 14px;
   grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
 }
-.grid a {
-  display: block; text-align: center; text-decoration: none; background: var(--card);
-  border: 1px solid var(--line); border-radius: 12px; padding: 10px 6px;
+.tile {
+  display: block; position: relative; text-decoration: none; background: var(--surface);
+  border: 3px solid var(--outline); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-sm);
+  transition: transform .12s, box-shadow .12s;
 }
-.grid a:hover { border-color: var(--seal); }
-.grid b { display: block; font: 500 38px/1.25 var(--serif); }
-.grid span { display: block; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile:hover { transform: translate(-2px, -2px) rotate(-1.5deg); box-shadow: 6px 6px 0 var(--outline); }
+.tile img { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+.tile .txt { display: flex; align-items: center; gap: 6px; padding: 3px 7px 4px; border-top: 3px solid var(--outline); min-width: 0; }
+.tile b { font: 700 22px/1.2 var(--jp); }
+.tile span { font-size: 12.5px; font-weight: 700; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.tile.done::after {
+  content: "★"; position: absolute; top: 5px; right: 5px; width: 24px; height: 24px; display: grid; place-items: center;
+  background: var(--sun); color: var(--on-color); border: 2.5px solid var(--outline); border-radius: 50%; font-size: 13px; line-height: 1;
+}
 .prose { max-width: 680px; }
 .prose li { margin-bottom: 6px; }
 
-/* Cross-page fade; the swipe adds its own slide. */
 @view-transition { navigation: auto; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }

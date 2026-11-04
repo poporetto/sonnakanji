@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Rating } from 'ts-fsrs';
-import { buildQueue, emptyStore, grade, parseStore, preview, summarize } from './srs.ts';
+import { buildQueue, currentStreak, emptyStore, grade, parseStore, preview, summarize } from './srs.ts';
 
 const now = new Date('2026-11-04T09:00:00');
 const kanji = ['一', '二', '三', '四'];
@@ -51,4 +51,24 @@ test('a backup round-trips with real dates', () => {
 
 test('a foreign backup is rejected', () => {
   assert.throws(() => parseStore('{"hello":1}'));
+});
+
+test('the streak grows on consecutive days and resets after a gap', () => {
+  const s = emptyStore();
+  grade(s, '一', 'meaning', Rating.Good, now);
+  grade(s, '二', 'meaning', Rating.Good, now);
+  assert.equal(currentStreak(s, now), 1);
+  const nextDay = new Date('2026-11-05T09:00:00');
+  grade(s, '三', 'meaning', Rating.Good, nextDay);
+  assert.equal(currentStreak(s, nextDay), 2);
+  assert.equal(currentStreak(s, new Date('2026-11-06T09:00:00')), 2);
+  assert.equal(currentStreak(s, new Date('2026-11-07T09:00:00')), 0);
+  grade(s, '四', 'meaning', Rating.Good, new Date('2026-11-08T09:00:00'));
+  assert.equal(s.streak.count, 1);
+});
+
+test('backups from before streaks still load', () => {
+  const s = emptyStore() as Partial<ReturnType<typeof emptyStore>>;
+  delete s.streak;
+  assert.equal(parseStore(JSON.stringify(s)).streak.count, 0);
 });

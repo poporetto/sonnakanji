@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import KanjiTile from '../../components/KanjiTile.astro';
 import { byLevel, kanjiPath, LEVELS } from '../../lib/kanji';
 
 export function getStaticPaths() {
@@ -21,14 +22,29 @@ const jsonLd = {
 ---
 <Base {title} {description} {jsonLd}>
   <h1>JLPT {level.id} kanji</h1>
-  <p class="muted">{level.blurb} Open any card for its mnemonic, readings and history.</p>
-  <p>
+  <p class="muted">{level.blurb} Open any card for its picture, mnemonic and readings. Kanji you've reviewed get a star.</p>
+  <p class="actions">
     <a class="btn primary" href={`/review/?level=${level.id}`}>Review {level.id}</a>
     <a class="btn" href={kanjiPath(list[0].kanji)}>Start from the first card</a>
   </p>
   <ul class="grid">
     {list.map((k) => (
-      <li><a href={kanjiPath(k.kanji)}><b lang="ja">{k.kanji}</b><span>{k.meanings[0]}</span></a></li>
+      <li><KanjiTile {k} /></li>
     ))}
   </ul>
 </Base>
+
+<style>
+  h1 { font-size: clamp(36px, 8vw, 56px); margin: 12px 0 8px; font-weight: 800; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
+
+<script>
+  import { loadStore } from '../../lib/srs';
+
+  // Stars come from this browser's review history, so they appear after load.
+  const seen = new Set(Object.keys(loadStore().cards).map((key) => key.split(':')[1]));
+  document.querySelectorAll<HTMLElement>('.tile[data-k]').forEach((el) => {
+    if (seen.has(el.dataset.k!)) el.classList.add('done');
+  });
+</script>

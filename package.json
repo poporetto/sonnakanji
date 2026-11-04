@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "data": "node scripts/build-data.mjs",
+    "art": "node scripts/build-art.mjs",
     "test": "node --test src/lib/*.test.ts"
   },
   "dependencies": {

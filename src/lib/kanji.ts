@@ -47,3 +47,4 @@ export const LEVELS = [
 
 export const partName = (p: KanjiPart) => names[p.original ?? p.el ?? ''] ?? names[p.el ?? ''] ?? null;
 export const kanjiPath = (c: string) => `/kanji/${c}/`;
+export const artPath = (c: string) => `/art/${c.codePointAt(0)!.toString(16)}.svg`;

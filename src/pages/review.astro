@@ -14,6 +14,7 @@ import Base from '../layouts/Base.astro';
         <div><b id="s-due">–</b><span>Due</span></div>
         <div><b id="s-new">–</b><span>New today</span></div>
         <div><b id="s-learned">–</b><span>Learned</span></div>
+        <div class="streak"><b id="s-streak">–</b><span>Day streak</span></div>
       </div>
       <form id="settings" class="settings">
         <label>Level
@@ -43,6 +44,7 @@ import Base from '../layouts/Base.astro';
 
     <section id="session" hidden>
       <div class="progress"><span id="remaining"></span><button class="link" id="quit">End session</button></div>
+      <div class="bar" aria-hidden="true"><i id="bar-fill"></i></div>
       <div class="flash" id="flash" tabindex="0" role="button" aria-label="Show answer">
         <span class="swipe-tag again" id="tag-again">Again</span>
         <span class="swipe-tag good" id="tag-good">Good</span>
@@ -54,7 +56,8 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <section id="done" hidden>
-      <h2>Nice work.</h2>
+      <div id="confetti" aria-hidden="true"></div>
+      <h2>Nice work!</h2>
       <p id="done-msg"></p>
       <button class="btn primary" id="again">Back to review</button>
     </section>
@@ -63,51 +66,69 @@ import Base from '../layouts/Base.astro';
 
 <style is:global>
   .review { max-width: 520px; margin: 0 auto; }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
-  .stats div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px; text-align: center; }
-  .stats b { display: block; font: 700 26px var(--serif); }
-  .stats span { font-size: 13px; color: var(--muted); }
+  .review h1 { font-size: clamp(38px, 9vw, 52px); font-weight: 800; margin: 12px 0 8px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
+  .stats div { background: var(--surface); border: 3px solid var(--outline); border-radius: 16px; padding: 8px 2px; text-align: center; box-shadow: var(--shadow-sm); min-width: 0; }
+  .stats b { display: block; font: 800 26px/1.2 var(--display); font-variant-numeric: tabular-nums; }
+  .stats span { display: block; font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.15; }
+  .stats .streak { background: var(--sun); color: var(--on-color); }
+  .stats .streak span { color: var(--on-color); }
   .settings { display: grid; gap: 10px; margin-bottom: 16px; }
-  .settings label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 600; font-size: 15px; }
-  .settings select { font: 16px var(--sans); padding: 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
-  .start { width: 100%; padding: 14px; font-size: 17px; }
-  .start:disabled { opacity: .55; cursor: default; }
-  .backup { margin-top: 20px; font-size: 15px; }
-  .backup .btn { font-size: 14px; padding: 8px 12px; margin: 0 6px 6px 0; }
-  .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .settings label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 800; font-size: 15px; }
+  .settings select { font: 700 16px var(--body); padding: 7px 8px; border-radius: 12px; border: 3px solid var(--outline); background: var(--surface); color: var(--ink); min-width: 0; }
+  .start { width: 100%; padding: 14px; font-size: 18px; }
+  .start:disabled { background: var(--surface); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
+  .backup { margin-top: 22px; font-size: 15px; font-weight: 600; }
+  .backup summary { cursor: pointer; font-weight: 800; }
+  .backup .btn { font-size: 14px; padding: 7px 12px; margin: 0 6px 8px 0; }
+  .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .bar { height: 14px; border: 3px solid var(--outline); border-radius: 999px; background: var(--surface); overflow: hidden; margin-bottom: 14px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--mint); transition: width .25s; }
   .link { background: none; border: 0; color: inherit; text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
   .flash {
-    position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px 18px; min-height: 340px; display: flex; flex-direction: column; justify-content: center;
+    position: relative; background: var(--surface); border: 3px solid var(--outline); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 20px 16px; min-height: 360px; display: flex; flex-direction: column; justify-content: center;
     text-align: center; touch-action: pan-y; cursor: pointer; user-select: none; -webkit-user-select: none; overflow-wrap: anywhere;
   }
-  .flash .big { font: 500 110px/1.2 var(--serif); }
-  .flash .prompt { font: 600 24px/1.3 var(--sans); }
-  .flash .ask { color: var(--muted); font-size: 14px; margin-top: 8px; }
-  .flash .answer { font: 600 21px/1.3 var(--sans); margin: 4px 0; }
+  .flash .big { font: 700 112px/1.15 var(--jp); }
+  .flash .prompt { font: 800 28px/1.15 var(--display); }
+  .flash .ask { color: var(--muted); font-size: 15px; font-weight: 700; margin-top: 8px; }
+  .flash .pic { display: grid; grid-template-columns: 110px auto; gap: 14px; justify-content: center; align-items: center; }
+  .flash .pic img { width: 110px; height: 110px; border: 3px solid var(--outline); border-radius: 14px; transform: rotate(-2deg); }
+  .flash .pic .big { font-size: 88px; }
+  .flash .answer { font: 800 23px/1.2 var(--display); margin: 8px 0 4px; }
   .flash .rd { font-size: 17px; margin: 2px 0; }
-  .flash .rd small { color: var(--muted); }
-  .flash .note { font: 500 16px/1.45 var(--serif); margin: 12px 0 0; text-align: left; }
-  .flash img { width: 64px; height: 64px; margin: 8px auto 0; display: block; filter: var(--glyph-filter); }
-  .flash a { font-size: 13px; color: var(--muted); }
-  .swipe-tag { position: absolute; top: 14px; font: 700 13px var(--sans); padding: 3px 9px; border-radius: 7px; opacity: 0; color: #fff; }
-  .swipe-tag.again { right: 14px; background: var(--p0); }
-  .swipe-tag.good { left: 14px; background: var(--p2); }
-  .hint { text-align: center; font-size: 13px; min-height: 20px; margin: 10px 0; }
+  .flash .rd small { color: var(--muted); font-weight: 800; }
+  .flash .note { font-size: 16px; font-weight: 700; line-height: 1.4; margin: 12px 0 8px; padding: 9px 12px; text-align: left; background: var(--bubble); border-radius: 12px; }
+  .flash a { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .swipe-tag { position: absolute; top: 12px; z-index: 2; font: 800 14px var(--body); padding: 3px 10px; border-radius: 10px; border: 3px solid var(--outline); opacity: 0; color: var(--on-color); }
+  .swipe-tag.again { right: 12px; background: var(--coral); transform: rotate(6deg); }
+  .swipe-tag.good { left: 12px; background: var(--mint); transform: rotate(-6deg); }
+  .hint { text-align: center; font-size: 13px; font-weight: 700; min-height: 20px; margin: 14px 0 10px; }
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .grades button { padding: 10px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; }
-  .grades small { font-weight: 400; color: var(--muted); font-size: 12px; }
+  .grades button { padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-color); min-width: 0; }
+  .grades button:nth-child(1) { background: var(--coral); }
+  .grades button:nth-child(2) { background: var(--sun); }
+  .grades button:nth-child(3) { background: var(--mint); }
+  .grades button:nth-child(4) { background: var(--sky); }
+  .grades small { font-weight: 700; font-size: 12px; }
+  #done { position: relative; text-align: center; padding-block: 32px; }
+  #done h2 { font-size: 46px; font-weight: 800; margin: 0 0 8px; }
+  #done p { font-size: 17px; font-weight: 600; }
+  #confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 30; }
+  #confetti i { position: absolute; top: -20px; width: 12px; height: 18px; border: 2px solid var(--outline); border-radius: 3px; animation: fall 1.6s ease-in forwards; }
+  @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
 </style>
 
 <script>
   import {
-    buildQueue, formatInterval, GRADES, grade, loadStore, parseStore, preview, saveStore, summarize, emptyStore,
+    buildQueue, currentStreak, formatInterval, GRADES, grade, loadStore, parseStore, preview, saveStore, summarize, emptyStore,
     introducedToday, type Mode, type Store,
   } from '../lib/srs';
   import { attachSwipe } from '../lib/swipe';
   import { Rating, type Grade } from 'ts-fsrs';
 
-  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; g: string | null; ge: string | null }
+  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string }
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const form = $<HTMLFormElement>('settings');
@@ -119,6 +140,7 @@ import Base from '../layouts/Base.astro';
   let byKanji = new Map<string, C>();
   let queue: string[] = [];
   let reviewed = 0;
+  let sessionSize = 0;
   let mode: Mode = 'meaning';
   let revealed = false;
 
@@ -137,6 +159,7 @@ import Base from '../layouts/Base.astro';
     $('s-due').textContent = String(due);
     $('s-new').textContent = String(newToday);
     $('s-learned').textContent = String(learned);
+    $('s-streak').textContent = String(currentStreak(store, now));
     start.disabled = due + newToday === 0;
     start.textContent = due + newToday ? `Start ${due + newToday} cards` : 'All caught up for today';
   }
@@ -178,6 +201,7 @@ import Base from '../layouts/Base.astro';
     front.hidden = false;
     $('grades').hidden = true;
     $('remaining').textContent = `${queue.length} left`;
+    $('bar-fill').style.width = `${(1 - queue.length / Math.max(sessionSize, queue.length)) * 100}%`;
     $('hint').textContent = 'Tap the card or press Space to reveal';
     flash.setAttribute('aria-label', 'Show answer');
     flash.style.transition = 'none';
@@ -190,7 +214,12 @@ import Base from '../layouts/Base.astro';
       front.append(el('div', 'big', c.k, 'ja'), el('div', 'ask', mode === 'meaning' ? 'What does it mean?' : 'How is it read?'));
     }
 
-    back.append(el('div', 'big', c.k, 'ja'), el('div', 'answer', c.m.join(', ')));
+    const pic = el('div', 'pic');
+    const art = document.createElement('img');
+    art.src = c.a;
+    art.alt = `Drawing for ${c.k}`;
+    pic.append(art, el('div', 'big', c.k, 'ja'));
+    back.append(pic, el('div', 'answer', c.m.join(', ')));
     if (c.on.length) {
       const r = el('div', 'rd');
       r.append(el('small', '', 'on '), el('span', '', c.on.join('、'), 'ja'));
@@ -202,12 +231,6 @@ import Base from '../layouts/Base.astro';
       back.append(r);
     }
     back.append(el('p', 'note', c.n));
-    if (c.g) {
-      const img = document.createElement('img');
-      img.src = c.g;
-      img.alt = `${c.ge} script form of ${c.k}`;
-      back.append(img);
-    }
     const link = el('a', '', 'Open full card') as HTMLAnchorElement;
     link.href = `/kanji/${c.k}/`;
     link.target = '_blank';
@@ -254,12 +277,27 @@ import Base from '../layouts/Base.astro';
       ? `You reviewed ${reviewed} ${reviewed === 1 ? 'card' : 'cards'}. Come back tomorrow for the next batch.`
       : 'Nothing was reviewed this time.';
     show('done');
+    if (reviewed) celebrate();
+  }
+
+  function celebrate() {
+    const box = $('confetti');
+    const colors = ['--coral', '--sun', '--mint', '--sky', '--grape'];
+    box.replaceChildren(...Array.from({ length: 36 }, (_, i) => {
+      const bit = document.createElement('i');
+      bit.style.left = `${Math.random() * 100}%`;
+      bit.style.background = `var(${colors[i % colors.length]})`;
+      bit.style.animationDelay = `${Math.random() * 0.6}s`;
+      return bit;
+    }));
+    setTimeout(() => box.replaceChildren(), 2600);
   }
 
   function begin() {
     mode = store.settings.mode;
     queue = buildQueue(store, inLevel(), mode, store.settings.newPerDay, new Date());
     reviewed = 0;
+    sessionSize = queue.length;
     if (!queue.length) return;
     show('session');
     renderCard();
