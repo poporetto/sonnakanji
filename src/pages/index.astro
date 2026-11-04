@@ -4,8 +4,8 @@ import KanjiTile from '../components/KanjiTile.astro';
 import { allKanji, artPath, byLevel, LEVELS } from '../lib/kanji';
 
 const pick = (chars: string) => [...chars].map((c) => allKanji.find((k) => k.kanji === c)!);
-const collage = pick('休火魚山');
-const samples = pick('犬花雨電走家海');
+const collage = pick('休木山明');
+const samples = pick('日月火川口女家');
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -16,29 +16,30 @@ const jsonLd = {
 ---
 <Base
   title="SonnaKanji: learn JLPT N5 and N4 kanji with pictures"
-  description="245 JLPT N5 and N4 kanji, each with a drawing, a one-line mnemonic, readings and stroke order. Swipe through the cards, then review for free with spaced repetition."
+  description="245 JLPT N5 and N4 kanji, each drawn so the picture matches the shape of the character. Swipe through mnemonics, readings and stroke order, then review for free with spaced repetition."
   {jsonLd}
 >
-  <section class="hero-home">
-    <div>
-      <h1>Kanji you can <em>see.</em></h1>
-      <p>Every card pairs a kanji with a silly little drawing and one short sentence. Swipe through them, then lock them in with spaced repetition.</p>
+  <section class="intro">
+    <div class="pitch">
+      <img src="/mascot/bear.webp" alt="" width="150" height="118" />
+      <h1>Kanji you can picture</h1>
+      <p>Each drawing follows the real shape of the kanji, so the picture and the character stick together.</p>
       <p class="cta">
         <a class="btn primary" href="/jlpt/n5/">Start with N5</a>
         <a class="btn" href="/review/">Review my cards</a>
       </p>
     </div>
-    <div class="collage" aria-hidden="true">
-      {collage.map((k) => (
-        <div class="sticker"><img src={artPath(k.kanji)} alt="" width="200" height="200" /><b lang="ja">{k.kanji}</b></div>
+    <div class="bento" aria-hidden="true">
+      {collage.map((k, i) => (
+        <div style={`background:var(--t${i % 5})`}><img src={artPath(k.kanji)} alt="" width="200" height="200" /></div>
       ))}
     </div>
   </section>
 
   <h2>Pick your level</h2>
   <div class="levels">
-    {LEVELS.map((l) => (
-      <a class={`level ${l.slug}`} href={`/jlpt/${l.slug}/`}>
+    {LEVELS.map((l, i) => (
+      <a class="level" style={`background:var(--t${i * 2 + 1})`} href={`/jlpt/${l.slug}/`}>
         <span class="count">{byLevel(l.id).length}</span>
         <span class="info"><b>JLPT {l.id} kanji</b><span>{l.blurb}</span></span>
       </a>
@@ -47,34 +48,28 @@ const jsonLd = {
 
   <h2>Try a few</h2>
   <ul class="grid">
-    {samples.map((k) => <li><KanjiTile {k} /></li>)}
+    {samples.map((k, i) => <li><KanjiTile {k} index={i} /></li>)}
   </ul>
 </Base>
 
 <style>
-  .hero-home { display: grid; gap: 20px; padding-block: 12px; align-items: center; }
-  h1 { font-size: clamp(54px, 15vw, 92px); font-weight: 800; line-height: .95; letter-spacing: -.04em; margin: 0 0 14px; }
-  h1 em { font-style: normal; color: var(--ink); background: linear-gradient(transparent 62%, var(--sun) 62%); }
-  .hero-home p { font-size: 18px; max-width: 34em; margin: 0; }
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px !important; }
-  .collage { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .sticker { position: relative; border: 3px solid var(--outline); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .15s; }
-  .sticker:nth-child(odd) { transform: rotate(-3deg); }
-  .sticker:nth-child(even) { transform: rotate(3deg) translateY(6px); }
-  .sticker:hover { transform: rotate(0) scale(1.05); }
-  .sticker img { display: block; width: 100%; height: auto; }
-  .sticker b { position: absolute; right: 4px; bottom: 2px; color: var(--on-color); font: 700 clamp(18px, 4vw, 26px)/1.1 var(--jp); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
-  h2 { margin: 36px 0 14px; font-size: 28px; font-weight: 800; }
-  .levels { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .level { display: flex; gap: 14px; align-items: center; color: var(--on-color); border: 3px solid var(--outline); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 18px; text-decoration: none; transition: transform .12s; }
-  .level:hover { transform: translate(-2px, -2px) rotate(-1deg); }
-  .level.n5 { background: var(--sun); }
-  .level.n4 { background: var(--mint); }
-  .count { font: 800 52px/1 var(--display); letter-spacing: -.03em; }
-  .info { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.3; }
-  .info b { font: 800 19px var(--display); }
+  .intro { display: grid; gap: 16px; align-items: center; padding-block: 8px; }
+  .pitch img { display: block; width: 130px; height: auto; margin-bottom: 8px; }
+  h1 { font-size: clamp(42px, 11vw, 68px); font-weight: 800; line-height: 1.04; letter-spacing: -.03em; margin: 0 0 12px; }
+  .pitch p { font-size: 18px; max-width: 32em; margin: 0; color: var(--muted); }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px !important; }
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .bento div { border-radius: 22px; padding: 4px; }
+  .bento img { display: block; width: 100%; height: auto; }
+  h2 { margin: 34px 0 12px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .levels { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .level { display: flex; gap: 14px; align-items: center; color: var(--on-tint); border-radius: var(--radius); padding: 18px 20px; text-decoration: none; transition: transform .15s; }
+  .level:hover { transform: translateY(-3px); }
+  .count { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+  .info { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
+  .info b { font-size: 18px; font-weight: 800; }
   @media (min-width: 760px) {
-    .hero-home { grid-template-columns: 1.15fr 1fr; }
-    .collage { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .intro { grid-template-columns: 1.1fr 1fr; gap: 28px; }
+    .bento { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   }
 </style>

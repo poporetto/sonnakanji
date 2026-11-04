@@ -1,1 +1,1230 @@
-{ "trailingSlash": true }
+{
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/kanji/%E6%97%A5/",
+      "destination": "/kanji/day-hi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%80/",
+      "destination": "/kanji/one-hito/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BA%BA/",
+      "destination": "/kanji/person-hito/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B9%B4/",
+      "destination": "/kanji/year-toshi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%A7/",
+      "destination": "/kanji/large-oo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8D%81/",
+      "destination": "/kanji/ten-too/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BA%8C/",
+      "destination": "/kanji/two-futa/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%AC/",
+      "destination": "/kanji/book-moto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%AD/",
+      "destination": "/kanji/in-naka/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%87%BA/",
+      "destination": "/kanji/exit-deru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%89/",
+      "destination": "/kanji/three-mi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A6%8B/",
+      "destination": "/kanji/see-miru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%88/",
+      "destination": "/kanji/month-tsuki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%9F/",
+      "destination": "/kanji/life-ikiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BA%94/",
+      "destination": "/kanji/five-itsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%8A/",
+      "destination": "/kanji/above-ue/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%9B%9B/",
+      "destination": "/kanji/four-yo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%87%91/",
+      "destination": "/kanji/gold-kane/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B9%9D/",
+      "destination": "/kanji/nine-kokono/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%A5/",
+      "destination": "/kanji/enter-iru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AD%A6/",
+      "destination": "/kanji/study-manabu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%86%86/",
+      "destination": "/kanji/circle-marui/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AD%90/",
+      "destination": "/kanji/child-ko/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%AB/",
+      "destination": "/kanji/eight-ya/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%AD/",
+      "destination": "/kanji/six-mu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%8B/",
+      "destination": "/kanji/below-shita/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%B0%97/",
+      "destination": "/kanji/spirit-iki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B0%8F/",
+      "destination": "/kanji/little-chiisai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%83/",
+      "destination": "/kanji/seven-nana/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B1%B1/",
+      "destination": "/kanji/mountain-yama/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A5%B3/",
+      "destination": "/kanji/woman-onna/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%99%BE/",
+      "destination": "/kanji/hundred-momo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%88/",
+      "destination": "/kanji/before-saki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%90%8D/",
+      "destination": "/kanji/name-na/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B7%9D/",
+      "destination": "/kanji/river-kawa/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8D%83/",
+      "destination": "/kanji/thousand-chi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%B0%B4/",
+      "destination": "/kanji/water-mizu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%B7/",
+      "destination": "/kanji/male-otoko/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%A0%A1/",
+      "destination": "/kanji/school-kou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%9C%9F/",
+      "destination": "/kanji/soil-tsuchi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%A8/",
+      "destination": "/kanji/tree-ki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%BB%8A/",
+      "destination": "/kanji/car-kuruma/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%99%BD/",
+      "destination": "/kanji/white-shiro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%A9/",
+      "destination": "/kanji/heavens-amatsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%81%AB/",
+      "destination": "/kanji/fire-hi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8F%B3/",
+      "destination": "/kanji/right-migi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B7%A6/",
+      "destination": "/kanji/left-hidari/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BC%91/",
+      "destination": "/kanji/rest-yasumu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%9B%A8/",
+      "destination": "/kanji/rain-ame/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%9B%BD/",
+      "destination": "/kanji/country-kuni/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%95%B7/",
+      "destination": "/kanji/long-nagai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%99%82/",
+      "destination": "/kanji/time-toki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A1%8C/",
+      "destination": "/kanji/go-iku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BE%8C/",
+      "destination": "/kanji/behind-nochi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%89%8D/",
+      "destination": "/kanji/in-front-mae/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%96%93/",
+      "destination": "/kanji/interval-aida/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9D%B1/",
+      "destination": "/kanji/east-higashi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BB%8A/",
+      "destination": "/kanji/now-ima/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%AB%98/",
+      "destination": "/kanji/tall-takai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%96/",
+      "destination": "/kanji/outside-soto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9D%A5/",
+      "destination": "/kanji/come-kuru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A9%B1/",
+      "destination": "/kanji/tale-hanasu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8C%97/",
+      "destination": "/kanji/north-kita/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8D%88/",
+      "destination": "/kanji/noon-uma/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9B%B8/",
+      "destination": "/kanji/write-kaku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8D%8A/",
+      "destination": "/kanji/half-nakaba/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A5%BF/",
+      "destination": "/kanji/west-nishi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%9B%BB/",
+      "destination": "/kanji/electricity-den/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%AA%9E/",
+      "destination": "/kanji/word-kataru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%81%9E/",
+      "destination": "/kanji/hear-kiku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A3%9F/",
+      "destination": "/kanji/eat-kuu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BD%95/",
+      "destination": "/kanji/what-nani/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8D%97/",
+      "destination": "/kanji/south-minami/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%87/",
+      "destination": "/kanji/ten-thousand-yorozu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AF%8E/",
+      "destination": "/kanji/every-goto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AF%8D/",
+      "destination": "/kanji/mother-haha/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%AA%AD/",
+      "destination": "/kanji/read-yomu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8F%8B/",
+      "destination": "/kanji/friend-tomo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%88%B6/",
+      "destination": "/kanji/father-chichi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%AB%8B/",
+      "destination": "/kanji/stand-up-tatsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%89%8B/",
+      "destination": "/kanji/hand-te/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8A%9B/",
+      "destination": "/kanji/power-chikara/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%9B%AE/",
+      "destination": "/kanji/eye-me/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%B0/",
+      "destination": "/kanji/rice-field-ta/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AD%A3/",
+      "destination": "/kanji/correct-tadashii/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%96%87/",
+      "destination": "/kanji/writing-fumi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8F%A3/",
+      "destination": "/kanji/mouth-kuchi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%BA/",
+      "destination": "/kanji/town-machi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A9%BA/",
+      "destination": "/kanji/sky-sora/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B6%B3/",
+      "destination": "/kanji/leg-ashi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%97%A9/",
+      "destination": "/kanji/early-hayai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AD%97/",
+      "destination": "/kanji/character-aza/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%9F%B3/",
+      "destination": "/kanji/sound-oto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%8A%B1/",
+      "destination": "/kanji/flower-hana/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B5%A4/",
+      "destination": "/kanji/red-aka/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%9D%92/",
+      "destination": "/kanji/blue-ao/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%95/",
+      "destination": "/kanji/evening-yuu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%8A%AC/",
+      "destination": "/kanji/dog-inu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BC%9A/",
+      "destination": "/kanji/meeting-au/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%90%8C/",
+      "destination": "/kanji/same-onaji/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%87%AA/",
+      "destination": "/kanji/oneself-mizukara/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A4%BE/",
+      "destination": "/kanji/company-yashiro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%9C%B0/",
+      "destination": "/kanji/ground-chi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%96%B9/",
+      "destination": "/kanji/direction-kata/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%96%B0/",
+      "destination": "/kanji/new-atarashii/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A0%B4/",
+      "destination": "/kanji/location-ba/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%98%8E/",
+      "destination": "/kanji/bright-akari/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BA%AC/",
+      "destination": "/kanji/capital-miyako/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%80%9A/",
+      "destination": "/kanji/pass-through-tooru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A8%80/",
+      "destination": "/kanji/say-iu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%90%86/",
+      "destination": "/kanji/reason-kotowari/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BD%93/",
+      "destination": "/kanji/body-karada/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BD%9C/",
+      "destination": "/kanji/make-tsukuru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%A8/",
+      "destination": "/kanji/use-mochiiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BC%B7/",
+      "destination": "/kanji/strong-tsuyoi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%AC/",
+      "destination": "/kanji/public-ooyake/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%87%8E/",
+      "destination": "/kanji/plains-no/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%80%9D/",
+      "destination": "/kanji/think-omou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AE%B6/",
+      "destination": "/kanji/house-ie/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%9A/",
+      "destination": "/kanji/many-ooi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BF%83/",
+      "destination": "/kanji/heart-kokoro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%95%99/",
+      "destination": "/kanji/teach-oshieru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%83/",
+      "destination": "/kanji/origin-moto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%BF%91/",
+      "destination": "/kanji/near-chikai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%80%83/",
+      "destination": "/kanji/consider-kangaeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%94%BB/",
+      "destination": "/kanji/brush-stroke-egaku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%B5%B7/",
+      "destination": "/kanji/sea-umi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A3%B2/",
+      "destination": "/kanji/sell-uru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%9F%A5/",
+      "destination": "/kanji/know-shiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%81%93/",
+      "destination": "/kanji/road-michi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A8%88/",
+      "destination": "/kanji/plot-hakaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%9D/",
+      "destination": "/kanji/morning-asa/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8F%B0/",
+      "destination": "/kanji/stand-utena/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BA%83/",
+      "destination": "/kanji/wide-hiroi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B0%91/",
+      "destination": "/kanji/few-sukunai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B7%A5/",
+      "destination": "/kanji/craft-kou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AD%A2/",
+      "destination": "/kanji/stop-tomaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%88%87/",
+      "destination": "/kanji/cut-kiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%A5%BD/",
+      "destination": "/kanji/fun-tanoshii/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BA%97/",
+      "destination": "/kanji/store-mise/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A6%AA/",
+      "destination": "/kanji/parent-oya/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%AD%94/",
+      "destination": "/kanji/solution-kotaeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%9C/",
+      "destination": "/kanji/night-yo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B8%B0/",
+      "destination": "/kanji/homecoming-kaeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8F%A4/",
+      "destination": "/kanji/old-furui/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AD%8C/",
+      "destination": "/kanji/song-uta/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B2%B7/",
+      "destination": "/kanji/buy-kau/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%9B%B3/",
+      "destination": "/kanji/map-e/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%80%B1/",
+      "destination": "/kanji/week-shuu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AE%A4/",
+      "destination": "/kanji/room-muro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AD%A9/",
+      "destination": "/kanji/walk-aruku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A2%A8/",
+      "destination": "/kanji/wind-kaze/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%B4%99/",
+      "destination": "/kanji/paper-kami/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%BB%92/",
+      "destination": "/kanji/black-kuro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%98%A5/",
+      "destination": "/kanji/springtime-haru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%89%B2/",
+      "destination": "/kanji/color-iro/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B5%B0/",
+      "destination": "/kanji/run-hashiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A7%8B/",
+      "destination": "/kanji/autumn-aki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A4%8F/",
+      "destination": "/kanji/summer-natsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9B%9C/",
+      "destination": "/kanji/weekday-you/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%82%89/",
+      "destination": "/kanji/meat-shishi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%B3%A5/",
+      "destination": "/kanji/bird-tori/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%86%AC/",
+      "destination": "/kanji/winter-fuyu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%98%BC/",
+      "destination": "/kanji/daytime-hiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%8C%B6/",
+      "destination": "/kanji/tea-cha/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BC%9F/",
+      "destination": "/kanji/younger-brother-otouto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%89%9B/",
+      "destination": "/kanji/cow-ushi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%AD%9A/",
+      "destination": "/kanji/fish-uo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%85%84/",
+      "destination": "/kanji/elder-brother-ani/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A6%B9/",
+      "destination": "/kanji/younger-sister-imouto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A7%89/",
+      "destination": "/kanji/elder-sister-ane/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BA%8B/",
+      "destination": "/kanji/matter-koto/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%99%BA/",
+      "destination": "/kanji/depart-tatsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%80%85/",
+      "destination": "/kanji/someone-mono/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%A5%AD/",
+      "destination": "/kanji/business-waza/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%93%A1/",
+      "destination": "/kanji/employee-in/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%96%8B/",
+      "destination": "/kanji/open-hiraku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%95%8F/",
+      "destination": "/kanji/question-tou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BB%A3/",
+      "destination": "/kanji/generation-kawaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8B%95/",
+      "destination": "/kanji/move-ugoku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%BB/",
+      "destination": "/kanji/lord-nushi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A1%8C/",
+      "destination": "/kanji/topic-dai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%84%8F/",
+      "destination": "/kanji/idea-i/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BA%A6/",
+      "destination": "/kanji/degree-tabi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%8C%81/",
+      "destination": "/kanji/hold-motsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%96/",
+      "destination": "/kanji/world-yo/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%AE%89/",
+      "destination": "/kanji/relax-yasui/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%99%A2/",
+      "destination": "/kanji/institution-in/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%95%8C/",
+      "destination": "/kanji/world-kai/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%87%8D/",
+      "destination": "/kanji/heavy-e/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%9B%86/",
+      "destination": "/kanji/gather-atsumaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%89%A9/",
+      "destination": "/kanji/thing-mono/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BD%BF/",
+      "destination": "/kanji/use-tsukau/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%93%81/",
+      "destination": "/kanji/goods-shina/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%AD%BB/",
+      "destination": "/kanji/death-shinu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A7%8B/",
+      "destination": "/kanji/commence-hajimeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%81%8B/",
+      "destination": "/kanji/carry-hakobu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%B5%82/",
+      "destination": "/kanji/end-owaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BD%8F/",
+      "destination": "/kanji/dwell-sumu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%9C%9F/",
+      "destination": "/kanji/true-ma/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%89/",
+      "destination": "/kanji/have-aru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%80%A5/",
+      "destination": "/kanji/hurry-isogu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%80%81/",
+      "destination": "/kanji/escort-okuru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%BB%A2/",
+      "destination": "/kanji/turn-korogaru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A0%94/",
+      "destination": "/kanji/sharpen-togu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A9%B6/",
+      "destination": "/kanji/research-kiwameru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B5%B7/",
+      "destination": "/kanji/wake-up-okiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%9D%80/",
+      "destination": "/kanji/wear-kiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%97%85/",
+      "destination": "/kanji/ill-yamu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BE%85/",
+      "destination": "/kanji/wait-matsu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%97%8F/",
+      "destination": "/kanji/tribe-zoku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%8A%80/",
+      "destination": "/kanji/silver-shirogane/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8C%BB/",
+      "destination": "/kanji/doctor-iyasu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BB%95/",
+      "destination": "/kanji/attend-tsukaeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8E%BB/",
+      "destination": "/kanji/gone-saru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%91%B3/",
+      "destination": "/kanji/flavor-aji/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%86%99/",
+      "destination": "/kanji/copy-utsusu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%B3%A8/",
+      "destination": "/kanji/pour-sosogu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%82%AA/",
+      "destination": "/kanji/bad-warui/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A4%A8/",
+      "destination": "/kanji/large-building-yakata/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%B1%8B/",
+      "destination": "/kanji/house-ya/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%BF%92/",
+      "destination": "/kanji/learn-narau/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A7%85/",
+      "destination": "/kanji/station-eki/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%B4%8B/",
+      "destination": "/kanji/ocean-you/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%97%85/",
+      "destination": "/kanji/trip-tabi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%9C%8D/",
+      "destination": "/kanji/clothes-fuku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A3%B2/",
+      "destination": "/kanji/drink-nomu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%8B%89/",
+      "destination": "/kanji/exertion-tsutomeru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%BC%A2/",
+      "destination": "/kanji/china-kan/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%B8%8D/",
+      "destination": "/kanji/not-fu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E4%BB%A5/",
+      "destination": "/kanji/by-means-of-motte/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%88%A5/",
+      "destination": "/kanji/separate-wakareru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%89%B9/",
+      "destination": "/kanji/special-toku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%96%99/",
+      "destination": "/kanji/fee-ryou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%BB%BA/",
+      "destination": "/kanji/build-tateru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%A9%A6/",
+      "destination": "/kanji/test-kokoromiru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A8%93/",
+      "destination": "/kanji/verification-akashi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%8B%B1/",
+      "destination": "/kanji/england-hanabusa/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%80%9F/",
+      "destination": "/kanji/borrow-kariru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E5%A0%82/",
+      "destination": "/kanji/public-chamber-dou/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E9%A3%AF/",
+      "destination": "/kanji/meal-meshi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B3%AA/",
+      "destination": "/kanji/quality-tachi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E8%B2%B8/",
+      "destination": "/kanji/lend-kasu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E7%A7%81/",
+      "destination": "/kanji/private-watakushi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/%E6%98%A0/",
+      "destination": "/kanji/reflect-utsuru/",
+      "permanent": true
+    }
+  ]
+}

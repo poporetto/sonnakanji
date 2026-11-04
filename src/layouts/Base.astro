@@ -28,15 +28,15 @@ const here = Astro.url.pathname;
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#efeaff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#15112b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8edc9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#2a2118" media="(prefers-color-scheme: dark)" />
     {prefetch.map((href) => <link rel="prefetch" href={href} />)}
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
   </head>
   <body>
     <header class="site-head">
       <div class="wrap"><div class="site-bar">
-        <a class="brand" href="/"><i lang="ja">漢</i>SonnaKanji</a>
+        <a class="brand" href="/"><img src="/mascot/bear.webp" alt="" width="48" height="38" />SonnaKanji</a>
         <nav aria-label="Main">
           <a href="/jlpt/n5/" aria-current={here.startsWith('/jlpt/n5') ? 'page' : undefined}>N5</a>
           <a href="/jlpt/n4/" aria-current={here.startsWith('/jlpt/n4') ? 'page' : undefined}>N4</a>

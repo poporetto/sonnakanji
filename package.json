@@ -9,14 +9,17 @@
     "preview": "astro preview",
     "data": "node scripts/build-data.mjs",
     "art": "node scripts/build-art.mjs",
+    "slugs": "node scripts/build-slugs.mjs",
     "test": "node --test src/lib/*.test.ts"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@fontsource-variable/nunito": "^5.3.0",
-    "@fontsource/zen-maru-gothic": "^5.3.1",
+    "@fontsource/m-plus-rounded-1c": "^5.3.0",
     "astro": "^7.4.5",
     "ts-fsrs": "^6.0.0",
     "wanakana": "^5.3.1"
+  },
+  "devDependencies": {
+    "svg-path-properties": "^2.2.0"
   }
 }

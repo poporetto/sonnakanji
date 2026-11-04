@@ -57,6 +57,7 @@ import Base from '../layouts/Base.astro';
 
     <section id="done" hidden>
       <div id="confetti" aria-hidden="true"></div>
+      <img src="/mascot/bear.webp" alt="" width="170" height="134" />
       <h2>Nice work!</h2>
       <p id="done-msg"></p>
       <button class="btn primary" id="again">Back to review</button>
@@ -68,55 +69,54 @@ import Base from '../layouts/Base.astro';
   .review { max-width: 520px; margin: 0 auto; }
   .review h1 { font-size: clamp(38px, 9vw, 52px); font-weight: 800; margin: 12px 0 8px; }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
-  .stats div { background: var(--surface); border: 3px solid var(--outline); border-radius: 16px; padding: 8px 2px; text-align: center; box-shadow: var(--shadow-sm); min-width: 0; }
-  .stats b { display: block; font: 800 26px/1.2 var(--display); font-variant-numeric: tabular-nums; }
+  .stats div { background: var(--surface); border-radius: 16px; padding: 8px 2px; text-align: center; box-shadow: var(--soft); min-width: 0; }
+  .stats b { display: block; font: 800 26px/1.2 var(--body); font-variant-numeric: tabular-nums; }
   .stats span { display: block; font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.15; }
-  .stats .streak { background: var(--sun); color: var(--on-color); }
-  .stats .streak span { color: var(--on-color); }
+  .stats .streak { background: var(--t1); color: var(--on-tint); }
+  .stats .streak span { color: var(--on-tint); }
   .settings { display: grid; gap: 10px; margin-bottom: 16px; }
   .settings label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 800; font-size: 15px; }
-  .settings select { font: 700 16px var(--body); padding: 7px 8px; border-radius: 12px; border: 3px solid var(--outline); background: var(--surface); color: var(--ink); min-width: 0; }
+  .settings select { font: 700 16px var(--body); padding: 8px 10px; border-radius: 12px; border: 0; background: var(--surface); color: var(--ink); min-width: 0; }
   .start { width: 100%; padding: 14px; font-size: 18px; }
   .start:disabled { background: var(--surface); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
   .backup { margin-top: 22px; font-size: 15px; font-weight: 600; }
   .backup summary { cursor: pointer; font-weight: 800; }
   .backup .btn { font-size: 14px; padding: 7px 12px; margin: 0 6px 8px 0; }
   .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-  .bar { height: 14px; border: 3px solid var(--outline); border-radius: 999px; background: var(--surface); overflow: hidden; margin-bottom: 14px; }
-  .bar i { display: block; height: 100%; width: 0; background: var(--mint); transition: width .25s; }
+  .bar { height: 14px; border-radius: 999px; background: var(--surface); overflow: hidden; margin-bottom: 14px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--t2); transition: width .25s; }
   .link { background: none; border: 0; color: inherit; text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
   .flash {
-    position: relative; background: var(--surface); border: 3px solid var(--outline); border-radius: var(--radius); box-shadow: var(--shadow);
+    position: relative; background: var(--surface); border-radius: var(--radius); box-shadow: var(--soft);
     padding: 20px 16px; min-height: 360px; display: flex; flex-direction: column; justify-content: center;
     text-align: center; touch-action: pan-y; cursor: pointer; user-select: none; -webkit-user-select: none; overflow-wrap: anywhere;
   }
   .flash .big { font: 700 112px/1.15 var(--jp); }
-  .flash .prompt { font: 800 28px/1.15 var(--display); }
+  .flash .prompt { font: 800 28px/1.15 var(--body); }
   .flash .ask { color: var(--muted); font-size: 15px; font-weight: 700; margin-top: 8px; }
-  .flash .pic { display: grid; grid-template-columns: 110px auto; gap: 14px; justify-content: center; align-items: center; }
-  .flash .pic img { width: 110px; height: 110px; border: 3px solid var(--outline); border-radius: 14px; transform: rotate(-2deg); }
-  .flash .pic .big { font-size: 88px; }
-  .flash .answer { font: 800 23px/1.2 var(--display); margin: 8px 0 4px; }
+  .flash .pic { display: grid; justify-content: center; }
+  .flash .pic img { width: 170px; height: 170px; background: var(--t1); border-radius: 14px; }
+  .flash .answer { font: 800 23px/1.2 var(--body); margin: 8px 0 4px; }
   .flash .rd { font-size: 17px; margin: 2px 0; }
   .flash .rd small { color: var(--muted); font-weight: 800; }
-  .flash .note { font-size: 16px; font-weight: 700; line-height: 1.4; margin: 12px 0 8px; padding: 9px 12px; text-align: left; background: var(--bubble); border-radius: 12px; }
+  .flash .note { font-size: 16px; font-weight: 700; line-height: 1.4; margin: 12px 0 8px; padding: 9px 12px; text-align: left; background: var(--wash); border-radius: 12px; }
   .flash a { font-size: 13px; font-weight: 700; color: var(--muted); }
-  .swipe-tag { position: absolute; top: 12px; z-index: 2; font: 800 14px var(--body); padding: 3px 10px; border-radius: 10px; border: 3px solid var(--outline); opacity: 0; color: var(--on-color); }
-  .swipe-tag.again { right: 12px; background: var(--coral); transform: rotate(6deg); }
-  .swipe-tag.good { left: 12px; background: var(--mint); transform: rotate(-6deg); }
+  .swipe-tag { position: absolute; top: 12px; z-index: 2; font: 800 14px var(--body); padding: 3px 10px; border-radius: 10px; opacity: 0; color: var(--on-tint); }
+  .swipe-tag.again { right: 12px; background: var(--t0); }
+  .swipe-tag.good { left: 12px; background: var(--t2); }
   .hint { text-align: center; font-size: 13px; font-weight: 700; min-height: 20px; margin: 14px 0 10px; }
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .grades button { padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-color); min-width: 0; }
-  .grades button:nth-child(1) { background: var(--coral); }
-  .grades button:nth-child(2) { background: var(--sun); }
-  .grades button:nth-child(3) { background: var(--mint); }
-  .grades button:nth-child(4) { background: var(--sky); }
+  .grades button { padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-tint); min-width: 0; }
+  .grades button:nth-child(1) { background: var(--t0); }
+  .grades button:nth-child(2) { background: var(--t1); }
+  .grades button:nth-child(3) { background: var(--t2); }
+  .grades button:nth-child(4) { background: var(--t3); }
   .grades small { font-weight: 700; font-size: 12px; }
   #done { position: relative; text-align: center; padding-block: 32px; }
   #done h2 { font-size: 46px; font-weight: 800; margin: 0 0 8px; }
   #done p { font-size: 17px; font-weight: 600; }
   #confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 30; }
-  #confetti i { position: absolute; top: -20px; width: 12px; height: 18px; border: 2px solid var(--outline); border-radius: 3px; animation: fall 1.6s ease-in forwards; }
+  #confetti i { position: absolute; top: -20px; width: 12px; height: 18px; border-radius: 3px; animation: fall 1.6s ease-in forwards; }
   @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
 </style>
 
@@ -128,7 +128,7 @@ import Base from '../layouts/Base.astro';
   import { attachSwipe } from '../lib/swipe';
   import { Rating, type Grade } from 'ts-fsrs';
 
-  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string }
+  interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string; u: string }
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const form = $<HTMLFormElement>('settings');
@@ -218,7 +218,8 @@ import Base from '../layouts/Base.astro';
     const art = document.createElement('img');
     art.src = c.a;
     art.alt = `Drawing for ${c.k}`;
-    pic.append(art, el('div', 'big', c.k, 'ja'));
+    pic.append(art);
+    if (mode === 'recall') pic.append(el('div', 'big', c.k, 'ja'));
     back.append(pic, el('div', 'answer', c.m.join(', ')));
     if (c.on.length) {
       const r = el('div', 'rd');
@@ -232,7 +233,7 @@ import Base from '../layouts/Base.astro';
     }
     back.append(el('p', 'note', c.n));
     const link = el('a', '', 'Open full card') as HTMLAnchorElement;
-    link.href = `/kanji/${c.k}/`;
+    link.href = c.u;
     link.target = '_blank';
     back.append(link);
   }
@@ -282,7 +283,7 @@ import Base from '../layouts/Base.astro';
 
   function celebrate() {
     const box = $('confetti');
-    const colors = ['--coral', '--sun', '--mint', '--sky', '--grape'];
+    const colors = ['--t0', '--t1', '--t2', '--t3', '--t4'];
     box.replaceChildren(...Array.from({ length: 36 }, (_, i) => {
       const bit = document.createElement('i');
       bit.style.left = `${Math.random() * 100}%`;

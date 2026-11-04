@@ -4,45 +4,50 @@ import StrokeDiagram from './StrokeDiagram.astro';
 
 interface Props { k: Kanji; position: number; total: number; prev: Kanji; next: Kanji }
 const { k, position, total, prev, next } = Astro.props;
+const tint = `var(--t${position % 5})`;
 const parts = k.vg.parts.filter((p) => p.el);
 const meaning = k.meanings.join(', ');
 const kunShown = k.kun.slice(0, 5);
 const kunMore = k.kun.slice(5);
 ---
-<article class="kcard" id="card" data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
-  <div class="kcard-top">
-    <a class={`badge ${k.level.toLowerCase()}`} href={`/jlpt/${k.level.toLowerCase()}/`}>JLPT {k.level}</a>
-    <span class="muted">{position} of {total} · {k.strokes} strokes</span>
+<article class="kcard" id="card" style={`--tint:${tint}`} data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
+  <div class="panel art-panel">
+    <img class="art" src={artPath(k.kanji)} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
   </div>
 
-  <header class="hero">
-    <img class="art" src={artPath(k.kanji)} alt={`Drawing: ${k.mnemonic}`} width="200" height="200" fetchpriority="high" />
-    <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span></h1>
+  <header class="panel title">
+    <h1><span class="vh" lang="ja">{k.kanji} means </span><span class="meaning">{k.meanings[0]}</span></h1>
+    {k.meanings.length > 1 && <p class="also">{k.meanings.slice(1).join(', ')}</p>}
+    <p class="meta">
+      <a class="chip" href={`/jlpt/${k.level.toLowerCase()}/`}>{k.level}</a>
+      <span class="chip plain">{position} of {total}</span>
+      <span class="chip plain">{k.strokes} strokes</span>
+    </p>
   </header>
-  <p class="meaning">{meaning}</p>
 
-  <p class="mnemonic">{k.mnemonic}</p>
+  <div class="panel story">
+    <img src="/mascot/bear.webp" alt="" width="64" height="50" loading="lazy" />
+    <p class="mnemonic">{k.mnemonic}</p>
+  </div>
 
-  <dl class="readings">
+  <section class="panel read" aria-label="Readings">
     <div>
-      <dt>On'yomi <small lang="ja">音読み</small></dt>
-      <dd>{k.on.length ? k.on.map((r) => <span class="pill on"><b lang="ja">{r.kana}</b> {r.romaji}</span>) : '—'}</dd>
+      <h2>On'yomi</h2>
+      <ul class="readings">{k.on.length ? k.on.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>) : <li>None</li>}</ul>
     </div>
     <div>
-      <dt>Kun'yomi <small lang="ja">訓読み</small></dt>
-      <dd>
-        {k.kun.length ? kunShown.map((r) => <span class="pill kun"><b lang="ja">{r.kana}</b> {r.romaji}</span>) : '—'}
-        {kunMore.length > 0 && (
-          <details class="more">
-            <summary>{kunMore.length} more</summary>
-            <div>{kunMore.map((r) => <span class="pill kun"><b lang="ja">{r.kana}</b> {r.romaji}</span>)}</div>
-          </details>
-        )}
-      </dd>
+      <h2>Kun'yomi</h2>
+      <ul class="readings">{k.kun.length ? kunShown.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>) : <li>None</li>}</ul>
+      {kunMore.length > 0 && (
+        <details class="more">
+          <summary>{kunMore.length} more</summary>
+          <ul class="readings">{kunMore.map((r) => <li><b lang="ja">{r.kana}</b><span>{r.romaji}</span></li>)}</ul>
+        </details>
+      )}
     </div>
-  </dl>
+  </section>
 
-  <section class="build" aria-labelledby="build-h">
+  <section class="panel build" aria-labelledby="build-h">
     <h2 id="build-h">How it's built</h2>
     <div class="build-row">
       <button type="button" class="stroke-btn" id="play" aria-label={`Play stroke order for ${k.kanji}`}>
@@ -62,9 +67,20 @@ const kunMore = k.kun.slice(5);
     </div>
   </section>
 
+  {k.words.length > 0 && (
+    <section class="panel" aria-labelledby="words-h">
+      <h2 id="words-h">Common words</h2>
+      <ul class="words">
+        {k.words.map((w) => (
+          <li><b lang="ja">{w.w}</b><span lang="ja" class="muted">{w.r}</span><span class="gloss">{w.m}</span></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
   {k.glyphs.length > 0 && (
-    <figure class="evolution">
-      <h2>From ancient forms to today</h2>
+    <figure class="panel evolution">
+      <h2>Through history</h2>
       <ol>
         {k.glyphs.map((g) => (
           <li>
@@ -72,21 +88,10 @@ const kunMore = k.kun.slice(5);
             <span>{g.label}</span>
           </li>
         ))}
-        <li class="now"><span class="modern" lang="ja" aria-hidden="true">{k.kanji}</span><span>Today</span></li>
+        <li><span class="modern" lang="ja" aria-hidden="true">{k.kanji}</span><span>Today</span></li>
       </ol>
       {k.trad && <figcaption>Written <span lang="ja">{k.trad}</span> before Japan's postwar reform.</figcaption>}
     </figure>
-  )}
-
-  {k.words.length > 0 && (
-    <section aria-labelledby="words-h">
-      <h2 id="words-h">Common words</h2>
-      <ul class="words">
-        {k.words.map((w) => (
-          <li><b lang="ja">{w.w}</b> <span lang="ja" class="muted">{w.r}</span> <span>{w.m}</span></li>
-        ))}
-      </ul>
-    </section>
   )}
 </article>
 
@@ -98,74 +103,66 @@ const kunMore = k.kun.slice(5);
 
 <style is:global>
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .kcard {
-    display: grid; gap: 18px; background: var(--surface); border: 3px solid var(--outline); border-radius: var(--radius);
-    box-shadow: var(--shadow); padding: 16px; max-width: 620px; margin: 0 auto; touch-action: pan-y; will-change: transform;
-  }
+  .kcard { display: grid; gap: 12px; touch-action: pan-y; will-change: transform; }
   .kcard > * { min-width: 0; }
-  .kcard-top { display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 700; flex-wrap: wrap; }
-  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; align-items: center; }
-  .hero .art { display: block; width: 100%; height: auto; aspect-ratio: 1; border: 3px solid var(--outline); border-radius: 18px; transform: rotate(-2deg); box-shadow: var(--shadow-sm); }
-  .hero h1 { margin: 0; text-align: center; font-weight: 700; }
-  .hero .glyph { display: block; font: 700 clamp(92px, 30vw, 168px)/1.1 var(--jp); }
-  .meaning { margin: -8px 0 0; font: 800 clamp(24px, 6vw, 32px)/1.15 var(--display); letter-spacing: -.02em; text-align: center; text-wrap: balance; }
-  .mnemonic {
-    position: relative; margin: 0; padding: 12px 16px; font-size: 18px; font-weight: 700; line-height: 1.4;
-    background: var(--bubble); border: 3px solid var(--outline); border-radius: 18px;
-  }
-  .mnemonic::before {
-    content: ""; position: absolute; top: -13px; left: 26px; width: 20px; height: 20px; background: var(--bubble);
-    border-left: 3px solid var(--outline); border-top: 3px solid var(--outline); transform: rotate(45deg) skew(10deg, 10deg);
-  }
-  .readings { display: grid; gap: 12px; margin: 0; }
-  .readings dt { font: 800 15px var(--display); }
-  .readings dt small { color: var(--muted); font: 500 13px var(--jp); }
-  .readings dd { margin: 5px 0 0; display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); }
-  .pill { display: inline-flex; align-items: baseline; gap: 5px; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--ink); }
-  .pill b { font-size: 17px; font-weight: 500; }
-  .pill.on { background: var(--tint-sky); }
-  .pill.kun { background: var(--tint-coral); }
-  .more { width: 100%; font-size: 14px; font-weight: 700; }
-  .more summary { cursor: pointer; }
-  .more div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-  .kcard h2 { font-size: 19px; font-weight: 800; margin: 0 0 8px; }
+  .panel { background: var(--surface); border-radius: var(--radius); padding: 18px; box-shadow: var(--soft); }
+  .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
+  .art-panel { background: var(--tint); padding: 8px; display: grid; place-items: center; }
+  .art { display: block; width: 100%; max-width: 340px; height: auto; aspect-ratio: 1; }
+  .title h1 { margin: 0; display: flex; align-items: center; gap: 16px; }
+  .title .meaning { font-size: clamp(34px, 9vw, 48px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; text-transform: capitalize; }
+  .also { margin: 8px 0 0; color: var(--muted); }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+  .chip { padding: 3px 12px; border-radius: 999px; background: var(--tint); color: var(--on-tint); font-size: 14px; font-weight: 800; text-decoration: none; }
+  .chip.plain { background: var(--wash); color: var(--muted); }
+  .story { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: center; background: var(--tint); color: var(--on-tint); }
+  .story img { display: block; width: 64px; height: auto; }
+  .mnemonic { margin: 0; font-size: 19px; font-weight: 700; line-height: 1.35; }
+  .read { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  .readings { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .readings li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+  .readings b { font: 500 20px/1.2 var(--jp); }
+  .readings span { color: var(--muted); font-size: 15px; font-weight: 600; }
+  .more { margin-top: 6px; font-size: 14px; font-weight: 700; color: var(--muted); }
+  .more summary { cursor: pointer; margin-bottom: 6px; }
   .build-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-  .stroke-btn { border: 3px solid var(--outline); background: var(--tint-grape); color: var(--ink); border-radius: 16px; padding: 6px 8px; cursor: pointer; font: 800 12px var(--body); touch-action: manipulation; box-shadow: var(--shadow-sm); }
-  .stroke-btn:active { transform: translate(3px, 3px); box-shadow: none; }
-  .strokes { display: block; width: 116px; height: 116px; fill: none; stroke: var(--ink); stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
-  .strokes .guide { stroke: var(--muted); stroke-opacity: .4; stroke-width: .6; stroke-dasharray: 2 2; }
+  .stroke-btn { border: 0; background: var(--wash); color: var(--ink); border-radius: 18px; padding: 8px; cursor: pointer; font: 700 13px var(--body); touch-action: manipulation; }
+  .strokes { display: block; width: 116px; height: 116px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .strokes .guide { stroke: var(--muted); stroke-opacity: .3; stroke-width: .6; stroke-dasharray: 2 2; }
   .strokes .p0 { stroke: var(--p0); } .strokes .p1 { stroke: var(--p1); } .strokes .p2 { stroke: var(--p2); } .strokes .p3 { stroke: var(--p3); } .strokes .p4 { stroke: var(--p4); }
   .strokes.play path:not(.guide) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .42s ease-in-out forwards; animation-delay: calc(var(--i) * .45s); }
   @keyframes draw { to { stroke-dashoffset: 0; } }
-  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-weight: 700; flex: 1 1 140px; }
-  .parts li { display: flex; align-items: center; gap: 8px; }
-  .part-chip { font: 700 24px/1 var(--jp); }
+  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-weight: 700; flex: 1 1 130px; }
+  .parts li { display: flex; align-items: center; gap: 10px; }
+  .part-chip { font: 500 26px/1 var(--jp); }
   .part-chip.p0 { color: var(--p0); } .part-chip.p1 { color: var(--p1); } .part-chip.p2 { color: var(--p2); } .part-chip.p3 { color: var(--p3); } .part-chip.p4 { color: var(--p4); }
+  .words { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .words li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 10px; align-items: baseline; }
+  .words b { font: 500 21px/1.3 var(--jp); }
+  .words .gloss { grid-column: 1 / -1; font-size: 15px; color: var(--muted); }
   .evolution { margin: 0; }
   .evolution ol { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; }
-  .evolution li { flex: 1 1 0; min-width: 0; max-width: 130px; text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); }
-  .evolution img, .evolution .modern { display: block; width: 100%; height: auto; aspect-ratio: 1; padding: 6px; background: var(--tint-sun); border-radius: 14px; margin-bottom: 3px; }
-  .evolution img { filter: var(--glyph-filter); background: none; }
-  .evolution li:not(.now) { position: relative; }
-  .evolution li:not(.now)::before { content: ""; position: absolute; inset: 0 0 auto 0; aspect-ratio: 1; background: var(--tint-sun); border-radius: 14px; z-index: 0; }
-  .evolution li img, .evolution li > span { position: relative; z-index: 1; }
-  .evolution .modern { display: grid; place-items: center; font: 700 clamp(34px, 11vw, 56px)/1 var(--jp); color: var(--ink); background: var(--sun); color: var(--on-color); }
-  .evolution figcaption { color: var(--muted); font-size: 13px; font-weight: 600; margin-top: 6px; }
-  .words { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .words li { padding: 6px 12px; background: var(--tint-mint); border-radius: 12px; font-size: 15px; font-weight: 600; }
-  .words b { font-size: 18px; font-weight: 700; }
-  .pager { display: flex; justify-content: space-between; gap: 12px; max-width: 620px; margin: 18px auto 0; }
-  .pager .btn { font-size: 14px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .swipe-hint { display: none; text-align: center; font-size: 13px; font-weight: 700; margin: 12px 0 0; }
+  .evolution li { flex: 1 1 0; min-width: 0; max-width: 110px; text-align: center; font-size: 13px; font-weight: 700; color: var(--muted); }
+  .evolution img { display: block; width: 100%; height: auto; aspect-ratio: 1; filter: var(--glyph-filter); }
+  .evolution .modern { display: grid; place-items: center; width: 100%; aspect-ratio: 1; font: 500 clamp(34px, 11vw, 54px)/1 var(--jp); color: var(--ink); }
+  .evolution figcaption { color: var(--muted); font-size: 14px; margin-top: 6px; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; margin: 16px 0 0; }
+  .pager .btn { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
+  .swipe-hint { display: none; text-align: center; font-size: 14px; margin: 10px 0 0; }
   @media (pointer: coarse) { .swipe-hint { display: block; } }
-  @media (min-width: 620px) {
-    .kcard { padding: 22px 26px; }
-    .readings { grid-template-columns: 1fr 1fr; }
+  @media (min-width: 760px) {
+    .kcard { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+    .kcard > * { grid-column: span 3; }
+    .art-panel { grid-column: span 2; grid-row: span 2; }
+    .title, .story { grid-column: span 4; }
+    .read { grid-column: span 3; }
+    .build { grid-column: span 3; }
+    .panel { padding: 22px; }
   }
-  .kcard.enter-left { animation: enter-left .24s cubic-bezier(.2, 1.3, .5, 1); }
-  .kcard.enter-right { animation: enter-right .24s cubic-bezier(.2, 1.3, .5, 1); }
-  @keyframes enter-left { from { transform: translateX(70px) rotate(3deg); opacity: 0; } }
-  @keyframes enter-right { from { transform: translateX(-70px) rotate(-3deg); opacity: 0; } }
+  .kcard.enter-left { animation: enter-left .24s ease-out; }
+  .kcard.enter-right { animation: enter-right .24s ease-out; }
+  @keyframes enter-left { from { transform: translateX(60px); opacity: 0; } }
+  @keyframes enter-right { from { transform: translateX(-60px); opacity: 0; } }
 </style>
 
 <script>

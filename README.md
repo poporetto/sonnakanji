@@ -22,6 +22,7 @@ production domain automatically; set `SITE_URL` in Vercel to override it.
 | `src/data/mnemonics.json` | Hand | One sentence per kanji |
 | `src/data/meanings.json` | Hand | Replaces noisy KANJIDIC headline meanings |
 | `src/data/parts.json` | Hand | English names for kanji components |
+| `src/data/slugs.json` | `node scripts/build-slugs.mjs` | Permanent URL per kanji; existing entries never change |
 | `scripts/art/scenes.mjs` | Hand | One drawing per kanji, built from the kit in `sprites.mjs` |
 | `public/art/` | `npm run art` | SVGs rendered from the scenes; rerun after editing a scene |
 

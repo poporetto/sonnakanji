@@ -28,14 +28,14 @@ const jsonLd = {
     <a class="btn" href={kanjiPath(list[0].kanji)}>Start from the first card</a>
   </p>
   <ul class="grid">
-    {list.map((k) => (
-      <li><KanjiTile {k} /></li>
+    {list.map((k, i) => (
+      <li><KanjiTile {k} index={i} /></li>
     ))}
   </ul>
 </Base>
 
 <style>
-  h1 { font-size: clamp(36px, 8vw, 56px); margin: 12px 0 8px; font-weight: 800; }
+  h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; font-weight: 800; letter-spacing: -.03em; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
 </style>
 

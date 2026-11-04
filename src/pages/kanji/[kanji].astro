@@ -1,11 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
 import KanjiCard from '../../components/KanjiCard.astro';
-import { allKanji, kanjiPath, byLevel, type Kanji } from '../../lib/kanji';
+import { allKanji, kanjiPath, byLevel, slugOf, type Kanji } from '../../lib/kanji';
 
 export function getStaticPaths() {
   return allKanji.map((k, i) => ({
-    params: { kanji: k.kanji },
+    params: { kanji: slugOf(k.kanji) },
     props: {
       k,
       prev: allKanji[(i - 1 + allKanji.length) % allKanji.length],

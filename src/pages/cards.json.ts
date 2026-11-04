@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { allKanji, artPath } from '../lib/kanji';
+import { allKanji, artPath, kanjiPath } from '../lib/kanji';
 
 // The small payload the review page needs, separate from the indexable pages.
 export const GET: APIRoute = () =>
@@ -13,6 +13,7 @@ export const GET: APIRoute = () =>
         kun: k.kun.map((r) => r.kana),
         n: k.mnemonic,
         a: artPath(k.kanji),
+        u: kanjiPath(k.kanji),
       })),
     ),
     { headers: { 'Content-Type': 'application/json' } },

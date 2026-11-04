@@ -2,6 +2,8 @@ import raw from '../data/kanji.json';
 import mnemonics from '../data/mnemonics.json';
 import partNames from '../data/parts.json';
 import meaningFixes from '../data/meanings.json';
+import handArt from '../data/hand-art.json';
+import slugs from '../data/slugs.json';
 
 export interface Reading { kana: string; romaji: string }
 export interface Glyph { era: string; label: string; src: string; char: string; page: string; license: string; artist: string }
@@ -35,6 +37,7 @@ const cleanMeanings = (k: { kanji: string; meanings: string[] }) =>
 export const allKanji = (raw as Omit<Kanji, 'mnemonic'>[]).map((k) => ({
   ...k,
   meanings: cleanMeanings(k),
+  kun: [...new Map(k.kun.map((r) => [r.romaji, r])).values()],
   mnemonic: notes[k.kanji] ?? '',
 })) as Kanji[];
 
@@ -46,5 +49,7 @@ export const LEVELS = [
 ] as const;
 
 export const partName = (p: KanjiPart) => names[p.original ?? p.el ?? ''] ?? names[p.el ?? ''] ?? null;
-export const kanjiPath = (c: string) => `/kanji/${c}/`;
-export const artPath = (c: string) => `/art/${c.codePointAt(0)!.toString(16)}.svg`;
+export const slugOf = (c: string) => (slugs as Record<string, string>)[c];
+export const kanjiPath = (c: string) => `/kanji/${slugOf(c)}/`;
+export const artPath = (c: string) =>
+  (handArt as Record<string, string>)[c] ?? `/art/${c.codePointAt(0)!.toString(16)}.svg`;
