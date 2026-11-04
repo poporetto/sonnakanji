@@ -1,0 +1,187 @@
+---
+import { kanjiPath, partName, type Kanji } from '../lib/kanji';
+import StrokeDiagram from './StrokeDiagram.astro';
+
+interface Props { k: Kanji; position: number; total: number; prev: Kanji; next: Kanji }
+const { k, position, total, prev, next } = Astro.props;
+const parts = k.vg.parts.filter((p) => p.el);
+const meaning = k.meanings.join(', ');
+const kunShown = k.kun.slice(0, 5);
+const kunMore = k.kun.slice(5);
+---
+<article class="kcard" id="card" data-prev={kanjiPath(prev.kanji)} data-next={kanjiPath(next.kanji)}>
+  <div class="kcard-top">
+    <a class="badge" href={`/jlpt/${k.level.toLowerCase()}/`}>JLPT {k.level}</a>
+    <span class="muted">{position} of {total} · {k.strokes} strokes{k.originType ? ` · ${k.originType}` : ''}</span>
+  </div>
+
+  <header class="kcard-hero">
+    <h1><span class="glyph" lang="ja">{k.kanji}</span><span class="vh"> means </span><span class="meaning">{meaning}</span></h1>
+  </header>
+
+  <p class="mnemonic">{k.mnemonic}</p>
+
+  {k.glyphs.length > 0 && (
+    <figure class="evolution">
+      <ol>
+        {k.glyphs.map((g) => (
+          <li>
+            <img src={g.src} alt={`${g.label} script form of ${g.char}`} width="84" height="84" loading="lazy" decoding="async" />
+            <span>{g.label}</span>
+          </li>
+        ))}
+        <li class="now"><span class="modern" lang="ja" aria-hidden="true">{k.kanji}</span><span>Today</span></li>
+      </ol>
+      <figcaption>
+        How the shape of {k.kanji}{k.trad ? ` (formerly ${k.trad})` : ''} changed through history.
+      </figcaption>
+    </figure>
+  )}
+
+  <dl class="readings">
+    <div>
+      <dt>On'yomi <small>音読み</small></dt>
+      <dd>{k.on.length ? k.on.map((r) => <span class="reading"><b lang="ja">{r.kana}</b> {r.romaji}</span>) : '—'}</dd>
+    </div>
+    <div>
+      <dt>Kun'yomi <small>訓読み</small></dt>
+      <dd>
+        {k.kun.length ? kunShown.map((r) => <span class="reading"><b lang="ja">{r.kana}</b> {r.romaji}</span>) : '—'}
+        {kunMore.length > 0 && (
+          <details class="more">
+            <summary>{kunMore.length} more</summary>
+            {kunMore.map((r) => <span class="reading"><b lang="ja">{r.kana}</b> {r.romaji}</span>)}
+          </details>
+        )}
+      </dd>
+    </div>
+  </dl>
+
+  <section class="build" aria-labelledby="build-h">
+    <h2 id="build-h">How it's built</h2>
+    <div class="build-row">
+      <button type="button" class="stroke-btn" id="play" aria-label={`Play stroke order for ${k.kanji}`}>
+        <StrokeDiagram k={k} />
+        <span>▶ Stroke order</span>
+      </button>
+      {parts.length > 1 && (
+        <ul class="parts">
+          {parts.map((p) => (
+            <li>
+              <span class={`part-chip p${k.vg.parts.indexOf(p) % 5}`} lang="ja">{p.el}</span>
+              {partName(p) && <span>{partName(p)}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  {k.words.length > 0 && (
+    <section aria-labelledby="words-h">
+      <h2 id="words-h">Common words</h2>
+      <ul class="words">
+        {k.words.map((w) => (
+          <li><b lang="ja">{w.w}</b> <span lang="ja" class="muted">{w.r}</span> <span>{w.m}</span></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</article>
+
+<nav class="pager" aria-label="Kanji cards">
+  <a class="btn" rel="prev" href={kanjiPath(prev.kanji)}>← <span lang="ja">{prev.kanji}</span> {prev.meanings[0]}</a>
+  <a class="btn" rel="next" href={kanjiPath(next.kanji)}>{next.meanings[0]} <span lang="ja">{next.kanji}</span> →</a>
+</nav>
+<p class="swipe-hint muted">Swipe the card left or right</p>
+
+<style is:global>
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .kcard {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px; max-width: 640px; margin: 0 auto; touch-action: pan-y; will-change: transform;
+  }
+  .kcard-top { display: flex; gap: 10px; align-items: center; font-size: 14px; flex-wrap: wrap; }
+  .kcard-hero h1 { margin: 10px 0 6px; font-weight: 400; text-align: center; }
+  .kcard-hero .glyph { display: block; font: 500 clamp(112px, 34vw, 160px)/1.15 var(--serif); }
+  .kcard-hero .meaning { display: block; font: 600 22px/1.3 var(--sans); }
+  .mnemonic {
+    font: 500 18px/1.5 var(--serif); margin: 12px 0 18px; padding: 12px 14px;
+    border-left: 3px solid var(--seal); background: color-mix(in srgb, var(--seal) 7%, transparent); border-radius: 0 10px 10px 0;
+  }
+  .evolution { margin: 0 0 18px; }
+  .evolution ol { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 4px; }
+  .evolution li { flex: 1 1 0; min-width: 0; max-width: 130px; text-align: center; font-size: 12px; color: var(--muted); }
+  .evolution li + li { position: relative; }
+  .evolution li + li::before { content: "→"; position: absolute; left: -7px; top: 32px; color: var(--muted); font-size: 13px; }
+  .evolution img { display: block; width: min(84px, 100%); height: auto; aspect-ratio: 1; margin: 0 auto 2px; filter: var(--glyph-filter); }
+  .evolution .modern { display: grid; place-items: center; width: min(84px, 100%); aspect-ratio: 1; margin: 0 auto 2px; font: 500 60px/1 var(--serif); color: var(--ink); }
+  .evolution figcaption { text-align: center; color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .readings { display: grid; gap: 10px; margin: 0 0 18px; }
+  .readings dt { font-weight: 700; font-size: 14px; }
+  .readings dt small { color: var(--muted); font-weight: 400; }
+  .readings dd { margin: 2px 0 0; display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted); font-size: 14px; }
+  .reading b { color: var(--ink); font-size: 18px; font-weight: 500; }
+  .more { width: 100%; }
+  .more summary { cursor: pointer; }
+  .more .reading { display: inline-block; margin-right: 14px; }
+  .kcard h2 { font-size: 15px; margin: 0 0 8px; }
+  .build { margin-bottom: 18px; }
+  .build-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .stroke-btn { border: 1px solid var(--line); background: none; color: var(--muted); border-radius: 12px; padding: 6px 8px; cursor: pointer; font: 12px var(--sans); touch-action: manipulation; }
+  .strokes { display: block; width: 116px; height: 116px; fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .strokes .guide { stroke: var(--line); stroke-width: .6; stroke-dasharray: 2 2; }
+  .strokes .p0 { stroke: var(--p0); } .strokes .p1 { stroke: var(--p1); } .strokes .p2 { stroke: var(--p2); } .strokes .p3 { stroke: var(--p3); } .strokes .p4 { stroke: var(--p4); }
+  .strokes.play path:not(.guide) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .42s ease-in-out forwards; animation-delay: calc(var(--i) * .45s); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 15px; flex: 1 1 140px; }
+  .parts li { display: flex; align-items: center; gap: 8px; }
+  .part-chip { font: 500 22px/1 var(--serif); }
+  .part-chip.p0 { color: var(--p0); } .part-chip.p1 { color: var(--p1); } .part-chip.p2 { color: var(--p2); } .part-chip.p3 { color: var(--p3); } .part-chip.p4 { color: var(--p4); }
+  .words { list-style: none; margin: 0; padding: 0; }
+  .words li { padding: 6px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .words b { font-size: 18px; font-weight: 500; }
+  .pager { display: flex; justify-content: space-between; gap: 10px; max-width: 640px; margin: 14px auto 0; }
+  .pager .btn { font-size: 14px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .swipe-hint { display: none; text-align: center; font-size: 13px; margin: 10px 0 0; }
+  @media (pointer: coarse) { .swipe-hint { display: block; } }
+  @media (min-width: 620px) {
+    .kcard { padding: 24px 28px; }
+    .readings { grid-template-columns: 1fr 1fr; }
+  }
+  .kcard.enter-left { animation: enter-left .22s ease-out; }
+  .kcard.enter-right { animation: enter-right .22s ease-out; }
+  @keyframes enter-left { from { transform: translateX(60px); opacity: 0; } }
+  @keyframes enter-right { from { transform: translateX(-60px); opacity: 0; } }
+</style>
+
+<script>
+  import { attachSwipe } from '../lib/swipe';
+
+  const card = document.getElementById('card')!;
+  const go = (dir: 'left' | 'right') => {
+    try { sessionStorage.setItem('swipe', dir); } catch {}
+    location.href = dir === 'left' ? card.dataset.next! : card.dataset.prev!;
+  };
+
+  attachSwipe(card, { onSwipe: go });
+
+  try {
+    const dir = sessionStorage.getItem('swipe');
+    sessionStorage.removeItem('swipe');
+    if (dir) card.classList.add(`enter-${dir}`);
+  } catch {}
+
+  addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'ArrowRight') go('left');
+    if (e.key === 'ArrowLeft') go('right');
+  });
+
+  document.getElementById('play')?.addEventListener('click', (e) => {
+    const svg = (e.currentTarget as HTMLElement).querySelector('.strokes')!;
+    svg.classList.remove('play');
+    void svg.getBoundingClientRect();
+    svg.classList.add('play');
+  });
+</script>

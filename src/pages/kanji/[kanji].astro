@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import KanjiCard from '../../components/KanjiCard.astro';
+import { allKanji, kanjiPath, byLevel, type Kanji } from '../../lib/kanji';
+
+export function getStaticPaths() {
+  return allKanji.map((k, i) => ({
+    params: { kanji: k.kanji },
+    props: {
+      k,
+      prev: allKanji[(i - 1 + allKanji.length) % allKanji.length],
+      next: allKanji[(i + 1) % allKanji.length],
+    },
+  }));
+}
+
+interface Props { k: Kanji; prev: Kanji; next: Kanji }
+const { k, prev, next } = Astro.props;
+const sameLevel = byLevel(k.level);
+const position = sameLevel.findIndex((x) => x.kanji === k.kanji) + 1;
+const reading = [...k.kun.slice(0, 1), ...k.on.slice(0, 1)].map((r) => r.romaji).filter(Boolean).join(', ');
+const title = `${k.kanji} (${reading}) meaning "${k.meanings[0]}": JLPT ${k.level} kanji mnemonic | SonnaKanji`;
+const description = `${k.kanji} means ${k.meanings.slice(0, 3).join(', ')}. ${k.mnemonic} Readings, stroke order and common words for this JLPT ${k.level} kanji.`;
+const url = new URL(kanjiPath(k.kanji), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTerm',
+      name: k.kanji,
+      url,
+      inLanguage: 'ja',
+      description: k.meanings.join(', '),
+      termCode: `U+${k.kanji.codePointAt(0)!.toString(16).toUpperCase()}`,
+      inDefinedTermSet: { '@type': 'DefinedTermSet', name: `JLPT ${k.level} kanji`, url: new URL(`/jlpt/${k.level.toLowerCase()}/`, Astro.site).href },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: `JLPT ${k.level} kanji`, item: new URL(`/jlpt/${k.level.toLowerCase()}/`, Astro.site).href },
+        { '@type': 'ListItem', position: 2, name: k.kanji, item: url },
+      ],
+    },
+  ],
+};
+---
+<Base {title} {description} {jsonLd} prefetch={[kanjiPath(next.kanji), kanjiPath(prev.kanji)]}>
+  <KanjiCard {k} {position} total={sameLevel.length} {prev} {next} />
+</Base>

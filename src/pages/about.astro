@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { allKanji } from '../lib/kanji';
+
+const glyphs = [...new Map(allKanji.flatMap((k) => k.glyphs).map((g) => [g.src, g])).values()];
+const licences = [...new Set(glyphs.map((g) => g.license))];
+---
+<Base title="About and sources | SonnaKanji" description="Where SonnaKanji's kanji data, ancient character forms and stroke diagrams come from, and how they are licensed.">
+  <div class="prose">
+    <h1>About SonnaKanji</h1>
+    <p>
+      The name is a pun: <span lang="ja">そんな感じ</span> means "that kind of feeling", and <span lang="ja">漢字</span>
+      is also read kanji. Each card aims for that feeling of "ah, it looks like what it means".
+    </p>
+    <p>
+      Mnemonics are memory aids. Where a sentence takes liberties with a character's true history,
+      the ancient forms on the card show the real thing. Your review progress stays in this browser;
+      use the backup option on the review page to move it to another device.
+    </p>
+    <h2>Sources</h2>
+    <ul>
+      <li>Kanji meanings and readings: <a href="https://www.edrdg.org/wiki/index.php/KANJIDIC_Project">KANJIDIC2</a> by the Electronic Dictionary Research and Development Group, CC BY-SA 4.0, via <a href="https://kanjiapi.dev">kanjiapi.dev</a>.</li>
+      <li>Common words: <a href="https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project">JMdict</a>, EDRDG, CC BY-SA 4.0, via kanjiapi.dev.</li>
+      <li>JLPT levels: unofficial lists via kanjiapi.dev. The JLPT has not published official kanji lists since 2010, so levels are approximate.</li>
+      <li>Character origins: <a href="https://en.wiktionary.org">Wiktionary</a>, CC BY-SA. Mnemonic sentences are original but draw on this material.</li>
+      <li>Stroke diagrams: <a href="https://kanjivg.tagaini.net">KanjiVG</a> by Ulrich Apel and contributors, CC BY-SA 3.0.</li>
+      <li>Ancient character forms: <a href="https://commons.wikimedia.org/wiki/Commons:Ancient_Chinese_characters_project">Ancient Chinese characters project</a>, Wikimedia Commons ({licences.join(', ')}). Each file is credited below.</li>
+    </ul>
+    <p>SonnaKanji's data is shared under CC BY-SA 4.0, as these sources require.</p>
+    <details>
+      <summary>Ancient form credits ({glyphs.length} files)</summary>
+      <ul class="credits">
+        {glyphs.map((g) => (
+          <li><a href={g.page} rel="nofollow"><span lang="ja">{g.char}</span> {g.label}</a> · {g.artist || 'Unknown'} · {g.license}</li>
+        ))}
+      </ul>
+    </details>
+  </div>
+</Base>
+
+<style>
+  .credits { font-size: 13px; padding-left: 18px; }
+</style>

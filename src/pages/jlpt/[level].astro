@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import { byLevel, kanjiPath, LEVELS } from '../../lib/kanji';
+
+export function getStaticPaths() {
+  return LEVELS.map((l) => ({ params: { level: l.slug }, props: { level: l } }));
+}
+const { level } = Astro.props;
+const list = byLevel(level.id);
+const title = `All ${list.length} JLPT ${level.id} kanji with mnemonics | SonnaKanji`;
+const description = `Every JLPT ${level.id} kanji with its meaning, on'yomi and kun'yomi readings, a picture-based mnemonic and spaced repetition review.`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `JLPT ${level.id} kanji`,
+  numberOfItems: list.length,
+  itemListElement: list.map((k, i) => ({
+    '@type': 'ListItem', position: i + 1, name: k.kanji, url: new URL(kanjiPath(k.kanji), Astro.site).href,
+  })),
+};
+---
+<Base {title} {description} {jsonLd}>
+  <h1>JLPT {level.id} kanji</h1>
+  <p class="muted">{level.blurb} Open any card for its mnemonic, readings and history.</p>
+  <p>
+    <a class="btn primary" href={`/review/?level=${level.id}`}>Review {level.id}</a>
+    <a class="btn" href={kanjiPath(list[0].kanji)}>Start from the first card</a>
+  </p>
+  <ul class="grid">
+    {list.map((k) => (
+      <li><a href={kanjiPath(k.kanji)}><b lang="ja">{k.kanji}</b><span>{k.meanings[0]}</span></a></li>
+    ))}
+  </ul>
+</Base>

@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  jsonLd?: object;
+  prefetch?: string[];
+}
+const { title, description, noindex = false, jsonLd, prefetch = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const here = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SonnaKanji" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
+    {prefetch.map((href) => <link rel="prefetch" href={href} />)}
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
+  </head>
+  <body>
+    <header class="site-head">
+      <div class="wrap">
+        <a class="brand" href="/"><i lang="ja">漢</i>SonnaKanji</a>
+        <nav aria-label="Main">
+          <a href="/jlpt/n5/" aria-current={here.startsWith('/jlpt/n5') ? 'page' : undefined}>N5</a>
+          <a href="/jlpt/n4/" aria-current={here.startsWith('/jlpt/n4') ? 'page' : undefined}>N4</a>
+          <a href="/review/" aria-current={here.startsWith('/review') ? 'page' : undefined}>Review</a>
+        </nav>
+      </div>
+    </header>
+    <main><div class="wrap"><slot /></div></main>
+    <footer class="site-foot">
+      <div class="wrap">
+        Built on open data from KANJIDIC, Wiktionary, Wikimedia Commons and KanjiVG.{' '}
+        <a href="/about/">Sources and licences</a>
+      </div>
+    </footer>
+  </body>
+</html>

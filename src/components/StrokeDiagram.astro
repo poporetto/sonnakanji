@@ -1,0 +1,17 @@
+---
+import type { Kanji } from '../lib/kanji';
+interface Props { k: Kanji }
+const { k } = Astro.props;
+const named = k.vg.parts.filter((p) => p.el).length;
+---
+<svg class="strokes" viewBox="0 0 109 109" role="img" aria-label={`Stroke diagram of ${k.kanji}, ${k.strokes} strokes`}>
+  <path class="guide" d="M54.5 0V109M0 54.5H109" />
+  {k.vg.strokes.map((s, i) => (
+    <path
+      d={s.d}
+      pathLength="1"
+      style={`--i:${i}`}
+      class={named > 1 && s.part >= 0 && k.vg.parts[s.part].el ? `p${s.part % 5}` : undefined}
+    />
+  ))}
+</svg>
