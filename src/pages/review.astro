@@ -18,17 +18,17 @@ import Base from '../layouts/Base.astro';
       </div>
       <form id="settings" class="settings">
         <label>Level
-          <select name="level"><option value="all">N5 + N4</option><option value="N5">N5</option><option value="N4">N4</option></select>
+          <span class="select"><select name="level"><option value="all">N5 + N4</option><option value="N5">N5</option><option value="N4">N4</option></select></span>
         </label>
         <label>Test me on
-          <select name="mode">
+          <span class="select"><select name="mode">
             <option value="meaning">Kanji → meaning</option>
             <option value="reading">Kanji → reading</option>
             <option value="recall">Meaning → kanji</option>
-          </select>
+          </select></span>
         </label>
         <label>New cards per day
-          <select name="newPerDay"><option>5</option><option>10</option><option>20</option><option>50</option></select>
+          <span class="select"><select name="newPerDay"><option>5</option><option>10</option><option>20</option><option>50</option></select></span>
         </label>
       </form>
       <button class="btn primary start" id="start" disabled>Loading…</button>
@@ -49,7 +49,7 @@ import Base from '../layouts/Base.astro';
         <span class="swipe-tag again" id="tag-again">Again</span>
         <span class="swipe-tag good" id="tag-good">Good</span>
         <div id="front"></div>
-        <div id="back" hidden></div>
+        <div id="back" aria-live="polite" hidden></div>
       </div>
       <p class="hint muted" id="hint"></p>
       <div class="grades" id="grades" hidden></div>
@@ -76,16 +76,22 @@ import Base from '../layouts/Base.astro';
   .stats .streak span { color: var(--on-tint); }
   .settings { display: grid; gap: 10px; margin-bottom: 16px; }
   .settings label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 800; font-size: 15px; }
-  .settings select { font: 700 16px var(--body); padding: 8px 10px; border-radius: 12px; border: 0; background: var(--surface); color: var(--ink); min-width: 0; }
+  .select { position: relative; display: block; min-width: 0; }
+  .select::after {
+    content: ""; position: absolute; top: 50%; right: 14px; width: 12px; height: 12px; margin-top: -6px; background: var(--muted); pointer-events: none; transform: rotate(90deg);
+    -webkit-mask: var(--chevron) center / contain no-repeat; mask: var(--chevron) center / contain no-repeat;
+  }
+  .settings select { appearance: none; -webkit-appearance: none; min-height: 44px; max-width: 100%; font: 700 16px var(--body); padding: 8px 34px 8px 14px; border-radius: 14px; border: 0; background: var(--surface); color: var(--ink); box-shadow: var(--soft); cursor: pointer; }
   .start { width: 100%; padding: 14px; font-size: 18px; }
-  .start:disabled { background: var(--surface); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
+  .start:disabled { background: var(--wash); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
   .backup { margin-top: 22px; font-size: 15px; font-weight: 600; }
-  .backup summary { cursor: pointer; font-weight: 800; }
-  .backup .btn { font-size: 14px; padding: 7px 12px; margin: 0 6px 8px 0; }
+  .backup summary { font-weight: 800; }
+  .backup .btn { font-size: 14px; padding: 10px 14px; margin: 0 6px 8px 0; }
+  #reset.armed { background: var(--t0); color: var(--on-tint); }
   .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-  .bar { height: 14px; border-radius: 999px; background: var(--surface); overflow: hidden; margin-bottom: 14px; }
+  .bar { height: 10px; border-radius: 999px; background: var(--wash); overflow: hidden; margin-bottom: 14px; }
   .bar i { display: block; height: 100%; width: 0; background: var(--t2); transition: width .25s; }
-  .link { background: none; border: 0; color: inherit; text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
+  .link { background: none; border: 0; color: inherit; text-decoration: underline; text-underline-offset: 3px; font: inherit; cursor: pointer; padding: 10px 0; margin-block: -10px; }
   .flash {
     position: relative; background: var(--surface); border-radius: var(--radius); box-shadow: var(--soft);
     padding: 20px 16px; min-height: 360px; display: flex; flex-direction: column; justify-content: center;
@@ -101,13 +107,14 @@ import Base from '../layouts/Base.astro';
   .flash .rd { font-size: 17px; margin: 2px 0; }
   .flash .rd small { color: var(--muted); font-weight: 800; }
   .flash .note { font-size: 16px; font-weight: 700; line-height: 1.4; margin: 12px 0 8px; padding: 9px 12px; text-align: left; background: var(--wash); border-radius: 12px; }
-  .flash a { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .flash a { display: inline-block; padding-block: 11px 3px; font-size: 13px; font-weight: 700; color: var(--muted); }
+  .flash.revealed { cursor: default; }
   .swipe-tag { position: absolute; top: 12px; z-index: 2; font: 800 14px var(--body); padding: 3px 10px; border-radius: 10px; opacity: 0; color: var(--on-tint); }
   .swipe-tag.again { right: 12px; background: var(--t0); }
   .swipe-tag.good { left: 12px; background: var(--t2); }
   .hint { text-align: center; font-size: 13px; font-weight: 700; min-height: 20px; margin: 14px 0 10px; }
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .grades button { padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-tint); min-width: 0; }
+  .grades button { min-height: 56px; padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-tint); min-width: 0; }
   .grades button:nth-child(1) { background: var(--t0); }
   .grades button:nth-child(2) { background: var(--t1); }
   .grades button:nth-child(3) { background: var(--t2); }
@@ -204,6 +211,9 @@ import Base from '../layouts/Base.astro';
     $('remaining').textContent = `${queue.length} left`;
     $('bar-fill').style.width = `${(1 - queue.length / Math.max(sessionSize, queue.length)) * 100}%`;
     $('hint').textContent = 'Tap the card or press Space to reveal';
+    flash.classList.remove('revealed');
+    flash.setAttribute('role', 'button');
+    flash.tabIndex = 0;
     flash.setAttribute('aria-label', 'Show answer');
     flash.style.transition = 'none';
     flash.style.transform = '';
@@ -244,6 +254,9 @@ import Base from '../layouts/Base.astro';
     const c = queue[0];
     $('front').hidden = true;
     $('back').hidden = false;
+    flash.classList.add('revealed');
+    flash.removeAttribute('role');
+    flash.removeAttribute('tabindex');
     flash.removeAttribute('aria-label');
     $('hint').textContent = 'Swipe left for Again, right for Good, or press 1 to 4';
     const now = new Date();
@@ -355,12 +368,22 @@ import Base from '../layouts/Base.astro';
     }
     input.value = '';
   });
-  $('reset').addEventListener('click', () => {
-    if (!confirm('Erase all review progress in this browser?')) return;
-    const settings = store.settings;
-    store = { ...emptyStore(), settings };
+  // Erasing is permanent, so the button asks once more in place.
+  const reset = $<HTMLButtonElement>('reset');
+  let disarm = 0;
+  const armReset = (armed: boolean) => {
+    reset.classList.toggle('armed', armed);
+    reset.textContent = armed ? 'Tap again to erase everything' : 'Reset all progress';
+    clearTimeout(disarm);
+    if (armed) disarm = window.setTimeout(() => armReset(false), 4000);
+  };
+  reset.addEventListener('click', () => {
+    if (!reset.classList.contains('armed')) return armReset(true);
+    armReset(false);
+    store = { ...emptyStore(), settings: store.settings };
     saveStore(store);
     refresh();
+    $('backup-msg').textContent = 'Progress erased.';
   });
 
   const levelParam = new URLSearchParams(location.search).get('level');

@@ -5,7 +5,7 @@ import { allKanji, artPath, byLevel, LEVELS } from '../lib/kanji';
 
 const pick = (chars: string) => [...chars].map((c) => allKanji.find((k) => k.kanji === c)!);
 const collage = pick('休木山明');
-const samples = pick('日月火川口女家');
+const samples = pick('日月火川口女家人');
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -48,30 +48,34 @@ const jsonLd = {
   </div>
 
   <h2>Try a few</h2>
-  <ul class="grid">
+  <ul class="grid few">
     {samples.map((k, i) => <li><KanjiTile {k} index={i} /></li>)}
   </ul>
 </Base>
 
 <style>
   .intro { display: grid; gap: 16px; align-items: center; padding-block: 8px; }
+  .how a { display: inline-block; padding-block: 11px; }
   .pitch img { display: block; width: 130px; height: auto; margin-bottom: 8px; }
   h1 { font-size: clamp(42px, 11vw, 68px); font-weight: 800; line-height: 1.04; letter-spacing: -.03em; margin: 0 0 12px; }
   .pitch p { font-size: 18px; max-width: 32em; margin: 0; color: var(--muted); }
-  .how { margin-top: 12px !important; font-size: 15px !important; }
+  .how { margin-top: 2px !important; font-size: 15px !important; }
   .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px !important; }
   .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .bento div { border-radius: 22px; padding: 4px; }
   .bento img { display: block; width: 100%; height: auto; }
+  .few { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   h2 { margin: 34px 0 12px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
   .levels { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-  .level { display: flex; gap: 14px; align-items: center; color: var(--on-tint); border-radius: var(--radius); padding: 18px 20px; text-decoration: none; transition: transform .15s; }
-  .level:hover { transform: translateY(-3px); }
+  .level { display: flex; gap: 14px; align-items: center; color: var(--on-tint); border-radius: var(--radius); padding: 18px 20px; text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
+  .level:active { transform: var(--press); }
+  @media (hover: hover) { .level:hover { transform: translateY(-3px); } }
   .count { font-size: 46px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
   .info { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
   .info b { font-size: 18px; font-weight: 800; }
   @media (min-width: 760px) {
     .intro { grid-template-columns: 1.1fr 1fr; gap: 28px; }
     .bento { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .few { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   }
 </style>

@@ -1,0 +1,11 @@
+---
+// One stroke weight and cap for every icon, to sit with the rounded type.
+const paths = {
+  back: 'M15 5l-7 7 7 7',
+  forward: 'M9 5l7 7-7 7',
+} as const;
+
+interface Props { name: keyof typeof paths }
+const { name } = Astro.props;
+---
+<svg class="icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d={paths[name]} /></svg>
