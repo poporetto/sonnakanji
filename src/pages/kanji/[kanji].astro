@@ -19,8 +19,8 @@ const { k, prev, next } = Astro.props;
 const sameLevel = byLevel(k.level);
 const position = sameLevel.findIndex((x) => x.kanji === k.kanji) + 1;
 const reading = [...k.kun.slice(0, 1), ...k.on.slice(0, 1)].map((r) => r.romaji).filter(Boolean).join(', ');
-const title = `${k.kanji} (${reading}) meaning "${k.meanings[0]}": JLPT ${k.level} kanji mnemonic | SonnaKanji`;
-const description = `${k.kanji} means ${k.meanings.slice(0, 3).join(', ')}. ${k.mnemonic} Readings, stroke order and common words for this JLPT ${k.level} kanji.`;
+const title = `${k.kanji} (${reading.split(', ')[0]}) Kanji Meaning: "${k.meanings[0].replace(/^./, (c) => c.toUpperCase())}" | Learn Kanji with Pictures`;
+const description = `${k.kanji} means ${k.meanings.slice(0, 3).join(', ')}. ${k.mnemonic} Learn this JLPT ${k.level} kanji with a picture, readings and stroke order.`;
 const url = new URL(kanjiPath(k.kanji), Astro.site).href;
 const jsonLd = {
   '@context': 'https://schema.org',

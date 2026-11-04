@@ -28,6 +28,7 @@ const jsonLd = {
         <a class="btn primary" href="/jlpt/n5/">Start with N5</a>
         <a class="btn" href="/review/">Review my cards</a>
       </p>
+      <p class="how"><a href="/learn-kanji-with-pictures/">How learning kanji with pictures works</a></p>
     </div>
     <div class="bento" aria-hidden="true">
       {collage.map((k, i) => (
@@ -57,6 +58,7 @@ const jsonLd = {
   .pitch img { display: block; width: 130px; height: auto; margin-bottom: 8px; }
   h1 { font-size: clamp(42px, 11vw, 68px); font-weight: 800; line-height: 1.04; letter-spacing: -.03em; margin: 0 0 12px; }
   .pitch p { font-size: 18px; max-width: 32em; margin: 0; color: var(--muted); }
+  .how { margin-top: 12px !important; font-size: 15px !important; }
   .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px !important; }
   .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .bento div { border-radius: 22px; padding: 4px; }

@@ -94,8 +94,9 @@ import Base from '../layouts/Base.astro';
   .flash .big { font: 700 112px/1.15 var(--jp); }
   .flash .prompt { font: 800 28px/1.15 var(--body); }
   .flash .ask { color: var(--muted); font-size: 15px; font-weight: 700; margin-top: 8px; }
-  .flash .pic { display: grid; justify-content: center; }
-  .flash .pic img { width: 170px; height: 170px; background: var(--t1); border-radius: 14px; }
+  .flash .pic { display: grid; grid-template-columns: 130px auto; gap: 14px; justify-content: center; align-items: center; }
+  .flash .pic img { width: 130px; height: 130px; background: var(--t1); border-radius: 18px; }
+  .flash .pic .big { font-size: 96px; }
   .flash .answer { font: 800 23px/1.2 var(--body); margin: 8px 0 4px; }
   .flash .rd { font-size: 17px; margin: 2px 0; }
   .flash .rd small { color: var(--muted); font-weight: 800; }
@@ -218,8 +219,7 @@ import Base from '../layouts/Base.astro';
     const art = document.createElement('img');
     art.src = c.a;
     art.alt = `Drawing for ${c.k}`;
-    pic.append(art);
-    if (mode === 'recall') pic.append(el('div', 'big', c.k, 'ja'));
+    pic.append(art, el('div', 'big', c.k, 'ja'));
     back.append(pic, el('div', 'answer', c.m.join(', ')));
     if (c.on.length) {
       const r = el('div', 'rd');

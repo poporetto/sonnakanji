@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import { allKanji, artPath, byLevel, kanjiPath, LEVELS } from '../lib/kanji';
+
+const pick = (c: string) => allKanji.find((k) => k.kanji === c)!;
+const title = 'Learn Kanji with Pictures: A Simple Method for JLPT N5 and N4';
+const description = `Learn kanji with pictures that follow each character's real shape. See how the method works, try examples, and study ${allKanji.length} JLPT N5 and N4 kanji for free.`;
+const url = new URL('/learn-kanji-with-pictures/', Astro.site).href;
+const steps = [
+  ['See the picture', 'Each drawing is built on the real strokes, so the shape and the meaning arrive together.'],
+  ['Read one short story', 'A one-sentence mnemonic gives your memory something to hold on to.'],
+  ['Learn the readings', "Add the on'yomi and kun'yomi once the shape feels familiar."],
+  ['Review before you forget', 'Spaced repetition brings each kanji back just as it starts to fade.'],
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  inLanguage: 'en',
+  image: new URL(artPath('木'), Astro.site).href,
+  publisher: { '@type': 'Organization', name: 'SonnaKanji' },
+};
+---
+<Base {title} {description} {jsonLd}>
+  <article class="guide">
+    <h1>How to learn kanji with pictures</h1>
+    <p class="lead">Rows of strokes are hard to remember. Pictures are easier. Many kanji began as drawings of real things, and the rest are built from smaller parts you can picture. This method starts there.</p>
+
+    <h2>Why pictures help</h2>
+    <p>Abstract shapes give your memory little to grip. A tree with a trunk, branches and roots gives it something concrete, and once you've seen 木 as that tree, it's hard to unsee it. A picture also connects the shape to the meaning straight away, before you've learned how to say the word.</p>
+
+    <h2>Picture kanji: the strokes become the object</h2>
+    <p>Some kanji are stylised drawings, so we draw the object directly on the strokes.</p>
+    <ul class="examples">
+      {['木', '人', '川', '日'].map((c, i) => {
+        const k = pick(c);
+        return <li style={`--tint:var(--t${i})`}><a href={kanjiPath(c)}><img src={artPath(c)} alt={`Drawing of ${c}, ${k.meanings[0]}`} width="200" height="200" loading="lazy" /><b lang="ja">{c}</b><span>{k.meanings[0]}</span></a></li>;
+      })}
+    </ul>
+
+    <h2>Compound kanji: each part tells the story</h2>
+    <p>Most kanji combine smaller parts. We put each part where it really sits in the character, so the layout of the picture matches the layout of the kanji.</p>
+    <ul class="examples">
+      {['休', '男', '明', '家'].map((c, i) => {
+        const k = pick(c);
+        return <li style={`--tint:var(--t${(i + 1) % 5})`}><a href={kanjiPath(c)}><img src={artPath(c)} alt={`Drawing of ${c}, ${k.meanings[0]}`} width="200" height="200" loading="lazy" /><b lang="ja">{c}</b><span>{k.meanings[0]}</span></a></li>;
+      })}
+    </ul>
+    <p>{pick('休').mnemonic} {pick('家').mnemonic}</p>
+
+    <h2>History and memory</h2>
+    <p>Where a kanji's real origin is vivid, we use it: 家 really does show a pig under a roof. Where the history is obscure, we choose whatever is easiest to remember and show the ancient forms on the card, so you can always see the real story.</p>
+
+    <h2>Four steps for each kanji</h2>
+    <ol class="steps">
+      {steps.map(([name, text]) => <li><b>{name}</b><span>{text}</span></li>)}
+    </ol>
+
+    <h2>Start with your level</h2>
+    <div class="levels">
+      {LEVELS.map((l, i) => (
+        <a class="level" style={`background:var(--t${i * 2 + 1})`} href={`/jlpt/${l.slug}/`}><b>JLPT {l.id} kanji</b><span>{byLevel(l.id).length} picture cards</span></a>
+      ))}
+      <a class="level" style="background:var(--t2)" href="/review/"><b>Review</b><span>Free spaced repetition</span></a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .guide { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: clamp(36px, 9vw, 54px); font-weight: 800; letter-spacing: -.03em; margin: 12px 0; }
+  .lead { font-size: 19px; color: var(--muted); }
+  h2 { font-size: 24px; font-weight: 800; letter-spacing: -.02em; margin: 32px 0 8px; }
+  p { font-size: 17px; }
+  .examples { list-style: none; padding: 0; margin: 14px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .examples a { display: grid; justify-items: center; padding: 6px 6px 12px; background: var(--tint); color: var(--on-tint); border-radius: 22px; text-decoration: none; }
+  .examples img { display: block; width: 100%; height: auto; }
+  .examples b { font: 500 28px/1.2 var(--jp); }
+  .examples span { font-size: 14px; font-weight: 700; text-transform: capitalize; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 12px 0; display: grid; gap: 10px; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 12px; background: var(--surface); border-radius: 20px; padding: 14px 16px; box-shadow: var(--soft); }
+  .steps li::before { content: counter(step); grid-row: span 2; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--t1); color: var(--on-tint); font-weight: 800; }
+  .steps span { color: var(--muted); }
+  .levels { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin-top: 12px; }
+  .level { display: grid; padding: 16px 18px; border-radius: 22px; color: var(--on-tint); text-decoration: none; }
+  .level b { font-size: 18px; font-weight: 800; }
+</style>
