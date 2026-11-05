@@ -1,5 +1,5 @@
 import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type Fighter, type Move, type Species } from './battle';
-import { bear, kanjiSprite, person } from './sprites';
+import { bear, kanjiSprite, MARGIN, person } from './sprites';
 import { music, setSound, sfx, silence, soundOn, unlock } from './audio';
 import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, shakeScreen, still, tween, veil, views } from './fx';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
@@ -610,7 +610,7 @@ async function reward(me: Fighter, wild: boolean) {
     sfx.level();
     for (let i = 0; i < 3; i++) burst('metal', CENTRE.me[0], CENTRE.me[1] + 12 - i * 12, 12, 0.7);
     popup('Level up!', 'me', 'good');
-  }
+    }
   store();
   return true;
 }
@@ -733,7 +733,7 @@ function drawWorld() {
     ctx.fillStyle = '#dcf6f6';
     ctx.fillRect(x + 3 + (y % 5) - cx, y + 5 + (x % 7) - cy, glint < 0.25 ? 5 : 3, 1);
   }
-  if (save.map === 'dojo' && save.chapter !== 'journey') starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 32), 49 + i * 48, 4 + Math.round(Math.sin(tick / 20 + i))));
+  if (save.map === 'dojo' && save.chapter !== 'journey') starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 32), 56 - MARGIN + i * 48, 14 - MARGIN + Math.round(Math.sin(tick / 20 + i))));
   const step = slide > 8 ? (stepFlip ? 1 : 2) : 0;
   const actors = [...npcsHere().map((n) => ({ y: n.y * T, draw: () => {
     if (n.guide) bear(ctx, n.x * T - cx, n.y * T - cy);
@@ -783,12 +783,12 @@ function drawBattle() {
   const bob = still ? 0 : Math.round(Math.sin(tick / 24));
   const me = lead();
   if (foe) {
-    drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72), foe.s, 144, 10 + bob, 72);
+    drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72), foe.s, 151 - MARGIN, 20 - MARGIN + bob, 72);
     card(cards.foe, save.caught.includes(foe.s.k) ? foe.s.m : 'Unknown kanji', foe.f.lv, foe.f.hp, maxHp(foe.s, foe.f.lv));
   }
   if (me) {
     const s = spec(me.k);
-    drawKanji(ctx, views.me, kanjiSprite(s, 88, true), s, 8, 54 - bob, 88);
+    drawKanji(ctx, views.me, kanjiSprite(s, 80, true), s, 19 - MARGIN, 68 - MARGIN - bob, 80);
     card(cards.me, s.m, me.lv, me.hp, maxHp(s, me.lv));
     cards.me.classList.toggle('danger', me.hp / maxHp(s, me.lv) < 0.2);
   }
@@ -797,8 +797,21 @@ function drawBattle() {
 
 function drawTitle() {
   ctx.drawImage(backdrop('title'), 0, 0);
-  ctx.fillStyle = '#ffe9b0'; ctx.beginPath(); ctx.arc(214, 70, 13, 0, 7); ctx.fill();
-  starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 48), 26 + i * 62, 88 + (still ? 0 : Math.round(Math.sin(tick / 20 + i)))));
+  // The name plate, with stepped pixel corners. Its lettering sits on top as real type.
+  const [px, py, pw, ph] = [34, 13, 172, 50];
+  ctx.fillStyle = '#3a2a4e';
+  ctx.fillRect(px + 3, py, pw - 6, ph); ctx.fillRect(px + 1, py + 1, pw - 2, ph - 2); ctx.fillRect(px, py + 3, pw, ph - 6);
+  ctx.fillStyle = '#fdf8ef';
+  ctx.fillRect(px + 4, py + 2, pw - 8, ph - 4); ctx.fillRect(px + 2, py + 3, pw - 4, ph - 6); ctx.fillRect(px + 2, py + 4, pw - 4, ph - 8);
+  ctx.fillStyle = '#e8dcc4';
+  ctx.fillRect(px + 4, py + ph - 4, pw - 8, 2);
+  for (const [i, x, y, r] of [[0, 18, 26, 4], [1, 222, 22, 5], [2, 26, 60, 3], [3, 214, 62, 3]]) {
+    const size = still ? r : Math.round(r * (0.6 + 0.4 * Math.abs(Math.sin(tick / 26 + i * 1.7))));
+    ctx.fillStyle = '#ffc83a';
+    ctx.fillRect(x - size, y, size * 2 + 1, 1); ctx.fillRect(x, y - size, 1, size * 2 + 1);
+    ctx.fillRect(x - 1, y - 1, 3, 3);
+  }
+  starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 56), 20 - MARGIN + i * 72, 84 - MARGIN + (still ? 0 : Math.round(Math.sin(tick / 20 + i * 2)) * 2)));
 }
 
 const STARTERS = ['火', '水', '木'];

@@ -1,5 +1,5 @@
 import type { Element, Species } from './battle';
-import { canvas, hash, OUTLINE } from './sprites';
+import { canvas, hash, MARGIN, OUTLINE } from './sprites';
 
 // Effects run from the game's frame loop, and every animation is a promise the story can wait on.
 export const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -130,7 +130,7 @@ function strokeLength(d: string) {
 // The kanji writes itself in its real stroke order.
 function drawStrokes(ctx: CanvasRenderingContext2D, s: Species, x: number, y: number, size: number, ink: number) {
   ctx.save();
-  ctx.translate(x + 7, y + 7);
+  ctx.translate(x + MARGIN, y + MARGIN);
   ctx.scale(size / 109, size / 109);
   ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   ctx.lineWidth = 7; ctx.strokeStyle = OUTLINE;

@@ -9,7 +9,7 @@ const crew = Object.entries(starters).map(([type, k]) => {
 });
 ---
 <a class="kanjimono" href="/kanjimono/">
-  <canvas id="kanjimono-art" width="240" height="120" data-crew={JSON.stringify(crew)} role="img" aria-label="The starter kanji 火, 水 and 木 at sunset, drawn as pixel creatures"></canvas>
+  <canvas id="kanjimono-art" width="240" height="120" data-crew={JSON.stringify(crew)} role="img" aria-label="The starter kanji 火, 水 and 木, drawn as smiling pixel creatures"></canvas>
   <div class="copy">
     <h2>Play Kanjimono</h2>
     <p>Help bring the world's blank signs back in a free pixel adventure. Catch all 245 N5 and N4 kanji, and battle with real words.</p>
@@ -19,22 +19,20 @@ const crew = Object.entries(starters).map(([type, k]) => {
 
 <script>
   import type { Species } from '../kanjimono/battle';
-  import { kanjiSprite } from '../kanjimono/sprites';
+  import { kanjiSprite, MARGIN } from '../kanjimono/sprites';
   import { backdrop } from '../kanjimono/world';
 
   const art = document.getElementById('kanjimono-art') as HTMLCanvasElement;
   const g = art.getContext('2d')!;
   g.imageSmoothingEnabled = false;
   g.drawImage(backdrop('title'), 0, -40);
-  g.fillStyle = '#ffe9b0';
-  g.beginPath(); g.arc(206, 26, 11, 0, 7); g.fill();
-  (JSON.parse(art.dataset.crew!) as Species[]).forEach((s, i) => g.drawImage(kanjiSprite(s, 48), 24 + i * 66, 54));
+  (JSON.parse(art.dataset.crew!) as Species[]).forEach((s, i) => g.drawImage(kanjiSprite(s, 60), 14 - MARGIN + i * 75, 46 - MARGIN));
 </script>
 
 <style>
   .kanjimono { display: grid; margin-top: 44px; overflow: hidden; border-radius: var(--radius); background: var(--surface); box-shadow: var(--soft), 0 0 0 1px var(--line); color: var(--ink); text-decoration: none; transition: transform .16s cubic-bezier(.2, .8, .2, 1); }
   .kanjimono:active { transform: var(--press); }
-  canvas { display: block; width: 100%; aspect-ratio: 2 / 1; image-rendering: pixelated; background: #5a4a8c; }
+  canvas { display: block; width: 100%; aspect-ratio: 2 / 1; image-rendering: pixelated; background: #b8e8f6; }
   .copy { display: grid; justify-items: start; gap: 10px; padding: 20px; }
   h2 { margin: 0; font-size: 28px; }
   p { margin: 0; max-width: 42ch; color: var(--muted); }

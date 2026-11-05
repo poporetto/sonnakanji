@@ -381,6 +381,14 @@ export function paintMap(id: string, rows: string[]): Scene {
     }
   }
 
+  // Whatever rises above its own footprint can pass in front of the walker, but only the building itself, never the ground around it.
+  const standing = (from: number, draw: (g: CanvasRenderingContext2D) => void) => {
+    const layer = canvas(W, H);
+    draw(layer.getContext('2d')!);
+    b.drawImage(layer, 0, 0);
+    f.save(); f.beginPath(); f.rect(0, 0, W, from); f.clip(); f.drawImage(layer, 0, 0); f.restore();
+  };
+
   // Buildings are found as whole blocks, then painted as a single piece.
   const seen = new Set<string>();
   let houses = 0;
@@ -393,17 +401,16 @@ export function paintMap(id: string, rows: string[]): Scene {
       while (inBlock(ch(x + w, y)) && x + w < 24) w++;
       while (inBlock(ch(x, y + h)) && y + h < 16) h++;
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) seen.add(`${x + i},${y + j}`);
-      if (c === 's') shrine(b, x * T, y * T);
-      else house(b, x * T, y * T, w * T, h * T, houses % 2 ? roofs.charcoal : roofs.indigo, id === 'village' && houses++ % 2 === 1);
-      f.save(); f.beginPath(); f.rect(x * T - 8, 0, w * T + 16, y * T); f.clip();
-      f.drawImage(base, 0, 0); f.restore();
+      standing(y * T, (g) => {
+        if (c === 's') shrine(g, x * T, y * T);
+        else house(g, x * T, y * T, w * T, h * T, houses % 2 ? roofs.charcoal : roofs.indigo, id === 'village' && houses++ % 2 === 1);
+      });
     }
     if (c === 't' && ch(x + 2, y) === 't') torii(b, f, x * T - 8, y * T);
     if (c === 'S') sign(b, x * T, y * T);
     if (c === 'C' && !seen.has('castle')) {
       seen.add('castle');
-      castle(b, x * T, y * T);
-      f.save(); f.beginPath(); f.rect(x * T, 0, 128, y * T); f.clip(); f.drawImage(base, 0, 0); f.restore();
+      standing(y * T, (g) => castle(g, x * T, y * T));
     }
   }
 
@@ -435,7 +442,7 @@ const SKIES: Record<string, Sky> = {
   forest: { sky: ['#4f9cb8', '#7cc0c0', '#b0dcc0', '#e0ecc0'], hills: [['#2f7f6a', '#3f9070'], ['#1f5f50', '#2c6f5a']], ground: GRASS.forest, pad: ['#2c6a58', '#559c68', '#74b478', '#a0d090'] },
   onsen: { sky: ['#e08a7c', '#f0b090', '#f8d4a8', '#fff0cc'], hills: [['#a88aa0', '#c0a0ac'], ['#6f8a6a', '#88a070']], ground: GRASS.onsen, snow: true, pad: ['#5f8a5a', '#92b86c', '#b0cc80', '#dce4a0'] },
   castle: { sky: ['#6a7cc0', '#a090c8', '#e0a8b0', '#ffd8a8'], hills: [['#8078a8', '#9888b4'], ['#7a9448', '#94ac52']], ground: GRASS.castle, pad: ['#7a9448', '#aec060', '#ccd47c', '#ece8a0'] },
-  title: { sky: ['#3d4a8c', '#a0589c', '#f08a78', '#ffd08c'], hills: [['#5a4a8c', '#6e5a9c'], ['#3d3570', '#4a4080']], ground: ['#2f2a58', '#3d3570', '#4a4080', '#5a4a8c'], snow: true, pad: [] },
+  title: { sky: ['#8fd4f4', '#b8e8f6', '#dcf5ee', '#fff3d6'], hills: [['#f4bcd0', '#fbd4e0'], ['#8fd07c', '#a8dc88']], ground: ['#5fae5a', '#78c468', '#94d67a', '#b4e48c'], pad: [] },
 };
 
 const backs = new Map<string, HTMLCanvasElement>();
@@ -444,12 +451,12 @@ export function backdrop(id: string) {
   const hit = backs.get(id);
   if (hit) return hit;
   const P = SKIES[id];
-  const W = 240, H = 160, horizon = id === 'title' ? 112 : 78;
+  const W = 240, H = 160, horizon = id === 'title' ? 104 : 78;
   const c = canvas(W, H);
   const g = c.getContext('2d')!;
   const img = g.createImageData(W, H);
   const sky = P.sky.map(rgb), ground = P.ground.map(rgb), hills = P.hills.map((h) => h.map(rgb));
-  const cloud = rgb(id === 'title' ? '#ffc0a0' : '#ffffff'), cloudLow = rgb(id === 'title' ? '#d07090' : '#dce8f4'), snow = rgb('#f4f8ff');
+  const cloud = rgb('#ffffff'), cloudLow = rgb(id === 'title' ? '#e4d8f8' : '#dce8f4'), snow = rgb('#f4f8ff');
   const ridge = (x: number, i: number) => {
     const n = noise(x / (i ? 46 : 70) + i * 5, i) * 0.7 + noise(x / 15, i + 3) * 0.3;
     if (i === 0 && P.snow) return horizon - 12 - Math.max(0, 68 - Math.abs(x - 130) * 0.8) + n * 12;
