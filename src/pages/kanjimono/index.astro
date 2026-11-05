@@ -84,18 +84,14 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .stage h1 { display: none; position: absolute; inset: 1.5cqw 0 auto; margin: 0; }
   .stage h1 img { display: block; width: 92cqw; max-width: none; height: auto; margin: 0 auto; }
   /* The title menu sits on the screen itself, under the logo. */
-  /* Chunky pixel buttons cut from the same sticker as the logo: stepped corners, brown ink, white edge. */
+  /* Chunky buttons cut from the same sticker as the logo: round corners, brown ink, white edge. */
   .stage > #choices { --px: calc(100cqw / 240); --ink: #4e2410; position: absolute; inset: 35cqw 18cqw auto; gap: 3cqw; }
   .stage > #choices button {
     --top: #bfeaff; --mid: #62c3f6; --low: #3a9ee8;
-    position: relative; justify-content: center; gap: 1.2cqw; min-height: max(44px, 9.5cqw); padding: 4px 10px; border-radius: 0;
+    position: relative; justify-content: center; gap: 1.2cqw; min-height: max(44px, 9.5cqw); padding: 4px 10px; border: calc(var(--px) * 2) solid var(--ink); border-radius: calc(var(--px) * 7); background-origin: border-box;
     background: linear-gradient(var(--top) 0 18%, var(--mid) 18% 72%, var(--low) 72%); color: var(--ink);
     font: 800 clamp(.875rem, 3.5cqw, 1.3rem)/1 var(--display); letter-spacing: -.01em;
-    box-shadow:
-      0 calc(var(--px) * -1) var(--ink), 0 var(--px) var(--ink), calc(var(--px) * -1) 0 var(--ink), var(--px) 0 var(--ink),
-      0 calc(var(--px) * -2) #fff, 0 calc(var(--px) * 2) #fff, calc(var(--px) * -2) 0 #fff, calc(var(--px) * 2) 0 #fff,
-      calc(var(--px) * -1) calc(var(--px) * -1) #fff, var(--px) calc(var(--px) * -1) #fff, calc(var(--px) * -1) var(--px) #fff, var(--px) var(--px) #fff,
-      0 calc(var(--px) * 4) #1e2a5855;
+    box-shadow: 0 0 0 calc(var(--px) * 1.2) #fff, 0 calc(var(--px) * 4) 0 calc(var(--px) * 1.2) #1e2a5855;
   }
   .stage > #choices button.on, .stage > #choices button:hover { --top: #fff0a0; --mid: #ffcb3d; --low: #f7a01f; background: linear-gradient(var(--top) 0 18%, var(--mid) 18% 72%, var(--low) 72%); color: var(--ink); }
   .stage > #choices button.on::before { content: ''; flex: none; width: calc(var(--px) * 4); height: calc(var(--px) * 6); background: var(--ink); clip-path: polygon(0 0, 100% 50%, 0 100%); }

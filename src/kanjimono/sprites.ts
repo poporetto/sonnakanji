@@ -262,6 +262,7 @@ export const LOOKS: Record<string, Look> = {
   miko: { ...SKIN, h: '#2f2433', j: '#4d3f55', H: '#1e1824', k: '#2f2433', c: '#f6f1e2', C: '#c9c2d0', w: '#d6332a', p: '#d6332a', P: '#9c1f28', b: '#f6f1e2' },
   farmer: { ...SKIN, h: '#d9b860', j: '#f4e08f', H: '#a07c34', k: '#6b6b6b', c: '#4f8a4a', C: '#2f5f3a', w: '#d9c58f', p: '#5a6480', P: '#3e4560', b: '#5b3b2c' },
   pilgrim: { ...SKIN, h: '#ece6d4', j: '#ffffff', H: '#b9b2a4', k: '#8a8a9a', c: '#ece6d4', C: '#b9b2a4', w: '#6a6a7a', p: '#ece6d4', P: '#b9b2a4', b: '#7a5230' },
+  lukas: { ...SKIN, k: '#2a2230', K: '#544860', c: '#fbfaf4', C: '#c6ccdc', p: '#7a5230', P: '#5a3a22', b: '#3a3048' },
   mom: { ...SKIN, h: '#5a3a30', j: '#7a5244', H: '#3f2822', k: '#5a3a30', c: '#d9668a', C: '#a8446c', w: '#f6e9c8', p: '#d9668a', P: '#a8446c', b: '#f6f1e2' },
   master: { ...SKIN, h: '#6b8a3a', j: '#a4c45a', H: '#46602a', k: '#e6e0d0', c: '#7a5230', C: '#54382a', w: '#ffd23f', p: '#54382a', P: '#3a2a24', b: '#2b2036' },
   guardian: { ...SKIN, s: '#c9b0d8', S: '#9478b0', h: '#3b2470', j: '#6a3bb0', H: '#241650', k: '#e0dcf0', c: '#3b2470', C: '#241650', w: '#ffd23f', p: '#6a3bb0', P: '#3b2470', b: '#241650' },
@@ -316,6 +317,15 @@ const HEROINE = {
     '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskkko..', '...owwcccckkko..', '..oscwcCcckkko..', '..oSswcCccCkko..', '...ooyyyyyyyo...', '....oppppppPo...',
   ],
 };
+// Lukas, on the ?lukas page: short round hair with a slightly spiky fringe, a white shirt and brown trousers.
+const LUKAS = {
+  front: ['.....ooo', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkkk', '.okkkkkk', '.okkkskk', '.oksssss', '..oksess', '..oksess', '...osssk', '..occccc', '.oCccccc', '.osCcccc', '.oSoCCCC', '..ooppPp'],
+  back: ['.....ooo', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '..okkkkk', '...okkkk', '..occccc', '.oCcCccc', '.osCcCcc', '.oSoCCCC', '..ooppPp'],
+  side: [
+    '.....oooooo.....', '...ookkkkkkoo...', '..okKkkkkkkkko..', '..okKkkkkkkkkko.', '..okkkkkkkkkkko.', '..okkkkkkkkkkko.', '..okskkkkkkkko..',
+    '..osssskkkkkko..', '..osesskkkkkko..', '..osesskkkkko...', '...oSSsssskko...', '...occcccCco....', '..oscccCcccCo...', '..oSscCccCCo....', '...oCCCCCCCo....', '....oppppppPo...',
+  ],
+};
 const mirror = (rows: string[]) => rows.map((r) => r + [...r].reverse().join(''));
 const LEGS = {
   front: [
@@ -360,7 +370,7 @@ export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y
   let c = people.get(key);
   if (!c) {
     const hat = HEADS[look] ?? HAT;
-    const lead = look === 'hero' ? HERO : look === 'heroine' ? HEROINE : null;
+    const lead = look === 'hero' ? HERO : look === 'heroine' ? HEROINE : look === 'lukas' ? LUKAS : null;
     const front = lead ? lead.front : [...hat, ...FRONT], rear = lead ? lead.back : [...hat, ...BACK], side = lead ? lead.side : SIDES[look] ?? SIDE;
     const rows = dir === 'down' ? [...mirror(front), ...LEGS.front[step]]
       : dir === 'up' ? [...mirror(rear), ...LEGS.front[step]]

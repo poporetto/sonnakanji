@@ -60,8 +60,12 @@ try { kids = localStorage.getItem('kanjimon.kids.v1') === 'on'; } catch {}
 // Haru can be played as a boy or a girl.
 let haru = 'hero';
 try { haru = localStorage.getItem('kanjimon.look.v1') ?? 'hero'; } catch {}
+// On the ?lukas page the hero is Lukas, whatever the settings say.
+const lukas = new URLSearchParams(location.search).has('lukas');
+if (lukas) haru = 'lukas';
 
-function spelled<T extends HTMLElement>(el: T, text: string) {
+function spelled<T extends HTMLElement>(el: T, raw: string) {
+  const text = lukas ? raw.replaceAll('Haru', 'Lukas') : raw;
   el.dataset.raw = text;
   if (!kids) { el.textContent = text; return el; }
   el.replaceChildren(...withRomaji(text).flatMap((p) => (p.roma ? [p.text, Object.assign(document.createElement('small'), { className: 'roma', textContent: p.roma })] : [p.text])));
@@ -1189,7 +1193,7 @@ async function nextChase() {
 function drawTitle() {
   ctx.drawImage(backdrop('title'), 0, 0);
   if (still) {
-    person(ctx, 'hero', 96, GROUND - 16, 'right', 0);
+    person(ctx, lukas ? 'lukas' : 'hero', 96, GROUND - 16, 'right', 0);
     ctx.drawImage(kanjiSprite(starterRow[0], 30), 130 - MARGIN, GROUND - 30 - MARGIN);
     return;
   }
@@ -1213,7 +1217,7 @@ function drawTitle() {
   ctx.fillRect(Math.round(kanjiX + c.size / 6), GROUND - 1, Math.round(c.size * 2 / 3), 2);
   const runners = [
     () => ctx.drawImage(kanjiSprite(c.s, c.size), Math.round(kanjiX) - MARGIN, Math.round(GROUND - c.size - hop) - MARGIN),
-    () => person(ctx, 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
+    () => person(ctx, lukas ? 'lukas' : 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
   ];
   for (const run of runners) run();
   if (c.dir > 0 ? rear > 260 : rear < -c.size - 20) void nextChase();
@@ -1412,6 +1416,7 @@ for (const b of switches) b.addEventListener('click', () => {
   sfx.pick();
 });
 const looks = [...settings.querySelectorAll<HTMLButtonElement>('[data-look]')];
+if (lukas) document.querySelector<HTMLElement>('.pick[aria-label="Character"]')!.closest<HTMLElement>('.row')!.style.display = 'none';
 const showLook = () => { for (const b of looks) b.setAttribute('aria-pressed', String(b.dataset.look === haru)); };
 for (const b of looks) b.addEventListener('click', () => {
   unlock();
