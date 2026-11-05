@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { withRomaji } from './kana.ts';
 import { MAPS, SOLID } from './maps.ts';
+import { WORDS } from './meanings.ts';
 import { GEAR, INKS, PICKS } from './gear.ts';
 import { frequency, parse, TRACKS } from './music.ts';
 import { CHECKS, LEVELS, POOLS, QUESTS, SIGNS } from './story.ts';
@@ -100,4 +101,9 @@ test('each number kanji shows that many pips', () => {
     const [, , gear] = PICKS.find(([kanji]) => kanji.includes(k))!;
     assert.equal([...GEAR[gear].join('')].filter((c) => c === 'r').length, i + 1, k);
   });
+});
+
+test('friendlier meanings only cover kanji in the game', () => {
+  for (const k of Object.keys(WORDS)) assert.ok(pooled.includes(k), k);
+  assert.equal(WORDS['円'], 'yen');
 });

@@ -1,5 +1,5 @@
 import type { Species } from './battle';
-import { GEAR, INKS, LOW, ON_TOP, PICKS } from './gear';
+import { GEAR, INKS, LOOSE, LOW, ON_TOP, PICKS } from './gear';
 
 export const OUTLINE = '#2b2036';
 
@@ -53,7 +53,7 @@ function styleOf(s: Species) {
 }
 
 export const MARGIN = 26;
-interface Body { art: HTMLCanvasElement; fx: number; fy: number; gap: number; tiny: boolean; size: number; seed: number }
+interface Body { art: HTMLCanvasElement; fx: number; fy: number; gap: number; tiny: boolean; pale: boolean; size: number; seed: number }
 const bodies = new Map<string, Body>();
 
 function inked(s: Species, size: number, width: number) {
@@ -197,10 +197,12 @@ function body(s: Species, size: number, back = false): Body {
     // Beside the kanji, but never so far out that the edge of the battle screen cuts it off.
     const gx = above ? MARGIN + (left + right) / 2 - gw / 2 : Math.min(MARGIN + right + (gear.startsWith('die') ? 8 : 3) * k - gw / 2, MARGIN + size + 12 * k - gw);
     const gy = above ? MARGIN + top - gh + 4 * k : LOW.includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
+    const edge = Math.max(1, Math.round(1.6 * k));
+    if (LOOSE.includes(gear)) rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS.o, gx + x * cell - edge, gy + y * cell - edge, cell + edge * 2, cell + edge * 2); }));
     rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS[ch], gx + x * cell, gy + y * cell, cell, cell); }));
   }
 
-  const made = { art, fx: MARGIN + fx, fy: MARGIN + fy, gap, tiny, size, seed };
+  const made = { art, fx: MARGIN + fx, fy: MARGIN + fy, gap, tiny, pale: paint === 'dark', size, seed };
   bodies.set(key, made);
   return made;
 }
@@ -210,8 +212,8 @@ function face(o: CanvasRenderingContext2D, b: Body) {
   if (!b.gap) return;
   const k = b.size / 72, n = (v: number) => Math.max(1, Math.round(v * k));
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { o.fillStyle = c; o.fillRect(Math.round(x), Math.round(y), w, h); };
-  const { fx, fy, seed, gap, tiny } = b;
-  const INK = '#241c2e';
+  const { fx, fy, seed, gap, tiny, pale } = b;
+  const INK = pale ? '#fdf8ef' : '#241c2e';
   const ew = n(tiny ? 2 : 3), eh = n(tiny ? 3 : 4), my = fy + n(tiny ? 2 : 2), mouth = seed % 6;
   for (const x of [fx - gap - ew + 1, fx + gap]) {
     r(INK, x, fy, ew, eh);

@@ -60,7 +60,7 @@ export const GEAR: Record<string, string[]> = {
   ribbon: ['oo...oo', 'opo.opo', 'oppoppo', 'opppppo', 'oppoppo', 'opo.opo', 'oo...oo'],
   ball: ['..ooooo..', '.orrwrro.', 'orrwwwrro', 'owwwwwwwo', 'obbwwwbbo', '.obbwbbo.', '..ooooo..'],
   ear: ['.y......', '..y..y..', '...y..y.', '...y..y.', '...y..y.', '..y..y..', '.y......'],
-  mitt: ['.oo.oo.o.', 'otototo.o', 'otototoot', 'ottttttto', 'ottttttto', '.otttttto', '..oooooo.'],
+  mitt: ['...oo.oo.', '..ottotto', 'ooototoo.', 'ottttttto', 'ottttttto', '.otttttto', '..oooooo.'],
   shoe: ['ooooo....', 'orrrro...', 'orrrrrooo', 'orrrrrrro', 'ommmmmmmo', 'ooooooooo'],
   dumbbell: ['oo.....oo', 'oSo...oSo', 'oSoooooSo', 'oSsssssSo', 'oSoooooSo', 'oSo...oSo', 'oo.....oo'],
   // Language and study.
@@ -84,7 +84,7 @@ export const GEAR: Record<string, string[]> = {
   paw: ['.o.o.o.', 'ononono', '.o.o.o.', '..ooo..', '.onnno.', 'onnnnno', '.ooooo.'],
   // Places and travel.
   house: ['....o....', '...oro...', '..orrro..', '.orrrrro.', 'ooooooooo', '.ommommo.', '.ommommo.', '.ooooooo.'],
-  office: ['.ooooooo.', '.ocmcmco.', '.ommmmmo.', '.ocmcmco.', '.ommmmmo.', '.ocmcmco.', '.ommnmmo.', 'ooooooooo'],
+  office: ['.ooooooo.', '.olclclo.', '.olllllo.', '.olclclo.', '.olllllo.', '.olclclo.', '.ollnllo.', 'ooooooooo'],
   medkit: ['...ooo...', '..o...o..', 'ooooooooo', 'ommmrmmmo', 'ommrrrmmo', 'ommmrmmmo', 'ooooooooo'],
   train: ['.ooooooo.', 'obbbbbbbo', 'ocmcmcmco', 'obbbbbbbo', 'obbbbbbbo', '.ooooooo.', '.oo...oo.'],
   car: ['...oooo...', '..ocbcbo..', '.oooooooo.', 'orrrrrrrro', 'orrrrrrrro', '.oooooooo.', '..oo..oo..'],
@@ -97,17 +97,20 @@ export const GEAR: Record<string, string[]> = {
   bed: ['..lll....', '....l.ll.', '...l...l.', '..lll.l..', 'oo....ll.',  'omoooooo.', 'ommbbbbbo', 'ooooooooo'],
   shirt: ['.oo...oo.', 'oppooppPo', 'ooppppoo.', '..opppo..', '..opppo..', '..opppo..', '..ooooo..'],
   crown: ['y..y..y', 'yy.y.yy', 'yyyyyyy', 'yryyryy', 'YYYYYYY'],
+  bell: ['...ooo...', '..oYYYo..', '.oyyyyyo.', '.oyyyyyo.', 'oyyyyyyyo', 'ooooooooo', '...oYo...'],
   rock: ['...oooo..', '..osssso.', '.osgsssSo', 'osssSssso', 'oSSSSSSSo', '.ooooooo.'],
   ruler: ['ooooooooo', 'oyoyoyoyo', 'oyyyyyyyo', 'ooooooooo'],
   sparkle: ['...y.....', '...y..y..', 'yyyyy.y..', '...y.yyy.', '...y..y..', '......y..'],
   stars: ['.y.....y.', 'yyy...yyy', '.y..y..y.', '...yyy...', '....y....'],
   skull: ['.ooooo.', 'ommmmmo', 'okmmkmo', 'ommmmmo', '.omomo.', '..ooo..'],
   stop: ['..ooooo..', '.orrrrro.', 'orrrrrrro', 'ommmmmmmo', 'orrrrrrro', '.orrrrro.', '..ooooo..'],
-  scissors: ['o.....o', '.o...o.', '..o.o..', '...o...', '.oo.oo.', 'o.o.o.o', '.o...o.'],
+  scissors: ['s.....s', '.s...s.', '..s.s..', '...s...', '.ss.ss.', 's.s.s.s', '.s...s.'],
   compass: ['..ooooo..', '.ommrmmo.', 'ommrrrmmo', 'ommmommmo', 'ommSSSmmo', '.ommSmmo.', '..ooooo..'],
   target: ['..ooooo..', '.orrrrro.', 'orrmmmrro', 'ormrrrmro', 'orrmmmrro', '.orrrrro.', '..ooooo..'],
-  link: ['.oo..oo.', 'o..oo..o', 'o..oo..o', '.oo..oo.'],
+  link: ['.yy..yy.', 'y..yy..y', 'y..yy..y', '.yy..yy.'],
 };
+// Open shapes with no outline of their own, which need one to show up against the sky.
+export const LOOSE = ['swirl', 'snow', 'sparkle', 'stars', 'fork', 'ear', 'scissors', 'link', 'wheat', 'dots', 'sun', 'sunrise'];
 // Accessories that sit on top of the kanji, not beside it.
 export const ON_TOP = ['sprout', 'moon', 'flame', 'crown', 'cap', 'tomato', 'umbrella', 'flower'];
 // Held low at the side, rather than floating by the top corner.
@@ -128,7 +131,7 @@ export const PICKS: [string, string, string][] = [
   ['上起立高', 'lilac', 'up'], ['下', 'sky', 'down'], ['右前発行来通', 'green', 'right'], ['左後帰去', 'green', 'left'], ['長広', 'peach', 'ruler'],
   ['開門外出入間', 'sky', 'door'], ['家屋室住', 'peach', 'house'], ['館堂院社業員', 'lilac', 'office'], ['医病', 'red', 'medkit'], ['駅', 'lilac', 'train'],
   ['車運転送動', 'mint', 'car'], ['道近方', 'green', 'signpost'], ['国', 'red', 'flag'], ['京町公', 'lilac', 'house'], ['店', 'red', 'awning'], ['売', 'orange', 'horn'],
-  ['買', 'peach', 'bag'], ['品物', 'peach', 'box'], ['食味料', 'orange', 'fork'], ['飲茶', 'green', 'teacup'], ['飯', 'orange', 'bowl'], ['肉牛', 'red', 'meat'],
+  ['買', 'peach', 'bag'], ['品物', 'peach', 'box'], ['食味料', 'orange', 'fork'], ['飲茶', 'green', 'teacup'], ['飯', 'orange', 'bowl'], ['肉', 'red', 'meat'], ['牛', 'peach', 'bell'],
   ['魚', 'sky', 'fish'], ['鳥', 'yellow', 'feather'], ['犬', 'peach', 'paw'], ['服着', 'pink', 'shirt'], ['休安楽', 'mint', 'bed'], ['旅', 'mint', 'suitcase'],
   ['工作建仕用', 'orange', 'hammer'], ['主', 'yellow', 'crown'], ['新', 'pink', 'sparkle'], ['古', 'peach', 'rock'], ['多', '', 'stars'], ['少小', '', 'sparkle'], ['大', 'red', 'stars'],
   ['東西南北', 'mint', 'compass'], ['中', 'red', 'target'], ['先特', 'yellow', 'star'], ['名事', 'peach', 'paper'], ['会集', 'pink', 'link'], ['元', 'pink', 'sparkle'],
