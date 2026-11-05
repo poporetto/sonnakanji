@@ -22,16 +22,18 @@ export const easeOut = (t: number) => 1 - (1 - t) ** 3;
 
 interface Bit { x: number; y: number; vx: number; vy: number; gravity: number; life: number; max: number; colour: string; size: number }
 const bits: Bit[] = [];
-export const SPARK: Record<Element, { colours: string[]; gravity: number; rise: number; spread: number }> = {
+export const SPARK: Record<Element | 'ash' | 'bless', { colours: string[]; gravity: number; rise: number; spread: number }> = {
   fire: { colours: ['#ffe27a', '#fba93f', '#ee6a2c', '#c2382c'], gravity: -0.03, rise: 0.3, spread: 1 },
   water: { colours: ['#d8f6ff', '#7fd0f5', '#3f9be8'], gravity: 0.1, rise: 0.5, spread: 1.2 },
   wood: { colours: ['#e0f08a', '#93d05a', '#4faa4a'], gravity: 0.02, rise: 0.1, spread: 1.3 },
   earth: { colours: ['#f5dfa0', '#b97d3f', '#84502f', '#4e2f2a'], gravity: 0.16, rise: 0.9, spread: 1.4 },
   metal: { colours: ['#ffffff', '#f5f8fa', '#c3cdd8', '#ffd23f'], gravity: 0.05, rise: 0, spread: 2 },
   spirit: { colours: ['#ffffff', '#f4dcff', '#c89af0', '#9a62dc'], gravity: -0.01, rise: 0.1, spread: 0.9 },
+  bless: { colours: ['#ffffff', '#fff0a0', '#ffd23f', '#ffc0d8'], gravity: -0.05, rise: 0.8, spread: 0.45 },
+  ash: { colours: ['#8d8796', '#b0abb4', '#5a5a70', '#d9d2c8'], gravity: -0.05, rise: 0.5, spread: 0.7 },
 };
 
-export function burst(type: Element, x: number, y: number, count: number, force = 1) {
+export function burst(type: Element | 'ash' | 'bless', x: number, y: number, count: number, force = 1) {
   const s = SPARK[type];
   for (let i = 0; i < (still ? count / 2 : count); i++) {
     const a = Math.random() * Math.PI * 2, v = (0.4 + Math.random() * 1.6) * s.spread * force;
@@ -59,6 +61,30 @@ export function drawBits(ctx: CanvasRenderingContext2D) {
 let shake = 0;
 let flash = 0, flashColour = '#ffffff';
 export const veil = { wipe: 0, curtain: 0 };
+
+// A seal stamped into the game screen itself, so it stays pixel art.
+export const seal = { art: null as HTMLCanvasElement | null, grow: 1 };
+
+export function sealArt(mark: string) {
+  const size = 34, wide = [...mark].length * size + 6, big = 4;
+  const scratch = canvas(wide * big, 40 * big);
+  const g = scratch.getContext('2d', { willReadFrequently: true })!;
+  g.font = `900 ${size * big}px "M PLUS Rounded 1c"`;
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(mark, (wide * big) / 2, 21 * big);
+  const data = g.getImageData(0, 0, wide * big, 40 * big).data;
+  const c = canvas(wide, 40);
+  const o = c.getContext('2d')!;
+  o.fillStyle = '#c7302c'; o.fillRect(2, 0, wide - 4, 40); o.fillRect(0, 2, wide, 36);
+  o.fillStyle = '#fdf8ef'; o.fillRect(3, 2, wide - 6, 36); o.fillRect(2, 3, wide - 4, 34);
+  o.fillStyle = '#c7302c';
+  for (let y = 0; y < 40; y++) for (let x = 0; x < wide; x++) {
+    let on = 0;
+    for (let j = 0; j < big; j++) for (let i = 0; i < big; i++) if (data[((y * big + j) * wide * big + x * big + i) * 4 + 3] > 120) on++;
+    if (on > big * big * 0.45) o.fillRect(x, y, 1, 1);
+  }
+  return c;
+}
 export const shakeScreen = (amount: number) => { if (!still) shake = amount; };
 export const flashScreen = (amount: number, colour = '#ffffff') => { flash = still ? 0 : amount; flashColour = colour; };
 
@@ -92,6 +118,10 @@ export function endFrame(ctx: CanvasRenderingContext2D) {
       ctx.fillRect(row % 2 ? 240 - w : 0, row * 20, w, 21);
       ctx.fillRect(row % 2 ? 240 - w - 5 : w, row * 20 + 7, 5, 8);
     }
+  }
+  if (seal.art) {
+    const w = seal.art.width * seal.grow, h = seal.art.height * seal.grow;
+    ctx.drawImage(seal.art, Math.round(232 - w), 8, Math.round(w), Math.round(h));
   }
   if (veil.curtain > 0) {
     ctx.globalAlpha = Math.min(1, veil.curtain); ctx.fillStyle = OUTLINE; ctx.fillRect(0, 0, 240, 160); ctx.globalAlpha = 1;
@@ -168,8 +198,9 @@ export function drawKanji(ctx: CanvasRenderingContext2D, v: View, sprite: HTMLCa
 export const charm = { show: false, x: 0, y: 0, turn: 0, art: null as HTMLCanvasElement | null };
 const charms = new Map<string, HTMLCanvasElement>();
 
-export function charmArt(s: Species) {
-  const hit = charms.get(s.k);
+export function charmArt(s: Species, tint = '#d6332a') {
+  const key = s.k + tint;
+  const hit = charms.get(key);
   if (hit) return hit;
   const W = 22, H = 36, G = 18;
   const c = canvas(W, H);
@@ -179,7 +210,7 @@ export function charmArt(s: Species) {
   r('#fdf8ef', 1, 1, W - 2, H - 2);
   r('#efe4cc', W - 3, 1, 2, H - 2);
   // Red border and header band, as on a shrine talisman.
-  r('#d6332a', 2, 2, W - 4, 3); r('#d6332a', 2, H - 4, W - 4, 2); r('#d6332a', 2, 2, 1, H - 5); r('#d6332a', W - 3, 2, 1, H - 5);
+  r(tint, 2, 2, W - 4, 3); r(tint, 2, H - 4, W - 4, 2); r(tint, 2, 2, 1, H - 5); r(tint, W - 3, 2, 1, H - 5);
   r('#fdf8ef', 8, 3, 6, 1);
   // The kanji itself, inked in hard pixels.
   const scratch = canvas(G, G);
@@ -191,8 +222,8 @@ export function charmArt(s: Species) {
   const px = ink.getImageData(0, 0, G, G).data;
   for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) if (px[(y * G + x) * 4 + 3] > 96) r(OUTLINE, 2 + x, 6 + y, 1, 1);
   // A little seal under the name.
-  r('#d6332a', 8, 25, 6, 6); r('#fdf8ef', 10, 27, 2, 2);
-  charms.set(s.k, c);
+  r(tint, 8, 25, 6, 6); r('#fdf8ef', 10, 27, 2, 2);
+  charms.set(key, c);
   return c;
 }
 

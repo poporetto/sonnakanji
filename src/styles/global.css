@@ -88,7 +88,7 @@ main { padding-block: 8px 48px; }
 
 .btn {
   display: inline-block; border: 0; background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line);
-  border-radius: 999px; min-height: 44px; padding: 11px 20px; font: 600 15px var(--body); text-decoration: none; cursor: pointer; transition: transform .16s cubic-bezier(.2, .8, .2, 1);
+  border-radius: 999px; min-height: 44px; padding: 11px 20px; font: 600 15px/22px var(--body); text-decoration: none; cursor: pointer; transition: transform .16s cubic-bezier(.2, .8, .2, 1);
 }
 .btn:active { transform: var(--press); }
 .btn.primary { background: var(--accent); color: var(--on-accent); box-shadow: none; }

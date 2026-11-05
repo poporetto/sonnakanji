@@ -183,7 +183,12 @@ export const sfx = {
     tone(620, 0.75, 'sawtooth', 0.1, 0, 70);
     noise(0.7, 0.06, 1400, 200);
   },
+  bless: () => notes([['D5', 0.12], ['G5', 0.12], ['A5', 0.12], ['D6', 0.12], ['G6', 0.5]], 'triangle', 0.17),
   throw: () => noise(0.32, 0.1, 900, 3200),
+  fizzle() {
+    noise(0.5, 0.14, 2600, 260);
+    tone(420, 0.4, 'sawtooth', 0.07, 0.04, 90);
+  },
   absorb: () => tone(280, 0.32, 'triangle', 0.18, 0, 1400),
   wobble: () => tone(190, 0.08, 'square', 0.13, 0, 150),
   burst() {

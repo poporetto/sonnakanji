@@ -46,7 +46,7 @@ export const QUESTS: Quest[] = [
   },
   {
     id: 'letter', title: "Mom's letter", giver: 'Mom', where: 'Home', level: 'N5', task: { deliver: 'Teacher' },
-    offer: ['You came home! Are you eating properly?', 'Please take this letter to the teacher at Kawabe school. We were classmates, a long time ago.'], wait: 'Take the letter to the Teacher at Kawabe school.',
+    offer: ['Haru, you came home! Are you eating properly?', 'Please take this letter to the teacher at Kawabe school. We were classmates, a long time ago.'], wait: 'Take the letter to the Teacher at Kawabe school.',
     done: ['A letter from your mother! She always wrote the neatest kanji in class.', 'She says you are stubborn and kind. I can use both.'],
   },
   {
@@ -56,7 +56,7 @@ export const QUESTS: Quest[] = [
   },
   {
     id: 'rival1', title: 'Aoi on the road', giver: 'Aoi', where: 'Kawabe Town', level: 'N5', task: { beat: { team: ['見', '話'], lv: 11 } },
-    offer: ['So you are the new student. I am Aoi, and I have studied with Kanji Bear for three years.', 'Catching kanji one at a time will take forever. Let me see if you are any good.'], wait: 'Ready for another try?',
+    offer: ['So you are Haru, the new student. I am Aoi, and I have studied with Kanji Bear for three years.', 'Catching kanji one at a time will take forever. Let me see if you are any good.'], wait: 'Ready for another try?',
     done: ['Not bad. Still, I am heading for the source of all this. Try to keep up.'],
   },
   {
@@ -107,10 +107,10 @@ export const QUESTS: Quest[] = [
   {
     id: 'rival4', title: 'Aoi at the gate', giver: 'Aoi', where: 'Castle Town', level: 'N4', task: { beat: { team: ['意', '動', '真'], lv: 25 } },
     offer: ['The Castle Scribe knows why this happened, and will only speak to someone who can read.', 'One last match. Then you go in, for both of us.'], wait: 'One last match.',
-    done: ['Go on. And thanks. I think I will start again from N5.'],
+    done: ['Go on, Haru. And thanks. I think I will start again from N5.'],
   },
   {
-    id: 'calendar', title: 'The shrine calendar', giver: 'Shrine keeper', where: 'Sakura Village', after: 'farmer', task: { read: [
+    id: 'calendar', title: 'The shrine calendar', giver: 'Miko', where: 'Sakura Village', after: 'farmer', task: { read: [
       { q: 'The shrine calendar says 月曜日. Which day is that?', a: 'Monday', wrong: ['Friday', 'Sunday', 'Tuesday'], why: '月 is the moon, so 月曜日 is moon day, Monday.' },
       { q: 'The festival is on 土曜日. Which day is that?', a: 'Saturday', wrong: ['Wednesday', 'Thursday', 'Monday'], why: '土 is soil, so 土曜日 is earth day, Saturday.' },
       { q: 'We rest on 日曜日. Which day is that?', a: 'Sunday', wrong: ['Tuesday', 'Saturday', 'Friday'], why: '日 is the sun, so 日曜日 is sun day, Sunday.' },

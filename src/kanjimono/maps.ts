@@ -1,8 +1,8 @@
 import { SIGNS, type LevelId } from './story.ts';
 
-export const SOLID = '~THRWtsPKwVcbonSC';
+export const SOLID = '~THRWtsPKwVcbonSCjexyihQp';
 
-export interface Npc { x: number; y: number; name: string; look?: string; lines: string[]; heal?: boolean; master?: LevelId; guide?: boolean; mom?: boolean; after?: string }
+export interface Npc { x: number; y: number; name: string; look?: string; lines: string[]; heal?: boolean; shop?: boolean; charms?: string; master?: LevelId; guide?: boolean; mom?: boolean; after?: string }
 export interface Door { x: number; y: number; to: string; tx: number; ty: number; dir: string }
 export interface Gate { quest?: string; trial?: LevelId; line: string }
 export interface GameMap { name: string; levels?: [number, number]; rows: string[]; east?: string; west?: string; gate?: Gate; npcs: Npc[]; doors?: Door[]; room?: boolean; sky?: string }
@@ -18,28 +18,33 @@ export const MAPS: Record<string, GameMap> = {
     doors: [
       { x: 4, y: 4, to: 'home', tx: 7, ty: 8, dir: 'up' }, { x: 5, y: 4, to: 'home', tx: 7, ty: 8, dir: 'up' },
       { x: 18, y: 7, to: 'dojo', tx: 7, ty: 8, dir: 'up' }, { x: 19, y: 7, to: 'dojo', tx: 7, ty: 8, dir: 'up' },
+      { x: 28, y: 4, to: 'shop-village', tx: 7, ty: 8, dir: 'up' }, { x: 29, y: 4, to: 'shop-village', tx: 7, ty: 8, dir: 'up' },
+      { x: 27, y: 13, to: 'charm-village', tx: 7, ty: 8, dir: 'up' }, { x: 28, y: 13, to: 'charm-village', tx: 7, ty: 8, dir: 'up' },
     ],
     npcs: [
-      { x: 6, y: 7, name: 'Shrine keeper', look: 'miko', heal: true, lines: ['Rest here. The shrine restores your kanji.'] },
-      { x: 15, y: 8, name: 'Neighbour', look: 'pilgrim', lines: ['Kanji Bear taught my grandmother to read. The dojo is the house with the red curtain.'] },
+      { x: 13, y: 4, name: 'Miko', look: 'miko', heal: true, lines: ['Welcome to the shrine. Let me say a prayer for your team.'] },
+      { x: 15, y: 8, name: 'Neighbour', look: 'oldwoman', lines: ['Kanji Bear taught my grandmother to read. The dojo is the house with the red curtain.'] },
+      { x: 27, y: 8, name: 'Shopper', look: 'woman', lines: ['The 6-7 Kombini past the dojo sells rice balls. The charm shop is just south of it.'] },
+      { x: 31, y: 12, name: 'Old fisher', look: 'oldman', lines: ['East of here the road runs to the rice fields. Mind the tall grass.'] },
+      { x: 24, y: 2, name: 'Young reader', look: 'child', lines: ['I can read 三 now! It only took me all week.'] },
     ],
     rows: [
-      'KKKKKKKKKKKKKKKKKKKKKKKK',
-      'K......................K',
-      'K..HHHH.....sss.....K..K',
-      'K..HHHH.....sss........K',
-      'K..WWWW.....,,,........K',
-      'K....,......,,,..HHHH..K',
-      'K....,,,,,,,,,,..HHHH..K',
-      'K......,..,,t,t..WWWW..K',
-      'K......,..,,,,,....,...K',
-      'K..K...,,,,,,,,,,,,,,,,,',
-      'K......,..,,,,,,,,,,,,,,',
-      'K......,...........,...K',
-      'K..~~~~....K.....K.....K',
-      'K..~~~~................K',
-      'K......................K',
-      'KKKKKKKKKKKKKKKKKKKKKKKK',
+      'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK',
+      'K................................K.K',
+      'K..HHHH.....sss.....K......QQQQ....K',
+      'K..HHHH.....sss............QQQQ....K',
+      'K..WWWW.....,,,............QQQQ....K',
+      'K....,......,,,..HHHH.......,,.....K',
+      'K....,,,,,,,,,,..HHHH.......,,.....K',
+      'K......,..,,t,t..WWWW.......,,.....K',
+      'K......,..,,,,,....,........,,.....K',
+      'K..K...,,,,,,,,,,,,,,,,,,,,,,,,,,,,,',
+      'K......,..,,,,,,,,,,,,,,,,,,,,,,,,,,',
+      'K......,...........,......HHHH.....K',
+      'K..~~~~....K.....K........HHHH...K.K',
+      'K..~~~~...................WWWW.....K',
+      'K..................................K',
+      'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK',
     ],
   },
   fields: {
@@ -67,18 +72,23 @@ export const MAPS: Record<string, GameMap> = {
   kawabe: {
     name: 'Kawabe Town', levels: [7, 10], west: 'fields', east: 'forest',
     gate: { quest: 'market', line: 'Stall keeper: The forest road closes on market day. Help me out first!' },
-    doors: [{ x: 4, y: 4, to: 'school', tx: 7, ty: 8, dir: 'up' }, { x: 5, y: 4, to: 'school', tx: 7, ty: 8, dir: 'up' }],
+    doors: [
+      { x: 4, y: 4, to: 'school', tx: 7, ty: 8, dir: 'up' }, { x: 5, y: 4, to: 'school', tx: 7, ty: 8, dir: 'up' },
+      { x: 12, y: 4, to: 'shop-kawabe', tx: 7, ty: 8, dir: 'up' }, { x: 13, y: 4, to: 'shop-kawabe', tx: 7, ty: 8, dir: 'up' },
+      { x: 18, y: 5, to: 'charm-kawabe', tx: 7, ty: 8, dir: 'up' }, { x: 19, y: 5, to: 'charm-kawabe', tx: 7, ty: 8, dir: 'up' },
+    ],
     npcs: [
-      { x: 12, y: 8, name: 'Stall keeper', look: 'farmer', lines: ['Fresh tea and honest prices.'] },
+      { x: 12, y: 8, name: 'Stall keeper', look: 'oldman', lines: ['Fresh tea and honest prices.'] },
       { x: 17, y: 7, name: 'Aoi', look: 'rival', after: 'roll', lines: ['Keep up, if you can.'] },
-      { x: 2, y: 7, name: 'Tea seller', look: 'mom', heal: true, lines: ['Sit down and have some tea. It does wonders.'] },
+      { x: 9, y: 5, name: 'Officer', look: 'police', lines: ['Stay on the road after dark. The kanji by the river get lively.'] },
+      { x: 2, y: 7, name: 'Tea seller', look: 'woman', heal: true, lines: ['Sit down and have some tea. It does wonders.'] },
     ],
     rows: [
       'TTTTTTTTTTTTTTTTTTTTTTTT',
       'T......................T',
-      'T..HHHH....HHHH........T',
-      'T..HHHH....HHHH..HHHH..T',
-      'T..WWWW....WWWW..HHHH..T',
+      'T..HHHH....QQQQ........T',
+      'T..HHHH....QQQQ..HHHH..T',
+      'T..WWWW....QQQQ..HHHH..T',
       'T....,......,....WWWW..T',
       'T....,,,,,,,,,,,,,,,...T',
       'T.......,..,.....,.....T',
@@ -146,51 +156,61 @@ export const MAPS: Record<string, GameMap> = {
   onsen: {
     name: 'Onsen Town', levels: [18, 22], west: 'pass', east: 'castle',
     gate: { quest: 'doctor', line: 'Doctor: The castle road stays closed until my clinic can be found. Please help!' },
-    doors: [{ x: 4, y: 4, to: 'inn', tx: 7, ty: 8, dir: 'up' }, { x: 5, y: 4, to: 'inn', tx: 7, ty: 8, dir: 'up' }],
+    doors: [
+      { x: 4, y: 4, to: 'inn', tx: 7, ty: 8, dir: 'up' }, { x: 5, y: 4, to: 'inn', tx: 7, ty: 8, dir: 'up' },
+      { x: 19, y: 4, to: 'shop-onsen', tx: 7, ty: 8, dir: 'up' }, { x: 20, y: 4, to: 'shop-onsen', tx: 7, ty: 8, dir: 'up' },
+      { x: 10, y: 13, to: 'charm-onsen', tx: 7, ty: 8, dir: 'up' }, { x: 11, y: 13, to: 'charm-onsen', tx: 7, ty: 8, dir: 'up' },
+    ],
     npcs: [
-      { x: 18, y: 8, name: 'Doctor', look: 'pilgrim', heal: true, lines: ['Let me look at your team. Good as new.'] },
+      { x: 18, y: 8, name: 'Doctor', look: 'nurse', heal: true, lines: ['Let me look at your team. Good as new.'] },
+      { x: 16, y: 8, name: 'Nurse', look: 'nurse', lines: ['The hot spring does wonders, but the doctor is right here if you need us.'] },
       { x: 10, y: 8, name: 'Aoi', look: 'rival', after: 'doctor', lines: ['Read every sign. I mean it.'] },
     ],
     rows: [
       'PPPPPPPPPPPPPPPPPPPPPPPP',
       'P......................P',
-      'P..HHHH....~~~~~~~..K..P',
-      'P..HHHH....~~~~~~~.....P',
-      'P..WWWW....~~~~~~~.....P',
+      'P..HHHH....~~~~~~~QQQQ.P',
+      'P..HHHH....~~~~~~~QQQQ.P',
+      'P..WWWW....~~~~~~~QQQQ.P',
       'P....,.................P',
       'P....,,,,,,,,,,,,,,....P',
       'P.................,....P',
       'P.................,....P',
       road, road,
-      'P""""""""""""""""""""""P',
-      'P""""""""""""""""""""""P',
-      'P""""""""""""""""""""""P',
+      'P""""""""HHHH""""""""""P',
+      'P""""""""HHHH""""""""""P',
+      'P""""""""WWWW""""""""""P',
       'P""""""""""""""""""""""P',
       'PPPPPPPPPPPPPPPPPPPPPPPP',
     ],
   },
   castle: {
     name: 'Castle Town', levels: [22, 26], west: 'onsen',
-    doors: [{ x: 11, y: 6, to: 'hall', tx: 7, ty: 8, dir: 'up' }, { x: 12, y: 6, to: 'hall', tx: 7, ty: 8, dir: 'up' }],
+    doors: [
+      { x: 11, y: 6, to: 'hall', tx: 7, ty: 8, dir: 'up' }, { x: 12, y: 6, to: 'hall', tx: 7, ty: 8, dir: 'up' },
+      { x: 3, y: 5, to: 'shop-castle', tx: 7, ty: 8, dir: 'up' }, { x: 4, y: 5, to: 'shop-castle', tx: 7, ty: 8, dir: 'up' },
+      { x: 10, y: 13, to: 'charm-castle', tx: 7, ty: 8, dir: 'up' }, { x: 11, y: 13, to: 'charm-castle', tx: 7, ty: 8, dir: 'up' },
+    ],
     npcs: [
-      { x: 19, y: 7, name: 'Stationmaster', look: 'guardian', heal: true, lines: ['Trains on time, and a rest for the weary.'] },
+      { x: 19, y: 7, name: 'Stationmaster', look: 'police', heal: true, lines: ['Trains on time, and a rest for the weary.'] },
       { x: 12, y: 8, name: 'Aoi', look: 'rival', after: 'station', lines: ['Go on. The Scribe is waiting.'] },
-      { x: 4, y: 7, name: 'Librarian', look: 'miko', lines: ['Quiet, please.'] },
+      { x: 6, y: 8, name: 'Officer', look: 'police', lines: ['The castle has been quiet since the signs went blank. Too quiet.'] },
+      { x: 4, y: 7, name: 'Librarian', look: 'woman', lines: ['Quiet, please.'] },
     ],
     rows: [
       'TTTTTTTTTTTTTTTTTTTTTTTT',
       'T.......CCCCCCCC.......T',
       'T.......CCCCCCCC.......T',
-      'T.......CCCCCCCC..HHHH.T',
-      'T.......CCCCCCCC..HHHH.T',
-      'T.......CCCCCCCC..WWWW.T',
+      'T.QQQQ..CCCCCCCC..HHHH.T',
+      'T.QQQQ..CCCCCCCC..HHHH.T',
+      'T.QQQQ..CCCCCCCC..WWWW.T',
       'T.......CCCCCCCC.......T',
       'T...........,,.........T',
       'T...........,,.........T',
       ','.repeat(23) + 'T', ','.repeat(23) + 'T',
-      'T""""""""""""""""""""""T',
-      'T""""""""""""""""""""""T',
-      'T""""""""""""""""""""""T',
+      'T""""""""HHHH""""""""""T',
+      'T""""""""HHHH""""""""""T',
+      'T""""""""WWWW""""""""""T',
       'T""""""""""""""""""""""T',
       'TTTTTTTTTTTTTTTTTTTTTTTT',
     ],
@@ -251,7 +271,7 @@ export const MAPS: Record<string, GameMap> = {
     doors: [{ x: 7, y: 9, to: 'onsen', tx: 4, ty: 5, dir: 'down' }],
     npcs: [
       { x: 7, y: 4, name: 'Innkeeper', look: 'mom', heal: true, lines: ['Rest as long as you like.'] },
-      { x: 3, y: 6, name: 'Grandmother', look: 'pilgrim', lines: ['Such a kind young one.'] },
+      { x: 3, y: 6, name: 'Grandmother', look: 'oldwoman', lines: ['Such a kind young one.'] },
     ],
     rows: room([
       'wwwwwwwwwwwwwww',
@@ -284,6 +304,48 @@ export const MAPS: Record<string, GameMap> = {
     ]),
   },
 };
+
+// Every town shop is the same little store with a different keeper.
+const KONBINI = room([
+  'wwwwwwwwwwwwwww',
+  'wwwwwwwwwwwwwww',
+  'wjjiipppppiijjw',
+  'wqqqqqqqqqqqqqw',
+  'wqqqqxxyxxqqqqw',
+  'wqeqeqqqqqhqhqw',
+  'wqeqeqqqqqhqhqw',
+  'wqeqeqqqqqhqhqw',
+  'wqqqqqqqqqqqqqw',
+  'wwwwwwwdwwwwwww',
+]);
+
+const store = (name: string, town: string, tx: number, ty: number, keeper: Npc, rows?: string[]): GameMap => ({
+  name, room: true,
+  doors: [{ x: 7, y: 9, to: town, tx, ty, dir: 'down' }],
+  npcs: [keeper],
+  rows: rows ?? room([
+    'wwwwwwwwwwwwwww',
+    'wnwwwwwnwwwwwnw',
+    'wccccfffffccccw',
+    'wfffffffffffffw',
+    'wfffffffffffffw',
+    'wfbbfffffffbbfw',
+    'wfbbfffffffbbfw',
+    'wfffffffffffffw',
+    'wfffffffffffffw',
+    'wwwwwwwdwwwwwww',
+  ]),
+});
+const clerk: Npc = { x: 7, y: 3, name: 'Clerk', look: 'worker', shop: true, lines: [] };
+const charmer = (town: string): Npc => ({ x: 7, y: 4, name: 'Charm maker', look: 'miko', charms: town, lines: [] });
+MAPS['shop-village'] = store('6-7 Kombini', 'village', 28, 5, clerk, KONBINI);
+MAPS['shop-kawabe'] = store('6-7 Kombini', 'kawabe', 12, 5, clerk, KONBINI);
+MAPS['shop-onsen'] = store('6-7 Kombini', 'onsen', 19, 5, clerk, KONBINI);
+MAPS['shop-castle'] = store('6-7 Kombini', 'castle', 3, 6, clerk, KONBINI);
+MAPS['charm-village'] = store('Sakura charm shop', 'village', 27, 14, charmer('village'));
+MAPS['charm-kawabe'] = store('Kawabe charm shop', 'kawabe', 18, 6, charmer('kawabe'));
+MAPS['charm-onsen'] = store('Onsen charm shop', 'onsen', 10, 14, charmer('onsen'));
+MAPS['charm-castle'] = store('Castle charm shop', 'castle', 10, 14, charmer('castle'));
 
 // Signs become solid tiles on their maps.
 for (const s of SIGNS) {

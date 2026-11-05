@@ -109,6 +109,21 @@ export const GEAR: Record<string, string[]> = {
   target: ['..ooooo..', '.orrrrro.', 'orrmmmrro', 'ormrrrmro', 'orrmmmrro', '.orrrrro.', '..ooooo..'],
   link: ['.yy..yy.', 'y..yy..y', 'y..yy..y', '.yy..yy.'],
 };
+// Shop and bag icons.
+export const ICONS: Record<string, string[]> = {
+  melon: ['...ooo...', '.oogggoo.', 'ogGgGgGgo', 'ogggGgggo', 'oGgGgGgGo', '.oyyyyyo.', '..ooooo..'],
+  rice: ['....o....', '...omo...', '..ommmo..', '.ommmmmo.', 'ommmmmmmo', 'omkkkkkmo', 'okkkkkkko', '.ooooooo.'],
+  soda: ['...ooo...', '...ocwo..', '...ooo...', '..obbbo..', '.obcbbbo.', '.obcbbbo.', '.obbbbbo.', '.ooooooo.'],
+  teacup: ['..w.w....', '...w.....', 'ooooooo..', 'oGGGGGoo.', 'ommmmmo.o', 'ommmmmooo', '.ommmo...', '..ooo....'],
+  bento: ['ooooooooo', 'ommmromgo', 'ommmromgo', 'oooooooo.', 'ononnomno', 'ononnoomo', 'ooooooooo'],
+  magazine: ['ooooooo..', 'orrrrroo.', 'ommmmmoo.', 'omkkkmoo.', 'omkkkmoo.', 'ommmmmoo.', 'ooooooo..'],
+  capsule: ['..ooooo..', '.orrrrro.', 'orwrrrrro', 'ooooooooo', 'ommmmmmmo', '.ommmmmo.', '..ooooo..'],
+  plush: ['.oo...oo.', 'onnoooonno', 'onnnnnnno', 'onknnnkno', 'onntttnno', '.onnknno.', 'orrrrrrro', '.oo...oo.'],
+  ink: ['...ooo...', '...oso...', '..ooooo..', '.okkkkko.', '.okSkkko.', '.okkkkko.', '.okkkkko.', '.ooooooo.'],
+  goldink: ['...ooo...', '...oyo...', '..ooooo..', '.oyyyyyo.', '.oywyyyo.', '.oyyyyyo.', '.oYYYYYo.', '.ooooooo.'],
+  charm: ['ooooooo', 'orrrrro', 'ommmmmo', 'omkkkmo', 'ommkmmo', 'omkkkmo', 'ommrmmo', 'ooooooo'],
+};
+
 // Open shapes with no outline of their own, which need one to show up against the sky.
 export const LOOSE = ['swirl', 'snow', 'sparkle', 'stars', 'fork', 'ear', 'scissors', 'link', 'wheat', 'dots', 'sun', 'sunrise'];
 // Accessories that sit on top of the kanji, not beside it.

@@ -250,6 +250,13 @@ type Look = Record<string, string>;
 const SKIN = { s: '#f5cda0', S: '#d99e74', e: OUTLINE, o: OUTLINE };
 export const LOOKS: Record<string, Look> = {
   hero: { ...SKIN, k: '#33283f', K: '#5c4a70', r: '#e0483e', R: '#a82c38', c: '#2f78c8', C: '#1f4f94', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#39405e', P: '#262b45', b: '#e0483e' },
+  heroine: { ...SKIN, k: '#8a4a30', K: '#b87858', r: '#e0483e', R: '#a82c38', c: '#e85f8c', C: '#b43a6c', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#39405e', P: '#262b45', b: '#e0483e' },
+  woman: { ...SKIN, h: '#6a3a2c', j: '#8a5240', H: '#4a2820', k: '#6a3a2c', c: '#e0a03c', C: '#b87820', w: '#fdf3dc', p: '#e0a03c', P: '#b87820', b: '#7a4a24' },
+  oldman: { ...SKIN, h: '#f5cda0', j: '#ffe0bc', H: '#d99e74', k: '#c8c8d0', c: '#6a7a5c', C: '#4e5c44', w: '#d9d2c0', p: '#5a5048', P: '#40382f', b: '#3a3048' },
+  oldwoman: { ...SKIN, h: '#c8c8d0', j: '#e6e6ec', H: '#a0a0ac', k: '#c8c8d0', c: '#8a5a8c', C: '#6a3f6c', w: '#e6d8c0', p: '#8a5a8c', P: '#6a3f6c', b: '#3a3048' },
+  police: { ...SKIN, h: '#26366a', j: '#3a4e8c', H: '#182448', k: '#33283f', c: '#2f4f9e', C: '#1e3470', w: '#a8c4f0', y: '#ffd23f', p: '#1e2a58', P: '#141c40', b: '#17151c' },
+  nurse: { ...SKIN, h: '#6a3a2c', j: '#8a5240', H: '#4a2820', k: '#6a3a2c', c: '#fdfdff', C: '#c8d4e4', w: '#7fc8e8', m: '#fdfdff', r: '#e0483e', p: '#fdfdff', P: '#c8d4e4', b: '#fdfdff' },
+  worker: { ...SKIN, h: '#2f6fd0', j: '#5a94e8', H: '#1f4f9e', k: '#33283f', c: '#2f6fd0', C: '#1f4f9e', w: '#ffd23f', y: '#ffd23f', p: '#39405e', P: '#262b45', b: '#17151c' },
   child: { ...SKIN, h: '#e8c36a', j: '#f8e6a0', H: '#b58838', k: '#4a3030', c: '#d9668a', C: '#a8446c', w: '#f6f1e2', p: '#c9a26b', P: '#94703f', b: '#5b3b2c' },
   rival: { ...SKIN, h: '#1f7f86', j: '#3cb8a8', H: '#14505a', k: '#1f7f86', c: '#2b2f4e', C: '#1b1e38', w: '#3cb8a8', p: '#2b2f4e', P: '#1b1e38', b: '#f6f1e2' },
   miko: { ...SKIN, h: '#2f2433', j: '#4d3f55', H: '#1e1824', k: '#2f2433', c: '#f6f1e2', C: '#c9c2d0', w: '#d6332a', p: '#d6332a', P: '#9c1f28', b: '#f6f1e2' },
@@ -261,6 +268,16 @@ export const LOOKS: Record<string, Look> = {
 };
 
 const HAT = ['.....ooo', '...oojjj', '..ojjjhh', '.ojjhhhh', '.ohhhhhh', 'oHHHHHHH', '.ooooooo'];
+// Heads for the townspeople who don't wear a straw hat.
+const LONG_HAIR = ['........', '.....ooo', '...oohhh', '..ohjjhh', '..ohhhhh', '.ohhhhhh', '.ohhhhhh'];
+const HEADS: Record<string, string[]> = {
+  miko: LONG_HAIR, mom: LONG_HAIR, rival: LONG_HAIR, woman: LONG_HAIR,
+  oldman: ['........', '.....ooo', '...oohhh', '..ohjhhh', '..ohhhhh', '.okhhhhh', '.okhhhhh'],
+  oldwoman: ['.....ooo', '....ohhh', '...oojjh', '..ohjhhh', '..ohhhhh', '.ohhhhhh', '.ohhhhhh'],
+  police: ['.....ooo', '...oohhh', '..ohhhyy', '.ohhhhyy', '.oHHHHHH', 'oHHHHHHH', '.ooooooo'],
+  nurse: ['.....ooo', '...oommm', '..ommmmr', '..ommmrr', '..ohhhhh', '.ohhhhhh', '.ohhhhhh'],
+  worker: ['.....ooo', '...oohhh', '..ohjjhh', '.ohhhhhy', '.oHHHHHH', 'oHHHHHHH', '.ooooooo'],
+};
 const FRONT = ['..okkkss', '..oksess', '..oksess', '...osssS', '..ocwccc', '.oCcwccc', '.osCwccc', '.oSoCwCC', '..ooppPp'];
 const BACK = ['..okkkkk', '..okkkkk', '..okkkkk', '...okkkk', '..ocCwcc', '.oCcCwcc', '.osCcCcc', '.oSoCcCC', '..ooppPp'];
 const SIDE = [
@@ -274,6 +291,15 @@ const HERO = {
   side: [
     '.....oo.o.o.....', '....okkokkoko...', '...okKkkkkkkko..', '..okKkkkkkkkkko.', '.orrrrrrrrrrrro.', '.oRRRRRRRRRRRoro', '..osskkkkkkkko..',
     '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskko...', '...owwccccBBo...', '..oscwcCcccBBo..', '..oSswcCccCBBo..', '...ooyyyyyyyo...', '....oppppppPo...',
+  ],
+};
+// The same hero as a girl: long chestnut hair, a red ribbon and a pink jacket.
+const HEROINE = {
+  front: ['.....ooo', '...ookkk', '..okrrkk', '.okKrrkk', '.okKkkkk', '.okkkkkk', '.okkkkss', '.okksess', '.okksess', '.okkssss', '.okkosss', '.okkcwcc', '.oCcCCwc', '.osCcCwy', '.oSoyyyy', '..ooppPp'],
+  back: ['.....ooo', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkrr', '.okkkkrr', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.oCkkkkk', '.osCkkkk', '.oSoyyyy', '..ooppPp'],
+  side: [
+    '.....ooooo......', '...ookkkkkoo....', '..okKkkkrrkko...', '..okKkkkrrkkko..', '..okkkkkkkkkko..', '..okkkkkkkkkko..', '..osskkkkkkkko..',
+    '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskkko..', '...owwcccckkko..', '..oscwcCcckkko..', '..oSswcCccCkko..', '...ooyyyyyyyo...', '....oppppppPo...',
   ],
 };
 const mirror = (rows: string[]) => rows.map((r) => r + [...r].reverse().join(''));
@@ -307,9 +333,9 @@ export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y
   const key = `${look}${dir}${step}`;
   let c = people.get(key);
   if (!c) {
-    const hat = ['miko', 'mom', 'rival'].includes(look) ? ['........', '.....ooo', '...oohhh', '..ohjjhh', '..ohhhhh', '.ohhhhhh', '.ohhhhhh'] : HAT;
-    const hero = look === 'hero';
-    const front = hero ? HERO.front : [...hat, ...FRONT], rear = hero ? HERO.back : [...hat, ...BACK], side = hero ? HERO.side : SIDE;
+    const hat = HEADS[look] ?? HAT;
+    const lead = look === 'hero' ? HERO : look === 'heroine' ? HEROINE : null;
+    const front = lead ? lead.front : [...hat, ...FRONT], rear = lead ? lead.back : [...hat, ...BACK], side = lead ? lead.side : SIDE;
     const rows = dir === 'down' ? [...mirror(front), ...LEGS.front[step]]
       : dir === 'up' ? [...mirror(rear), ...LEGS.front[step]]
       : [...side, ...LEGS.side[step]];

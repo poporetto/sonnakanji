@@ -4,7 +4,8 @@ import { test } from 'node:test';
 import { withRomaji } from './kana.ts';
 import { MAPS, SOLID } from './maps.ts';
 import { WORDS } from './meanings.ts';
-import { GEAR, INKS, PICKS } from './gear.ts';
+import { CHARMS, charmsIn, healed, holdChance, INKWELL, ITEMS, JOKES, revived } from './shop.ts';
+import { GEAR, ICONS, INKS, PICKS } from './gear.ts';
 import { frequency, parse, TRACKS } from './music.ts';
 import { CHECKS, LEVELS, POOLS, QUESTS, SIGNS } from './story.ts';
 
@@ -49,9 +50,9 @@ test('signs use kanji that can be caught', () => {
 test('maps are the right size and everything can be reached on foot', () => {
   for (const [id, m] of Object.entries(MAPS)) {
     assert.equal(m.rows.length, 16, id);
-    for (const r of m.rows) assert.equal(r.length, 24, `${id}: ${r}`);
+    for (const r of m.rows) assert.equal(r.length, m.rows[0].length, `${id}: ${r}`);
     const blocked = new Set(m.npcs.map((n) => `${n.x},${n.y}`));
-    const open = (x: number, y: number) => x >= 0 && y >= 0 && x < 24 && y < 16 && !SOLID.includes(m.rows[y][x]) && !blocked.has(`${x},${y}`);
+    const open = (x: number, y: number) => x >= 0 && y >= 0 && x < m.rows[0].length && y < 16 && !SOLID.includes(m.rows[y][x]) && !blocked.has(`${x},${y}`);
     for (const n of m.npcs) assert.ok(!SOLID.includes(m.rows[n.y][n.x]), `${id} ${n.name} stands on a wall`);
     const start = m.room ? [7, 8] : m.west ? [0, 9] : [12, 9];
     const seen = new Set([start.join()]);
@@ -63,10 +64,13 @@ test('maps are the right size and everything can be reached on foot', () => {
       }
     }
     const beside = (x: number, y: number) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => seen.has(`${x + dx},${y + dy}`));
-    for (const n of m.npcs) assert.ok(beside(n.x, n.y), `${id}: can't reach ${n.name}`);
+    // Shop staff stand behind a counter and are spoken to across it.
+    const across = (n: { x: number; y: number }) => 'xy'.includes(m.rows[n.y + 1]?.[n.x] ?? '') && seen.has(`${n.x},${n.y + 2}`);
+    for (const n of m.npcs) assert.ok(beside(n.x, n.y) || across(n), `${id}: can't reach ${n.name}`);
     for (const d of m.doors ?? []) assert.ok(beside(d.x, d.y), `${id}: can't reach door to ${d.to}`);
     for (const s of SIGNS.filter((s) => s.map === id)) assert.ok(beside(s.x, s.y), `${id}: can't reach sign ${s.word}`);
-    if (m.east) assert.ok(seen.has('23,9') || seen.has('23,10'), `${id}: no way east`);
+    const edge = m.rows[0].length - 1;
+    if (m.east) assert.ok(seen.has(`${edge},9`) || seen.has(`${edge},10`), `${id}: no way east`);
     for (const d of m.doors ?? []) assert.ok(!SOLID.includes(MAPS[d.to].rows[d.ty][d.tx]), `${id}: door lands on a wall`);
   }
 });
@@ -106,4 +110,29 @@ test('each number kanji shows that many pips', () => {
 test('friendlier meanings only cover kanji in the game', () => {
   for (const k of Object.keys(WORDS)) assert.ok(pooled.includes(k), k);
   assert.equal(WORDS['円'], 'yen');
+});
+
+test('every town has a shop you can walk into, and items heal correctly', () => {
+  for (const town of ['village', 'kawabe', 'onsen', 'castle']) {
+    assert.ok(MAPS[town].doors!.some((d) => d.to.startsWith('shop')), town);
+    assert.ok(MAPS[town].doors!.some((d) => d.to.startsWith('charm')), town);
+    assert.equal(charmsIn(town).length, 3, town);
+  }
+  const by = (id: string) => ITEMS.find((i) => i.id === id)!;
+  assert.equal(healed(by('rice'), 10, 100), 30);
+  assert.equal(healed(by('rice'), 90, 100), 10);
+  assert.equal(healed(by('bento'), 10, 100), 90);
+});
+
+test('charm effects and the konbini shelves work as described', () => {
+  const by = (id: string) => CHARMS.find((c) => c.id === id)!;
+  assert.equal(holdChance(by('paper'), 0.4), 0.4);
+  assert.equal(Math.round(holdChance(by('gold'), 0.4) * 10), 7);
+  assert.equal(holdChance(by('scribe'), 0.1), 1);
+  assert.ok(ITEMS.some((i) => i.read) && JOKES.length >= 10);
+  for (const i of ITEMS) assert.ok(ICONS[i.icon], i.id);
+  assert.ok(ITEMS.some((i) => i.open) && ITEMS.some((i) => i.keep));
+  assert.equal(revived(INKWELL[0], 41), 21);
+  assert.equal(revived(INKWELL[1], 41), 41);
+  for (const rows of Object.values(ICONS)) for (const ch of rows.join('')) assert.ok(ch === '.' || INKS[ch], ch);
 });

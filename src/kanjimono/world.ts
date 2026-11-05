@@ -29,7 +29,7 @@ const ROCK = ['#3e3d55', '#5a5a70', '#7b7b8c', '#9c9ca6', '#bfc2b8'];
 
 type Kind = 0 | 1 | 2 | 3 | 4;
 const GROUND = 0, PATH = 1, POND = 2, PADDY = 3, STONE = 4;
-const kindOf = (c: string): Kind => (c === ',' || c === 't' || c === 's' || c === 'C' ? PATH : c === '~' ? POND : c === 'r' ? PADDY : c === 'P' ? STONE : GROUND);
+const kindOf = (c: string): Kind => (c === ',' || c === 't' || c === 's' || c === 'C' || c === 'Q' ? PATH : c === '~' ? POND : c === 'r' ? PADDY : c === 'P' ? STONE : GROUND);
 
 function tree(pink: boolean, seed: number) {
   const W = 30, H = 34;
@@ -149,6 +149,40 @@ function castle(g: CanvasRenderingContext2D, x: number, y: number) {
   r(OUTLINE, 44, -2, 40, 4); r('#ffd23f', 45, -1, 38, 2); r('#fff0a0', 45, -1, 38, 1);
 }
 
+// The 6-7 Kombini: a flat-roofed shop with a lit sign and a glass front.
+function kombini(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+  const r = (c: string, a: number, b: number, rw: number, rh: number) => { g.fillStyle = c; g.fillRect(x + a, y + b, rw, rh); };
+  r('rgba(30,30,70,.3)', 1, h, w + 2, 3);
+  r(OUTLINE, 0, 0, w, h);
+  r('#f6f8fb', 1, 1, w - 2, h - 2);
+  // Roof edge and sign band.
+  r('#c8d0da', 1, 1, w - 2, 3);
+  r('#2f6fd0', 1, 4, w - 2, 14); r('#5a94e8', 1, 4, w - 2, 1);
+  r('#ffd23f', 1, 18, w - 2, 2);
+  // "6-7" in chunky pixels.
+  const glyphs: Record<string, string[]> = { 6: ['###', '#..', '###', '#.#', '###'], '-': ['...', '...', '###', '...', '...'], 7: ['###', '..#', '.#.', '.#.', '.#.'] };
+  [...'6-7'].forEach((ch, i) => glyphs[ch].forEach((row, py) => [...row].forEach((on, px) => {
+    if (on === '#') r('#ffffff', Math.floor(w / 2) - 13 + i * 9 + px * 2, 6 + py * 2, 2, 2);
+  })));
+  // Glass front with shelves showing through, either side of sliding doors.
+  const top = 21, tall = h - top - 3, door = 18, dx = Math.floor((w - door) / 2);
+  for (const [a, b] of [[3, dx - 4], [dx + door + 1, w - dx - door - 4]]) {
+    r(OUTLINE, a - 1, top - 1, b + 2, tall + 2);
+    r('#cfeefc', a, top, b, tall);
+    r('#ffffff', a + 1, top + 1, 2, tall - 2);
+    for (let row = top + 3; row < top + tall - 2; row += 6) {
+      r('#8d97a8', a, row + 4, b, 1);
+      for (let i = 3; i < b - 1; i += 3) { g.fillStyle = ['#e0483e', '#ffd23f', '#74bf48', '#ff8ab0'][(i + row) % 4]; g.fillRect(x + a + i, y + row, 2, 4); }
+    }
+  }
+  r(OUTLINE, dx - 1, top - 1, door + 2, h - top);
+  r('#bfeaff', dx, top, door, h - top - 2);
+  r('#ffffff', dx + 2, top + 2, 2, 12);
+  r('#ffffff', dx + 11, top + 2, 2, 12);
+  r('#6a7486', dx + 8, top, 2, h - top - 2);
+  r('#8d97a8', 1, h - 3, w - 2, 2);
+}
+
 function sign(g: CanvasRenderingContext2D, x: number, y: number) {
   const r = (c: string, a: number, b: number, w: number, h: number) => { g.fillStyle = c; g.fillRect(x + a, y + b, w, h); };
   r('rgba(30,30,70,.3)', 2, 13, 12, 3);
@@ -202,7 +236,72 @@ function torii(base: CanvasRenderingContext2D, fg: CanvasRenderingContext2D, x: 
 export interface Scene { base: HTMLCanvasElement; fg: HTMLCanvasElement; shimmer: [number, number][] }
 const scenes = new Map<string, Scene>();
 
-function paintRoom(rows: string[]): Scene {
+// Colourful packets for konbini shelves.
+const PACKETS = ['#e0483e', '#ffd23f', '#4aa6ee', '#74bf48', '#ff8ab0', '#f4983e', '#a884ea'];
+
+function paintKonbini(g: CanvasRenderingContext2D, c: string, px: number, py: number, x: number, y: number, ch: (x: number, y: number) => string) {
+  const r = (colour: string, a: number, b: number, w = 1, h = 1) => { g.fillStyle = colour; g.fillRect(px + a, py + b, w, h); };
+  const pack = (a: number, b: number, w: number, h: number, seed: number) => {
+    for (let i = 0; i < w; i += 3) { r(PACKETS[Math.floor(hash(seed, x * 7 + i + y) * PACKETS.length)], a + i, b, 2, h); r('#ffffff', a + i, b, 1, 1); }
+  };
+  // Bright tiled floor under everything.
+  r((x + y) % 2 ? '#eef1f4' : '#dde3ea', 0, 0, T, T);
+  r('#c8d0da', 0, 15, T, 1); r('#c8d0da', 15, 0, 1, T);
+  r('#ffffff', 2, 2, 3, 1);
+  if (c === 'j') {
+    // Drinks fridge: steel frame, lit glass and rows of bottles.
+    r(OUTLINE, 0, -9, T, 25); r('#8d97a8', 1, -8, 14, 23); r('#cfeefc', 2, -7, 12, 20);
+    for (const row of [-6, 0, 6]) {
+      r('#6a7486', 2, row + 6, 12, 1);
+      for (let i = 0; i < 4; i++) { const col = PACKETS[Math.floor(hash(x + i, row + 30) * PACKETS.length)]; r(col, 3 + i * 3, row + 1, 2, 5); r('#ffffff', 3 + i * 3, row, 1, 1); }
+    }
+    r('#ffffff', 3, -6, 1, 16);
+  }
+  if (c === 'e' || c === 'h') {
+    // A rack running front to back, seen from above: goods on both sides of a central spine.
+    const first = ch(x, y - 1) !== c, last = ch(x, y + 1) !== c;
+    r('rgba(30,30,70,.18)', 3, last ? 14 : 0, 12, last ? 2 : T);
+    r('#6a7486', 2, first ? 1 : 0, 12, (first ? 15 : T) - (last ? 2 : 0));
+    r('#e8ecf2', 3, first ? 2 : 0, 10, (first ? 14 : T) - (last ? 3 : 0));
+    r('#8d97a8', 7, first ? 2 : 0, 2, (first ? 14 : T) - (last ? 3 : 0));
+    for (let row = first ? 3 : 1; row < (last ? 12 : T - 1); row += 4) for (const side of [4, 10]) {
+      const col = PACKETS[Math.floor(hash(x * 5 + side, y * 9 + row) * PACKETS.length)];
+      if (c === 'e') { r(col, side - 1, row, 3, 3); r('#ffffff', side - 1, row, 3, 1); }
+      else { r('#ffffff', side - 1, row, 3, 1); r(col, side - 1, row + 1, 3, 2); }
+    }
+  }
+  if (c === 'p') {
+    // Wall shelves behind the counter, stacked with boxes of goods.
+    r(OUTLINE, 0, -9, T, 25); r('#a87848', 0, -8, T, 23); r('#d9b078', 0, -8, T, 1);
+    for (const row of [-7, -1, 5]) {
+      r('#7a5230', 0, row + 5, T, 1);
+      for (let i = 1; i < T - 1; i += 3) { const col = PACKETS[Math.floor(hash(x * 3 + i, row + 40) * PACKETS.length)]; r(col, i, row, 2, 5); r('#ffffff', i, row, 2, 1); }
+    }
+  }
+  if (c === 'i') {
+    // Magazine rack.
+    r(OUTLINE, 0, -6, T, 22); r('#a87848', 1, -5, 14, 20);
+    for (const row of [-4, 3, 10]) for (let i = 0; i < 2; i++) {
+      const col = PACKETS[Math.floor(hash(x * 3 + i, row + 9) * PACKETS.length)];
+      r('#ffffff', 2 + i * 7, row, 5, 6); r(col, 2 + i * 7, row, 5, 3); r('#3a3048', 3 + i * 7, row + 4, 3, 1);
+    }
+  }
+  if (c === 'x' || c === 'y') {
+    // The checkout counter: wooden top with a white front and a store stripe.
+    const left = ch(x - 1, y) !== 'x' && ch(x - 1, y) !== 'y', right = ch(x + 1, y) !== 'x' && ch(x + 1, y) !== 'y';
+    r(OUTLINE, 0, 0, T, T);
+    r('#d9b078', left ? 1 : 0, 1, T - (left ? 1 : 0) - (right ? 1 : 0), 6); r('#f1deb2', left ? 1 : 0, 1, T - (left ? 1 : 0) - (right ? 1 : 0), 2);
+    r('#f6f8fb', left ? 1 : 0, 8, T - (left ? 1 : 0) - (right ? 1 : 0), 7);
+    r('#2f6fd0', left ? 1 : 0, 9, T - (left ? 1 : 0) - (right ? 1 : 0), 2); r('#ffd23f', left ? 1 : 0, 11, T - (left ? 1 : 0) - (right ? 1 : 0), 1);
+  }
+  if (c === 'y') {
+    // The register, with a small green screen.
+    r(OUTLINE, 3, -6, 10, 11); r('#6a7486', 4, -5, 8, 9); r('#7fe0a8', 5, -4, 6, 3); r('#3a3048', 5, 0, 6, 1); r('#3a3048', 5, 2, 6, 1);
+  }
+  if (c === 'x' && x % 2) { r('#ffffff', 5, 2, 5, 3); r('#ff8ab0', 5, 2, 5, 1); }
+}
+
+function paintRoom(rows: string[], konbini = false): Scene {
   const base = canvas(24 * T, 16 * T);
   const g = base.getContext('2d')!;
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
@@ -211,6 +310,18 @@ function paintRoom(rows: string[]): Scene {
   for (let y = 0; y < 16; y++) for (let x = 0; x < 24; x++) {
     const c = ch(x, y), px = x * T, py = y * T;
     if (c === 'V') { r('#14162e', px, py, T, T); continue; }
+    if (konbini && 'qjexyihp'.includes(c)) { paintKonbini(g, c, px, py, x, y, ch); continue; }
+    if (konbini && (c === 'w' || c === 'd') && y < 9) {
+      if (y === 0 || x === 0 || x === 14) { r('#3a3f5c', px, py, T, T); r('#4a5070', px, py, T, 2); continue; }
+      // Bright wall with the shop's green and orange stripes.
+      r('#f6f8fb', px, py, T, T); r('#2f6fd0', px, py + 3, T, 3); r('#ffd23f', px, py + 6, T, 1); r('#c8d0da', px, py + 14, T, 2);
+      continue;
+    }
+    if (konbini && c === 'd') {
+      // Automatic glass doors.
+      r('#3a3f5c', px, py, T, T); r('#bfeaff', px + 1, py, 14, T); r('#ffffff', px + 3, py + 2, 2, 8); r('#6a7486', px + 7, py, 2, T);
+      continue;
+    }
     const floor = under(c) ? (ch(x, y + 1) === 'm' || ch(x - 1, y) === 'm' ? 'm' : 'f') : c;
     if (floor === 'm' || floor === 'u') {
       // Tatami: fine woven rows, with a dark cloth edge every three tiles.
@@ -271,14 +382,15 @@ export function paintMap(id: string, rows: string[]): Scene {
   const hit = scenes.get(id);
   if (hit) return hit;
   if (!GRASS[id]) {
-    const scene = paintRoom(rows);
+    const scene = paintRoom(rows, id.startsWith('shop-'));
     scenes.set(id, scene);
     return scene;
   }
-  const W = 24 * T, H = 16 * T;
+  const across = rows[0].length, down = rows.length;
+  const W = across * T, H = down * T;
   const base = canvas(W, H), fg = canvas(W, H);
   const b = base.getContext('2d')!, f = fg.getContext('2d')!;
-  const ch = (x: number, y: number) => rows[Math.max(0, Math.min(15, y))]?.[Math.max(0, Math.min(23, x))] ?? 'T';
+  const ch = (x: number, y: number) => rows[Math.max(0, Math.min(down - 1, y))]?.[Math.max(0, Math.min(across - 1, x))] ?? 'T';
 
   // Terrain boundaries are nudged by noise, so ponds and paths get soft natural edges rather than squares.
   const kinds = new Uint8Array(W * H);
@@ -346,7 +458,7 @@ export function paintMap(id: string, rows: string[]): Scene {
   const pines = [0, 1, 2].map((s) => tree(false, s)), blossoms = [0, 1, 2].map((s) => tree(true, s));
   const [g0, , g2, g3] = GRASS[id];
 
-  for (let y = 0; y < 16; y++) for (let x = 0; x < 24; x++) {
+  for (let y = 0; y < down; y++) for (let x = 0; x < across; x++) {
     const c = ch(x, y), px = x * T, py = y * T, seed = hash(x, y);
     if (c === '.' && seed < 0.1) {
       const [a, e] = FLOWERS[id];
@@ -372,7 +484,7 @@ export function paintMap(id: string, rows: string[]): Scene {
     if (c === ',') {
       let a = x, e = x;
       while (ch(a, y) === ',' && a > 0) a--;
-      while (ch(e, y) === ',' && e < 23) e++;
+      while (ch(e, y) === ',' && e < across - 1) e++;
       if (ch(a, y) === '~' && ch(e, y) === '~') {
         for (let i = 0; i < T; i += 4) { r('#b58a56', px, py + i, T, 3); r('#d9b078', px, py + i, T, 1); r('#54382a', px, py + i + 3, T, 1); }
         if (ch(x - 1, y) === '~') { r(OUTLINE, px, py, 2, T); r('#7a5230', px, py, 1, T); }
@@ -392,17 +504,18 @@ export function paintMap(id: string, rows: string[]): Scene {
   // Buildings are found as whole blocks, then painted as a single piece.
   const seen = new Set<string>();
   let houses = 0;
-  for (let y = 0; y < 16; y++) for (let x = 0; x < 24; x++) {
+  for (let y = 0; y < down; y++) for (let x = 0; x < across; x++) {
     const c = ch(x, y);
     if (seen.has(`${x},${y}`)) continue;
-    if (c === 'H' || c === 's') {
-      const inBlock = (v: string) => (c === 's' ? v === 's' : 'HWR'.includes(v));
+    if (c === 'H' || c === 's' || c === 'Q') {
+      const inBlock = (v: string) => (c === 's' ? v === 's' : c === 'Q' ? v === 'Q' : 'HWR'.includes(v));
       let w = 0, h = 0;
-      while (inBlock(ch(x + w, y)) && x + w < 24) w++;
-      while (inBlock(ch(x, y + h)) && y + h < 16) h++;
+      while (inBlock(ch(x + w, y)) && x + w < across) w++;
+      while (inBlock(ch(x, y + h)) && y + h < down) h++;
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) seen.add(`${x + i},${y + j}`);
       standing(y * T, (g) => {
         if (c === 's') shrine(g, x * T, y * T);
+        else if (c === 'Q') kombini(g, x * T, y * T, w * T, h * T);
         else house(g, x * T, y * T, w * T, h * T, houses % 2 ? roofs.charcoal : roofs.indigo, id === 'village' && houses++ % 2 === 1);
       });
     }
@@ -415,11 +528,11 @@ export function paintMap(id: string, rows: string[]): Scene {
   }
 
   // Trees run top to bottom so nearer ones overlap. Anything above a tree's own row can pass in front of the walker.
-  for (let y = 0; y < 16; y++) for (let x = 0; x < 24; x++) {
+  for (let y = 0; y < down; y++) for (let x = 0; x < across; x++) {
     const c = ch(x, y);
     if (c !== 'T' && c !== 'K') continue;
     const seed = hash(x * 3, y * 7);
-    const rim = x === 0 || y === 0 || x === 23 || y === 15;
+    const rim = x === 0 || y === 0 || x === across - 1 || y === down - 1;
     const pink = c === 'K' && !(rim && seed < 0.4);
     const art = (pink ? blossoms : pines)[Math.floor(seed * 3)];
     const dx = x * T - 7, dy = (y + 1) * T - 34;
