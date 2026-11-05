@@ -30,14 +30,14 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
         <h1><img src="/art/kanjimono-logo.webp" width="1200" height="401" alt="Kanjimono, 漢字もの"></h1>
         <div class="card foe" id="foe-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output hidden></output></div>
         <div class="card me" id="me-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output></output></div>
-      </div>
-      <div class="side">
-        <section class="panel" id="panel" aria-live="polite">
-          <div id="status" hidden></div>
+        <section class="panel" id="panel" aria-live="polite" hidden>
           <p id="text"></p>
           <div id="choices"></div>
           <span class="more" aria-hidden="true"></span>
         </section>
+      </div>
+      <div class="side">
+        <section class="panel hud" id="hud"><div id="status" hidden></div></section>
         <div class="pad" id="pad" aria-hidden="true">
           <div class="stick" id="stick"><div class="well"></div><div class="knob" id="knob"></div></div>
           <button data-key="menu" class="menu">Menu</button>
@@ -84,9 +84,22 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .stage h1 { display: none; position: absolute; inset: 1.5cqw 0 auto; margin: 0; }
   .stage h1 img { display: block; width: 92cqw; max-width: none; height: auto; margin: 0 auto; }
   /* The title menu sits on the screen itself, under the logo. */
-  .stage > #choices { position: absolute; inset: 35cqw 19cqw auto; }
-  .stage > #choices button { justify-content: center; min-height: max(44px, 9.5cqw); padding: 4px 10px; font-size: clamp(.875rem, 3.6cqw, 1.3rem); box-shadow: 0 .8cqw 0 #16123a; }
-  .stage > #choices button:not(.on) { background: var(--surface); }
+  /* Chunky pixel buttons cut from the same sticker as the logo: stepped corners, brown ink, white edge. */
+  .stage > #choices { --px: calc(100cqw / 240); --ink: #4e2410; position: absolute; inset: 35cqw 18cqw auto; gap: 3cqw; }
+  .stage > #choices button {
+    --top: #bfeaff; --mid: #62c3f6; --low: #3a9ee8;
+    position: relative; justify-content: center; gap: 1.2cqw; min-height: max(44px, 9.5cqw); padding: 4px 10px; border-radius: 0;
+    background: linear-gradient(var(--top) 0 18%, var(--mid) 18% 72%, var(--low) 72%); color: var(--ink);
+    font: 800 clamp(.875rem, 3.5cqw, 1.3rem)/1 var(--display); letter-spacing: -.01em;
+    box-shadow:
+      0 calc(var(--px) * -1) var(--ink), 0 var(--px) var(--ink), calc(var(--px) * -1) 0 var(--ink), var(--px) 0 var(--ink),
+      0 calc(var(--px) * -2) #fff, 0 calc(var(--px) * 2) #fff, calc(var(--px) * -2) 0 #fff, calc(var(--px) * 2) 0 #fff,
+      calc(var(--px) * -1) calc(var(--px) * -1) #fff, var(--px) calc(var(--px) * -1) #fff, calc(var(--px) * -1) var(--px) #fff, var(--px) var(--px) #fff,
+      0 calc(var(--px) * 4) #1e2a5855;
+  }
+  .stage > #choices button.on, .stage > #choices button:hover { --top: #fff0a0; --mid: #ffcb3d; --low: #f7a01f; background: linear-gradient(var(--top) 0 18%, var(--mid) 18% 72%, var(--low) 72%); color: var(--ink); }
+  .stage > #choices button.on::before { content: ''; flex: none; width: calc(var(--px) * 4); height: calc(var(--px) * 6); background: var(--ink); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .stage > #choices button:active { translate: 0 var(--px); }
   [data-scene='title'] h1 { display: block; }
 
   .card { display: none; position: absolute; width: 44cqw; padding: 1.8cqw 2.4cqw 2cqw; border-radius: 2.8cqw; background: var(--card); color: var(--card-ink); box-shadow: 0 1cqw 3cqw -1cqw #16123a; font-size: max(12px, 3cqw); line-height: 1.2; }
@@ -115,13 +128,26 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   @keyframes pulse { to { opacity: .45; } }
 
   .panel { display: flex; flex-direction: column; }
+  .panel[hidden] { display: none; }
+  .console:has([data-scene='title']) .hud { visibility: hidden; }
+  @media not (pointer: coarse) { .console:has([data-scene='title']) .hud { display: none; } }
   .more { display: none; flex: none; align-self: flex-end; width: 16px; height: 12px; margin-top: auto; background: var(--accent); clip-path: polygon(0 0, 100% 0, 50% 100%); animation: nudge .8s ease-in-out infinite alternate; }
   .panel.waiting { cursor: pointer; }
   .panel.waiting .more { display: block; }
+  .panel.typing .more { display: none; }
   @keyframes nudge { to { translate: 0 4px; } }
 
   .side { display: grid; gap: 12px; align-content: start; min-width: 0; }
   .panel { height: 216px; overflow-y: auto; overscroll-behavior: contain; padding: 16px; border-radius: 18px; background: var(--surface); }
+  /* Outside battle, dialogue sits on the game screen. */
+  .stage > .panel { position: absolute; inset: auto 2.5cqw 2.5cqw; height: auto; min-height: 5.6em; max-height: calc(100% - 5cqw); padding: 12px 16px; border: 2px solid var(--line); border-radius: 14px; box-shadow: 0 6px 16px -8px #05061a; }
+  .stage > .panel .more { position: absolute; right: 14px; bottom: 12px; }
+  .stage > .panel #text { margin-bottom: 8px; }
+  .stage > .panel #text:last-child { margin: 0; }
+  .stage > .panel #choices { gap: 6px; }
+  .stage > .panel #choices button { min-height: 38px; padding-block: 4px; }
+  @media (pointer: coarse) { .stage > .panel #choices button { min-height: 44px; } }
+  .unread { opacity: 0; }
   #text { display: grid; gap: 2px; margin: 0 0 12px; max-width: 62ch; white-space: pre-line; }
   #status { display: grid; gap: 12px; }
   #status[hidden], #text[hidden] { display: none; }

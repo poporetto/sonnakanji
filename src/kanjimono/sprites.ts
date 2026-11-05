@@ -284,6 +284,20 @@ const SIDE = [
   '.....oooooo.....', '...oojjjjhhoo...', '..ojjjhhhhhhho..', '.ojjhhhhhhhhHHo.', '.ohhhhhhhhhhHHo.', 'oHHHHHHHHHHHHHHo', '.oooooooooooooo.',
   '...osssskkkko...', '...osessskkko...', '...osesskkkko...', '...oSsssskko....', '....ocwcccco....', '....ocwcCcco....', '....ocwsSCco....', '....ocwoSCco....', '....oppppPo.....',
 ];
+// Side views match each head above; everyone else keeps the straw hat in SIDE.
+const LONG_SIDE = [
+  '.....ooooo......', '...oohhhhhoo....', '..ohjjhhhhhho...', '..ohjhhhhhhhho..', '..ohhhhhhhhhho..', '..ohhhhhhhhhho..', '..osshhhhhhhho..',
+  '..osesshhhhhho..', '..osesshhhhhho..', '..osssssshhhho..', '...oSSsssshhho..', '...ocwcccchhho..', '...ocwcCccchho..', '...ocwsSCcchho..', '...ocwoSCcoo....', '....oppppPo.....',
+];
+const sideHead = (rows: string[]) => [...rows, ...SIDE.slice(7)];
+const SIDES: Record<string, string[]> = {
+  miko: LONG_SIDE, mom: LONG_SIDE, rival: LONG_SIDE, woman: LONG_SIDE,
+  oldman: sideHead(['................', '.....ooooo......', '...oohhhhhoo....', '..ohjjhhhhhho...', '..ohhhhhhhhho...', '..ohhhhhhkkkko..', '..ohhhhhkkkkko..']),
+  oldwoman: sideHead(['.........ooo....', '.....oooohhho...', '...oojjhhooo....', '..ohjhhhhhhoo...', '..ohhhhhhhhho...', '..ohhhhhhhhho...', '..osshhhhhhho...']),
+  police: sideHead(['.....oooooo.....', '...oohhhhhhoo...', '..ohhhyyhhhhho..', '..ohhhyyhhhhho..', '..oHHHHHHHHHHo..', 'oHHHHHHHHHHHHo..', '.ooooooooooooo..']),
+  nurse: sideHead(['.....oooooo.....', '...oommmmmmoo...', '..ommrrmmmmmmo..', '..ommrrmmmmmmo..', '..ohhhhhhhhhho..', '..ohhhhhhhhhho..', '..osshhhhhhhho..']),
+  worker: sideHead(['.....oooooo.....', '...oohhhhhhoo...', '..ohjjhhhhhhho..', '..ohhhhyhhhhho..', '..oHHHHHHHHHHo..', 'oHHHHHHHHHHHHo..', '.ooooooooooooo..']),
+};
 // The hero: spiky hair, a red headband, a blue jacket and a satchel with a scroll on his back.
 const HERO = {
   front: ['....o.oo', '...okokk', '..okKkkk', '.okKkkkk', '.orrrrrr', '.oRRRRRR', '..okkskk', '..oksess', '..oksess', '..okssss', '...osssS', '..ocwccc', '.oCcCwcc', '.osCcCwy', '.oSoyyyy', '..ooppPp'],
@@ -329,13 +343,25 @@ function raster(rows: string[], look: Look, flip: boolean) {
   return c;
 }
 
+// A head on a pillow, eyes shut. The body is under the covers.
+export function asleep(ctx: CanvasRenderingContext2D, look: string, x: number, y: number) {
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x - 8, y - 6, 32, 13); ctx.clip();
+  person(ctx, look, x, y, 'down', 0);
+  ctx.restore();
+  ctx.fillStyle = LOOKS[look].s;
+  ctx.fillRect(x + 5, y + 3, 1, 1); ctx.fillRect(x + 10, y + 3, 1, 1);
+  ctx.fillStyle = LOOKS[look].e;
+  ctx.fillRect(x + 4, y + 4, 2, 1); ctx.fillRect(x + 10, y + 4, 2, 1);
+}
+
 export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y: number, dir: string, step: number) {
   const key = `${look}${dir}${step}`;
   let c = people.get(key);
   if (!c) {
     const hat = HEADS[look] ?? HAT;
     const lead = look === 'hero' ? HERO : look === 'heroine' ? HEROINE : null;
-    const front = lead ? lead.front : [...hat, ...FRONT], rear = lead ? lead.back : [...hat, ...BACK], side = lead ? lead.side : SIDE;
+    const front = lead ? lead.front : [...hat, ...FRONT], rear = lead ? lead.back : [...hat, ...BACK], side = lead ? lead.side : SIDES[look] ?? SIDE;
     const rows = dir === 'down' ? [...mirror(front), ...LEGS.front[step]]
       : dir === 'up' ? [...mirror(rear), ...LEGS.front[step]]
       : [...side, ...LEGS.side[step]];

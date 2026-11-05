@@ -1,5 +1,5 @@
 import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type Fighter, type Move, type Species } from './battle';
-import { bear, kanjiSprite, loadLettering, MARGIN, person } from './sprites';
+import { asleep, bear, kanjiSprite, loadLettering, MARGIN, person } from './sprites';
 import { music, setSound, sfx, silence, sound, unlock } from './audio';
 import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, seal, sealArt, shakeScreen, still, tween, veil, views } from './fx';
 import { withRomaji } from './kana';
@@ -16,6 +16,8 @@ const stage = document.getElementById('stage')!;
 const textEl = document.getElementById('text')!;
 const statusEl = document.getElementById('status')!;
 const panelEl = document.getElementById('panel')!;
+const hudEl = document.getElementById('hud')!;
+const sideEl = document.querySelector<HTMLElement>('.side')!;
 const choicesEl = document.getElementById('choices')!;
 const T = 16;
 
@@ -66,8 +68,36 @@ function spelled<T extends HTMLElement>(el: T, text: string) {
   return el;
 }
 
+// Dialogue sits on the game screen, except in battle, where it would cover the fighters' cards.
+function dock() {
+  if (panelEl.parentElement !== (foe ? sideEl : stage)) { if (foe) sideEl.prepend(panelEl); else stage.append(panelEl); }
+  hudEl.hidden = !!foe;
+  panelEl.hidden = !foe && (textEl.hidden || !textEl.textContent) && !panelEl.querySelector('#choices button');
+}
+
+// Letters appear one at a time. They hold their places from the start, so lines never reflow as they fill in.
+let typing: (() => void) | null = null;
+function typeOut() {
+  if (still) return;
+  const line = textEl.querySelector('span');
+  if (!line) return;
+  const nodes: Text[] = [];
+  const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) nodes.push(walker.currentNode as Text);
+  const letters = nodes.flatMap((node) => {
+    const held = Array.from(node.data, (ch) => Object.assign(document.createElement('span'), { textContent: ch, className: 'unread' }));
+    node.replaceWith(...held);
+    return held;
+  });
+  let i = 0;
+  const finish = () => { clearInterval(timer); for (const l of letters) l.classList.remove('unread'); typing = null; panelEl.classList.remove('typing'); };
+  const timer = setInterval(() => { letters[i++]?.classList.remove('unread'); if (i >= letters.length) finish(); }, 20);
+  typing = finish;
+  panelEl.classList.add('typing');
+}
+
 function show(text: string, sub = '') {
-  statusEl.hidden = true;
+  typing?.();
   textEl.hidden = false;
   const [, who, line] = text.match(/^([A-Z][A-Za-z' ]{2,20}): (.*)$/s) ?? [];
   const parts: HTMLElement[] = [];
@@ -76,6 +106,7 @@ function show(text: string, sub = '') {
   if (sub) parts.push(Object.assign(document.createElement('small'), { textContent: sub }));
   textEl.replaceChildren(...parts);
   textEl.classList.toggle('bear', who === 'Kanji Bear');
+  dock();
 }
 
 // Leading kanji are set larger, in the Japanese face.
@@ -125,11 +156,15 @@ function ask(text: string, options: (string | Ware)[]) {
     return b;
   }));
   mark();
+  typeOut();
+  dock();
   return new Promise<number>((resolve) => { waiting = resolve; });
 }
 
 function pick(i: number) {
   if (!waiting) return;
+  // The first press finishes a line that's still being typed.
+  if (typing && !choicesEl.children.length) return typing();
   sfx.pick();
   const done = waiting;
   waiting = null;
@@ -144,9 +179,11 @@ function say(text: string) {
   choicesEl.replaceChildren();
   panelEl.classList.add('waiting');
   panelEl.scrollTop = 0;
+  typeOut();
+  dock();
   return new Promise<number>((resolve) => { waiting = resolve; });
 }
-const clearPanel = (text = '', sub = '') => { show(text, sub); choicesEl.replaceChildren(); };
+const clearPanel = (text = '', sub = '') => { show(text, sub); choicesEl.replaceChildren(); dock(); };
 
 // While walking, the panel is a status screen: where you are, your mission, and your counts.
 function place() {
@@ -181,6 +218,8 @@ function place() {
   textEl.hidden = true;
   statusEl.hidden = false;
   choicesEl.replaceChildren();
+  facing = null;
+  dock();
 }
 
 // ---- World
@@ -276,6 +315,7 @@ async function talk() {
   const n = npcAt(ax, ay) ?? ('xy'.includes(tileAt(ax, ay)) ? npcAt(ax + dx, ay + dy) : undefined);
   if (!n) return;
   mode = 'busy';
+  facing = n;
   if (!(await questTalk(n))) for (const line of n.guide ? [bearTip()] : n.mom ? momLines() : n.lines) await say(`${n.name}: ${line}`);
   if (n.shop) await konbini();
   if (n.charms) await charmShop(n.charms);
@@ -939,10 +979,11 @@ async function title() {
     save = old;
     return backToWorld();
   }
+  if (!still) void nextChase();
   // The menu sits on the title screen, then goes back to the panel for the game.
   const [home, next] = [choicesEl.parentElement!, choicesEl.nextSibling];
   stage.append(choicesEl);
-  const i = await ask('Catch every kanji in Japan.', old ? ['Continue', 'Start game'] : ['Start game']);
+  const i = await ask('', old ? ['Continue', 'Start game'] : ['Start game']);
   home.insertBefore(choicesEl, next);
   if (old && i === 0) {
     save = old;
@@ -951,13 +992,39 @@ async function title() {
   }
   music('home');
   veil.curtain = 1.2;
-  save = { map: 'home', x: 11, y: 3, dir: 'down', party: [], box: [], seen: [], caught: [], charms: 0, chapter: 'home', trials: [], active: [], done: [], yen: 200, bag: { rice: 2 }, prizes: [], rest: { map: 'village', x: 12, y: 5 } };
+  save = { map: 'home', x: 11, y: 4, dir: 'left', party: [], box: [], seen: [], caught: [], charms: 0, chapter: 'home', trials: [], active: [], done: [], yen: 200, bag: { rice: 2 }, prizes: [], rest: { map: 'village', x: 12, y: 5 } };
   mode = 'busy';
+  place();
+  const scene: NonNullable<typeof intro> = { x: 5 * T, dir: 'right', walking: false, asleep: true, startled: false, hop: null };
+  intro = scene;
+  const momWalks = async (to: number) => {
+    const from = scene.x;
+    scene.walking = true;
+    await tween(Math.abs(to - from) * 20, (t) => { scene.x = lerp(from, to, t); });
+    scene.walking = false;
+  };
+  await pause(1200);
+  await momWalks(10 * T);
   await say('Mom: Wake up, Haru. Today is the day.');
+  clearPanel();
+  sfx.alert();
+  scene.startled = true;
+  await pause(500);
+  scene.startled = false;
+  scene.asleep = false;
+  sfx.pop();
+  await tween(520, (t) => { scene.hop = [lerp(BED.x, 11 * T, t), lerp(BED.y, 4 * T, t) - Math.sin(t * Math.PI) * 20]; });
+  scene.hop = [11 * T, 4 * T];
+  sfx.rustle();
+  await pause(250);
   await say('Mom: Every sign, every story and every letter in this world is written in kanji. Read them, and you will understand the world.');
   await say('Mom: But something is wrong. This week the signs in the village went blank, one by one, and nobody knows why.');
   await say('Mom: So I am sending you to Kanji Bear, the greatest teacher in Japan. Learn from the bear and master kanji.');
   await say('Mom: The dojo is on the east side of the village, the house with the red curtain. Take these rice balls and some yen. Off you go, and be polite!');
+  clearPanel();
+  scene.dir = 'left';
+  await momWalks(5 * T);
+  intro = null;
   store();
   backToWorld();
 }
@@ -997,6 +1064,27 @@ async function chooseStarter(i: number) {
 
 // ---- Drawing
 let alarm = false, opening = false;
+// Whoever Haru is talking to turns to face them.
+let facing: Npc | null = null;
+function toward(n: Npc) {
+  const [dx, dy] = [save.x - n.x, save.y - n.y];
+  return Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : dy > 0 ? 'down' : 'up';
+}
+// The opening scene: Mom walks over and Haru jumps out of bed.
+const BED = { x: 184, y: 38 };
+let intro: { x: number; dir: string; walking: boolean; asleep: boolean; startled: boolean; hop: number[] | null } | null = null;
+function introMarks() {
+  if (!intro) return;
+  ctx.fillStyle = '#2b2036';
+  if (intro.startled) { ctx.fillRect(BED.x + 6, BED.y - 17, 4, 8); ctx.fillRect(BED.x + 6, BED.y - 8, 4, 3); ctx.fillStyle = '#ffffff'; ctx.fillRect(BED.x + 7, BED.y - 16, 2, 6); ctx.fillRect(BED.x + 7, BED.y - 7, 2, 1); return; }
+  if (!intro.asleep) return;
+  // Three z's drifting up from the pillow.
+  ctx.fillStyle = '#3a4a8c';
+  for (let i = 0; i < 3; i++) {
+    const t = (tick / 90 + i / 3) % 1, [x, y, size] = [BED.x + 16 + Math.round(t * 8), BED.y - 2 - Math.round(t * 16), t < 0.5 ? 3 : 4];
+    ctx.fillRect(x, y, size, 1); ctx.fillRect(x, y + size - 1, size, 1); ctx.fillRect(x + 1, y + 1, Math.max(1, size - 2), Math.max(1, size - 2));
+  }
+}
 let heroAt: [number, number] = [120, 80];
 const petals = Array.from({ length: 16 }, (_, i) => ({ x: (i * 53) % 240, y: (i * 37) % 160, v: 0.2 + (i % 4) * 0.08 }));
 let tick = 0;
@@ -1020,12 +1108,18 @@ function drawWorld() {
   const step = slide > 8 ? (stepFlip ? 1 : 2) : 0;
   const actors = [...npcsHere().map((n) => ({ y: n.y * T, draw: () => {
     if (n.guide) bear(ctx, n.x * T - cx, n.y * T - cy);
-    else person(ctx, n.look ?? 'hero', n.x * T - cx, n.y * T - cy, 'down', 0);
-  } })), { y: py, draw: () => person(ctx, haru, Math.round(px - cx), Math.round(py - cy), save.dir, step) }];
+    else if (intro && n.mom) person(ctx, n.look ?? 'hero', Math.round(intro.x), n.y * T, intro.dir, intro.walking ? [1, 0, 2, 0][Math.floor(tick / 6) % 4] : 0);
+    else person(ctx, n.look ?? 'hero', n.x * T - cx, n.y * T - cy, n === facing ? toward(n) : 'down', 0);
+  } })), { y: py, draw: () => {
+    if (intro?.asleep) return asleep(ctx, haru, BED.x, BED.y);
+    const [hx, hy] = intro?.hop ?? [px, py];
+    person(ctx, haru, Math.round(hx - cx), Math.round(hy - cy), save.dir, intro ? 0 : step);
+  } }];
   for (const a of actors.sort((p, q) => p.y - q.y)) a.draw();
   // Tall grass and rice close over the walker's legs.
   if ('"r'.includes(m.rows[save.y][save.x])) ctx.drawImage(w.base, save.x * T, save.y * T + 10, T, 6, save.x * T - cx, save.y * T + 10 - cy, T, 6);
   ctx.drawImage(w.fg, -cx, -cy);
+  introMarks();
   if (alarm) {
     ctx.fillStyle = '#2b2036'; ctx.fillRect(Math.round(px - cx) + 6, Math.round(py - cy) - 15, 4, 11);
     ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(px - cx) + 7, Math.round(py - cy) - 14, 2, 6); ctx.fillRect(Math.round(px - cx) + 7, Math.round(py - cy) - 7, 2, 2);
@@ -1078,11 +1172,51 @@ function drawBattle() {
   drawCharm(ctx);
 }
 
+// Behind the title menu Haru chases a kanji across the field. Every round has a new kanji and a new way of running.
+interface Chase { s: Species; dir: number; speed: number; hop: number; gap: number; size: number; turned: boolean; x: number }
+const GROUND = 140;
+let chase: Chase | null = null;
+const dust: { x: number; y: number; drift: number; age: number }[] = [];
+
+async function nextChase() {
+  chase = null;
+  const s = all[rand(all.length)], dir = rand(2) ? 1 : -1;
+  await loadLettering(s.k);
+  // Now and then the tables turn, and the kanji chases Haru instead.
+  chase = { s, dir, speed: 0.8 + Math.random() * 0.7, hop: 2 + rand(5), gap: 34 + rand(26), size: 24 + rand(3) * 6, turned: rand(4) === 0, x: dir > 0 ? -20 : 260 };
+}
+
 function drawTitle() {
   ctx.drawImage(backdrop('title'), 0, 0);
-  // Haru walks the road across the screen, and comes round again.
-  const x = still ? 112 : tick * 0.5 % 280 - 20;
-  person(ctx, haru, Math.round(x), 124, 'right', still ? 0 : [1, 0, 2, 0][Math.floor(tick / 7) % 4]);
+  if (still) {
+    person(ctx, 'hero', 96, GROUND - 16, 'right', 0);
+    ctx.drawImage(kanjiSprite(starterRow[0], 30), 130 - MARGIN, GROUND - 30 - MARGIN);
+    return;
+  }
+  for (const d of dust) {
+    d.age++; d.x += d.drift; d.y -= 0.08;
+    ctx.fillStyle = d.age < 10 ? '#fbf3df' : '#dfd2ad';
+    const size = d.age < 8 ? 3 : d.age < 16 ? 2 : 1;
+    ctx.fillRect(Math.round(d.x), Math.round(d.y), size, size);
+  }
+  dust.splice(0, dust.findIndex((d) => d.age <= 24) >>> 0);
+  if (!chase) return;
+  const c = chase;
+  c.x += c.dir * c.speed;
+  const [boyX, kanjiX] = c.turned ? [c.x, c.x - c.dir * c.gap] : [c.x - c.dir * c.gap, c.x];
+  const rear = Math.min(c.dir * boyX, c.dir * kanjiX) * c.dir;
+  const hop = Math.abs(Math.sin(tick * 0.2 * c.speed)) * c.hop;
+  const kick = (x: number) => dust.push({ x: x + Math.random() * 6 - 3, y: GROUND - 2 - Math.random() * 3, drift: -c.dir * (0.2 + Math.random() * 0.4), age: 0 });
+  if (tick % 4 === 0) kick(boyX + (c.dir > 0 ? 3 : 13));
+  if (hop < 1 && tick % 2 === 0) kick(kanjiX + c.size / 2 - c.dir * c.size / 3);
+  ctx.fillStyle = 'rgba(30,30,70,.28)';
+  ctx.fillRect(Math.round(kanjiX + c.size / 6), GROUND - 1, Math.round(c.size * 2 / 3), 2);
+  const runners = [
+    () => ctx.drawImage(kanjiSprite(c.s, c.size), Math.round(kanjiX) - MARGIN, Math.round(GROUND - c.size - hop) - MARGIN),
+    () => person(ctx, 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
+  ];
+  for (const run of runners) run();
+  if (c.dir > 0 ? rear > 260 : rear < -c.size - 20) void nextChase();
 }
 
 const STARTERS = ['火', '水', '木'];
