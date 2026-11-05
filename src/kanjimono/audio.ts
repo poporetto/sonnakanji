@@ -2,21 +2,23 @@ import type { Element } from './battle';
 import { frequency, parse, TRACKS } from './music';
 
 const KEY = 'kanjimon.sound.v1';
+const VOLUME = 0.5;
 let ac: AudioContext | null = null;
 let master: GainNode;
+let mix: GainNode;
 let musicBus: GainNode | null = null;
 let timer = 0;
 let wanted = '';
 let playing = '';
-let on = true;
-try { on = localStorage.getItem(KEY) !== 'off'; } catch {}
 
-export const soundOn = () => on;
+// Saved as "music,effects". Older saves held one switch for both.
+const saved = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+export const sound = { music: saved !== 'off' && saved !== 'off,on' && saved !== 'off,off', effects: saved !== 'off' && saved !== 'on,off' && saved !== 'off,off' };
 
-export function setSound(value: boolean) {
-  on = value;
-  try { localStorage.setItem(KEY, value ? 'on' : 'off'); } catch {}
-  if (ac) master.gain.setTargetAtTime(value ? 0.5 : 0, ac.currentTime, 0.02);
+export function setSound(part: 'music' | 'effects', value: boolean) {
+  sound[part] = value;
+  try { localStorage.setItem(KEY, `${sound.music ? 'on' : 'off'},${sound.effects ? 'on' : 'off'}`); } catch {}
+  if (ac) (part === 'music' ? mix : master).gain.setTargetAtTime(value ? VOLUME : 0, ac.currentTime, 0.02);
 }
 
 // Browsers only allow sound after a tap or key press.
@@ -26,8 +28,11 @@ export function unlock() {
     if (!Ctx) return;
     ac = new Ctx();
     master = ac.createGain();
-    master.gain.value = on ? 0.5 : 0;
+    master.gain.value = sound.effects ? VOLUME : 0;
     master.connect(ac.destination);
+    mix = ac.createGain();
+    mix.gain.value = sound.music ? VOLUME : 0;
+    mix.connect(ac.destination);
     if (wanted) start(wanted);
   }
   if (ac.state === 'suspended') void ac.resume();
@@ -86,7 +91,7 @@ function start(name: string) {
   soften.frequency.value = 2800;
   bus.gain.value = 0;
   bus.gain.linearRampToValueAtTime(0.42, ac.currentTime + 0.3);
-  bus.connect(soften).connect(master);
+  bus.connect(soften).connect(mix);
   musicBus = bus;
   playing = name;
   const step = 30 / track.bpm;

@@ -1,7 +1,8 @@
 import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type Fighter, type Move, type Species } from './battle';
 import { bear, kanjiSprite, loadLettering, MARGIN, person } from './sprites';
-import { music, setSound, sfx, silence, soundOn, unlock } from './audio';
+import { music, setSound, sfx, silence, sound, unlock } from './audio';
 import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, shakeScreen, still, tween, veil, views } from './fx';
+import { withRomaji } from './kana';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
 import { CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
 import { backdrop, paintMap } from './world';
@@ -40,13 +41,24 @@ function mark() {
 }
 
 // A speaker's name gets its own line, so dialogue reads like a conversation.
+// Children mode adds small romaji beside hiragana and katakana.
+let kids = false;
+try { kids = localStorage.getItem('kanjimon.kids.v1') === 'on'; } catch {}
+
+function spelled<T extends HTMLElement>(el: T, text: string) {
+  el.dataset.raw = text;
+  if (!kids) { el.textContent = text; return el; }
+  el.replaceChildren(...withRomaji(text).flatMap((p) => (p.roma ? [p.text, Object.assign(document.createElement('small'), { className: 'roma', textContent: p.roma })] : [p.text])));
+  return el;
+}
+
 function show(text: string, sub = '') {
   statusEl.hidden = true;
   textEl.hidden = false;
   const [, who, line] = text.match(/^([A-Z][A-Za-z' ]{2,20}): (.*)$/s) ?? [];
   const parts: HTMLElement[] = [];
   if (who) parts.push(Object.assign(document.createElement('strong'), { textContent: who }));
-  parts.push(Object.assign(document.createElement('span'), { textContent: line ?? text }));
+  parts.push(spelled(document.createElement('span'), line ?? text));
   if (sub) parts.push(Object.assign(document.createElement('small'), { textContent: sub }));
   textEl.replaceChildren(...parts);
   textEl.classList.toggle('bear', who === 'Kanji Bear');
@@ -55,8 +67,8 @@ function show(text: string, sub = '') {
 // Leading kanji are set larger, in the Japanese face.
 function label(b: HTMLButtonElement, text: string) {
   const [, kanji, rest] = text.match(/^([\u3005-\u9fff]+)(.*)$/s) ?? [];
-  if (!kanji) { b.textContent = text; return; }
-  b.replaceChildren(Object.assign(document.createElement('span'), { textContent: kanji, lang: 'ja', className: 'ja' }), rest);
+  if (!kanji) { b.append(spelled(document.createElement('span'), text)); return; }
+  b.replaceChildren(Object.assign(document.createElement('span'), { textContent: kanji, lang: 'ja', className: 'ja' }), spelled(document.createElement('span'), rest));
 }
 
 function ask(text: string, options: string[]) {
@@ -584,7 +596,8 @@ async function enemyTurn() {
   const s = spec(me.k);
   const move = foe!.s.moves[rand(foe!.s.moves.length)];
   const correct = Math.random() < 0.5;
-  const dealt = damage(foe!.s, foe!.f.lv, s, me.lv, move, correct, 0.9 + Math.random() * 0.2);
+  // No single wild hit takes more than half your health, so a full-health kanji always gets a turn.
+  const dealt = Math.min(damage(foe!.s, foe!.f.lv, s, me.lv, move, correct, 0.9 + Math.random() * 0.2), Math.ceil(maxHp(s, me.lv) * 0.5));
   const bonus = typeBonus(foe!.s.type, s.type);
   await attackFx('foe', foe!.s, move, correct, bonus, () => {
     me.hp = Math.max(0, me.hp - dealt);
@@ -592,6 +605,7 @@ async function enemyTurn() {
   });
   await say(`${foe!.s.k} used ${move.w} (${move.m})! ${dealt} damage.`);
   if (me.hp > 0) return true;
+  card(cards.me, s.m, me.lv, 0, maxHp(s, me.lv));
   await faint('me', s);
   await say(`${s.k} fainted!`);
   if (!lead()) return false;
@@ -857,6 +871,7 @@ function press(action: string) {
 }
 
 addEventListener('keydown', (e) => {
+  if (settings.open) return;
   const action = KEYS[e.key];
   if (!action) return;
   e.preventDefault();
@@ -871,13 +886,31 @@ document.querySelectorAll<HTMLButtonElement>('#pad button').forEach((b) => {
   for (const end of ['pointerup', 'pointerleave', 'pointercancel']) b.addEventListener(end, () => held.delete(action));
 });
 
-// ---- Sound control
-const soundBtn = document.getElementById('sound') as HTMLButtonElement;
-const showSound = () => { soundBtn.textContent = soundOn() ? 'Sound on' : 'Sound off'; soundBtn.setAttribute('aria-pressed', String(soundOn())); };
-soundBtn.addEventListener('click', () => { unlock(); setSound(!soundOn()); showSound(); soundBtn.blur(); });
+// ---- Settings
+const settings = document.getElementById('settings') as HTMLDialogElement;
+const switches = [...settings.querySelectorAll<HTMLButtonElement>('[role="switch"]')];
+const values: Record<string, () => boolean> = { music: () => sound.music, effects: () => sound.effects, kids: () => kids };
+const showSwitches = () => { for (const b of switches) b.setAttribute('aria-checked', String(values[b.dataset.set!]())); };
+
+for (const b of switches) b.addEventListener('click', () => {
+  unlock();
+  const part = b.dataset.set!;
+  if (part === 'kids') {
+    kids = !kids;
+    try { localStorage.setItem('kanjimon.kids.v1', kids ? 'on' : 'off'); } catch {}
+    document.querySelectorAll<HTMLElement>('#panel [data-raw]').forEach((el) => spelled(el, el.dataset.raw!));
+  } else setSound(part as 'music' | 'effects', !sound[part as 'music' | 'effects']);
+  showSwitches();
+  sfx.pick();
+});
+document.getElementById('open-settings')!.addEventListener('click', (e) => { unlock(); settings.showModal(); (e.currentTarget as HTMLElement).blur(); });
+document.getElementById('close-settings')!.addEventListener('click', () => settings.close());
 addEventListener('pointerdown', unlock);
-addEventListener('keydown', (e) => { unlock(); if (e.key === 'm') soundBtn.click(); });
-showSound();
+addEventListener('keydown', (e) => {
+  unlock();
+  if (e.key === 'm' && !settings.open) settings.showModal();
+});
+showSwitches();
 
 // ---- Boot
 fetch('/kanjimono/data.json')

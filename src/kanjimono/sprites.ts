@@ -1,4 +1,5 @@
-import type { Element, Species } from './battle';
+import type { Species } from './battle';
+import { GEAR, INKS, LOW, ON_TOP, PICKS } from './gear';
 
 export const OUTLINE = '#2b2036';
 
@@ -34,15 +35,6 @@ const OUTLINE_OF: Record<string, string> = {
   mint: '#14504c', sky: '#143a78', lilac: '#3a2480', dark: '#17151c', white: '#333a50',
 };
 
-// Colours and accessories follow meaning. Anything unlisted gets a colour of its own.
-const STYLES: [string, string, string][] = [
-  ['言語話読書聞文字音歌説答', 'lilac', 'speech'], ['問何', 'pink', 'question'], ['本', 'orange', 'book'],
-  ['上起立', 'lilac', 'up'], ['下', 'sky', 'down'], ['右', 'green', 'right'], ['左', 'green', 'left'], ['前', 'orange', 'right'], ['後', 'red', 'left'],
-  ['時分半午間', 'orange', 'clock'], ['年週曜今毎', 'pink', 'calendar'], ['開門外出入', 'sky', 'door'],
-  ['見目', 'peach', 'lens'], ['耳手足体心口', 'peach', 'rays'], ['食肉飯', 'orange', 'fork'], ['飲茶', 'peach', 'cup'], ['買店品', 'peach', 'bag'], ['売', 'orange', 'horn'],
-  ['円金銀百千万', 'yellow', 'coin'], ['人男女子父母友兄弟姉妹親族', 'pink', 'heart'], ['電', 'yellow', 'bolt'], ['天空雲風', 'sky', 'cloud'], ['雨海洋青', 'sky', 'drop'],
-  ['学校教習試験勉', 'lilac', 'star'], ['家屋室館堂院駅社国町京', 'lilac', 'rays'], ['行来走歩動運発車', 'mint', 'speed'], ['白', 'white', 'rays'], ['黒', 'dark', 'rays'], ['赤', 'red', 'rays'],
-];
 const BRIGHT = ['pink', 'orange', 'yellow', 'green', 'sky', 'lilac', 'mint', 'peach', 'red'];
 
 function styleOf(s: Species) {
@@ -51,85 +43,18 @@ function styleOf(s: Species) {
   if (s.k === '水') return { paint: 'sky', gear: 'drop', split: '' };
   if (s.k === '木') return { paint: 'peach', gear: 'sprout', split: 'moss' };
   if (s.k === '山') return { paint: 'green', gear: 'rays', split: 'snow' };
-  if (s.k === '川') return { paint: 'sky', gear: 'drop', split: '' };
+  if (s.k === '川') return { paint: 'sky', gear: 'wave', split: '' };
   if (s.k === '月') return { paint: 'yellow', gear: 'moon', split: 'dusk' };
-  if (s.k === '日') return { paint: 'orange', gear: 'rays', split: '' };
-  const hit = STYLES.find(([kanji]) => kanji.includes(s.k));
-  if (hit) return { paint: hit[1], gear: hit[2], split: '' };
+  if (s.k === '日') return { paint: 'orange', gear: 'sun', split: '' };
+  const hit = PICKS.find(([kanji]) => kanji.includes(s.k));
+  if (hit) return { paint: hit[1] || BRIGHT[seed % BRIGHT.length], gear: hit[2], split: '' };
   const type = ({ fire: 'orange', water: 'sky', wood: 'green', earth: 'peach', metal: 'yellow' } as Record<string, string>)[s.type];
   return { paint: type ?? BRIGHT[seed % BRIGHT.length], gear: seed % 3 ? 'rays' : 'star', split: '' };
 }
 
-// Small pixel drawings placed beside a kanji. Letters pick a colour.
-const INKS: Record<string, string> = { o: '#2b2036', w: '#ffffff', y: '#ffd23f', Y: '#e8a020', r: '#e0483e', p: '#ff8ab0', b: '#4aa6ee', c: '#bfeaff', g: '#74bf48', G: '#3f8a3a', n: '#a8673a', N: '#7a4a24', s: '#c3cdd8', S: '#7b859c', l: '#a884ea', m: '#fdf8ef' };
-const GEAR: Record<string, string[]> = {
-  speech: ['.ooooooo.', 'ommmmmmmo', 'omlmlmlmo', 'ommmmmmmo', '.ooooooo.', '..oo.....', '..o......'],
-  question: ['.ooooooo.', 'ommrrrmmo', 'ommmmrmmo', 'ommmrmmmo', 'ommmmmmmo', 'ommmrmmmo', '.ooooooo.', '..oo.....'],
-  book: ['ooooooooo', 'omrrormmo', 'omrrormmo', 'omrrormmo', 'omrrormmo', 'ooooooooo'],
-  up: ['...oo...', '..obbo..', '.obbbbo.', 'oobbbboo', '..obbo..', '..obbo..', '..obbo..', '..oooo..'],
-  down: ['..oooo..', '..obbo..', '..obbo..', '..obbo..', 'oobbbboo', '.obbbbo.', '..obbo..', '...oo...'],
-  right: ['....oo...', '....obo..', 'oooooybo.', 'oyyyyyybo', 'oooooybo.', '....obo..', '....oo...'],
-  left: ['...oo....', '..obo....', '.obyooooo', 'obyyyyyyo', '.obyooooo', '..obo....', '...oo....'],
-  clock: ['..ooooo..', '.ommmmmo.', 'ommmommmo', 'ommmommmo', 'ommmoormo', 'ommmmmmmo', '.ommmmmo.', '..ooooo..'],
-  calendar: ['.o.o.o.o.', 'ooooooooo', 'orrrrrrro', 'ooooooooo', 'omomomomo', 'ommmmmmmo', 'omomomomo', 'ooooooooo'],
-  door: ['ooooooo', 'onnnnno', 'onNNNno', 'onnnnno', 'onnnyno', 'onNNNno', 'onnnnno', 'ooooooo'],
-  lens: ['.oooo...', 'ocwcco..', 'occcco..', 'occcco..', '.oooooo.', '....oYYo', '.....oYo', '......oo'],
-  fork: ['s.s.s...', 's.s.s..S', 's.s.s..S', 'sssss..S', '..s...SS', '..s...SS', '..s....S', '..s....S'],
-  cup: ['..oooooo.', '.occccco.', '.obbbbboo', '.obbbbb.o', '.obbbbboo', '.obbbbbo.', '..ooooo..'],
-  bag: ['...ooo...', '..o...o..', 'ooooooooo', 'orrrrrrro', 'orrrrrrro', 'orrrrrrro', 'ooooooooo'],
-  horn: ['.......oo', '.....oorr', '.ooooyrrr', 'oyyyyyrrr', '.ooooyrrr', '...oo.oor', '...oo..oo'],
-  coin: ['..oooo..', '.oyyyyo.', 'oyyYYyyo', 'oyyYYyyo', 'oyyYYyyo', '.oyyyyo.', '..oooo..'],
-  heart: ['.oo..oo.', 'oppooppo', 'opppwppo', 'oppppppo', '.oppppo.', '..oppo..', '...oo...'],
-  bolt: ['...ooo', '..oyyo', '.oyyo.', 'oyyyoo', '..oyyo', '.oyyo.', '.oyo..', '.oo...'],
-  cloud: ['..ooo....', '.owwwoo..', 'oowwwwwo.', 'owwwwwwwo', 'owwcccwwo', '.ooooooo.'],
-  drop: ['...oo...', '..obbo..', '.obbbbo.', 'obcbbbbo', 'obcbbbbo', '.obbbbo.', '..oooo..'],
-  star: ['....o....', '...oyo...', '.ooyyyoo.', 'oyyyyyyyo', '.oyyyyyo.', '.oyyoyyo.', '.oo...oo.'],
-  moon: ['..oooo...', '.oyyyo...', 'oyyyo....', 'oyyyo....', 'oyyyo...o', '.oyyyoooy', '..oyyyyyo', '...ooooo.'],
-  sprout: ['.oo...oo.', 'oggo.oggo', 'oGggoggGo', '.oogGgoo.', '...oGo...', '...oGo...'],
-  flame: ['...oo...', '..oyro..', '.oyyro.o', 'oyyrrooy', 'oyyyrryo', '.oyyyyo.', '..oooo..'],
-};
-// Accessories that sit on top of the kanji rather than beside it.
-const ON_TOP = ['sprout', 'moon', 'flame'];
-
 export const MARGIN = 26;
-interface Body { art: HTMLCanvasElement; fx: number; fy: number; gap: number; size: number; seed: number }
+interface Body { art: HTMLCanvasElement; fx: number; fy: number; gap: number; tiny: boolean; size: number; seed: number }
 const bodies = new Map<string, Body>();
-
-// Measures a kanji's structure: the gaps it encloses, and how many separate bars of ink
-// you cross scanning along every row and column. Open slots between strokes show up in that count too.
-function shapeOf(mask: Uint8Array, size: number, roomy = true) {
-  // Grown by a pixel first, so a slot that the outline would swallow counts as closed.
-  // Busy kanji skip this: their gaps may narrow to thin dark lines, which keeps them bold.
-  const grown = new Uint8Array(mask);
-  if (roomy) for (let y = 1; y < size - 1; y++) for (let x = 1; x < size - 1; x++) {
-    const c = y * size + x;
-    if (mask[c - 1] || mask[c + 1] || mask[c - size] || mask[c + size]) grown[c] = 1;
-  }
-  let bars = 0;
-  for (let i = 0; i < size; i++) for (let j = 1; j < size; j++) {
-    if (grown[i * size + j] && !grown[i * size + j - 1]) bars++;
-    if (grown[j * size + i] && !grown[(j - 1) * size + i]) bars++;
-  }
-  const seen = new Uint8Array(size * size);
-  let gaps = 0;
-  for (let start = 0; start < mask.length; start++) {
-    if (seen[start] || mask[start]) continue;
-    const stack = [start];
-    let cells = 0, open = false;
-    seen[start] = 1;
-    while (stack.length) {
-      const c = stack.pop()!;
-      cells++;
-      const x = c % size, y = (c - x) / size;
-      if (x === 0 || y === 0 || x === size - 1 || y === size - 1) open = true;
-      for (const n of [x > 0 ? c - 1 : -1, x < size - 1 ? c + 1 : -1, y > 0 ? c - size : -1, y < size - 1 ? c + size : -1]) {
-        if (n >= 0 && !seen[n] && !mask[n]) { seen[n] = 1; stack.push(n); }
-      }
-    }
-    if (!open && cells >= size * size * 0.004) gaps++;
-  }
-  return { bars, gaps };
-}
 
 function inked(s: Species, size: number, width: number) {
   const scratch = canvas(size, size);
@@ -159,8 +84,11 @@ function inked(s: Species, size: number, width: number) {
 // Each kanji gets as chunky as it can without closing a gap or merging its bars.
 const FACE = '"M PLUS Rounded 1c"';
 
-// Fetches the heavy rounded lettering for these kanji.
-export const loadLettering = (kanji: string) => document.fonts.load(`900 64px ${FACE}`, kanji);
+// Fetches the heavy rounded lettering, remembering which kanji have really arrived.
+const lettering = new Set<string>();
+export const loadLettering = (kanji: string) => document.fonts.load(`900 64px ${FACE}`, kanji).then(() => {
+  for (const k of kanji) lettering.add(k);
+});
 
 // The kanji as a heavy rounded letter, filling the sprite, then fattened by a few pixels.
 function lettered(s: Species, size: number, grow: number) {
@@ -193,18 +121,14 @@ function lettered(s: Species, size: number, grow: number) {
   return mask;
 }
 
+// The lettering already keeps its gaps open, so only the simplest kanji get any extra weight.
 function chunky(s: Species, size: number) {
-  if (!document.fonts.check(`900 64px ${FACE}`, s.k)) return inked(s, size, s.strokes > 8 ? 12 : 17);
-  const target = shapeOf(lettered(s, size, 0), size, false);
-  for (let grow = 2; grow > 0; grow--) {
-    const mask = lettered(s, size, grow), shape = shapeOf(mask, size, false);
-    if (shape.gaps === target.gaps && shape.bars >= target.bars * 0.93) return mask;
-  }
-  return lettered(s, size, 0);
+  if (!lettering.has(s.k)) return inked(s, size, 9);
+  return lettered(s, size, s.strokes <= 5 ? 1 : 0);
 }
 
 function body(s: Species, size: number, back = false): Body {
-  const key = `${s.k}${size}${back}${document.fonts.check(`900 64px ${FACE}`, s.k)}`;
+  const key = `${s.k}${size}${back}${lettering.has(s.k)}`;
   const hit = bodies.get(key);
   if (hit) return hit;
   const k = size / 72, W = size + MARGIN * 2, seed = s.k.codePointAt(0)!;
@@ -220,18 +144,18 @@ function body(s: Species, size: number, back = false): Body {
     return true;
   };
   const u = (v: number) => Math.round(v * k);
-  const spots: [number, number, number][] = [];
-  for (const g of [8, 7, 6].map(u)) {
-    let best = -1e9, spot: [number, number, number] | null = null;
-    for (let y = 0; y < size * 0.72; y++) for (let x = Math.floor(size * 0.2); x < size * 0.8; x++) {
-      const fits = solid(x - g - u(4), y, x - g + u(1), y + u(6)) && solid(x + g - u(1), y, x + g + u(4), y + u(6)) && solid(x - u(4), y + u(3), x + u(4), y + u(8));
-      if (!fits) continue;
+  // Narrow strokes get a smaller face, down to a tiny one that fits a single slim stroke.
+  let fx = -1, fy = -1, gap = 0, tiny = false;
+  for (const [g, small] of [[6, false], [5, false], [4, false], [3, false], [3, true], [2, true]] as [number, boolean][]) {
+    const w = u(g) + u(small ? 2 : 3), tall = u(small ? 4 : 6);
+    let best = -1e9;
+    for (let y = 0; y < size * 0.8; y++) for (let x = Math.floor(size * 0.1); x < size * 0.9; x++) {
+      if (!solid(x - w, y - 1, x + w, y + tall)) continue;
       const score = -y * 1.1 - Math.abs(x - size / 2) * 0.45;
-      if (score > best) { best = score; spot = [x, y, g]; }
+      if (score > best) { best = score; fx = x; fy = y; gap = u(g); tiny = small; }
     }
-    if (spot) { spots.push(spot); break; }
+    if (gap) break;
   }
-  const [fx, fy, gap] = spots[0] ?? [-1, -1, 0];
 
   let top = size, bottom = 0, left = size, right = 0;
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (on(x, y)) { top = Math.min(top, y); bottom = Math.max(bottom, y); left = Math.min(left, x); right = Math.max(right, x); }
@@ -263,49 +187,51 @@ function body(s: Species, size: number, back = false): Body {
   }
 
   // The accessory.
-  const cell = Math.max(1, Math.round(2.2 * k));
+  const cell = Math.max(1, Math.round(3 * k));
   if (gear === 'rays') {
     const ray = '#ffc83a', [cx, cy] = [MARGIN + right, MARGIN + top + 2 * k];
     for (const [dx, dy, w, h] of [[6, -11, 4, 9], [13, -5, 9, 4], [12, 5, 8, 4]]) dot(ray, cx + dx * k, cy + dy * k, Math.round(w * k), Math.round(h * k));
   } else if (GEAR[gear]) {
     const rows = GEAR[gear], gw = rows[0].length * cell, gh = rows.length * cell;
     const above = ON_TOP.includes(gear);
-    const gx = above ? MARGIN + (left + right) / 2 - gw / 2 : MARGIN + right + 3 * k - gw / 2;
-    const gy = above ? MARGIN + top - gh + 4 * k : ['clock', 'calendar', 'lens', 'fork', 'cup', 'bag', 'coin', 'door', 'book', 'right', 'left', 'down'].includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
+    // Beside the kanji, but never so far out that the edge of the battle screen cuts it off.
+    const gx = above ? MARGIN + (left + right) / 2 - gw / 2 : Math.min(MARGIN + right + (gear.startsWith('die') ? 8 : 3) * k - gw / 2, MARGIN + size + 12 * k - gw);
+    const gy = above ? MARGIN + top - gh + 4 * k : LOW.includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
     rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS[ch], gx + x * cell, gy + y * cell, cell, cell); }));
   }
 
-  const made = { art, fx: MARGIN + fx, fy: MARGIN + fy, gap, size, seed };
+  const made = { art, fx: MARGIN + fx, fy: MARGIN + fy, gap, tiny, size, seed };
   bodies.set(key, made);
   return made;
 }
 
-// A compact face: small oval eyes close together, a tiny smile tucked between them, and pale blush outside.
+// A tiny face that fits inside a single stroke: dot eyes, a small smile between them, and a hint of blush.
 function face(o: CanvasRenderingContext2D, b: Body) {
   if (!b.gap) return;
   const k = b.size / 72, n = (v: number) => Math.max(1, Math.round(v * k));
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { o.fillStyle = c; o.fillRect(Math.round(x), Math.round(y), w, h); };
-  const { fx, fy, seed, gap } = b;
+  const { fx, fy, seed, gap, tiny } = b;
   const INK = '#241c2e';
-  const ew = n(4), eh = n(6), my = fy + n(3), mouth = seed % 6;
+  const ew = n(tiny ? 2 : 3), eh = n(tiny ? 3 : 4), my = fy + n(tiny ? 2 : 2), mouth = seed % 6;
   for (const x of [fx - gap - ew + 1, fx + gap]) {
-    r(INK, x + (ew > 2 ? 1 : 0), fy, Math.max(1, ew - (ew > 2 ? 2 : 0)), eh);
-    r(INK, x, fy + 1, ew, Math.max(1, eh - 2));
-    r('#ffffff', x + (ew > 2 ? 1 : 0), fy + 1, n(1.5), n(1.5));
-    o.globalAlpha = 0.55;
-    r('#ff7f9e', x + (x < fx ? -n(5) : n(4)), fy + n(5), n(5), n(2.4));
-    o.globalAlpha = 1;
+    r(INK, x, fy, ew, eh);
+    if (!tiny && gap >= n(4)) {
+      o.globalAlpha = 0.5;
+      r('#ff7f9e', x + (x < fx ? -n(3) : n(3)), fy + n(3), n(3), n(2));
+      o.globalAlpha = 1;
+    }
   }
-  if (mouth === 4) { r(INK, fx - n(3), my + n(1), n(6), n(4)); r('#d83a4a', fx - n(2), my + n(1.4), n(4), n(2.4)); }
-  else if (mouth === 5) r(INK, fx - n(3), my + n(2), n(6), n(1.6));
-  else { r(INK, fx - n(4), my + n(1), n(1.8), n(2)); r(INK, fx - n(3), my + n(2.6), n(6), n(1.8)); r(INK, fx + n(2.4), my + n(1), n(1.8), n(2)); }
+  if (tiny) r(INK, fx - n(1), my + n(1), n(2) + 1, n(1.4));
+  else if (mouth === 4) r(INK, fx - n(1.5), my, n(3), n(3));
+  else if (mouth === 5) r(INK, fx - n(2), my + n(1), n(4), n(1.4));
+  else { r(INK, fx - n(3), my, n(1.4), n(2)); r(INK, fx - n(2), my + n(1.6), n(4), n(1.4)); r(INK, fx + n(2), my, n(1.4), n(2)); }
 }
 
 const sprites = new Map<string, HTMLCanvasElement>();
 
 // Your own kanji is seen from behind in battle, so its back view has no face.
 export function kanjiSprite(s: Species, size = 72, back = false) {
-  const key = `${s.k}${size}${back}${document.fonts.check(`900 64px ${FACE}`, s.k)}`;
+  const key = `${s.k}${size}${back}${lettering.has(s.k)}`;
   const hit = sprites.get(key);
   if (hit) return hit;
   const b = body(s, size, back);

@@ -1,4 +1,5 @@
 ---
+import Analytics from '@vercel/analytics/astro';
 import GoogleTag from '../../components/GoogleTag.astro';
 import '@fontsource-variable/outfit';
 import '@fontsource-variable/figtree';
@@ -14,6 +15,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     <GoogleTag />
+    <Analytics />
     <title>Kanjimono: catch every kanji in a pixel adventure</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -45,11 +47,18 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
           <button data-key="a" class="a">A</button>
         </div>
         <footer class="hint">
-          <p><kbd>Arrows</kbd> walk <kbd>Z</kbd> talk <kbd>X</kbd> menu <kbd>M</kbd> sound</p>
-          <div class="links"><button class="back" id="sound" type="button">Sound on</button><a class="back" href="/">Back to SonnaKanji</a></div>
+          <p><kbd>Arrows</kbd> walk <kbd>Z</kbd> talk <kbd>X</kbd> menu <kbd>M</kbd> settings</p>
+          <div class="links"><button class="back" id="open-settings" type="button">Settings</button><a class="back" href="/">Back to SonnaKanji</a></div>
         </footer>
       </div>
     </main>
+    <dialog id="settings" aria-labelledby="settings-title">
+      <h2 id="settings-title">Settings</h2>
+      <button class="row" type="button" role="switch" data-set="music" aria-checked="true"><span><b>Music</b></span><i></i></button>
+      <button class="row" type="button" role="switch" data-set="effects" aria-checked="true"><span><b>Sound effects</b></span><i></i></button>
+      <button class="row" type="button" role="switch" data-set="kids" aria-checked="false"><span><b>Children mode</b><small>Shows romaji beside hiragana and katakana</small></span><i></i></button>
+      <button class="done" id="close-settings" type="button">Done</button>
+    </dialog>
     <script>
       import '../../kanjimono/main';
     </script>
@@ -153,6 +162,20 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .hint p { margin: 0; }
   .hint kbd { margin-left: 8px; padding: 1px 7px; border-radius: 6px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.4 var(--display); }
   .hint kbd:first-child { margin-left: 0; }
+  .roma { margin-left: .3em; font: 500 .72em/1 var(--body); opacity: .8; }
+  dialog { width: min(100% - 32px, 400px); padding: 20px; border: 0; border-radius: 18px; background: var(--surface); color: var(--ink); box-shadow: 0 18px 40px -16px #05061a; }
+  dialog::backdrop { background: #0a0b1cb3; }
+  dialog h2 { margin: 0 0 12px; font: 600 1.25rem/1.2 var(--display); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 56px; margin-bottom: 8px; padding: 8px 14px; border: 0; border-radius: 12px; background: var(--raised); color: var(--ink); text-align: left; cursor: pointer; }
+  .row span { display: grid; gap: 2px; min-width: 0; }
+  .row b { font: 600 1rem/1.25 var(--display); }
+  .row small { font: 400 .875rem/1.3 var(--body); color: var(--muted); }
+  .row i { flex: none; position: relative; width: 46px; height: 26px; border-radius: 99px; background: var(--ground); transition: background-color .15s; }
+  .row i::after { content: ''; position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--muted); transition: transform .15s, background-color .15s; }
+  .row[aria-checked='true'] i { background: var(--accent); }
+  .row[aria-checked='true'] i::after { transform: translateX(20px); background: var(--on-accent); }
+  .done { width: 100%; min-height: 48px; margin-top: 4px; border: 0; border-radius: 12px; background: var(--accent); color: var(--on-accent); font: 600 1rem/1 var(--display); cursor: pointer; }
+  dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   .links { display: flex; gap: 6px; }
   .back { padding: 1px 9px; border: 0; cursor: pointer; border-radius: 6px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.4 var(--display); text-decoration: none; transition: background-color .15s; }
   .back:hover { background: var(--line); }

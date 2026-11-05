@@ -16,6 +16,7 @@
     "@fontsource-variable/figtree": "^5.3.0",
     "@fontsource-variable/outfit": "^5.3.0",
     "@fontsource/m-plus-rounded-1c": "^5.3.0",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^7.4.5",
     "ts-fsrs": "^6.0.0",
     "wanakana": "^5.3.1"

@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
+import { withRomaji } from './kana.ts';
 import { MAPS, SOLID } from './maps.ts';
+import { GEAR, INKS, PICKS } from './gear.ts';
 import { frequency, parse, TRACKS } from './music.ts';
 import { CHECKS, LEVELS, POOLS, QUESTS, SIGNS } from './story.ts';
 
@@ -75,4 +77,27 @@ test('every tune uses real notes, and its parts stay in step', () => {
     assert.equal(lead.length % 8, 0, name);
     for (const n of [...lead, ...bass]) if (n !== '.' && n !== '-') assert.ok(frequency(n) > 30, n);
   }
+});
+
+test('every kanji has an accessory tied to its meaning, drawn in known colours', () => {
+  const picked = PICKS.flatMap(([kanji]) => [...kanji]);
+  const own = ['火', '水', '木', '山', '川', '月', '日'];
+  const missing = pooled.filter((k) => !picked.includes(k) && !own.includes(k));
+  assert.deepEqual(missing, []);
+  for (const [, , gear] of PICKS) assert.ok(GEAR[gear], gear);
+  for (const rows of Object.values(GEAR)) for (const ch of rows.join('')) assert.ok(ch === '.' || INKS[ch], ch);
+});
+
+test('children mode adds romaji to readings, but leaves kana joined to a kanji alone', () => {
+  assert.deepEqual(withRomaji('花火 (はなび) means...'), [{ text: '花火 (はなび', roma: 'hanabi' }, { text: ') means...' }]);
+  assert.equal(withRomaji('カタカナ')[0].roma, 'katakana');
+  assert.deepEqual(withRomaji('止まれ'), [{ text: '止まれ' }]);
+  assert.deepEqual(withRomaji('Stop'), [{ text: 'Stop' }]);
+});
+
+test('each number kanji shows that many pips', () => {
+  [...'一二三四五六七八九十'].forEach((k, i) => {
+    const [, , gear] = PICKS.find(([kanji]) => kanji.includes(k))!;
+    assert.equal([...GEAR[gear].join('')].filter((c) => c === 'r').length, i + 1, k);
+  });
 });
