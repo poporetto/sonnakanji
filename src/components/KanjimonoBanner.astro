@@ -1,4 +1,5 @@
 ---
+import '@fontsource/m-plus-rounded-1c/900.css';
 import { allKanji } from '../lib/kanji';
 
 // Just enough of the three starters to draw them live on the game's own artwork.
@@ -19,14 +20,16 @@ const crew = Object.entries(starters).map(([type, k]) => {
 
 <script>
   import type { Species } from '../kanjimono/battle';
-  import { kanjiSprite, MARGIN } from '../kanjimono/sprites';
+  import { kanjiSprite, loadLettering, MARGIN } from '../kanjimono/sprites';
   import { backdrop } from '../kanjimono/world';
 
   const art = document.getElementById('kanjimono-art') as HTMLCanvasElement;
   const g = art.getContext('2d')!;
   g.imageSmoothingEnabled = false;
   g.drawImage(backdrop('title'), 0, -40);
-  (JSON.parse(art.dataset.crew!) as Species[]).forEach((s, i) => g.drawImage(kanjiSprite(s, 60), 14 - MARGIN + i * 75, 46 - MARGIN));
+  void loadLettering('火水木').then(() => {
+    (JSON.parse(art.dataset.crew!) as Species[]).forEach((s, i) => g.drawImage(kanjiSprite(s, 60), 14 - MARGIN + i * 75, 46 - MARGIN));
+  });
 </script>
 
 <style>

@@ -1,5 +1,5 @@
 import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type Fighter, type Move, type Species } from './battle';
-import { bear, kanjiSprite, MARGIN, person } from './sprites';
+import { bear, kanjiSprite, loadLettering, MARGIN, person } from './sprites';
 import { music, setSound, sfx, silence, soundOn, unlock } from './audio';
 import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, shakeScreen, still, tween, veil, views } from './fx';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
@@ -343,13 +343,14 @@ async function battleOpen(tune: string) {
   views.me.x = -130;
   await tween(320, (t) => { veil.wipe = 1 - t; });
   veil.wipe = 0;
-  opening = false;
   await tween(320, (t) => { views.me.x = lerp(-130, 0, easeOut(t)); });
 }
 
 // A new kanji writes itself in stroke order, then bursts into life.
 async function bringIn(s: Species, lv: number) {
+  await loadLettering(s.k);
   foe = { s, f: { k: s.k, lv, xp: 0, hp: maxHp(s, lv) } };
+  opening = false;
   if (!save.seen.includes(s.k)) save.seen.push(s.k);
   const v = views.foe = newView();
   v.ink = 0;
@@ -883,6 +884,8 @@ fetch('/kanjimono/data.json')
   .then((r) => r.json())
   .then(async (data: Species[]) => {
     all = data;
+    await loadLettering(STARTERS.join(''));
+    void loadLettering(data.map((s) => s.k).join(''));
     dex = new Map(data.map((s) => [s.k, s]));
     starterRow = STARTERS.map(spec);
     requestAnimationFrame(frame);
