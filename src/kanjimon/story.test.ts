@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { MAPS, SOLID } from './maps.ts';
+import { frequency, parse, TRACKS } from './music.ts';
 import { CHECKS, LEVELS, POOLS, QUESTS, SIGNS } from './story.ts';
 
 const data: { kanji: string; level: string }[] = JSON.parse(readFileSync('src/data/kanji.json', 'utf8'));
@@ -64,5 +65,14 @@ test('maps are the right size and everything can be reached on foot', () => {
     for (const s of SIGNS.filter((s) => s.map === id)) assert.ok(beside(s.x, s.y), `${id}: can't reach sign ${s.word}`);
     if (m.east) assert.ok(seen.has('23,9') || seen.has('23,10'), `${id}: no way east`);
     for (const d of m.doors ?? []) assert.ok(!SOLID.includes(MAPS[d.to].rows[d.ty][d.tx]), `${id}: door lands on a wall`);
+  }
+});
+
+test('every tune uses real notes, and its parts stay in step', () => {
+  for (const [name, t] of Object.entries(TRACKS)) {
+    const lead = parse(t.lead), bass = parse(t.bass);
+    assert.equal(lead.length, bass.length, name);
+    assert.equal(lead.length % 8, 0, name);
+    for (const n of [...lead, ...bass]) if (n !== '.' && n !== '-') assert.ok(frequency(n) > 30, n);
   }
 });

@@ -169,8 +169,8 @@ const HERO = {
   front: ['....o.oo', '...okokk', '..okKkkk', '.okKkkkk', '.orrrrrr', '.oRRRRRR', '..okkskk', '..oksess', '..oksess', '..okssss', '...osssS', '..ocwccc', '.oCcCwcc', '.osCcCwy', '.oSoyyyy', '..ooppPp'],
   back: ['....o.oo', '...okokk', '..okKkkk', '.okKkkkk', '.orrrrrr', '.oRRRRRR', '..okkkkk', '..okkkkk', '..okkkkk', '..okkkkk', '...okkkk', '..ocBwww', '.oCcBBcw', '.osCcBBw', '.oSoyyyy', '..ooppPp'],
   side: [
-    '.....oo.o.......', '....okkokko.....', '...okKkkkkko....', '..okKkkkkkkko...', '..orrrrrrrrroo..', '..oRRRRRRRRorro.', '...okskkkkko.oo.',
-    '...osesskkko....', '...osesskko.....', '..ossssskko.....', '...oSsssoo......', '....owcccBo.....', '....owcCcBo.....', '....owsSCBo.....', '....owoyyyo.....', '....oppppPo.....',
+    '.....oo.o.o.....', '....okkokkoko...', '...okKkkkkkkko..', '..okKkkkkkkkkko.', '.orrrrrrrrrrrro.', '.oRRRRRRRRRRRoro', '..osskkkkkkkko..',
+    '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskko...', '...owwccccBBo...', '..oscwcCcccBBo..', '..oSswcCccCBBo..', '...ooyyyyyyyo...', '....oppppppPo...',
   ],
 };
 const mirror = (rows: string[]) => rows.map((r) => r + [...r].reverse().join(''));
@@ -181,9 +181,9 @@ const LEGS = {
     ['...oppPoopPpo...', '...oppPoobbbo...', '...obbbo.ooo....', '....ooo.........'],
   ],
   side: [
-    ['.....oppPo......', '.....oppPo......', '.....obbbo......', '......ooo.......'],
-    ['....oppoPPo.....', '...oppo.oPPo....', '...obbo.obbbo...', '....oo...ooo....'],
-    ['.....oppPo......', '.....oppPo......', '.....obbbo......', '......ooo.......'],
+    ['....oppPoppPo...', '....oppPoppPo...', '....obbbobbbo...', '.....ooo.ooo....'],
+    ['...oppPo.oppPo..', '..oppPo...oppo..', '..obbbo...obbbo.', '...ooo.....ooo..'],
+    ['....oppPoppPo...', '....oppPoppPo...', '....obbbobbbo...', '.....ooo.ooo....'],
   ],
 };
 

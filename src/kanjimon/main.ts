@@ -1,5 +1,7 @@
 import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type Fighter, type Move, type Species } from './battle';
 import { bear, kanjiSprite, person } from './sprites';
+import { music, setSound, sfx, silence, soundOn, unlock } from './audio';
+import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, shakeScreen, still, tween, veil, views } from './fx';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
 import { CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
 import { backdrop, paintMap } from './world';
@@ -63,7 +65,8 @@ function ask(text: string, options: string[]) {
   choicesEl.replaceChildren(...options.map((text, i) => {
     const b = document.createElement('button');
     label(b, text);
-    if (options.length === 1 || text.length > 16) b.className = 'full';
+    if (options.length === 1) b.classList.add('full');
+    if (text.length > 20) b.classList.add('long');
     b.addEventListener('click', () => pick(i));
     return b;
   }));
@@ -73,6 +76,7 @@ function ask(text: string, options: string[]) {
 
 function pick(i: number) {
   if (!waiting) return;
+  sfx.pick();
   const done = waiting;
   waiting = null;
   choicesEl.replaceChildren();
@@ -84,6 +88,7 @@ const clearPanel = (text = '', sub = '') => { show(text, sub); choicesEl.replace
 
 // While walking, the panel is a status screen: where you are, your mission, and your counts.
 function place() {
+  music(areaTune());
   const g = goal();
   const l = nextLevel() ?? LEVELS[LEVELS.length - 1];
   const total = all.filter((s) => s.level === l.id).length;
@@ -125,6 +130,8 @@ let foe: { s: Species; f: Fighter } | null = null;
 
 const map = () => MAPS[save.map];
 const tileAt = (x: number, y: number) => map().rows[y]?.[x] ?? 'T';
+const TUNES: Record<string, string> = { home: 'home', dojo: 'home', school: 'kawabe', inn: 'onsen', hall: 'castle' };
+const areaTune = () => TUNES[save.map] ?? save.map;
 const npcsHere = () => map().npcs.filter((n) => !n.after || save.done.includes(n.after));
 const npcAt = (x: number, y: number) => npcsHere().find((n) => n.x === x && n.y === y);
 const DIRS: Record<string, [number, number]> = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
@@ -145,7 +152,10 @@ function walk(dir: string) {
   if (SOLID.includes(tileAt(nx, ny)) || npcAt(nx, ny)) return;
   save.x = nx; save.y = ny;
   slide = T; stepFlip = !stepFlip;
-  if ('"r'.includes(tileAt(nx, ny)) && Math.random() < 0.16) void encounter();
+  if ('"r'.includes(tileAt(nx, ny))) {
+    sfx.rustle();
+    if (Math.random() < 0.16) void encounter();
+  }
 }
 
 async function notice(text: string) {
@@ -155,6 +165,8 @@ async function notice(text: string) {
 }
 
 function enter(d: Door) {
+  sfx.door();
+  veil.curtain = 1.2;
   travel(d.to, d.tx, d.ty);
   save.dir = d.dir;
   if (d.to === 'dojo' && save.chapter !== 'journey') void meetBear();
@@ -170,6 +182,7 @@ function travel(to: string, x: number, y: number) {
 async function talk() {
   const [dx, dy] = DIRS[save.dir];
   const [ax, ay] = [save.x + dx, save.y + dy];
+  if (tileAt(ax, ay) === 'S') sfx.sign();
   if (tileAt(ax, ay) === 'S') return notice(signText(SIGNS.find((s) => s.map === save.map && s.x === ax && s.y === ay)!));
   const n = npcAt(ax, ay);
   if (!n) return;
@@ -211,7 +224,8 @@ const ready = (q: Quest) => { const p = progress(q); return !p || p[0] >= p[1]; 
 async function reading(r: Read) {
   for (;;) {
     const options = shuffle([r.a, ...r.wrong]);
-    if (options[await ask(r.q, options)] === r.a) { await say(`Yes! ${r.why}`); return; }
+    if (options[await ask(r.q, options)] === r.a) { sfx.right(); await say(`Yes! ${r.why}`); return; }
+    sfx.wrong();
     await say(`Not quite. ${r.why} Try again.`);
   }
 }
@@ -223,6 +237,7 @@ async function finish(q: Quest, who: string) {
   save.active = save.active.filter((id) => id !== q.id);
   save.done.push(q.id);
   save.charms += q.charms ?? 0;
+  stamp('完');
   await say(`Mission complete: ${q.title}${q.charms ? `\nYou received ${q.charms} paper charms.` : ''}`);
   store();
 }
@@ -303,20 +318,190 @@ async function encounter() {
   const s = from[rand(from.length)];
   const [low, high] = m.levels!;
   const lv = low + rand(high - low + 1);
-  foe = { s, f: { k: s.k, lv, xp: 0, hp: maxHp(s, lv) } };
-  if (!save.seen.includes(s.k)) save.seen.push(s.k);
+  await battleOpen('battle');
+  await bringIn(s, lv);
   await say(`A wild ${s.k} appeared!`);
   await fight(true);
   backToWorld();
 }
 
+// ---- Battle staging
+async function battleOpen(tune: string) {
+  mode = 'busy';
+  silence();
+  sfx.alert();
+  alarm = true;
+  await pause(420);
+  alarm = false;
+  sfx.wipe();
+  music(tune);
+  await tween(380, (t) => { veil.wipe = t; });
+  opening = true;
+  views.foe = newView();
+  views.foe.hidden = true;
+  views.me = newView();
+  views.me.x = -130;
+  await tween(320, (t) => { veil.wipe = 1 - t; });
+  veil.wipe = 0;
+  opening = false;
+  await tween(320, (t) => { views.me.x = lerp(-130, 0, easeOut(t)); });
+}
+
+// A new kanji writes itself in stroke order, then bursts into life.
+async function bringIn(s: Species, lv: number) {
+  foe = { s, f: { k: s.k, lv, xp: 0, hp: maxHp(s, lv) } };
+  if (!save.seen.includes(s.k)) save.seen.push(s.k);
+  const v = views.foe = newView();
+  v.ink = 0;
+  const per = Math.min(90, 620 / s.d.length);
+  let last = 0;
+  await tween(per * s.d.length, (t) => {
+    v.ink = t;
+    const stroke = Math.floor(t * s.d.length);
+    if (stroke > last) { last = stroke; sfx.brush(); }
+  });
+  v.ink = 1;
+  v.flash = 1;
+  burst(s.type, ...CENTRE.foe, 26, 1.2);
+  sfx.cry(s.k.codePointAt(0)!);
+  v.scale = 0.7;
+  await tween(300, (t) => { v.scale = lerp(0.7, 1, easeOut(t)); v.flash = 1 - t; });
+}
+
+async function sendOut() {
+  const v = views.me = newView();
+  v.scale = 0;
+  v.flash = 1;
+  sfx.pop();
+  const me = lead();
+  if (me) burst(spec(me.k).type, ...CENTRE.me, 14);
+  await tween(260, (t) => { v.scale = easeOut(t); v.flash = 1 - t; });
+}
+
+async function attackFx(side: 'me' | 'foe', s: Species, move: Move, right: boolean, bonus: number, land: () => void) {
+  const other = side === 'me' ? 'foe' : 'me';
+  const [fx, fy] = CENTRE[side], [tx, ty] = CENTRE[other];
+  const way = side === 'me' ? 1 : -1;
+  callout(move.w, brief(move.m));
+  await tween(150, (t) => { views[side].x = -way * 7 * t; });
+  sfx.attack(s.type);
+  await tween(110, (t) => { views[side].x = lerp(-7, 15, t) * way; });
+  let trail = 0;
+  await tween(360, (t) => {
+    const p = easeOut(t);
+    views[side].x = lerp(15, 0, t) * way;
+    if (++trail % 2 === 0) burst(s.type, lerp(fx, tx, p), lerp(fy, ty, p) - Math.sin(p * Math.PI) * 18, 10, 0.8);
+  });
+  const strong = right || bonus > 1;
+  burst(s.type, tx, ty, strong ? 46 : 24, strong ? 1.8 : 1.1);
+  sfx.hit(strong);
+  shakeScreen(strong ? 9 : 5);
+  if (bonus > 1) flashScreen(0.35);
+  land();
+  const v = views[other];
+  await tween(380, (t) => { v.flash = Math.sin(t * Math.PI * 4) > 0 ? 0.9 : 0; v.x = Math.sin(t * Math.PI * 6) * (1 - t) * 5; });
+  v.flash = 0; v.x = 0;
+}
+
+async function faint(side: 'me' | 'foe', s: Species) {
+  const v = views[side];
+  const [x, y] = CENTRE[side];
+  sfx.faint();
+  await tween(800, (t) => {
+    v.melt = t;
+    v.alpha = 1 - t * t;
+    if (Math.random() < 0.5) drip(x - 34 + Math.random() * 68, y + 8 + t * 24, s.type === 'spirit' ? '#3b2470' : '#2b2036');
+  });
+  v.hidden = true;
+}
+
+// Returns once the charm has settled, with the outcome already decided.
+async function catchFx(s: Species, caught: boolean) {
+  const v = views.foe;
+  const [tx, ty] = CENTRE.foe;
+  charm.art = charmArt(s);
+  charm.show = true;
+  sfx.throw();
+  await tween(460, (t) => {
+    charm.x = lerp(70, tx, t);
+    charm.y = lerp(112, ty, t) - Math.sin(t * Math.PI) * 42;
+    charm.turn = t * Math.PI * 5;
+  });
+  charm.turn = 0;
+  sfx.absorb();
+  flashScreen(0.3);
+  await tween(300, (t) => { v.flash = t; v.scale = lerp(1, 0.05, t * t); });
+  v.hidden = true;
+  await tween(240, (t) => { charm.y = lerp(ty, 80, t * t); });
+  sfx.wobble();
+  const shakes = caught ? 3 : 1 + rand(2);
+  for (let i = 0; i < shakes; i++) {
+    await pause(180);
+    sfx.wobble();
+    await tween(260, (t) => { charm.turn = Math.sin(t * Math.PI * 2) * 0.42; });
+    charm.turn = 0;
+  }
+  await pause(220);
+  if (caught) {
+    sfx.caught();
+    silence();
+    burst('metal', charm.x, charm.y, 34, 1.3);
+    popup('Caught!', 'foe', 'good');
+    stamp('捕');
+    await pause(650);
+    charm.show = false;
+    return;
+  }
+  sfx.burst();
+  charm.show = false;
+  burst('spirit', charm.x, charm.y, 30, 1.6);
+  v.hidden = false;
+  v.flash = 1;
+  await tween(280, (t) => { v.scale = lerp(0.3, 1, easeOut(t)); v.flash = 1 - t; });
+  sfx.cry(s.k.codePointAt(0)!);
+}
+
+const stageEl = document.getElementById('stage')!;
+
+function overlay(cls: string, ms: number) {
+  const el = document.createElement('div');
+  el.className = cls;
+  stageEl.append(el);
+  setTimeout(() => el.remove(), ms);
+  return el;
+}
+
+function popup(text: string, side: 'me' | 'foe', tone = '') {
+  const [x, y] = CENTRE[side];
+  const el = overlay(`pop ${tone}`, 900);
+  el.textContent = text;
+  el.style.left = `${(x / 240) * 100}%`;
+  el.style.top = `${(y / 160) * 100}%`;
+}
+
+function callout(word: string, meaning: string) {
+  const el = overlay('callout', 1150);
+  el.append(Object.assign(document.createElement('b'), { textContent: word, lang: 'ja' }), Object.assign(document.createElement('span'), { textContent: meaning }));
+}
+
+function stamp(mark: string) {
+  overlay('stamp', 1250).textContent = mark;
+  document.querySelector('.stamp')?.setAttribute('lang', 'ja');
+  sfx.stamp();
+}
+
 async function duel(name: string, team: string[], lv: number) {
-  for (const s of team.map(spec)) {
-    foe = { s, f: { k: s.k, lv, xp: 0, hp: maxHp(s, lv) } };
-    await say(`${name === 'Aoi' ? 'Aoi' : `The ${name}`} sends out ${s.k}!`);
+  await battleOpen('trial');
+  for (const k of team) {
+    await say(`${name === 'Aoi' ? 'Aoi' : `The ${name}`} sends out ${k}!`);
+    await bringIn(spec(k), lv);
     if (!(await fight(false))) { foe = null; return false; }
   }
+  silence();
+  sfx.win();
+  await pause(900);
   foe = null;
+  music(areaTune());
   return true;
 }
 
@@ -328,6 +513,7 @@ async function trial(l: Level) {
   await say(`${l.master}: So Kanji Bear sent you. Show me what you have learned!`);
   if (!(await duel(l.master, l.team, l.lv))) return;
   save.trials.push(l.id);
+  stamp('合格');
   for (const line of l.win) await say(`${l.master}: ${line}`);
   await say(`You mastered ${l.id}!`);
   if (!nextLevel()) {
@@ -338,9 +524,15 @@ async function trial(l: Level) {
 }
 
 // One quiz: pick the English meaning from four options.
+// Dictionary notes in brackets don't fit a button, so answers show just the core meaning.
+const brief = (m: string) => m.replace(/\s*\([^)]*\)/g, '').split(/[;,]/)[0].trim() || m;
+
 async function quiz(prompt: string, right: string, pool: string[]) {
-  const options = shuffle([right, ...shuffle([...new Set(pool)].filter((m) => m !== right)).slice(0, 3)]);
-  return options[await ask(prompt, options)] === right;
+  const answer = brief(right);
+  const options = shuffle([answer, ...shuffle([...new Set(pool.map(brief))].filter((m) => m !== answer)).slice(0, 3)]);
+  const good = options[await ask(prompt, options)] === answer;
+  (good ? sfx.right : sfx.wrong)();
+  return good;
 }
 
 async function useMove(me: Fighter) {
@@ -355,8 +547,11 @@ async function fight(wild: boolean) {
     if (!me) return lose();
     const action = await ask(`What will ${spec(me.k).k} do?`, wild ? ['Attack', 'Charm', 'Switch', 'Run'] : ['Attack', 'Switch']);
     const label = wild ? ['attack', 'charm', 'switch', 'run'][action] : ['attack', 'switch'][action];
-    if (label === 'run') { await say('You got away safely.'); return true; }
-    if (label === 'switch') { if (await switchLead()) await enemyTurn(); continue; }
+    if (label === 'run') { await say('You got away safely.'); veil.curtain = 1.2; return true; }
+    if (label === 'switch') {
+      if (await switchLead()) { await sendOut(); await enemyTurn(); }
+      continue;
+    }
     if (label === 'charm') {
       if (await throwCharm()) return true;
       if (!(await enemyTurn())) return lose();
@@ -373,8 +568,11 @@ async function playerTurn(me: Fighter, move: Move) {
   const s = spec(me.k);
   const right = await quiz(`${move.w} (${move.r}) means...`, move.m, all.flatMap((x) => x.moves.map((m) => m.m)));
   const dealt = damage(s, me.lv, foe!.s, foe!.f.lv, move, right, 0.9 + Math.random() * 0.2);
-  foe!.f.hp = Math.max(0, foe!.f.hp - dealt);
   const bonus = typeBonus(s.type, foe!.s.type);
+  await attackFx('me', s, move, right, bonus, () => {
+    foe!.f.hp = Math.max(0, foe!.f.hp - dealt);
+    popup(`-${dealt}`, 'foe', bonus > 1 ? 'big' : '');
+  });
   await say(`${right ? 'Correct! Full power!' : `Not quite: it means "${move.m}".`}\n${s.k} used ${move.w}! ${dealt} damage.${bonus > 1 ? ' Super strong!' : bonus < 1 ? ' Weak...' : ''}`);
   return foe!.f.hp <= 0;
 }
@@ -384,20 +582,35 @@ async function enemyTurn() {
   if (!me) return false;
   const s = spec(me.k);
   const move = foe!.s.moves[rand(foe!.s.moves.length)];
-  const dealt = damage(foe!.s, foe!.f.lv, s, me.lv, move, Math.random() < 0.5, 0.9 + Math.random() * 0.2);
-  me.hp = Math.max(0, me.hp - dealt);
+  const correct = Math.random() < 0.5;
+  const dealt = damage(foe!.s, foe!.f.lv, s, me.lv, move, correct, 0.9 + Math.random() * 0.2);
+  const bonus = typeBonus(foe!.s.type, s.type);
+  await attackFx('foe', foe!.s, move, correct, bonus, () => {
+    me.hp = Math.max(0, me.hp - dealt);
+    popup(`-${dealt}`, 'me', bonus > 1 ? 'big' : '');
+  });
   await say(`${foe!.s.k} used ${move.w} (${move.m})! ${dealt} damage.`);
   if (me.hp > 0) return true;
+  await faint('me', s);
   await say(`${s.k} fainted!`);
-  return !!lead();
+  if (!lead()) return false;
+  await sendOut();
+  return true;
 }
 
 async function reward(me: Fighter, wild: boolean) {
+  await faint('foe', foe!.s);
+  if (wild) { silence(); sfx.win(); }
   const gained = xpReward(foe!.f.lv);
   const levels = gainXp(me, gained);
   const before = spec(me.k);
   await say(`${wild ? 'Wild ' : ''}${foe!.s.k} fainted. ${before.k} gained ${gained} XP.${levels ? `\n${before.k} grew to Lv${me.lv}!` : ''}`);
-  if (levels) me.hp = Math.min(maxHp(before, me.lv), me.hp + levels * 4);
+  if (levels) {
+    me.hp = Math.min(maxHp(before, me.lv), me.hp + levels * 4);
+    sfx.level();
+    for (let i = 0; i < 3; i++) burst('metal', CENTRE.me[0], CENTRE.me[1] + 12 - i * 12, 12, 0.7);
+    popup('Level up!', 'me', 'good');
+  }
   store();
   return true;
 }
@@ -408,7 +621,9 @@ async function throwCharm() {
   const right = await quiz(`Name it! What does ${s.k} mean?`, s.m, all.map((x) => x.m));
   if (!right) { await say(`The charm fizzles. ${s.k} means "${s.m}".`); return false; }
   save.charms--;
-  if (Math.random() > catchChance(foe!.f.hp, maxHp(s, foe!.f.lv))) { await say(`Right name, but ${s.k} broke free!`); return false; }
+  const caught = Math.random() <= catchChance(foe!.f.hp, maxHp(s, foe!.f.lv));
+  await catchFx(s, caught);
+  if (!caught) { await say(`Right name, but ${s.k} broke free!`); return false; }
   const f = { ...foe!.f };
   const fresh = !save.caught.includes(s.k);
   if (fresh) save.caught.push(s.k);
@@ -420,6 +635,8 @@ async function throwCharm() {
 
 async function lose() {
   await say('Kanji Bear: Your team is out of strength! I carried you back to safety.');
+  silence();
+  veil.curtain = 1.2;
   Object.assign(save, save.rest);
   for (const f of save.party) f.hp = maxHp(spec(f.k), f.lv);
   store();
@@ -465,6 +682,8 @@ async function title() {
     if (save.map === 'dojo' && save.chapter !== 'journey') return meetBear();
     return backToWorld();
   }
+  music('home');
+  veil.curtain = 1.2;
   save = { map: 'home', x: 11, y: 3, dir: 'down', party: [], box: [], seen: [], caught: [], charms: 0, chapter: 'home', trials: [], active: [], done: [], rest: { map: 'village', x: 12, y: 5 } };
   mode = 'busy';
   await say('Mom: Wake up, sleepyhead. Today is the day.');
@@ -497,7 +716,7 @@ async function meetBear() {
 }
 
 // ---- Drawing
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let alarm = false, opening = false;
 const petals = Array.from({ length: 16 }, (_, i) => ({ x: (i * 53) % 240, y: (i * 37) % 160, v: 0.2 + (i % 4) * 0.08 }));
 let tick = 0;
 
@@ -524,6 +743,10 @@ function drawWorld() {
   // Tall grass and rice close over the walker's legs.
   if ('"r'.includes(m.rows[save.y][save.x])) ctx.drawImage(w.base, save.x * T, save.y * T + 10, T, 6, save.x * T - cx, save.y * T + 10 - cy, T, 6);
   ctx.drawImage(w.fg, -cx, -cy);
+  if (alarm) {
+    ctx.fillStyle = '#2b2036'; ctx.fillRect(Math.round(px - cx) + 6, Math.round(py - cy) - 15, 4, 11);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(Math.round(px - cx) + 7, Math.round(py - cy) - 14, 2, 6); ctx.fillRect(Math.round(px - cx) + 7, Math.round(py - cy) - 7, 2, 2);
+  }
   if (save.map === 'village' && !still) drawPetals('#ffd5e2', '#f4a8c0');
   if (save.map === 'onsen' && !still) drawPetals('#ffffff', '#e8eef4');
 }
@@ -560,14 +783,16 @@ function drawBattle() {
   const bob = still ? 0 : Math.round(Math.sin(tick / 24));
   const me = lead();
   if (foe) {
-    ctx.drawImage(kanjiSprite(foe.s, 72), 144, 10 + bob);
+    drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72), foe.s, 144, 10 + bob, 72);
     card(cards.foe, save.caught.includes(foe.s.k) ? foe.s.m : 'Unknown kanji', foe.f.lv, foe.f.hp, maxHp(foe.s, foe.f.lv));
   }
   if (me) {
     const s = spec(me.k);
-    ctx.drawImage(kanjiSprite(s, 88, true), 8, 54 - bob);
+    drawKanji(ctx, views.me, kanjiSprite(s, 88, true), s, 8, 54 - bob, 88);
     card(cards.me, s.m, me.lv, me.hp, maxHp(s, me.lv));
+    cards.me.classList.toggle('danger', me.hp / maxHp(s, me.lv) < 0.2);
   }
+  drawCharm(ctx);
 }
 
 function drawTitle() {
@@ -579,8 +804,9 @@ function drawTitle() {
 const STARTERS = ['火', '水', '木'];
 let starterRow: Species[] = [];
 
-function frame() {
+function frame(now = 0) {
   tick++;
+  beginFrame(ctx, now);
   ctx.imageSmoothingEnabled = false;
   if (mode === 'world' || (mode === 'busy' && !foe)) {
     if (slide > 0) slide = Math.max(0, slide - 2);
@@ -589,10 +815,12 @@ function frame() {
       if (dir) walk(dir);
     }
   }
-  stage.dataset.scene = mode === 'title' ? 'title' : foe ? 'battle' : 'world';
+  stage.dataset.scene = mode === 'title' ? 'title' : foe || opening ? 'battle' : 'world';
   if (mode === 'title') drawTitle();
-  else if (foe) drawBattle();
+  else if (foe || opening) drawBattle();
   else if (save) drawWorld();
+  drawBits(ctx);
+  endFrame(ctx);
   requestAnimationFrame(frame);
 }
 
@@ -600,12 +828,13 @@ function frame() {
 const KEYS: Record<string, string> = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', z: 'a', Enter: 'a', ' ': 'a', x: 'menu', Escape: 'menu' };
 
 function press(action: string) {
+  unlock();
   const count = choicesEl.children.length;
   if (count) {
     const columns = getComputedStyle(choicesEl).gridTemplateColumns.split(' ').length;
     if (action === 'a') return pick(selected);
     const move = { left: -1, right: 1, up: -columns, down: columns }[action];
-    if (move) { selected = Math.max(0, Math.min(count - 1, selected + move)); mark(); }
+    if (move) { selected = Math.max(0, Math.min(count - 1, selected + move)); mark(); sfx.move(); }
     return;
   }
   if (mode !== 'world') return;
@@ -628,6 +857,14 @@ document.querySelectorAll<HTMLButtonElement>('#pad button').forEach((b) => {
   for (const end of ['pointerup', 'pointerleave', 'pointercancel']) b.addEventListener(end, () => held.delete(action));
 });
 
+// ---- Sound control
+const soundBtn = document.getElementById('sound') as HTMLButtonElement;
+const showSound = () => { soundBtn.textContent = soundOn() ? 'Sound on' : 'Sound off'; soundBtn.setAttribute('aria-pressed', String(soundOn())); };
+soundBtn.addEventListener('click', () => { unlock(); setSound(!soundOn()); showSound(); soundBtn.blur(); });
+addEventListener('pointerdown', unlock);
+addEventListener('keydown', (e) => { unlock(); if (e.key === 'm') soundBtn.click(); });
+showSound();
+
 // ---- Boot
 fetch('/kanjimon/data.json')
   .then((r) => r.json())
@@ -635,7 +872,7 @@ fetch('/kanjimon/data.json')
     all = data;
     dex = new Map(data.map((s) => [s.k, s]));
     starterRow = STARTERS.map(spec);
-    frame();
+    requestAnimationFrame(frame);
     await title();
   })
   .catch(() => clearPanel("Couldn't load the game. Refresh to try again."));

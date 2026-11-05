@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import KanjimonBanner from '../components/KanjimonBanner.astro';
 import KanjiTile from '../components/KanjiTile.astro';
 import { allKanji, artPath, byLevel, kanjiPath, LEVELS } from '../lib/kanji';
 
@@ -59,6 +60,8 @@ const jsonLd = {
   <ul class="grid few">
     {samples.map((k, i) => <li><KanjiTile {k} index={i} /></li>)}
   </ul>
+
+  <KanjimonBanner />
 </Base>
 
 <style>

@@ -1,4 +1,5 @@
 ---
+import GoogleTag from '../../components/GoogleTag.astro';
 import '@fontsource-variable/outfit';
 import '@fontsource-variable/figtree';
 import '@fontsource/m-plus-rounded-1c/700.css';
@@ -11,6 +12,7 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <GoogleTag />
     <title>Kanjimon: catch every kanji in a pixel adventure</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -42,8 +44,8 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
           <button data-key="a" class="a">A</button>
         </div>
         <footer class="hint">
-          <p><kbd>Arrows</kbd> walk <kbd>Z</kbd> talk <kbd>X</kbd> menu</p>
-          <a class="back" href="/">Back to SonnaKanji</a>
+          <p><kbd>Arrows</kbd> walk <kbd>Z</kbd> talk <kbd>X</kbd> menu <kbd>M</kbd> sound</p>
+          <div class="links"><button class="back" id="sound" type="button">Sound on</button><a class="back" href="/">Back to SonnaKanji</a></div>
         </footer>
       </div>
     </main>
@@ -88,6 +90,19 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
   .card output[hidden] { display: none; }
   .card output:not([hidden]) { display: block; margin-top: .7cqw; text-align: right; font: 500 .9em/1.2 var(--display); font-variant-numeric: tabular-nums; color: var(--card-muted); }
 
+  .pop { position: absolute; z-index: 3; transform: translate(-50%, -50%); font: 800 max(18px, 5.5cqw)/1 var(--display); color: #fff; -webkit-text-stroke: 4px #231a3d; paint-order: stroke fill; pointer-events: none; animation: rise .9s cubic-bezier(.16, 1, .3, 1) both; }
+  .pop.big { font-size: max(24px, 7.5cqw); color: var(--accent); }
+  .pop.good { color: var(--accent); }
+  .callout { position: absolute; z-index: 2; left: 50%; top: 42%; display: grid; justify-items: center; gap: .3cqw; padding: 1.2cqw 3.4cqw 1.6cqw; border-radius: 2.8cqw; background: #231a3dd9; color: #fff; pointer-events: none; animation: slam 1.15s cubic-bezier(.16, 1, .3, 1) both; }
+  .callout b { font: 700 max(22px, 7cqw)/1.15 var(--jp); }
+  .callout span { font: 500 max(12px, 2.9cqw)/1.2 var(--display); white-space: nowrap; }
+  .stamp { position: absolute; z-index: 3; right: 6cqw; top: 6cqw; display: grid; place-items: center; min-width: 19cqw; height: 19cqw; padding-inline: 2cqw; border: .9cqw solid #c7302c; border-radius: 3cqw; background: #fdf8ef; color: #c7302c; font: 700 11cqw/1 var(--jp); pointer-events: none; animation: seal 1.25s cubic-bezier(.16, 1, .3, 1) both; }
+  .card.danger .fill { animation: pulse .7s ease-in-out infinite alternate; }
+  @keyframes rise { from { opacity: 0; translate: 0 8px; scale: .7; } 25% { opacity: 1; scale: 1.15; } 70% { opacity: 1; } to { opacity: 0; translate: 0 -28px; scale: 1; } }
+  @keyframes slam { from { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } 16% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 82% { opacity: 1; transform: translate(-50%, -50%) scale(1); } to { opacity: 0; transform: translate(-50%, -50%) scale(.96); } }
+  @keyframes seal { from { opacity: 0; transform: scale(2.2) rotate(-14deg); } 18% { opacity: 1; transform: scale(1) rotate(-6deg); } 80% { opacity: 1; transform: scale(1) rotate(-6deg); } to { opacity: 0; transform: scale(1) rotate(-6deg); } }
+  @keyframes pulse { to { opacity: .45; } }
+
   .side { display: grid; gap: 12px; align-content: start; min-width: 0; }
   .panel { min-height: 212px; padding: 16px; border-radius: 18px; background: var(--surface); }
   #text { display: grid; gap: 2px; margin: 0 0 12px; max-width: 62ch; white-space: pre-line; }
@@ -111,9 +126,10 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
   #text:last-child { margin: 0; }
   #text strong { font: 600 .9375rem/1.3 var(--display); color: var(--accent); }
   #text small { font-size: .9375rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-  #choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 8px; }
   #choices:empty { display: none; }
-  #choices button { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 14px; border: 0; border-radius: 12px; background: var(--raised); color: var(--ink); font: 500 1rem/1.2 var(--display); text-align: left; cursor: pointer; transition: background-color .15s, color .15s; }
+  #choices button { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 6px 14px; text-wrap: balance; overflow-wrap: anywhere; border: 0; border-radius: 12px; background: var(--raised); color: var(--ink); font: 500 1rem/1.2 var(--display); text-align: left; cursor: pointer; transition: background-color .15s, color .15s; }
+  #choices button.long { font-size: .875rem; }
   #choices .ja { font: 700 1.3rem/1 var(--jp); }
   #choices button:hover { background: var(--line); }
   #choices button.on { background: var(--accent); color: var(--on-accent); }
@@ -135,7 +151,8 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
   .hint p { margin: 0; }
   .hint kbd { margin-left: 8px; padding: 1px 7px; border-radius: 6px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.4 var(--display); }
   .hint kbd:first-child { margin-left: 0; }
-  .back { padding: 1px 9px; border-radius: 6px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.4 var(--display); text-decoration: none; transition: background-color .15s; }
+  .links { display: flex; gap: 6px; }
+  .back { padding: 1px 9px; border: 0; cursor: pointer; border-radius: 6px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.4 var(--display); text-decoration: none; transition: background-color .15s; }
   .back:hover { background: var(--line); }
 
   @media (pointer: coarse) { .pad { display: grid; } .hint p { display: none; } }
@@ -146,5 +163,10 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
     .panel { min-height: 300px; padding: 20px; }
     #choices { grid-template-columns: 1fr; }
   }
-  @media (prefers-reduced-motion: reduce) { .fill, #choices button { transition: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .fill, #choices button { transition: none; }
+    .pop, .callout, .stamp { animation-name: fade; }
+    .card.danger .fill { animation: none; }
+    @keyframes fade { from, to { opacity: 0; } 15%, 80% { opacity: 1; } }
+  }
 </style>
