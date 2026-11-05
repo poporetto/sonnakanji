@@ -1225,6 +1225,11 @@
       "source": "/kanji/%E6%98%A0/",
       "destination": "/kanji/reflect-utsuru/",
       "permanent": true
+    },
+    {
+      "source": "/kanjimon/",
+      "destination": "/kanjimono/",
+      "permanent": true
     }
   ]
 }

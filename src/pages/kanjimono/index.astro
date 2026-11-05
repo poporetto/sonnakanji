@@ -4,8 +4,8 @@ import '@fontsource-variable/outfit';
 import '@fontsource-variable/figtree';
 import '@fontsource/m-plus-rounded-1c/700.css';
 const site = Astro.site;
-const canonical = new URL('/kanjimon/', site).href;
-const description = 'Kanjimon is a free pixel adventure in Japan. Choose a starter kanji, battle with real compound words, and catch all 245 kanji by knowing their meanings.';
+const canonical = new URL('/kanjimono/', site).href;
+const description = 'Kanjimono is a free pixel adventure in Japan. Choose a starter kanji, battle with real compound words, and catch all 245 kanji by knowing their meanings.';
 ---
 <!doctype html>
 <html lang="en">
@@ -13,7 +13,7 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     <GoogleTag />
-    <title>Kanjimon: catch every kanji in a pixel adventure</title>
+    <title>Kanjimono: catch every kanji in a pixel adventure</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#14162e" />
@@ -23,7 +23,7 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
     <main class="console">
       <div class="stage" id="stage" data-scene="title">
         <canvas id="screen" width="240" height="160" aria-label="Game screen"></canvas>
-        <h1>Kanjimon</h1>
+        <h1>Kanjimono</h1>
         <div class="card foe" id="foe-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output hidden></output></div>
         <div class="card me" id="me-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output></output></div>
       </div>
@@ -50,7 +50,7 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
       </div>
     </main>
     <script>
-      import '../../kanjimon/main';
+      import '../../kanjimono/main';
     </script>
   </body>
 </html>
@@ -69,7 +69,7 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   ::selection { background: var(--accent); color: var(--on-accent); }
   html, body { margin: 0; min-height: 100%; background: var(--ground); color: var(--ink); font: 400 1.0625rem/1.45 var(--body), var(--jp); }
-  .console { width: min(100%, 504px); margin: 0 auto; padding: max(8px, env(safe-area-inset-top)) 8px max(12px, env(safe-area-inset-bottom)); display: grid; gap: 12px; }
+  .console { width: min(100%, 496px); margin: 0 auto; padding: max(8px, env(safe-area-inset-top)) 8px max(12px, env(safe-area-inset-bottom)); display: grid; gap: 12px; }
 
   .stage { position: relative; container-type: inline-size; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 40px -16px #05061a; }
   canvas { display: block; width: 100%; aspect-ratio: 3 / 2; image-rendering: pixelated; background: var(--ground); }
@@ -157,11 +157,17 @@ const description = 'Kanjimon is a free pixel adventure in Japan. Choose a start
 
   @media (pointer: coarse) { .pad { display: grid; } .hint p { display: none; } }
   @media (max-width: 360px) { .pad { grid-template-columns: 156px 1fr 64px; } .pad .a { width: 64px; height: 64px; } }
-  @media (min-width: 1080px) and (min-height: 540px) {
-    html, body { height: 100%; }
-    .console { width: 1064px; min-height: 100%; padding: 24px 0; grid-template-columns: 720px 1fr; align-content: center; gap: 24px; }
-    .panel { min-height: 300px; padding: 20px; }
-    #choices { grid-template-columns: 1fr; }
+  /* The panel always sits under the screen. Exact 2x and 3x sizes keep the pixels even. */
+  @media (min-width: 760px) {
+    .panel { min-height: 172px; }
+    #status { grid-template-columns: minmax(0, 1fr) 190px; align-items: stretch; }
+    #status header { grid-column: 1 / -1; }
+    .stats { grid-template-columns: 1fr; gap: 6px; }
+    .stats li { grid-template-columns: 1fr auto; align-items: baseline; gap: 8px; padding: 6px 10px; }
+    .stats li b { order: 2; }
+  }
+  @media (min-width: 760px) and (min-height: 800px) {
+    .console { width: 736px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .fill, #choices button { transition: none; }

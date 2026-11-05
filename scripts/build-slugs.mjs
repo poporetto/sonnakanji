@@ -33,5 +33,7 @@ const redirects = records.filter((r) => r.level === 'N5' || r.level === 'N4').ma
   destination: `/kanji/${slugs[r.kanji]}/`,
   permanent: true,
 }));
+// The game's first name, kept alive for anyone with the old link.
+redirects.push({ source: '/kanjimon/', destination: '/kanjimono/', permanent: true });
 writeFileSync(path.join(ROOT, 'vercel.json'), `${JSON.stringify({ trailingSlash: true, redirects }, null, 2)}\n`);
 console.log(Object.keys(slugs).length, 'slugs;', Object.values(slugs).slice(0, 6).join(' '));

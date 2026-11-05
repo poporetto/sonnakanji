@@ -866,7 +866,7 @@ addEventListener('keydown', (e) => { unlock(); if (e.key === 'm') soundBtn.click
 showSound();
 
 // ---- Boot
-fetch('/kanjimon/data.json')
+fetch('/kanjimono/data.json')
   .then((r) => r.json())
   .then(async (data: Species[]) => {
     all = data;

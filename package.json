@@ -10,7 +10,7 @@
     "data": "node scripts/build-data.mjs",
     "art": "node scripts/build-art.mjs",
     "slugs": "node scripts/build-slugs.mjs",
-    "test": "node --test src/lib/*.test.ts src/kanjimon/*.test.ts"
+    "test": "node --test src/lib/*.test.ts src/kanjimono/*.test.ts"
   },
   "dependencies": {
     "@fontsource-variable/figtree": "^5.3.0",
