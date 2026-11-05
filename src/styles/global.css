@@ -76,6 +76,7 @@ main { padding-block: 8px 48px; }
 }
 .brand { min-height: 44px; font: 600 18px var(--display); letter-spacing: -.02em; text-decoration: none; display: flex; gap: 6px; align-items: center; }
 .brand img { display: block; width: 40px; height: auto; }
+@media (max-width: 440px) { .brand span { display: none; } }
 .site-bar nav { margin-left: auto; display: flex; gap: 2px; font-size: 15px; font-weight: 600; }
 .site-bar nav a { display: flex; align-items: center; min-height: 44px; text-decoration: none; padding-inline: 12px; border-radius: 999px; }
 .site-bar nav a:hover { background: var(--wash); }

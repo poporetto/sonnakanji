@@ -46,10 +46,13 @@ const here = Astro.url.pathname;
   <body>
     <header class="site-head">
       <div class="wrap"><div class="site-bar">
-        <a class="brand" href="/"><img src="/mascot/bear.webp" alt="" width="48" height="38" />SonnaKanji</a>
+        <a class="brand" href="/" aria-label="SonnaKanji home"><img src="/mascot/bear.webp" alt="" width="48" height="38" /><span>SonnaKanji</span></a>
         <nav aria-label="Main">
           <a href="/jlpt/" aria-current={here.startsWith('/jlpt') ? 'page' : undefined}>Levels</a>
           <a href="/review/" aria-current={here.startsWith('/review') ? 'page' : undefined}>Review</a>
+          <a class="gear" href="/search/" aria-label="Search" aria-current={here.startsWith('/search') ? 'page' : undefined}>
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+          </a>
           <a class="gear" href="/settings/" aria-label="Settings" aria-current={here.startsWith('/settings') ? 'page' : undefined}>
             <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10" /><circle cx="16" cy="7" r="2.4" /><circle cx="8" cy="17" r="2.4" /></svg>
           </a>
@@ -60,7 +63,7 @@ const here = Astro.url.pathname;
     <footer class="site-foot">
       <div class="wrap">
         <p>Built on open data from KANJIDIC, Wiktionary, Wikimedia Commons and KanjiVG.</p>
-        <p class="foot-links"><a href="/learn-kanji-with-pictures/">How to learn kanji with pictures</a><a href="/about/">Sources and licences</a></p>
+        <p class="foot-links"><a href="/learn-kanji-with-pictures/">How to learn kanji with pictures</a><a href="/kanjimon/">Play Kanjimon</a><a href="/about/">Sources and licences</a></p>
       </div>
     </footer>
   </body>

@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search kanji by meaning or reading | SonnaKanji" description="Search every JLPT kanji from N5 to N1 by English meaning, reading or the kanji itself." noindex>
+  <h1>Search kanji</h1>
+  <form class="finder" action="/search/" method="get" role="search">
+    <label class="vh" for="q">Search by meaning, reading or kanji</label>
+    <div class="field">
+      <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+      <input id="q" name="q" type="search" placeholder="Try water, yama or 山" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" autofocus />
+    </div>
+    <div class="levels" role="group" aria-label="Level">
+      {['all', 'N5', 'N4', 'N3', 'N2', 'N1'].map((l) => <button type="button" data-level={l} aria-pressed={l === 'all' ? 'true' : 'false'}>{l === 'all' ? 'All' : l}</button>)}
+    </div>
+  </form>
+  <noscript><p>Search needs JavaScript. You can still browse <a href="/jlpt/">every level</a>.</p></noscript>
+  <p class="muted summary" id="summary" role="status"></p>
+  <ul class="grid" id="results"></ul>
+  <p class="more"><button class="btn" id="more" type="button" hidden>Show more</button></p>
+</Base>
+
+<script>
+  import { search, type Card } from '../lib/search';
+
+  const PAGE = 60;
+  const input = document.getElementById('q') as HTMLInputElement;
+  const summary = document.getElementById('summary')!;
+  const list = document.getElementById('results')!;
+  const more = document.getElementById('more') as HTMLButtonElement;
+  const levels = [...document.querySelectorAll<HTMLButtonElement>('[data-level]')];
+  const url = new URL(location.href);
+  let cards: Card[] = [];
+  let level = url.searchParams.get('level') ?? 'all';
+  let found: Card[] = [];
+  let shown = 0;
+
+  function tile(c: Card, i: number) {
+    const li = document.createElement('li');
+    const a = Object.assign(document.createElement('a'), { className: 'tile', href: c.u });
+    a.style.setProperty('--tint', `var(--t${i % 5})`);
+    a.dataset.k = c.k;
+    const img = Object.assign(document.createElement('img'), { src: c.a, alt: `Drawing for ${c.k}, ${c.m[0]}`, width: 200, height: 200, loading: 'lazy', decoding: 'async' });
+    const txt = Object.assign(document.createElement('div'), { className: 'txt' });
+    const b = Object.assign(document.createElement('b'), { textContent: c.k, lang: 'ja' });
+    txt.append(b, Object.assign(document.createElement('span'), { textContent: c.m[0] }));
+    a.append(img, txt);
+    li.append(a);
+    return li;
+  }
+
+  function showMore() {
+    list.append(...found.slice(shown, shown + PAGE).map((c, i) => tile(c, shown + i)));
+    shown = Math.min(found.length, shown + PAGE);
+    more.hidden = shown >= found.length;
+  }
+
+  function run() {
+    const q = input.value.trim();
+    found = search(cards, q, level);
+    shown = 0;
+    list.replaceChildren();
+    showMore();
+    const where = level === 'all' ? '' : ` in ${level}`;
+    summary.textContent = !q ? 'Search by English meaning, by reading in kana or romaji, or paste a Japanese word to see its kanji.'
+      : found.length ? `${found.length.toLocaleString('en')} kanji for "${q}"${where}`
+      : `No kanji found for "${q}"${where}. Check the spelling, or try another meaning.`;
+    q ? url.searchParams.set('q', q) : url.searchParams.delete('q');
+    level === 'all' ? url.searchParams.delete('level') : url.searchParams.set('level', level);
+    history.replaceState(null, '', url);
+  }
+
+  function mark() {
+    for (const b of levels) b.setAttribute('aria-pressed', String(b.dataset.level === level));
+  }
+
+  input.value = url.searchParams.get('q') ?? '';
+  mark();
+  input.addEventListener('input', run);
+  input.closest('form')!.addEventListener('submit', (e) => { e.preventDefault(); input.blur(); });
+  more.addEventListener('click', showMore);
+  for (const b of levels) b.addEventListener('click', () => { level = b.dataset.level!; mark(); run(); });
+
+  summary.textContent = 'Loading kanji...';
+  fetch('/cards.json')
+    .then((r) => r.json())
+    .then((data: Card[]) => { cards = data; run(); })
+    .catch(() => { summary.textContent = "Couldn't load the kanji. Check your connection and refresh."; });
+</script>
+
+<style>
+  .finder { display: grid; gap: 12px; margin-top: 16px; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .field { display: flex; align-items: center; gap: 10px; padding-inline: 16px; border-radius: 18px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
+  .field:focus-within { box-shadow: 0 0 0 2px var(--accent); }
+  .field .icon { flex: none; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+  input { flex: 1; min-width: 0; height: 56px; border: 0; outline: 0; background: none; color: var(--ink); font: 500 18px/1.2 var(--body), var(--jp); }
+  input::placeholder { color: var(--muted); }
+  .levels { display: flex; flex-wrap: wrap; gap: 6px; }
+  .levels button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); color: var(--ink); font: 600 14px/1 var(--body); cursor: pointer; }
+  .levels button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+  .summary { margin: 16px 0 0; }
+  .more { margin-top: 20px; text-align: center; }
+</style>

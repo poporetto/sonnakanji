@@ -12,6 +12,11 @@ const jsonLd = {
   name: 'SonnaKanji',
   url: Astro.site?.href,
   description: 'Illustrated JLPT kanji mnemonics with free spaced repetition review, from N5 to N1.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: new URL('/search/?q={query}', Astro.site).href },
+    'query-input': 'required name=query',
+  },
 };
 ---
 <Base
