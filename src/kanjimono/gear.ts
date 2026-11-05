@@ -46,7 +46,7 @@ export const GEAR: Record<string, string[]> = {
   sun: ['y...y...y', '.y.ooo.y.', '..oyyyo..', 'yoyyyyyoy', '..oyyyo..', '.y.ooo.y.', 'y...y...y'],
   sunrise: ['....y....', '.y..y..y.', '...ooo...', '..oyyyo..', 'oooooooo.', 'obbbbbbbo', 'ooooooooo'],
   sunset: ['...ooo...', '..orrro..', '.orryrro.', 'ooooooooo', '.Y.Y.Y.Y.', 'obbbbbbbo', 'ooooooooo'],
-  umbrella: ['...oo....', '..orro...', '.orrprro.', 'orprrprro', 'ooooooooo', '...on....', '...on....', '.o.on....', '..oo.....'],
+  umbrella: ['....ooo....', '..oowrwoo..', '.orwwrwwro.', '.orwwrwwro.', 'orrwwrwwrro', 'orrwwrwwrro', 'oo..ooo..oo', '.....o.....', '.o...o.....', '..ooo......'],
   swirl: ['..ccccc..', '.c.....c.', '.c.ccc.c.', '.c.c.c.c.', '.c...c.c.', '..ccc..c.', 'ccc...c..'],
   snow: ['....c....', '.c..c..c.', '..c.c.c..', '...ccc...', 'cccccccc.', '...ccc...', '..c.c.c..', '.c..c..c.', '....c....'],
   wave: ['..ooo.....', '.obbbo.oo.', 'obcbbbobbo', 'obbbbbbbbo', 'obbbbbbbbo', 'oooooooooo'],

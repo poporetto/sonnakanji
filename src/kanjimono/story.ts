@@ -7,7 +7,7 @@ export const POOLS: Record<string, string> = {
   kawabe: '人男女子父母友生学校先名年本書読語話聞見食何大小高長白気休',
   forest: '上下左右中外前後東西南北今時間午半毎来行出入国電車',
   pass: '春夏秋冬赤青黒色空海風花鳥犬魚牛夕朝昼夜田野地洋音歌明早新古多少広近強力場京道方',
-  onsen: '手足目口体心兄弟姉妹親家族茶肉飯飲味料医病院死服着住屋室館堂旅安起待歩走帰楽',
+  onsen: '手足目耳口体心兄弟姉妹親家族茶肉飯飲味料医病院死服着住屋室館堂旅安起待歩走帰楽',
   castle: '立正文町字会同自社通言理作用公思教元考画売知計台工止切店答買図週紙曜事発者業員開問代動主題意度持世界重集物使品始運終真有急送転研究銀仕去写注悪習駅勉漢不以別特建試験英借質貸私映',
 };
 
@@ -22,7 +22,7 @@ export type Task =
 
 export interface Quest {
   id: string; title: string; giver: string; where: string; level?: LevelId; after?: string;
-  task: Task; offer: string[]; wait: string; done: string[]; charms?: number;
+  task: Task; offer: string[]; wait: string; done: string[]; charms?: number; lure?: boolean;
 }
 
 export interface Level { id: LevelId; land: string; master: string; team: string[]; lv: number; need: number; win: string[] }
@@ -40,7 +40,7 @@ export const QUESTS: Quest[] = [
     done: ['You catch them gently. That is rare.', 'The signs you pass stay blank until you catch the kanji that left them. Read them as you go. They will teach you more than I can.', 'Go and see the farmer. The rice fields have lost their records.'], charms: 3,
   },
   {
-    id: 'farmer', title: "The farmer's count", giver: 'Farmer', where: 'the Rice Fields', level: 'N5', task: { catch: ['一', '二', '三'] },
+    id: 'farmer', title: "The farmer's count", giver: 'Farmer', where: 'the Rice Fields', level: 'N5', task: { catch: ['一', '二', '三'] }, lure: true,
     offer: ['Every sack in my barn had a number on it. Now they are all blank!', 'Find 一, 二 and 三 for me. Then I can start counting again.'], wait: 'Bring me 一, 二 and 三.',
     done: ['Ha! There they are. Three strokes for three. Numbers are the kindest kanji.', 'The bridge to Kawabe was shut until the harvest was counted. It is open now.'], charms: 3,
   },
@@ -190,3 +190,6 @@ export const SIGNS: Sign[] = [
   { map: 'castle', x: 15, y: 8, k: '駅', word: '駅', en: 'Station' },
   { map: 'castle', x: 5, y: 8, k: '店', word: '店', en: 'Shops' },
 ];
+
+// Kanji an active mission is drawing out of the grass, until each one is caught.
+export const lured = (active: string[], caught: string[]) => QUESTS.filter((q) => q.lure && active.includes(q.id)).flatMap((q) => ('catch' in q.task ? q.task.catch : [])).filter((k) => !caught.includes(k));

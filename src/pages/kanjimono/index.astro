@@ -7,7 +7,7 @@ import '@fontsource/m-plus-rounded-1c/700.css';
 import '@fontsource/m-plus-rounded-1c/900.css';
 const site = Astro.site;
 const canonical = new URL('/kanjimono/', site).href;
-const description = 'Kanjimono is a free pixel adventure in Japan. Choose a starter kanji, battle with real compound words, and catch all 245 kanji by knowing their meanings.';
+const description = 'Kanjimono is a free pixel adventure in Japan. Choose a starter kanji, battle with real compound words, and catch all 246 kanji by knowing their meanings.';
 ---
 <!doctype html>
 <html lang="en">
@@ -17,6 +17,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
     <GoogleTag />
     <Analytics />
     <title>Kanjimono: catch every kanji in a pixel adventure</title>
+    <link rel="preload" as="image" href="/art/kanjimono-logo.webp">
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#14162e" />
@@ -26,7 +27,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
     <main class="console">
       <div class="stage" id="stage" data-scene="title">
         <canvas id="screen" width="240" height="160" aria-label="Game screen"></canvas>
-        <h1>Kanjimono<span lang="ja">漢字もの</span></h1>
+        <h1><img src="/art/kanjimono-logo.webp" width="1200" height="401" alt="Kanjimono, 漢字もの"></h1>
         <div class="card foe" id="foe-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output hidden></output></div>
         <div class="card me" id="me-card"><p><b></b><i></i></p><div class="track"><div class="fill"></div></div><output></output></div>
       </div>
@@ -80,8 +81,12 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
 
   .stage { position: relative; container-type: inline-size; border-radius: 18px; overflow: hidden; box-shadow: 0 18px 40px -16px #05061a; }
   canvas { display: block; width: 100%; aspect-ratio: 3 / 2; image-rendering: pixelated; background: var(--ground); }
-  .stage h1 { display: none; position: absolute; inset: 7.6cqw 0 auto; margin: 0; text-align: center; font: 800 11.5cqw/1 var(--display); letter-spacing: -.03em; color: #3a2a4e; }
-  .stage h1 span { display: block; margin-top: 1.1cqw; font: 700 3.2cqw/1 var(--jp); letter-spacing: .32em; text-indent: .32em; color: #d6332a; }
+  .stage h1 { display: none; position: absolute; inset: 1.5cqw 0 auto; margin: 0; }
+  .stage h1 img { display: block; width: 92cqw; max-width: none; height: auto; margin: 0 auto; }
+  /* The title menu sits on the screen itself, under the logo. */
+  .stage > #choices { position: absolute; inset: 35cqw 19cqw auto; }
+  .stage > #choices button { justify-content: center; min-height: max(44px, 9.5cqw); padding: 4px 10px; font-size: clamp(.875rem, 3.6cqw, 1.3rem); box-shadow: 0 .8cqw 0 #16123a; }
+  .stage > #choices button:not(.on) { background: var(--surface); }
   [data-scene='title'] h1 { display: block; }
 
   .card { display: none; position: absolute; width: 44cqw; padding: 1.8cqw 2.4cqw 2cqw; border-radius: 2.8cqw; background: var(--card); color: var(--card-ink); box-shadow: 0 1cqw 3cqw -1cqw #16123a; font-size: max(12px, 3cqw); line-height: 1.2; }

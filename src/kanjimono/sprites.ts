@@ -86,7 +86,7 @@ const FACE = '"M PLUS Rounded 1c"';
 
 // Fetches the heavy rounded lettering, remembering which kanji have really arrived.
 const lettering = new Set<string>();
-export const loadLettering = (kanji: string) => document.fonts.load(`900 64px ${FACE}`, kanji).then(() => {
+export const loadLettering = (kanji: string) => Promise.all([document.fonts.load(`900 64px ${FACE}`, kanji), document.fonts.load(`700 64px ${FACE}`, kanji)]).then(() => {
   for (const k of kanji) lettering.add(k);
 });
 
@@ -195,8 +195,8 @@ function body(s: Species, size: number, back = false): Body {
     const rows = GEAR[gear], gw = rows[0].length * cell, gh = rows.length * cell;
     const above = ON_TOP.includes(gear);
     // Beside the kanji, but never so far out that the edge of the battle screen cuts it off.
-    const gx = above ? MARGIN + (left + right) / 2 - gw / 2 : Math.min(MARGIN + right + (gear.startsWith('die') ? 8 : 3) * k - gw / 2, MARGIN + size + 12 * k - gw);
-    const gy = above ? MARGIN + top - gh + 4 * k : LOW.includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
+    const gx = gear === 'umbrella' ? MARGIN + right - gw + 7 * k : above ? MARGIN + (left + right) / 2 - gw / 2 : Math.min(MARGIN + right + (gear.startsWith('die') ? 8 : 3) * k - gw / 2, MARGIN + size + 12 * k - gw);
+    const gy = gear === 'umbrella' ? MARGIN + top - 7 * cell : above ? MARGIN + top - gh + 4 * k : LOW.includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
     const edge = Math.max(1, Math.round(1.6 * k));
     if (LOOSE.includes(gear)) rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS.o, gx + x * cell - edge, gy + y * cell - edge, cell + edge * 2, cell + edge * 2); }));
     rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS[ch], gx + x * cell, gy + y * cell, cell, cell); }));

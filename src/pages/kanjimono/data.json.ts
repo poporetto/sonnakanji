@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { byLevel, type Kanji } from '../../lib/kanji';
+import { allKanji, byLevel, type Kanji } from '../../lib/kanji';
 import type { Element, Move, Species } from '../../kanjimono/battle';
 import { WORDS } from '../../kanjimono/meanings';
 
@@ -19,5 +19,8 @@ const toSpecies = (k: Kanji): Species => ({
   level: k.level as 'N5' | 'N4', d: k.vg.strokes.map((s) => s.d),
 });
 
+// Useful kanji from higher levels that the game teaches early, with the body parts.
+const EXTRAS = allKanji.filter((k) => k.kanji === '耳').map((k) => ({ ...k, level: 'N4' as const }));
+
 export const GET: APIRoute = () =>
-  new Response(JSON.stringify([...byLevel('N5'), ...byLevel('N4')].map(toSpecies)), { headers: { 'Content-Type': 'application/json' } });
+  new Response(JSON.stringify([...byLevel('N5'), ...byLevel('N4'), ...EXTRAS].map(toSpecies)), { headers: { 'Content-Type': 'application/json' } });

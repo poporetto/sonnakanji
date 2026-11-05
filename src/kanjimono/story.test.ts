@@ -7,14 +7,14 @@ import { WORDS } from './meanings.ts';
 import { CHARMS, charmsIn, healed, holdChance, INKWELL, ITEMS, JOKES, revived } from './shop.ts';
 import { GEAR, ICONS, INKS, PICKS } from './gear.ts';
 import { frequency, parse, TRACKS } from './music.ts';
-import { CHECKS, LEVELS, POOLS, QUESTS, SIGNS } from './story.ts';
+import { CHECKS, LEVELS, lured, POOLS, QUESTS, SIGNS } from './story.ts';
 
 const data: { kanji: string; level: string }[] = JSON.parse(readFileSync('src/data/kanji.json', 'utf8'));
 const levelOf = new Map(data.map((k) => [k.kanji, k.level]));
 const pooled = Object.values(POOLS).flatMap((p) => [...p]);
 
 test('every N5 and N4 kanji lives in exactly one wild area', () => {
-  const wanted = data.filter((k) => k.level === 'N5' || k.level === 'N4').map((k) => k.kanji).sort();
+  const wanted = [...data.filter((k) => k.level === 'N5' || k.level === 'N4').map((k) => k.kanji), '耳'].sort();
   assert.deepEqual([...pooled].sort(), wanted);
 });
 
@@ -135,4 +135,11 @@ test('charm effects and the konbini shelves work as described', () => {
   assert.equal(revived(INKWELL[0], 41), 21);
   assert.equal(revived(INKWELL[1], 41), 41);
   for (const rows of Object.values(ICONS)) for (const ch of rows.join('')) assert.ok(ch === '.' || INKS[ch], ch);
+});
+
+test('the farmer lures only the numbers still needed, and only during the mission', () => {
+  assert.deepEqual(lured([], []), []);
+  assert.deepEqual(lured(['first'], []), []);
+  assert.deepEqual(lured(['farmer'], ['二']), ['一', '三']);
+  assert.deepEqual(lured(['farmer'], ['一', '二', '三']), []);
 });

@@ -202,27 +202,30 @@ export function charmArt(s: Species, tint = '#d6332a') {
   const key = s.k + tint;
   const hit = charms.get(key);
   if (hit) return hit;
-  const W = 22, H = 36, G = 18;
+  const W = 32, H = 50, G = 28, big = G * 4;
   const c = canvas(W, H);
   const g = c.getContext('2d')!;
   const r = (colour: string, x: number, y: number, w: number, h: number) => { g.fillStyle = colour; g.fillRect(x, y, w, h); };
   r(OUTLINE, 1, 0, W - 2, H); r(OUTLINE, 0, 1, W, H - 2);
   r('#fdf8ef', 1, 1, W - 2, H - 2);
   r('#efe4cc', W - 3, 1, 2, H - 2);
-  // Red border and header band, as on a shrine talisman.
+  // Coloured frame and header band, as on a shrine talisman.
   r(tint, 2, 2, W - 4, 3); r(tint, 2, H - 4, W - 4, 2); r(tint, 2, 2, 1, H - 5); r(tint, W - 3, 2, 1, H - 5);
-  r('#fdf8ef', 8, 3, 6, 1);
-  // The kanji itself, inked in hard pixels.
-  const scratch = canvas(G, G);
+  r('#fdf8ef', 12, 3, 8, 1);
+  // The kanji's name, lettered large in the rounded face and cut to hard pixels.
+  const scratch = canvas(big, big);
   const ink = scratch.getContext('2d', { willReadFrequently: true })!;
-  ink.scale(G / 109, G / 109);
-  ink.lineCap = 'round'; ink.lineJoin = 'round';
-  ink.lineWidth = s.strokes > 12 ? 5 : 7.5;
-  for (const d of s.d) ink.stroke(new Path2D(d));
-  const px = ink.getImageData(0, 0, G, G).data;
-  for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) if (px[(y * G + x) * 4 + 3] > 96) r(OUTLINE, 2 + x, 6 + y, 1, 1);
+  ink.font = `700 ${big * 0.96}px "M PLUS Rounded 1c"`;
+  ink.textAlign = 'center'; ink.textBaseline = 'middle';
+  ink.fillText(s.k, big / 2, big / 2 + big * 0.03);
+  const px = ink.getImageData(0, 0, big, big).data;
+  for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) {
+    let on = 0;
+    for (let j = 0; j < 4; j++) for (let i = 0; i < 4; i++) if (px[((y * 4 + j) * big + x * 4 + i) * 4 + 3] > 120) on++;
+    if (on >= 7) r(OUTLINE, 2 + x, 7 + y, 1, 1);
+  }
   // A little seal under the name.
-  r(tint, 8, 25, 6, 6); r('#fdf8ef', 10, 27, 2, 2);
+  r(tint, 12, 37, 8, 8); r('#fdf8ef', 14, 39, 4, 4); r(tint, 15, 40, 2, 2);
   charms.set(key, c);
   return c;
 }
@@ -232,6 +235,6 @@ export function drawCharm(ctx: CanvasRenderingContext2D) {
   ctx.save();
   ctx.translate(Math.round(charm.x), Math.round(charm.y));
   ctx.rotate(charm.turn);
-  ctx.drawImage(charm.art, -11, -18);
+  ctx.drawImage(charm.art, -charm.art.width / 2, -charm.art.height / 2);
   ctx.restore();
 }

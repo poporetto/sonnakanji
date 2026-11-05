@@ -6,7 +6,7 @@ import { withRomaji } from './kana';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
 import { ICONS, INKS } from './gear';
 import { charmsIn, CHARMS, healed, holdChance, INKWELL, ITEMS, JOKES, PRIZES, revived, SHELF, yenFor, type Charm } from './shop';
-import { CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
+import { lured, CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
 import { backdrop, paintMap } from './world';
 
 const screen = document.getElementById('screen') as HTMLCanvasElement;
@@ -510,7 +510,8 @@ async function encounter() {
   const pool = [...POOLS[save.map]].map(spec);
   const missing = pool.filter((p) => !save.caught.includes(p.k));
   // Uncaught kanji show up more often, so a long region never turns into a grind.
-  const from = missing.length && Math.random() < 0.6 ? missing : pool;
+  const sought = pool.filter((p) => lured(save.active, save.caught).includes(p.k));
+  const from = sought.length && Math.random() < 0.6 ? sought : missing.length && Math.random() < 0.6 ? missing : pool;
   const s = from[rand(from.length)];
   const [low, high] = m.levels!;
   const lv = low + rand(high - low + 1);
@@ -655,7 +656,7 @@ async function catchFx(s: Species, caught: boolean, ink: string) {
   flashScreen(0.3);
   await tween(300, (t) => { v.flash = t; v.scale = lerp(1, 0.05, t * t); });
   v.hidden = true;
-  await tween(240, (t) => { charm.y = lerp(ty, 80, t * t); });
+  await tween(240, (t) => { charm.y = lerp(ty, 72, t * t); });
   sfx.wobble();
   const shakes = caught ? 3 : 1 + rand(2);
   for (let i = 0; i < shakes; i++) {
@@ -938,7 +939,11 @@ async function title() {
     save = old;
     return backToWorld();
   }
-  const i = await ask('Catch every kanji in Japan.', old ? ['Continue', 'New game'] : ['New game']);
+  // The menu sits on the title screen, then goes back to the panel for the game.
+  const [home, next] = [choicesEl.parentElement!, choicesEl.nextSibling];
+  stage.append(choicesEl);
+  const i = await ask('Catch every kanji in Japan.', old ? ['Continue', 'Start game'] : ['Start game']);
+  home.insertBefore(choicesEl, next);
   if (old && i === 0) {
     save = old;
     if (save.map === 'dojo' && (save.chapter === 'home' || save.chapter === 'dojo')) return meetBear();
@@ -1009,7 +1014,7 @@ function drawWorld() {
     ctx.fillStyle = '#dcf6f6';
     ctx.fillRect(x + 3 + (y % 5) - cx, y + 5 + (x % 7) - cy, glint < 0.25 ? 5 : 3, 1);
   }
-  if (save.map === 'dojo' && save.chapter === 'journey') starterRow.forEach((s, i) => { if (s.k !== save.starter) ctx.drawImage(charmArt(s), 80 - cx + i * 48 - 8, 20 - cy, 16, 26); });
+  if (save.map === 'dojo' && save.chapter === 'journey') starterRow.forEach((s, i) => { if (s.k !== save.starter) ctx.drawImage(charmArt(s), 80 - cx + i * 48 - 16, 6 - cy); });
   if (save.map === 'dojo' && save.chapter !== 'journey') starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 32), 56 - MARGIN + i * 48, 14 - MARGIN + Math.round(Math.sin(tick / 20 + i))));
   heroAt = [Math.round(px - cx) + 8, Math.round(py - cy)];
   const step = slide > 8 ? (stepFlip ? 1 : 2) : 0;
@@ -1075,21 +1080,9 @@ function drawBattle() {
 
 function drawTitle() {
   ctx.drawImage(backdrop('title'), 0, 0);
-  // The name plate, with stepped pixel corners. Its lettering sits on top as real type.
-  const [px, py, pw, ph] = [34, 13, 172, 50];
-  ctx.fillStyle = '#3a2a4e';
-  ctx.fillRect(px + 3, py, pw - 6, ph); ctx.fillRect(px + 1, py + 1, pw - 2, ph - 2); ctx.fillRect(px, py + 3, pw, ph - 6);
-  ctx.fillStyle = '#fdf8ef';
-  ctx.fillRect(px + 4, py + 2, pw - 8, ph - 4); ctx.fillRect(px + 2, py + 3, pw - 4, ph - 6); ctx.fillRect(px + 2, py + 4, pw - 4, ph - 8);
-  ctx.fillStyle = '#e8dcc4';
-  ctx.fillRect(px + 4, py + ph - 4, pw - 8, 2);
-  for (const [i, x, y, r] of [[0, 18, 26, 4], [1, 222, 22, 5], [2, 26, 60, 3], [3, 214, 62, 3]]) {
-    const size = still ? r : Math.round(r * (0.6 + 0.4 * Math.abs(Math.sin(tick / 26 + i * 1.7))));
-    ctx.fillStyle = '#ffc83a';
-    ctx.fillRect(x - size, y, size * 2 + 1, 1); ctx.fillRect(x, y - size, 1, size * 2 + 1);
-    ctx.fillRect(x - 1, y - 1, 3, 3);
-  }
-  starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 56), 20 - MARGIN + i * 72, 84 - MARGIN + (still ? 0 : Math.round(Math.sin(tick / 20 + i * 2)) * 2)));
+  // Haru walks the road across the screen, and comes round again.
+  const x = still ? 112 : tick * 0.5 % 280 - 20;
+  person(ctx, haru, Math.round(x), 124, 'right', still ? 0 : [1, 0, 2, 0][Math.floor(tick / 7) % 4]);
 }
 
 const STARTERS = ['火', '水', '木'];
