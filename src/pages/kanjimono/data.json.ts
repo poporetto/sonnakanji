@@ -15,7 +15,7 @@ function movesFor(k: Kanji): Move[] {
 }
 
 const toSpecies = (k: Kanji): Species => ({
-  k: k.kanji, m: WORDS[k.kanji] ?? k.meanings[0], type: typeOf(k.kanji), strokes: k.strokes, moves: movesFor(k),
+  k: k.kanji, m: WORDS[k.kanji] ?? k.meanings[0], r: (k.kun[0] ?? k.on[0])?.romaji ?? '', type: typeOf(k.kanji), strokes: k.strokes, moves: movesFor(k),
   level: k.level as 'N5' | 'N4', d: k.vg.strokes.map((s) => s.d),
 });
 

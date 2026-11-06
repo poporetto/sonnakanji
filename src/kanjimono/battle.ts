@@ -1,7 +1,7 @@
 // Rules only, no drawing or input, so they can be tested on their own.
 export type Element = 'fire' | 'water' | 'wood' | 'earth' | 'metal' | 'spirit';
 export interface Move { w: string; r: string; m: string; power: number }
-export interface Species { k: string; m: string; type: Element; strokes: number; moves: Move[]; level: 'N5' | 'N4'; d: string[] }
+export interface Species { k: string; m: string; r: string; type: Element; strokes: number; moves: Move[]; level: 'N5' | 'N4'; d: string[] }
 export interface Fighter { k: string; lv: number; xp: number; hp: number }
 
 const STRONG: Record<Element, Element[]> = {

@@ -22,7 +22,7 @@ export type Task =
 
 export interface Quest {
   id: string; title: string; giver: string; where: string; level?: LevelId; after?: string;
-  task: Task; offer: string[]; wait: string; done: string[]; charms?: number; lure?: boolean;
+  task: Task; offer: string[]; wait: string; done: string[]; charms?: number;
 }
 
 export interface Level { id: LevelId; land: string; master: string; team: string[]; lv: number; need: number; win: string[] }
@@ -40,7 +40,7 @@ export const QUESTS: Quest[] = [
     done: ['You catch them gently. That is rare.', 'The signs you pass stay blank until you catch the kanji that left them. Read them as you go. They will teach you more than I can.', 'Go and see the farmer. The rice fields have lost their records.'], charms: 3,
   },
   {
-    id: 'farmer', title: "The farmer's count", giver: 'Farmer', where: 'the Rice Fields', level: 'N5', task: { catch: ['一', '二', '三'] }, lure: true,
+    id: 'farmer', title: "The farmer's count", giver: 'Farmer', where: 'the Rice Fields', level: 'N5', task: { catch: ['一', '二', '三'] },
     offer: ['Every sack in my barn had a number on it. Now they are all blank!', 'Find 一, 二 and 三 for me. Then I can start counting again.'], wait: 'Bring me 一, 二 and 三.',
     done: ['Ha! There they are. Three strokes for three. Numbers are the kindest kanji.', 'The bridge to Kawabe was shut until the harvest was counted. It is open now.'], charms: 3,
   },
@@ -191,5 +191,5 @@ export const SIGNS: Sign[] = [
   { map: 'castle', x: 5, y: 8, k: '店', word: '店', en: 'Shops' },
 ];
 
-// Kanji an active mission is drawing out of the grass, until each one is caught.
-export const lured = (active: string[], caught: string[]) => QUESTS.filter((q) => q.lure && active.includes(q.id)).flatMap((q) => ('catch' in q.task ? q.task.catch : [])).filter((k) => !caught.includes(k));
+// Kanji the active missions are hunting, until each one is caught.
+export const lured = (active: string[], caught: string[]) => QUESTS.filter((q) => active.includes(q.id)).flatMap((q) => ('catch' in q.task ? q.task.catch : [])).filter((k) => !caught.includes(k));

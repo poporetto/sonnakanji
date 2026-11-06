@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
-import { withRomaji } from './kana.ts';
+import { READINGS, withRomaji } from './kana.ts';
 import { MAPS, SOLID } from './maps.ts';
 import { WORDS } from './meanings.ts';
-import { CHARMS, charmsIn, healed, holdChance, INKWELL, ITEMS, JOKES, revived } from './shop.ts';
+import { CHARMS, charmsIn, healed, holdChance, INKWELL, ITEMS, JOKES, KEEPSAKES, MANGA, mangaIn, PRIZES, revived, shelfIn } from './shop.ts';
 import { GEAR, ICONS, INKS, PICKS } from './gear.ts';
 import { frequency, parse, TRACKS } from './music.ts';
+import { yenFor } from './shop.ts';
 import { CHECKS, LEVELS, lured, POOLS, QUESTS, SIGNS } from './story.ts';
 
 const data: { kanji: string; level: string }[] = JSON.parse(readFileSync('src/data/kanji.json', 'utf8'));
@@ -129,7 +130,7 @@ test('charm effects and the konbini shelves work as described', () => {
   assert.equal(holdChance(by('paper'), 0.4), 0.4);
   assert.equal(Math.round(holdChance(by('gold'), 0.4) * 10), 7);
   assert.equal(holdChance(by('scribe'), 0.1), 1);
-  assert.ok(ITEMS.some((i) => i.read) && JOKES.length >= 10);
+  assert.ok(JOKES.length >= 10);
   for (const i of ITEMS) assert.ok(ICONS[i.icon], i.id);
   assert.ok(ITEMS.some((i) => i.open) && ITEMS.some((i) => i.keep));
   assert.equal(revived(INKWELL[0], 41), 21);
@@ -137,9 +138,55 @@ test('charm effects and the konbini shelves work as described', () => {
   for (const rows of Object.values(ICONS)) for (const ch of rows.join('')) assert.ok(ch === '.' || INKS[ch], ch);
 });
 
-test('the farmer lures only the numbers still needed, and only during the mission', () => {
+test('missions favour only the kanji still needed, and only while active', () => {
   assert.deepEqual(lured([], []), []);
   assert.deepEqual(lured(['first'], []), []);
   assert.deepEqual(lured(['farmer'], ['二']), ['一', '三']);
   assert.deepEqual(lured(['farmer'], ['一', '二', '三']), []);
+  assert.deepEqual(lured(['roll'], []), ['男', '女', '子', '友']);
+  assert.deepEqual(lured(['farmer', 'roll'], ['一', '二', '三', '男', '女', '子']), ['友']);
+});
+
+test('a defeated kanji drops ¥5 to ¥40', () => {
+  const drops = Array.from({ length: 2000 }, yenFor);
+  assert.equal(Math.min(...drops), 5);
+  assert.equal(Math.max(...drops), 40);
+  assert.ok(drops.every(Number.isInteger));
+});
+
+test('everything in the Collection has pixel art, and every manga has a joke', () => {
+  const kept = [...PRIZES, ...MANGA.map((m) => m.name), ...ITEMS.flatMap((i) => (i.keep ? [i.keep] : []))];
+  for (const name of kept) assert.ok(KEEPSAKES[name] && ICONS[KEEPSAKES[name].icon], name);
+  for (const m of MANGA) assert.ok(m.note.length > 10, m.name);
+  for (const rows of Object.values(ICONS)) assert.equal(new Set(rows.map((r) => r.length)).size, 1, rows.join());
+});
+
+test('every kombini sells the next volume of every manga', () => {
+  const towns = Object.keys(MAPS).filter((id) => id.startsWith('shop-')).map((id) => id.replace('shop-', ''));
+  assert.equal(towns.length, 4);
+  for (const town of towns) assert.equal(mangaIn(town).length, 8, town);
+  assert.deepEqual(mangaIn('kawabe').map((m) => m.name)[0], 'Three Pieces #2');
+  assert.equal(new Set(MANGA.map((m) => m.note)).size, MANGA.length);
+  assert.ok(MANGA.some((m) => m.name === 'Dragon Box'), 'first volumes keep their names, so saves still match');
+});
+
+test('every kombini has one food of its own, on top of the usual shelf', () => {
+  const usual = ITEMS.filter((i) => !i.town && !i.revive).map((i) => i.id);
+  const specials = ['village', 'kawabe', 'onsen', 'castle'].map((town) => {
+    const shelf = shelfIn(town).map((i) => i.id);
+    for (const id of usual) assert.ok(shelf.includes(id), `${town} ${id}`);
+    assert.equal(shelf.length, usual.length + 1, town);
+    return shelf.find((id) => !usual.includes(id));
+  });
+  assert.equal(new Set(specials).size, 4);
+  for (const i of ITEMS.filter((x) => x.town)) assert.ok(i.heal! / i.price >= 0.65, i.id);
+});
+
+test('children mode gives romaji for kanji and whole words, not just kana', () => {
+  READINGS.set('火', 'hi').set('学校', 'gakkou');
+  assert.deepEqual(withRomaji('A wild 火 appeared!'), [{ text: 'A wild 火', roma: 'hi' }, { text: ' appeared!' }]);
+  assert.deepEqual(withRomaji('学校'), [{ text: '学校', roma: 'gakkou' }]);
+  assert.deepEqual(withRomaji('桜餅'), [{ text: '桜餅', roma: 'sakuramochi' }]);
+  assert.equal(withRomaji('メロンパン')[0].roma, 'meronpan');
+  READINGS.delete('火'); READINGS.delete('学校');
 });

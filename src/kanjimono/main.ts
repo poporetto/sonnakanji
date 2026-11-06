@@ -2,10 +2,10 @@ import { catchChance, damage, gainXp, maxHp, typeBonus, xpReward, xpToNext, type
 import { asleep, bear, kanjiSprite, loadLettering, MARGIN, person } from './sprites';
 import { music, setSound, sfx, silence, sound, unlock } from './audio';
 import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKanji, drip, easeOut, endFrame, flashScreen, lerp, newView, pause, seal, sealArt, shakeScreen, still, tween, veil, views } from './fx';
-import { withRomaji } from './kana';
+import { learnReadings, withRomaji } from './kana';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
 import { ICONS, INKS } from './gear';
-import { charmsIn, CHARMS, healed, holdChance, INKWELL, ITEMS, JOKES, PRIZES, revived, SHELF, yenFor, type Charm } from './shop';
+import { charmsIn, CHARMS, healed, holdChance, INKWELL, ITEMS, JOKES, KEEPSAKES, mangaIn, PRIZES, revived, shelfIn, yenFor, type Charm } from './shop';
 import { lured, CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
 import { backdrop, paintMap } from './world';
 
@@ -36,7 +36,12 @@ function store() {
 function restore(): Save | null {
   try {
     const old: Save | null = JSON.parse(localStorage.getItem(KEY) ?? 'null');
-    if (old) { old.yen ??= 150; old.bag ??= {}; old.prizes ??= []; }
+    if (old) {
+      old.yen ??= 150; old.bag ??= {}; old.prizes ??= [];
+      // Magazines used to sit in the bag; they live in the Collection now.
+      for (let i = 0; i < (old.bag.magazine ?? 0); i++) old.prizes.push('Joke magazine');
+      delete old.bag.magazine;
+    }
     return old;
   } catch { return null; }
 }
@@ -60,23 +65,50 @@ try { kids = localStorage.getItem('kanjimon.kids.v1') === 'on'; } catch {}
 // Haru can be played as a boy or a girl.
 let haru = 'hero';
 try { haru = localStorage.getItem('kanjimon.look.v1') ?? 'hero'; } catch {}
-// On the ?lukas page the hero is Lukas, whatever the settings say.
-const lukas = new URLSearchParams(location.search).has('lukas');
-if (lukas) haru = 'lukas';
+// On a guest's page (?lukas, ?ailsey) they are the hero, whatever the settings say.
+const GUESTS: Record<string, string> = { lukas: 'Lukas', ailsey: 'Ailsey' };
+const guest = Object.keys(GUESTS).find((id) => new URLSearchParams(location.search).has(id));
+if (guest) { haru = guest; kids = true; }
 
 function spelled<T extends HTMLElement>(el: T, raw: string) {
-  const text = lukas ? raw.replaceAll('Haru', 'Lukas') : raw;
+  const text = guest ? raw.replaceAll('Haru', GUESTS[guest]) : raw;
   el.dataset.raw = text;
   if (!kids) { el.textContent = text; return el; }
   el.replaceChildren(...withRomaji(text).flatMap((p) => (p.roma ? [p.text, Object.assign(document.createElement('small'), { className: 'roma', textContent: p.roma })] : [p.text])));
   return el;
 }
 
+const SPEAKER = /^([A-Z][A-Za-z0-9#' ]{2,24}): (.*)$/s;
+
 // Dialogue sits on the game screen, except in battle, where it would cover the fighters' cards.
 function dock() {
   if (panelEl.parentElement !== (foe ? sideEl : stage)) { if (foe) sideEl.prepend(panelEl); else stage.append(panelEl); }
   hudEl.hidden = !!foe;
+  // Money and charms change mid-conversation in shops, so the counts follow along.
+  if (!foe && mode !== 'title') refreshStatus();
   panelEl.hidden = !foe && (textEl.hidden || !textEl.textContent) && !panelEl.querySelector('#choices button');
+}
+
+// The box on the screen holds three lines. A longer line carries on to the next press, at the end of a sentence when it can.
+function pagesOf(text: string) {
+  show(text);
+  const span = textEl.querySelector('span');
+  if (foe || !span) return [text];
+  const [, who, line = text] = text.match(SPEAKER) ?? [];
+  const room = parseFloat(getComputedStyle(span).lineHeight) * 3 + 1;
+  const fits = (words: string) => { spelled(span, words); return span.getBoundingClientRect().height <= room; };
+  if (fits(line)) return [text];
+  const pages: string[] = [];
+  let page = '';
+  for (const word of line.split(/(?<=\s)/)) {
+    if (fits(page + word) || !page) { page += word; continue; }
+    const sentence = page.match(/^.*[.!?]["')]?\s/s)?.[0] ?? '';
+    const cut = sentence.length > page.length / 2 ? sentence.length : page.length;
+    pages.push(page.slice(0, cut));
+    page = page.slice(cut) + word;
+  }
+  pages.push(page);
+  return pages.map((p) => (who ? `${who}: ${p.trim()}` : p.trim()));
 }
 
 // Letters appear one at a time. They hold their places from the start, so lines never reflow as they fill in.
@@ -103,7 +135,7 @@ function typeOut() {
 function show(text: string, sub = '') {
   typing?.();
   textEl.hidden = false;
-  const [, who, line] = text.match(/^([A-Z][A-Za-z' ]{2,20}): (.*)$/s) ?? [];
+  const [, who, line] = text.match(SPEAKER) ?? [];
   const parts: HTMLElement[] = [];
   if (who) parts.push(Object.assign(document.createElement('strong'), { textContent: who }));
   parts.push(spelled(document.createElement('span'), line ?? text));
@@ -117,7 +149,7 @@ function show(text: string, sub = '') {
 function label(b: HTMLButtonElement, text: string) {
   const [, kanji, rest] = text.match(/^([\u3005-\u9fff]+)(.*)$/s) ?? [];
   if (!kanji) { b.append(spelled(document.createElement('span'), text)); return; }
-  b.replaceChildren(Object.assign(document.createElement('span'), { textContent: kanji, lang: 'ja', className: 'ja' }), spelled(document.createElement('span'), rest));
+  b.replaceChildren(spelled(Object.assign(document.createElement('span'), { lang: 'ja', className: 'ja' }), kanji), spelled(document.createElement('span'), rest));
 }
 
 // A shop or bag row: a pixel icon, the Japanese name with English under it, and a price or count.
@@ -146,8 +178,10 @@ function wareRow(b: HTMLButtonElement, w: Ware) {
 const wareOf = (it: { icon: string; name: string; en: string }, tag: string): Ware => ({ icon: it.icon, jp: it.name, en: it.en, tag });
 const charmWare = (c: Charm, tag: string): Ware => ({ icon: 'charm', tint: c.ink, jp: c.name, en: c.en, tag });
 
-function ask(text: string, options: (string | Ware)[]) {
-  show(text);
+async function ask(text: string, options: (string | Ware)[]) {
+  const pages = pagesOf(text);
+  for (const page of pages.slice(0, -1)) await line(page);
+  show(pages[pages.length - 1]);
   selected = 0;
   choicesEl.replaceChildren(...options.map((text, i) => {
     const b = document.createElement('button');
@@ -178,7 +212,7 @@ function pick(i: number) {
 }
 
 // A line of dialogue waits for the action button, with a small triangle showing there's more.
-function say(text: string) {
+function line(text: string) {
   show(text);
   choicesEl.replaceChildren();
   panelEl.classList.add('waiting');
@@ -187,11 +221,23 @@ function say(text: string) {
   dock();
   return new Promise<number>((resolve) => { waiting = resolve; });
 }
+async function say(text: string) {
+  for (const page of pagesOf(text)) await line(page);
+  return 0;
+}
 const clearPanel = (text = '', sub = '') => { show(text, sub); choicesEl.replaceChildren(); dock(); };
 
 // While walking, the panel is a status screen: where you are, your mission, and your counts.
 function place() {
   music(areaTune());
+  refreshStatus();
+  textEl.hidden = true;
+  statusEl.hidden = false;
+  choicesEl.replaceChildren();
+  facing = null;
+  dock();
+}
+function refreshStatus() {
   const g = goal();
   const l = nextLevel() ?? LEVELS[LEVELS.length - 1];
   const total = all.filter((s) => s.level === l.id).length;
@@ -219,11 +265,6 @@ function place() {
     }
     statusEl.append(stats);
   }
-  textEl.hidden = true;
-  statusEl.hidden = false;
-  choicesEl.replaceChildren();
-  facing = null;
-  dock();
 }
 
 // ---- World
@@ -291,7 +332,7 @@ const SHELVES: Record<string, string[]> = {
   e: ['Crisps, rice crackers and seaweed snacks. It makes you hungry.', 'Bags and bags of snacks. It makes you hungry.', 'Soy sauce crackers, cheese puffs and dried squid. It makes you hungry.'],
   h: ['Chocolate, gummies and strawberry sweets. It makes you hungry.', 'So many sweets! It makes you hungry.', 'Mochi, melon candy and little biscuits. It makes you hungry.'],
   p: ['Shelves of everyday things: batteries, umbrellas, tissues and notebooks.', 'Boxes stacked neatly behind the counter. Staff only.'],
-  i: ['Rows of magazines. The clerk sells them at the counter.', 'Someone left a kanji joke magazine open. You can buy one at the counter.'],
+  i: ['Rows of magazines and manga. The clerk sells them at the counter.', 'Someone left a kanji joke magazine open. You can buy one at the counter.', 'A whole rack of manga. Ask the clerk.'],
 };
 
 // Golden sparkles rise around the hero while a healer prays.
@@ -342,11 +383,30 @@ const signText = (s: { k: string; word: string; en: string }) =>
 // ---- Shop and bag
 const charmTotal = () => save.charms + CHARMS.reduce((sum, c) => sum + (save.bag[c.id] ?? 0), 0);
 
+async function mangaRack() {
+  const rack = mangaIn(save.map.replace('shop-', ''));
+  for (;;) {
+    const i = await ask(`You have ¥${save.yen}. Which manga?`, [...rack.map((m) => wareOf(m, save.prizes.includes(m.name) ? 'Owned' : `¥${m.price}`)), 'Back']);
+    const m = rack[i];
+    if (!m) return;
+    if (save.prizes.includes(m.name)) { await say(`${m.name}: ${m.note}`); continue; }
+    if ((await ask(`${m.name}: ${m.note} Buy it for ¥${m.price}?`, ['Buy', 'No thanks'])) !== 0) continue;
+    if (save.yen < m.price) { sfx.wrong(); await say(`Clerk: Sorry, that is ¥${m.price} and you have ¥${save.yen}.`); continue; }
+    save.yen -= m.price;
+    save.prizes.push(m.name);
+    sfx.right();
+    store();
+    await say(`You bought ${m.name}! It joins your Collection.`);
+  }
+}
+
 async function konbini() {
   await say('Clerk: Irasshaimase! Welcome to 6-7 Kombini.');
+  const shelf = shelfIn(save.map.replace('shop-', ''));
   for (;;) {
-    const i = await ask(`You have ¥${save.yen}. What would you like?`, [...SHELF.map((it) => wareOf(it, `¥${it.price}`)), 'Leave']);
-    const item = SHELF[i];
+    const i = await ask(`You have ¥${save.yen}. What would you like?`, [...shelf.map((it) => wareOf(it, `¥${it.price}`)), 'Manga rack', 'Leave']);
+    if (i === shelf.length) { await mangaRack(); continue; }
+    const item = shelf[i];
     if (!item) return;
     if (save.yen < item.price) { sfx.wrong(); await say(`Clerk: Sorry, that is ¥${item.price} and you have ¥${save.yen}.`); continue; }
     save.yen -= item.price;
@@ -393,12 +453,6 @@ async function useItem(target?: Fighter) {
   const i = await ask('Use which item?', [...have.map((it) => wareOf(it, `x${save.bag[it.id]}`)), 'Back']);
   const item = have[i];
   if (!item) return false;
-  if (item.read) {
-    save.bag[item.id]--;
-    await say(`You flip through the magazine.\n${JOKES[rand(JOKES.length)]}`);
-    store();
-    return false;
-  }
   if (item.open) {
     save.bag[item.id]--;
     const prize = PRIZES[rand(PRIZES.length)], again = save.prizes.includes(prize);
@@ -554,8 +608,9 @@ async function encounter() {
   const pool = [...POOLS[save.map]].map(spec);
   const missing = pool.filter((p) => !save.caught.includes(p.k));
   // Uncaught kanji show up more often, so a long region never turns into a grind.
+  // A mission's kanji get an extra 30% chance, only while that mission is active.
   const sought = pool.filter((p) => lured(save.active, save.caught).includes(p.k));
-  const from = sought.length && Math.random() < 0.6 ? sought : missing.length && Math.random() < 0.6 ? missing : pool;
+  const from = sought.length && Math.random() < 0.3 ? sought : missing.length && Math.random() < 0.6 ? missing : pool;
   const s = from[rand(from.length)];
   const [low, high] = m.levels!;
   const lv = low + rand(high - low + 1);
@@ -586,6 +641,7 @@ async function battleOpen(tune: string) {
   views.me = newView();
   views.me.x = -130;
   onField = lead() ?? null;
+  shown.clear();
   await tween(320, (t) => { veil.wipe = 1 - t; });
   veil.wipe = 0;
   await tween(320, (t) => { views.me.x = lerp(-130, 0, easeOut(t)); });
@@ -595,6 +651,7 @@ async function battleOpen(tune: string) {
 async function bringIn(s: Species, lv: number) {
   await loadLettering(s.k);
   foe = { s, f: { k: s.k, lv, xp: 0, hp: maxHp(s, lv) } };
+  shown.delete(cards.foe);
   opening = false;
   if (!save.seen.includes(s.k)) save.seen.push(s.k);
   const v = views.foe = newView();
@@ -616,6 +673,7 @@ async function bringIn(s: Species, lv: number) {
 
 async function sendOut() {
   onField = lead() ?? null;
+  shown.delete(cards.me);
   const v = views.me = newView();
   v.scale = 0;
   v.flash = 1;
@@ -749,7 +807,7 @@ function popup(text: string, side: 'me' | 'foe', tone = '') {
 
 function callout(word: string, meaning: string) {
   const el = overlay('callout', 1150);
-  el.append(Object.assign(document.createElement('b'), { textContent: word, lang: 'ja' }), Object.assign(document.createElement('span'), { textContent: meaning }));
+  el.append(spelled(Object.assign(document.createElement('b'), { lang: 'ja' }), word), Object.assign(document.createElement('span'), { textContent: meaning }));
 }
 
 function stamp(mark: string) {
@@ -814,7 +872,8 @@ async function useMove(me: Fighter) {
 
 async function fight(wild: boolean) {
   for (;;) {
-    const me = lead();
+    // Whoever is on the field fights on, even if a kanji earlier in the team is revived mid-battle.
+    const me = onField && onField.hp > 0 ? onField : lead();
     if (!me) return lose();
     const action = await ask(`What will ${spec(me.k).k} do?`, wild ? ['Attack', 'Charm', 'Item', 'Switch', 'Run'] : ['Attack', 'Item', 'Switch']);
     const label = wild ? ['attack', 'charm', 'item', 'switch', 'run'][action] : ['attack', 'item', 'switch'][action];
@@ -880,13 +939,13 @@ async function enemyTurn() {
 async function reward(me: Fighter, wild: boolean) {
   await faint('foe', foe!.s);
   if (wild) { silence(); sfx.win(); }
-  const gained = xpReward(foe!.f.lv), yen = yenFor(foe!.f.lv);
+  const gained = xpReward(foe!.f.lv), yen = yenFor();
   save.yen += yen;
   const levels = gainXp(me, gained);
   const before = spec(me.k);
+  if (levels) me.hp = Math.min(maxHp(before, me.lv), me.hp + levels * 4);
   await say(`${wild ? 'Wild ' : ''}${foe!.s.k} fainted. ${before.k} gained ${gained} XP and you found ¥${yen}.${levels ? `\n${before.k} grew to Lv${me.lv}!` : ''}`);
   if (levels) {
-    me.hp = Math.min(maxHp(before, me.lv), me.hp + levels * 4);
     sfx.level();
     for (let i = 0; i < 3; i++) burst('metal', CENTRE.me[0], CENTRE.me[1] + 12 - i * 12, 12, 0.7);
     popup('Level up!', 'me', 'good');
@@ -950,6 +1009,23 @@ async function switchLead() {
 }
 
 // ---- Menu
+async function collection() {
+  for (;;) {
+    const tally = new Map<string, number>();
+    for (const p of save.prizes) tally.set(p, (tally.get(p) ?? 0) + 1);
+    if (!tally.size) return say('Nothing yet. Gachapon capsules from the 6-7 Kombini hold little prizes.');
+    const names = [...tally.keys()];
+    const rows = names.map((name): Ware => {
+      const k = KEEPSAKES[name] ?? { icon: 'capsule', jp: name };
+      return { icon: k.icon, tint: k.tint, jp: k.jp, en: k.en ?? name, tag: tally.get(name)! > 1 ? `x${tally.get(name)}` : '' };
+    });
+    const name = names[await ask('Your collection', [...rows, 'Back'])];
+    if (!name) return;
+    if (name === 'Joke magazine') await say(`You flip through the magazine.\n${JOKES[rand(JOKES.length)]}`);
+    else await say(KEEPSAKES[name]?.note || name);
+  }
+}
+
 async function menu() {
   mode = 'busy';
   for (;;) {
@@ -959,11 +1035,7 @@ async function menu() {
     if (chosen === 'Save') { store(); await say('Saved.'); }
     if (chosen === 'Ask Bear') await say(`Kanji Bear: ${bearTip()}`);
     if (chosen === 'Bag') await useItem();
-    if (chosen === 'Collection') {
-      const tally = new Map<string, number>();
-      for (const p of save.prizes) tally.set(p, (tally.get(p) ?? 0) + 1);
-      await say(tally.size ? [...tally].map(([p, n]) => (n > 1 ? `${p} x${n}` : p)).join('\n') : 'Nothing yet. Gachapon capsules from the 6-7 Kombini hold little prizes.');
-    }
+    if (chosen === 'Collection') await collection();
     if (chosen === 'Missions') {
       const open = QUESTS.filter((q) => save.active.includes(q.id)).map((q) => { const p = progress(q); return `${q.title}${p ? ` (${Math.min(p[0], p[1])} of ${p[1]})` : ''}\n${q.wait}`; });
       await say([...open, `${save.done.length} of ${QUESTS.length} missions complete.`].join('\n\n'));
@@ -1149,13 +1221,17 @@ const shown = new Map<HTMLElement, string>();
 function card(el: HTMLElement, name: string, lv: number, hp: number, max: number) {
   const key = `${name}|${lv}|${hp}|${max}`;
   if (shown.get(el) === key) return;
+  const fresh = !shown.has(el);
   shown.set(el, key);
   const f = Math.max(0, Math.min(hp / max, 1));
   el.querySelector('b')!.textContent = name[0].toUpperCase() + name.slice(1);
   el.querySelector('i')!.textContent = `Lv ${lv}`;
   el.querySelector('output')!.textContent = `${Math.max(0, hp)} / ${max}`;
   const fill = el.querySelector<HTMLElement>('.fill')!;
+  // A new fighter's bar starts at the right value; only damage and healing slide.
+  if (fresh) fill.style.transition = 'none';
   fill.style.width = `${f * 100}%`;
+  if (fresh) { void fill.offsetWidth; fill.style.transition = ''; }
   fill.dataset.level = f > 0.5 ? 'good' : f > 0.2 ? 'low' : 'danger';
 }
 
@@ -1163,6 +1239,7 @@ function drawBattle() {
   ctx.drawImage(backdrop(map().sky ?? save.map), 0, 0);
   const bob = still ? 0 : Math.round(Math.sin(tick / 24));
   const me = onField;
+  cards.foe.style.visibility = foe ? '' : 'hidden';
   if (foe) {
     drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72), foe.s, 151 - MARGIN, 20 - MARGIN + bob, 72);
     card(cards.foe, save.caught.includes(foe.s.k) ? foe.s.m : 'Unknown kanji', foe.f.lv, foe.f.hp, maxHp(foe.s, foe.f.lv));
@@ -1193,7 +1270,7 @@ async function nextChase() {
 function drawTitle() {
   ctx.drawImage(backdrop('title'), 0, 0);
   if (still) {
-    person(ctx, lukas ? 'lukas' : 'hero', 96, GROUND - 16, 'right', 0);
+    person(ctx, guest ?? 'hero', 96, GROUND - 16, 'right', 0);
     ctx.drawImage(kanjiSprite(starterRow[0], 30), 130 - MARGIN, GROUND - 30 - MARGIN);
     return;
   }
@@ -1217,7 +1294,7 @@ function drawTitle() {
   ctx.fillRect(Math.round(kanjiX + c.size / 6), GROUND - 1, Math.round(c.size * 2 / 3), 2);
   const runners = [
     () => ctx.drawImage(kanjiSprite(c.s, c.size), Math.round(kanjiX) - MARGIN, Math.round(GROUND - c.size - hop) - MARGIN),
-    () => person(ctx, lukas ? 'lukas' : 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
+    () => person(ctx, guest ?? 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
   ];
   for (const run of runners) run();
   if (c.dir > 0 ? rear > 260 : rear < -c.size - 20) void nextChase();
@@ -1247,20 +1324,27 @@ function frame(now = 0) {
 }
 
 // ---- Input
-const KEYS: Record<string, string> = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', z: 'a', Enter: 'a', ' ': 'a', x: 'menu', Escape: 'menu' };
+const KEYS: Record<string, string> = { Escape: 'b', ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', w: 'up', s: 'down', a: 'left', d: 'right', z: 'a', Enter: 'a', ' ': 'a', x: 'menu' };
 
+// The B button takes the way out of a list, when it has one. Quiz answers don't, so B can't skip them.
+const EXITS = ['Back', 'Close', 'Leave', 'No thanks', 'Not yet'];
 function press(action: string) {
   unlock();
   const count = choicesEl.children.length;
   if (count) {
     const columns = getComputedStyle(choicesEl).gridTemplateColumns.split(' ').length;
     if (action === 'a') return pick(selected);
+    if (action === 'b') {
+      const exit = [...choicesEl.children].findIndex((c) => EXITS.includes(c.textContent ?? ''));
+      if (exit >= 0) pick(exit);
+      return;
+    }
     const move = { left: -1, right: 1, up: -columns, down: columns }[action];
     if (move) { selected = Math.max(0, Math.min(count - 1, selected + move)); mark(); sfx.move(); }
     return;
   }
   if (waiting) {
-    if (action === 'a') pick(0);
+    if (action === 'a' || action === 'b') pick(0);
     return;
   }
   if (mode !== 'world') return;
@@ -1409,14 +1493,14 @@ for (const b of switches) b.addEventListener('click', () => {
   const part = b.dataset.set!;
   if (part === 'kids') {
     kids = !kids;
-    try { localStorage.setItem('kanjimon.kids.v1', kids ? 'on' : 'off'); } catch {}
+    if (!guest) try { localStorage.setItem('kanjimon.kids.v1', kids ? 'on' : 'off'); } catch {}
     document.querySelectorAll<HTMLElement>('#panel [data-raw]').forEach((el) => spelled(el, el.dataset.raw!));
   } else setSound(part as 'music' | 'effects', !sound[part as 'music' | 'effects']);
   showSwitches();
   sfx.pick();
 });
 const looks = [...settings.querySelectorAll<HTMLButtonElement>('[data-look]')];
-if (lukas) document.querySelector<HTMLElement>('.pick[aria-label="Character"]')!.closest<HTMLElement>('.row')!.style.display = 'none';
+if (guest) document.querySelector<HTMLElement>('.pick[aria-label="Character"]')!.closest<HTMLElement>('.row')!.style.display = 'none';
 const showLook = () => { for (const b of looks) b.setAttribute('aria-pressed', String(b.dataset.look === haru)); };
 for (const b of looks) b.addEventListener('click', () => {
   unlock();
@@ -1440,6 +1524,7 @@ fetch('/kanjimono/data.json')
   .then((r) => r.json())
   .then(async (data: Species[]) => {
     all = data;
+    learnReadings(data);
     await loadLettering('捕完合格');
     (window as unknown as { kanjimonoDebugReady?: () => void }).kanjimonoDebugReady?.();
     await loadLettering(STARTERS.join(''));

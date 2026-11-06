@@ -13,6 +13,7 @@ interface Props {
 const { title, description, noindex = false, jsonLd, prefetch = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const here = Astro.url.pathname;
+const shareImage = new URL('/og/sonnakanji.png', Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -30,7 +31,12 @@ const here = Astro.url.pathname;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SonnaKanji, learn kanji with pictures" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={shareImage} />
     <script is:inline>
       // Applied before first paint so saved settings never flash. See lib/prefs.ts.
       try {
@@ -41,7 +47,10 @@ const here = Astro.url.pathname;
         if (p.motion === false) root.dataset.motion = 'reduced';
       } catch {}
     </script>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#f8edc9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2a2118" media="(prefers-color-scheme: dark)" />
     {prefetch.map((href) => <link rel="prefetch" href={href} />)}

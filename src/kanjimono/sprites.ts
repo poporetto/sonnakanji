@@ -262,6 +262,8 @@ export const LOOKS: Record<string, Look> = {
   miko: { ...SKIN, h: '#2f2433', j: '#4d3f55', H: '#1e1824', k: '#2f2433', c: '#f6f1e2', C: '#c9c2d0', w: '#d6332a', p: '#d6332a', P: '#9c1f28', b: '#f6f1e2' },
   farmer: { ...SKIN, h: '#d9b860', j: '#f4e08f', H: '#a07c34', k: '#6b6b6b', c: '#4f8a4a', C: '#2f5f3a', w: '#d9c58f', p: '#5a6480', P: '#3e4560', b: '#5b3b2c' },
   pilgrim: { ...SKIN, h: '#ece6d4', j: '#ffffff', H: '#b9b2a4', k: '#8a8a9a', c: '#ece6d4', C: '#b9b2a4', w: '#6a6a7a', p: '#ece6d4', P: '#b9b2a4', b: '#7a5230' },
+  teacher: { ...SKIN, f: '#b98a52', k: '#4a3428', K: '#7a5a48', c: '#3f8f6a', C: '#2a6a4e', m: '#fdfdff', w: '#e8f4ff', p: '#2f3a5e', P: '#1f2844', b: '#3a2a30' },
+  ailsey: { ...SKIN, k: '#1e1a24', K: '#4a4258', c: '#8f5ad0', C: '#6238a0', b: '#fdfdff' },
   lukas: { ...SKIN, k: '#2a2230', K: '#544860', c: '#fbfaf4', C: '#c6ccdc', p: '#7a5230', P: '#5a3a22', b: '#3a3048' },
   mom: { ...SKIN, h: '#5a3a30', j: '#7a5244', H: '#3f2822', k: '#5a3a30', c: '#d9668a', C: '#a8446c', w: '#f6e9c8', p: '#d9668a', P: '#a8446c', b: '#f6f1e2' },
   master: { ...SKIN, h: '#6b8a3a', j: '#a4c45a', H: '#46602a', k: '#e6e0d0', c: '#7a5230', C: '#54382a', w: '#ffd23f', p: '#54382a', P: '#3a2a24', b: '#2b2036' },
@@ -326,6 +328,42 @@ const LUKAS = {
     '..osssskkkkkko..', '..osesskkkkkko..', '..osesskkkkko...', '...oSSsssskko...', '...occcccCco....', '..oscccCcccCo...', '..oSscCccCCo....', '...oCCCCCCCo....', '....oppppppPo...',
   ],
 };
+// Ailsey, on the ?ailsey page: long black hair with a bang swept to the right, and a purple dress.
+// Her front view is drawn in full, since the bang isn't symmetrical.
+const AILSEY = {
+  front: [
+    '.....oooooo.....', '...ookkkkkkoo...', '..okKkkkkkkkko..', '.okKkkkkkkkkkko.', '.okkkkkkkkkkkko.', '.okksssskkkkkko.', '.okksssssskkkko.',
+    '.okksesssseskko.', '.okksesssseskko.', '.okksssssssskko.', '.okkossssssokko.', '.okkcccccccckko.', '.oCccccccccccCo.', '.osCccccccccCso.', '.oSoCCCCCCCCoSo.', '..occcccccccco..',
+  ],
+  back: ['.....ooo', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.oCkkkkk', '.osCkkkk', '.oSoCCCC', '..occccc'],
+  side: [
+    '.....ooooo......', '...ookkkkkoo....', '..okKkkkkkkko...', '..okKkkkkkkkko..', '..okkkkkkkkkko..', '..okkkkkkkkkko..', '..osskkkkkkkko..',
+    '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskkko..', '...occcccckkko..', '..oscccCcckkko..', '..oSscCccCCkko..', '...oCCCCCCCo....', '...occcccccco...',
+  ],
+  // The dress falls two rows further than the usual legs, over white shoes.
+  legs: {
+    front: [
+      ['..occcccccccco..', '..oCCCCCCCCCCo..', '...obbboobbbo...', '....ooo..ooo....'],
+      ['..occcccccccco..', '..oCCCCCCCCCCo..', '....ooo.obbbo...', '.........ooo....'],
+      ['..occcccccccco..', '..oCCCCCCCCCCo..', '...obbbo.ooo....', '....ooo.........'],
+    ],
+    side: [
+      ['...occcccccco...', '...oCCCCCCCCo...', '....obbbobbbo...', '.....ooo.ooo....'],
+      ['...occcccccco...', '...oCCCCCCCCo...', '..obbbo...obbbo.', '...ooo.....ooo..'],
+      ['...occcccccco...', '...oCCCCCCCCo...', '....obbbobbbo...', '.....ooo.ooo....'],
+    ],
+  },
+};
+// The Kawabe teacher: hair in a bun, round glasses, a green cardigan over a white blouse.
+const TEACHER = {
+  front: ['......oo', '.....okk', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkkk', '.okkssss', '.okffffS', '.okfweff', '.okffffS', '..ossssS', '..oCcccm', '.oCccccm', '.osCcccm', '.oSoCCcm', '..oppppp'],
+  back: ['......oo', '.....okk', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '..okkkkk', '..oCcccc', '.oCccccc', '.osCcccc', '.oSoCCCC', '..oppppp'],
+  side: [
+    '.....oooo.......', '...ookkkkoo.oo..', '..okKkkkkkkokko.', '..okKkkkkkkkkko.', '..okkkkkkkkkoo..', '..okkkkkkkkko...', '..osskkkkkkko...',
+    '.ffffsskkkkko...', '.fwefsskkkkko...', '.ffffskkkkko....', '...oSSsssko.....', '...omcccCCo.....', '...omcccCcCo....', '..osmcCccCCo....', '...oCCCCCCo.....', '....oppppPo.....',
+  ],
+};
+const LEADS: Record<string, { front: string[]; back: string[]; side: string[]; legs?: { front: string[][]; side: string[][] } }> = { hero: HERO, heroine: HEROINE, lukas: LUKAS, ailsey: AILSEY, teacher: TEACHER };
 const mirror = (rows: string[]) => rows.map((r) => r + [...r].reverse().join(''));
 const LEGS = {
   front: [
@@ -359,10 +397,11 @@ export function asleep(ctx: CanvasRenderingContext2D, look: string, x: number, y
   ctx.beginPath(); ctx.rect(x - 8, y - 6, 32, 13); ctx.clip();
   person(ctx, look, x, y, 'down', 0);
   ctx.restore();
+  const eyes = y - 4 + LEADS[look].front.findIndex((row) => row.includes('e'));
   ctx.fillStyle = LOOKS[look].s;
-  ctx.fillRect(x + 5, y + 3, 1, 1); ctx.fillRect(x + 10, y + 3, 1, 1);
+  ctx.fillRect(x + 5, eyes, 1, 1); ctx.fillRect(x + 10, eyes, 1, 1);
   ctx.fillStyle = LOOKS[look].e;
-  ctx.fillRect(x + 4, y + 4, 2, 1); ctx.fillRect(x + 10, y + 4, 2, 1);
+  ctx.fillRect(x + 4, eyes + 1, 2, 1); ctx.fillRect(x + 10, eyes + 1, 2, 1);
 }
 
 export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y: number, dir: string, step: number) {
@@ -370,11 +409,13 @@ export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y
   let c = people.get(key);
   if (!c) {
     const hat = HEADS[look] ?? HAT;
-    const lead = look === 'hero' ? HERO : look === 'heroine' ? HEROINE : look === 'lukas' ? LUKAS : null;
+    const lead = LEADS[look];
     const front = lead ? lead.front : [...hat, ...FRONT], rear = lead ? lead.back : [...hat, ...BACK], side = lead ? lead.side : SIDES[look] ?? SIDE;
-    const rows = dir === 'down' ? [...mirror(front), ...LEGS.front[step]]
-      : dir === 'up' ? [...mirror(rear), ...LEGS.front[step]]
-      : [...side, ...LEGS.side[step]];
+    const whole = (half: string[]) => (half[0].length < 16 ? mirror(half) : half);
+    const legs = lead?.legs ?? LEGS;
+    const rows = dir === 'down' ? [...whole(front), ...legs.front[step]]
+      : dir === 'up' ? [...whole(rear), ...legs.front[step]]
+      : [...side, ...legs.side[step]];
     c = raster(rows, LOOKS[look], dir === 'right');
     people.set(key, c);
   }

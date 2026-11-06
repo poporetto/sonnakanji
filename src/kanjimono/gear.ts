@@ -110,6 +110,11 @@ export const GEAR: Record<string, string[]> = {
   link: ['.yy..yy.', 'y..yy..y', 'y..yy..y', '.yy..yy.'],
 };
 // Shop and bag icons.
+// A manga cover: a coloured jacket with a dark spine and a small picture on the front.
+const cover = (face: string, spine: string, picture: string[]) => [
+  'ooooooooo', `o${spine}${face.repeat(6)}o`, ...picture.map((row) => `o${spine}${row.replaceAll('.', face)}${face}o`), `o${spine}${face.repeat(6)}o`, 'ooooooooo',
+];
+
 export const ICONS: Record<string, string[]> = {
   melon: ['...ooo...', '.oogggoo.', 'ogGgGgGgo', 'ogggGgggo', 'oGgGgGgGo', '.oyyyyyo.', '..ooooo..'],
   rice: ['....o....', '...omo...', '..ommmo..', '.ommmmmo.', 'ommmmmmmo', 'omkkkkkmo', 'okkkkkkko', '.ooooooo.'],
@@ -118,9 +123,28 @@ export const ICONS: Record<string, string[]> = {
   bento: ['ooooooooo', 'ommmromgo', 'ommmromgo', 'oooooooo.', 'ononnomno', 'ononnoomo', 'ooooooooo'],
   magazine: ['ooooooo..', 'orrrrroo.', 'ommmmmoo.', 'omkkkmoo.', 'omkkkmoo.', 'ommmmmoo.', 'ooooooo..'],
   capsule: ['..ooooo..', '.orrrrro.', 'orwrrrrro', 'ooooooooo', 'ommmmmmmo', '.ommmmmo.', '..ooooo..'],
-  plush: ['.oo...oo.', 'onnoooonno', 'onnnnnnno', 'onknnnkno', 'onntttnno', '.onnknno.', 'orrrrrrro', '.oo...oo.'],
+  plush: ['.oo...oo.', 'onnooonno', 'onnnnnnno', 'onknnnkno', 'onntttnno', '.onnknno.', 'orrrrrrro', '.oo...oo.'],
   ink: ['...ooo...', '...oso...', '..ooooo..', '.okkkkko.', '.okSkkko.', '.okkkkko.', '.okkkkko.', '.ooooooo.'],
   goldink: ['...ooo...', '...oyo...', '..ooooo..', '.oyyyyyo.', '.oywyyyo.', '.oyyyyyo.', '.oYYYYYo.', '.ooooooo.'],
+  sakuramochi: ['..ggg....', '.oGgoooo.', 'oppppppPo', 'opwpppppo', 'oppppppPo', '.oPPPPPo.', '..ooooo..'],
+  ayu: ['..oooo..o', '.osssSoso', 'osksssSoo', 'ossssSoso', '.ooooo..o'],
+  onsenegg: ['...ooo...', '..ommmo..', '.ommwmmo.', '.ommmmmo.', 'ooooooooo', 'onNNNNNno', '.ooooooo.'],
+  dango: ['.ooo.', 'opppo', 'opppo', '.ooo.', 'ommmo', 'ommmo', '.ooo.', 'ogggo', 'ogggo', '.ooo.', '..n..'],
+  miniplush: ['oo...oo', 'onooono', 'onnnnno', 'oknnnko', 'onntnno', '.ooooo.'],
+  keychain: ['..sss..', '.s...s.', '..sss..', '...s...', '.ooooo.', 'orrrrro', 'orwrrro', 'orrrrro', '.ooooo.'],
+  mikofig: ['..ooo..', '.okkko.', '.ottto.', '.ommmo.', 'ommmmmo', '.orrro.', '.orrro.', '.ooooo.'],
+  aoifig: ['..ooo..', '.oBBBo.', '.ottto.', '.okkko.', 'okkkkko', '.okkko.', '.okkko.', '.ooooo.'],
+  sticker: ['....o....', '...oro...', 'ooorrrooo', 'orrrwrrro', '.orrrrro.', '.orrorro.', '.oo...oo.'],
+  cat: ['.o...o.', 'omo.omo', 'ommmmmo', 'omkmkmo', 'ommrmmo', 'ormmmro', '.oyyyo.', '.ooooo.'],
+  torii: ['ooooooooo', 'orrrrrrro', 'ooooooooo', '.orrrrro.', '.or...ro.', '.or...ro.', '.oo...oo.'],
+  threepieces: cover('r', 'R', ['.ggg.', 'gGgGg', '.ggg.']),
+  dragonbox: cover('y', 'Y', ['ooooo', 'onnno', 'ooooo']),
+  snacktitan: cover('n', 'N', ['.yyy.', 'yyyyy', '.yyy.']),
+  demonlaundry: cover('l', 'L', ['wwwww', '.www.', '.www.']),
+  deathnotepad: cover('k', 'o', ['.mmm.', '.mmm.', '.mmm.']),
+  heroaccounts: cover('b', 'B', ['.yyy.', 'yYyYy', '.yyy.']),
+  sailornoon: cover('p', 'P', ['y.y.y', '.yyy.', 'y.y.y']),
+  huntergatherer: cover('g', 'G', ['.n.n.', 'nnnnn', '.nnn.']),
   charm: ['ooooooo', 'orrrrro', 'ommmmmo', 'omkkkmo', 'ommkmmo', 'omkkkmo', 'ommrmmo', 'ooooooo'],
 };
 

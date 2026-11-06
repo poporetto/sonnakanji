@@ -190,11 +190,50 @@ function sign(g: CanvasRenderingContext2D, x: number, y: number) {
   r(OUTLINE, 1, 1, 14, 10); r('#d9b078', 2, 2, 12, 8); r('#f1deb2', 2, 2, 12, 1); r('#a87848', 2, 9, 12, 1);
 }
 
+// A town school: two floors of classroom windows, a clock tower and glass entrance doors.
+function school(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+  const r = (c: string, a: number, b: number, rw: number, rh: number) => { g.fillStyle = c; g.fillRect(x + a, y + b, rw, rh); };
+  const mid = Math.floor(w / 2);
+  r('rgba(30,30,70,.3)', 1, h, w + 3, 3);
+  // Flagpole by the wall.
+  r(OUTLINE, -9, -6, 3, h + 6); r('#c3cdd8', -8, -5, 1, h + 4);
+  r(OUTLINE, -6, -5, 12, 9); r('#4aa6ee', -6, -4, 11, 7); r('#bfeaff', -6, -4, 11, 1); r('#ffd23f', -2, -2, 3, 3);
+  // Walls and the flat roof.
+  r(OUTLINE, 0, 10, w, h - 10);
+  r('#f6f0e0', 1, 11, w - 2, h - 12);
+  r('#dfd6c2', 1, 11, w - 2, 3);
+  r('#b9b0a0', 1, h - 4, w - 2, 3); r('#d0c8b8', 1, h - 4, w - 2, 1);
+  r(OUTLINE, -2, 6, w + 4, 7); r('#5f7aa8', -1, 7, w + 2, 5); r('#8aa4cc', -1, 7, w + 2, 1); r('#40567e', -1, 11, w + 2, 1);
+  // Clock tower.
+  r(OUTLINE, mid - 14, -8, 28, 15); r('#f6f0e0', mid - 13, -7, 26, 14); r('#dfd6c2', mid + 10, -7, 3, 14);
+  r(OUTLINE, mid - 16, -11, 32, 4); r('#5f7aa8', mid - 15, -10, 30, 2); r('#8aa4cc', mid - 15, -10, 30, 1);
+  r(OUTLINE, mid - 5, -6, 10, 12); r(OUTLINE, mid - 6, -5, 12, 10);
+  r('#ffffff', mid - 5, -5, 10, 10); r(OUTLINE, mid, -4, 1, 5); r(OUTLINE, mid, 0, 4, 1);
+  // Classroom windows, two rows of them, with a rail along the upper floor.
+  const pane = (wx: number, wy: number) => {
+    r(OUTLINE, wx - 1, wy - 1, 12, 13);
+    r('#8fd0f0', wx, wy, 10, 11); r('#d8f2ff', wx, wy, 10, 2); r('#d8f2ff', wx + 1, wy + 2, 2, 3); r('#5aa8d8', wx, wy + 9, 10, 2);
+    r('#fdfdf6', wx + 5, wy, 1, 11); r('#fdfdf6', wx, wy + 5, 10, 1);
+  };
+  for (let i = 5; i + 10 < w; i += 15) pane(i, 16);
+  r('#6a8fb0', 2, 29, w - 4, 2); r('#9fc0d8', 2, 29, w - 4, 1);
+  for (const i of [5, 20, w - 30, w - 15]) pane(i, 35);
+  // Entrance: a canopy over two glass doors, up a step.
+  const dx = mid - 15;
+  r(OUTLINE, dx - 1, h - 21, 32, 21);
+  for (const px of [dx, dx + 15]) { r('#9fd8f0', px, h - 20, 15, 18); r('#d8f2ff', px + 2, h - 20, 3, 18); r(OUTLINE, px + 14, h - 20, 1, 18); }
+  r(OUTLINE, dx + 11, h - 12, 2, 4); r(OUTLINE, dx + 17, h - 12, 2, 4);
+  r(OUTLINE, dx - 4, h - 25, 38, 5); r('#5f7aa8', dx - 3, h - 24, 36, 3); r('#8aa4cc', dx - 3, h - 24, 36, 1);
+  r(OUTLINE, dx - 3, h - 2, 36, 2); r('#c8c0b0', dx - 2, h - 2, 34, 1);
+}
+
 function shrine(g: CanvasRenderingContext2D, x: number, y: number) {
   const r = (c: string, a: number, b: number, w: number, h: number) => { g.fillStyle = c; g.fillRect(x + a, y + b, w, h); };
   r('rgba(30,30,70,.25)', -2, 32, 52, 2);
-  r(OUTLINE, 4, 12, 40, 21); r('#3a2a30', 5, 13, 38, 19); r('#52363a', 16, 13, 16, 19);
-  for (const px of [6, 21, 25, 40]) { r('#d6332a', px, 12, 3, 20); r('#f0645a', px, 12, 1, 20); r('#8c1f28', px + 2, 12, 1, 20); }
+  r(OUTLINE, 4, 6, 40, 27); r('#3a2a30', 5, 7, 38, 25); r('#52363a', 16, 13, 16, 19);
+  for (const px of [6, 21, 25, 40]) { r('#d6332a', px, 7, 3, 25); r('#f0645a', px, 7, 1, 25); r('#8c1f28', px + 2, 7, 1, 25); }
+  // A red beam ties the pillars into the roof.
+  r('#d6332a', 5, 8, 38, 3); r('#f0645a', 5, 8, 38, 1); r('#8c1f28', 5, 11, 38, 1);
   // Copper-green roof with upswept ends.
   const G = ['#1f5f5c', '#2f8a7a', '#55b89a', '#9fe0c0'];
   for (let py = 0; py < 13; py++) {
@@ -301,6 +340,15 @@ function paintKonbini(g: CanvasRenderingContext2D, c: string, px: number, py: nu
   if (c === 'x' && x % 2) { r('#ffffff', 5, 2, 5, 3); r('#ff8ab0', 5, 2, 5, 1); }
 }
 
+// The classroom's blackboard, with today's kanji chalked on it.
+function blackboard(g: CanvasRenderingContext2D) {
+  const r = (c: string, x: number, y: number, w: number, h: number) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
+  r(OUTLINE, 62, 16, 116, 15); r('#7a5230', 63, 17, 114, 13); r('#2f6a54', 65, 18, 110, 9); r('#3f8068', 65, 18, 110, 1);
+  for (const [x, w] of [[70, 12], [74, 5], [90, 16], [112, 10], [128, 20], [154, 12]]) r('#e8f4e8', x, 21, w, 1);
+  for (const [x, w] of [[75, 1], [96, 1], [116, 1], [136, 1], [160, 1]]) r('#e8f4e8', x, 20, w, 4);
+  r('#f4efe2', 150, 28, 5, 1); r('#ffd23f', 158, 28, 3, 1);
+}
+
 function paintRoom(rows: string[], konbini = false): Scene {
   const base = canvas(24 * T, 16 * T);
   const g = base.getContext('2d')!;
@@ -383,6 +431,7 @@ export function paintMap(id: string, rows: string[]): Scene {
   if (hit) return hit;
   if (!GRASS[id]) {
     const scene = paintRoom(rows, id.startsWith('shop-'));
+    if (id === 'school') blackboard(scene.base.getContext('2d')!);
     scenes.set(id, scene);
     return scene;
   }
@@ -516,6 +565,7 @@ export function paintMap(id: string, rows: string[]): Scene {
       standing(y * T, (g) => {
         if (c === 's') shrine(g, x * T, y * T);
         else if (c === 'Q') kombini(g, x * T, y * T, w * T, h * T);
+        else if (id === 'kawabe' && w === 6) school(g, x * T, y * T, w * T, h * T);
         else house(g, x * T, y * T, w * T, h * T, houses % 2 ? roofs.charcoal : roofs.indigo, id === 'village' && houses++ % 2 === 1);
       });
     }
