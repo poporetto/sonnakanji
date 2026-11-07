@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { READINGS, withRomaji } from './kana.ts';
+import { COMMON, commonReading } from '../lib/reading.ts';
 import { MAPS, SOLID } from './maps.ts';
 import { WORDS } from './meanings.ts';
 import { CHARMS, charmsIn, healed, holdChance, INKWELL, ITEMS, JOKES, KEEPSAKES, MANGA, mangaIn, PRIZES, revived, shelfIn } from './shop.ts';
@@ -189,4 +190,14 @@ test('children mode gives romaji for kanji and whole words, not just kana', () =
   assert.deepEqual(withRomaji('桜餅'), [{ text: '桜餅', roma: 'sakuramochi' }]);
   assert.equal(withRomaji('メロンパン')[0].roma, 'meronpan');
   READINGS.delete('火'); READINGS.delete('学校');
+});
+
+test('kanji use their everyday reading, not the first one in the dictionary', () => {
+  const k = (kanji: string) => ({ kanji, on: [], kun: [], words: [] });
+  assert.equal(commonReading(k('百')), 'hyaku');
+  assert.equal(commonReading(k('千')), 'sen');
+  assert.equal(commonReading(k('山')), 'yama');
+  for (const s of data.filter((x) => x.level === 'N5' || x.level === 'N4')) assert.ok(COMMON[s.kanji], s.kanji);
+  assert.equal(commonReading({ kanji: '押', on: [{ romaji: 'ou' }], kun: [], words: [{ w: '押す', r: 'おす' }] } as never), 'osu');
+  assert.equal(commonReading({ kanji: '議', on: [{ romaji: 'gi' }], kun: [], words: [] } as never), 'gi');
 });

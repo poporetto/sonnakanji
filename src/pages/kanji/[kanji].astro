@@ -1,4 +1,5 @@
 ---
+import { commonReading } from '../../lib/reading';
 import Base from '../../layouts/Base.astro';
 import KanjiCard from '../../components/KanjiCard.astro';
 import { allKanji, kanjiPath, byLevel, slugOf, type Kanji } from '../../lib/kanji';
@@ -20,7 +21,7 @@ const sameLevel = byLevel(k.level);
 const position = sameLevel.findIndex((x) => x.kanji === k.kanji) + 1;
 const reading = [...k.kun.slice(0, 1), ...k.on.slice(0, 1)].map((r) => r.romaji).filter(Boolean).join(', ');
 const headline = k.meanings[0].replace(/^./, (c) => c.toUpperCase());
-const reading1 = reading.split(', ')[0];
+const reading1 = commonReading(k);
 // Search results cut off long titles and descriptions, so each one keeps as much as fits.
 const fit = (limit: number, ...options: string[]) => options.find((o) => o.length <= limit) ?? options[options.length - 1].slice(0, limit);
 const named = `${k.kanji} (${reading1}) Kanji Meaning: "${headline}"`;
