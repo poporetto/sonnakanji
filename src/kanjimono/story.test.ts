@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { READINGS, withRomaji } from './kana.ts';
+import { UNSUITABLE } from './meanings.ts';
 import { COMMON, commonReading } from '../lib/reading.ts';
 import { MAPS, SOLID } from './maps.ts';
 import { WORDS } from './meanings.ts';
@@ -200,4 +201,32 @@ test('kanji use their everyday reading, not the first one in the dictionary', ()
   for (const s of data.filter((x) => x.level === 'N5' || x.level === 'N4')) assert.ok(COMMON[s.kanji], s.kanji);
   assert.equal(commonReading({ kanji: '押', on: [{ romaji: 'ou' }], kun: [], words: [{ w: '押す', r: 'おす' }] } as never), 'osu');
   assert.equal(commonReading({ kanji: '議', on: [{ romaji: 'gi' }], kun: [], words: [] } as never), 'gi');
+});
+
+test('nobody stands where a tree hides them, and everyone can be reached', () => {
+  for (const [id, m] of Object.entries(MAPS)) {
+    if (m.room) continue;
+    const walkable = new Set<string>();
+    const start = m.rows.findIndex((r) => r.includes(','));
+    const queue = [[m.rows[start].indexOf(','), start]];
+    while (queue.length) {
+      const [x, y] = queue.pop()!;
+      if (walkable.has(`${x},${y}`) || !m.rows[y]?.[x] || SOLID.includes(m.rows[y][x])) continue;
+      walkable.add(`${x},${y}`);
+      queue.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+    }
+    for (const n of m.npcs) {
+      assert.notEqual(m.rows[n.y + 1]?.[n.x], 'T', `${id} ${n.name} is behind a tree`);
+      assert.ok([[1, 0], [-1, 0], [0, 1], [0, -1]].some(([a, b]) => walkable.has(`${n.x + a},${n.y + b}`)), `${id} ${n.name} cannot be reached`);
+    }
+  }
+});
+
+test('battle words stay suitable for children', () => {
+  // Read from the build, like the search test, so this checks exactly what players get.
+  const species: { k: string; moves: { w: string; m: string }[] }[] = JSON.parse(readFileSync('dist/kanjimono/data.json', 'utf8'));
+  const all: { kanji: string; words: { w: string; m: string }[] }[] = JSON.parse(readFileSync('src/data/kanji.json', 'utf8'));
+  const gloss = new Map(all.flatMap((k) => k.words.map((w) => [w.w, w.m] as const)));
+  for (const s of species) for (const m of s.moves) assert.ok(!UNSUITABLE.test(gloss.get(m.w) ?? m.m), `${s.k} ${m.w} ${m.m}`);
+  for (const w of ['売春', '死体', '死人', '持て']) assert.ok(!species.some((s) => s.moves.some((m) => m.w === w)), w);
 });

@@ -106,7 +106,7 @@ export const MAPS: Record<string, GameMap> = {
     gate: { trial: 'N5', line: 'Cedar Master: Nobody climbs the mountain without passing my N5 trial.' },
     npcs: [
       { x: 8, y: 13, name: 'Lost child', look: 'child', lines: ['Thank you for finding the way!'] },
-      { x: 12, y: 4, name: 'Aoi', look: 'rival', after: 'lost', lines: ['The mountain is waiting.'] },
+      { x: 11, y: 8, name: 'Aoi', look: 'rival', after: 'lost', lines: ['The mountain is waiting.'] },
       { x: 17, y: 2, name: 'Cedar Master', look: 'master', master: 'N5', lines: [] },
     ],
     rows: [

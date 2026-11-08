@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { allKanji, byLevel, type Kanji } from '../../lib/kanji';
 import type { Element, Move, Species } from '../../kanjimono/battle';
-import { WORDS } from '../../kanjimono/meanings';
+import { UNSUITABLE, WORDS } from '../../kanjimono/meanings';
 import { commonReading } from '../../lib/reading';
 
 const TYPES: Record<Element, string> = {
@@ -10,7 +10,7 @@ const TYPES: Record<Element, string> = {
 const typeOf = (k: string): Element => (Object.keys(TYPES) as Element[]).find((t) => TYPES[t].includes(k)) ?? 'spirit';
 
 function movesFor(k: Kanji): Move[] {
-  const moves = k.words.filter((w) => [...w.w].length >= 2).slice(0, 4)
+  const moves = k.words.filter((w) => [...w.w].length >= 2 && !UNSUITABLE.test(w.m)).slice(0, 4)
     .map((w, i) => ({ w: w.w, r: w.r, m: w.m.split(';')[0], power: 30 + i * 8 + [...w.w].length * 4 }));
   return moves.length ? moves : [{ w: '突撃', r: 'とつげき', m: 'charge', power: 36 }];
 }
