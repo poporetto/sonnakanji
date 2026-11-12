@@ -1,0 +1,1462 @@
+{
+  "立": {
+    "meaning": "stand up",
+    "memory": "A person with feet planted on the ground: stand.",
+    "parts": [
+      "lid (亠)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "手": {
+    "meaning": "hand",
+    "memory": "An open hand, fingers spread across the wrist.",
+    "parts": [],
+    "layout": ""
+  },
+  "力": {
+    "meaning": "power",
+    "memory": "An arm bent to show its muscle: power.",
+    "parts": [],
+    "layout": ""
+  },
+  "目": {
+    "meaning": "eye",
+    "memory": "An eye turned on its side, the pupil in the middle.",
+    "parts": [],
+    "layout": ""
+  },
+  "田": {
+    "meaning": "rice field",
+    "memory": "A rice field cut into four neat plots.",
+    "parts": [],
+    "layout": ""
+  },
+  "正": {
+    "meaning": "correct",
+    "memory": "A foot stops exactly on the line: correct.",
+    "parts": [
+      "one (一)",
+      "stop (止)"
+    ],
+    "layout": "top then bottom"
+  },
+  "文": {
+    "meaning": "sentence",
+    "memory": "A person with a pattern on their chest. Those first marks became writing.",
+    "parts": [
+      "lid (亠)",
+      "cross (乂)"
+    ],
+    "layout": "top then bottom"
+  },
+  "口": {
+    "meaning": "mouth",
+    "memory": "A wide open mouth, drawn square.",
+    "parts": [],
+    "layout": ""
+  },
+  "町": {
+    "meaning": "town",
+    "memory": "A road runs through the fields and a town grows along it.",
+    "parts": [
+      "field (田)",
+      "nail (丁)"
+    ],
+    "layout": "left then right"
+  },
+  "空": {
+    "meaning": "empty",
+    "memory": "A hole opens in the clouds: the empty sky.",
+    "parts": [
+      "hole (穴)",
+      "craft (工)"
+    ],
+    "layout": "top then bottom"
+  },
+  "足": {
+    "meaning": "leg",
+    "memory": "A knee above, a foot below: leg.",
+    "parts": [
+      "mouth (口)",
+      "foot (龰)"
+    ],
+    "layout": "top then bottom"
+  },
+  "早": {
+    "meaning": "early",
+    "memory": "The sun rises over a sprout: early.",
+    "parts": [
+      "sun (日)",
+      "ten (十)"
+    ],
+    "layout": "top then bottom"
+  },
+  "字": {
+    "meaning": "character",
+    "memory": "A child sits under a roof, practising characters.",
+    "parts": [
+      "roof (宀)",
+      "child (子)"
+    ],
+    "layout": "top then bottom"
+  },
+  "音": {
+    "meaning": "sound",
+    "memory": "A bell rings out notes: sound.",
+    "parts": [
+      "stand (立)",
+      "sun (日)"
+    ],
+    "layout": "top then bottom"
+  },
+  "花": {
+    "meaning": "flower",
+    "memory": "Grass changes into a flower.",
+    "parts": [
+      "grass (艹)",
+      "change (化)"
+    ],
+    "layout": "top then bottom"
+  },
+  "赤": {
+    "meaning": "red",
+    "memory": "A person glows beside the fire: red.",
+    "parts": [
+      "earth (土)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "青": {
+    "meaning": "blue",
+    "memory": "A green sprout under the moon: blue-green.",
+    "parts": [
+      "growth (龶)",
+      "moon (月)"
+    ],
+    "layout": "top then bottom"
+  },
+  "夕": {
+    "meaning": "evening",
+    "memory": "A sliver of moon comes out as the day ends: evening.",
+    "parts": [],
+    "layout": ""
+  },
+  "犬": {
+    "meaning": "dog",
+    "memory": "A big dog with a dot for its ear.",
+    "parts": [
+      "big (大)",
+      "dot (丶)"
+    ],
+    "layout": "bottom then top"
+  },
+  "会": {
+    "meaning": "meeting",
+    "memory": "People gather under one roof and their talk rises like a cloud: meet.",
+    "parts": [
+      "person (人)",
+      "cloud (云)"
+    ],
+    "layout": "top then bottom"
+  },
+  "同": {
+    "meaning": "same",
+    "memory": "Two matching people in one frame: the same.",
+    "parts": [
+      "frame (冂)",
+      "one (一)",
+      "mouth (口)"
+    ],
+    "layout": "three components in listed order"
+  },
+  "自": {
+    "meaning": "oneself",
+    "memory": "In Japan, you point at your nose to say myself.",
+    "parts": [
+      "eye (目)"
+    ],
+    "layout": ""
+  },
+  "社": {
+    "meaning": "company",
+    "memory": "A shrine on the soil, where the community met. Today, a company.",
+    "parts": [
+      "altar (礻)",
+      "earth (土)"
+    ],
+    "layout": "left then right"
+  },
+  "地": {
+    "meaning": "ground",
+    "memory": "A road snakes across the earth: the ground.",
+    "parts": [
+      "earth (土)",
+      "snake (也)"
+    ],
+    "layout": "left then right"
+  },
+  "方": {
+    "meaning": "direction",
+    "memory": "A sign points the way: direction.",
+    "parts": [
+      "lid (亠)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "新": {
+    "meaning": "new",
+    "memory": "An axe bites into a tree, showing fresh wood: new.",
+    "parts": [
+      "part ()",
+      "axe (斤)"
+    ],
+    "layout": "left then right"
+  },
+  "場": {
+    "meaning": "location",
+    "memory": "The sun rises over open ground: a place.",
+    "parts": [
+      "earth (土)",
+      "rising sun (昜)"
+    ],
+    "layout": "left then right"
+  },
+  "明": {
+    "meaning": "bright",
+    "memory": "Sun and moon side by side: as bright as it gets.",
+    "parts": [
+      "sun (日)",
+      "moon (月)"
+    ],
+    "layout": "left then right"
+  },
+  "京": {
+    "meaning": "capital",
+    "memory": "A grand castle rises over the city: the capital.",
+    "parts": [
+      "lid (亠)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "通": {
+    "meaning": "traffic",
+    "memory": "Walk the road from one end and pass through.",
+    "parts": [
+      "path (甬)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "言": {
+    "meaning": "say",
+    "memory": "Words rising from a mouth: say.",
+    "parts": [
+      "mouth (口)"
+    ],
+    "layout": ""
+  },
+  "理": {
+    "meaning": "logic",
+    "memory": "Polish jade and the grain inside shows why it looks that way: reason.",
+    "parts": [
+      "king (王)",
+      "village (里)"
+    ],
+    "layout": "left then right"
+  },
+  "体": {
+    "meaning": "body",
+    "memory": "A person and a solid tree trunk, standing firm: the body.",
+    "parts": [
+      "person (亻)",
+      "root (本)"
+    ],
+    "layout": "left then right"
+  },
+  "作": {
+    "meaning": "make",
+    "memory": "A person with a box of materials, busy making something.",
+    "parts": [
+      "person (亻)",
+      "sudden (乍)"
+    ],
+    "layout": "left then right"
+  },
+  "用": {
+    "meaning": "utilize",
+    "memory": "A sturdy frame, ready to be put to use.",
+    "parts": [],
+    "layout": ""
+  },
+  "強": {
+    "meaning": "strong",
+    "memory": "A tiny bug pulls a giant bow: strong.",
+    "parts": [
+      "bow (弓)",
+      "part ()"
+    ],
+    "layout": "left then right"
+  },
+  "公": {
+    "meaning": "public",
+    "memory": "A sign in a tree-lined park: open to everyone, public.",
+    "parts": [
+      "eight (八)",
+      "private (厶)"
+    ],
+    "layout": "top then bottom"
+  },
+  "野": {
+    "meaning": "plains",
+    "memory": "Past the last house, nothing but grass: open fields.",
+    "parts": [
+      "village (里)",
+      "give (予)"
+    ],
+    "layout": "left then right"
+  },
+  "思": {
+    "meaning": "think",
+    "memory": "A field of thoughts growing above your heart: think.",
+    "parts": [
+      "field (田)",
+      "heart (心)"
+    ],
+    "layout": "top then bottom"
+  },
+  "家": {
+    "meaning": "house",
+    "memory": "A pig under a roof: in old farmhouses, the pig meant home.",
+    "parts": [
+      "roof (宀)",
+      "pig (豕)"
+    ],
+    "layout": "top then bottom"
+  },
+  "多": {
+    "meaning": "many",
+    "memory": "Slab after slab of meat piles up: many.",
+    "parts": [
+      "evening (夕)",
+      "evening (夕)"
+    ],
+    "layout": "top then bottom"
+  },
+  "心": {
+    "meaning": "heart",
+    "memory": "A heart with drops of feeling around it.",
+    "parts": [],
+    "layout": ""
+  },
+  "教": {
+    "meaning": "teach",
+    "memory": "A teacher points while a child sits and listens: teach.",
+    "parts": [
+      "devotion (孝)",
+      "strike (攵)"
+    ],
+    "layout": "left then right"
+  },
+  "元": {
+    "meaning": "beginning",
+    "memory": "A figure with a head at the top, where everything starts: origin.",
+    "parts": [
+      "two (二)",
+      "legs (儿)"
+    ],
+    "layout": "top then bottom"
+  },
+  "近": {
+    "meaning": "near",
+    "memory": "The axe is just down the road, close enough to reach: near.",
+    "parts": [
+      "axe (斤)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "考": {
+    "meaning": "consider",
+    "memory": "An elder leans on a cane, deep in thought: think, consider.",
+    "parts": [
+      "old (耂)",
+      "cane (丂)"
+    ],
+    "layout": "top then bottom"
+  },
+  "画": {
+    "meaning": "brush-stroke",
+    "memory": "A picture in a frame.",
+    "parts": [
+      "one (一)",
+      "reason (由)",
+      "open box (凵)"
+    ],
+    "layout": "three components in listed order"
+  },
+  "海": {
+    "meaning": "sea",
+    "memory": "Water full of fish: the sea.",
+    "parts": [
+      "water (氵)",
+      "every (毎)"
+    ],
+    "layout": "left then right"
+  },
+  "売": {
+    "meaning": "sell",
+    "memory": "A samurai stands at the shop with goods to sell.",
+    "parts": [
+      "samurai (士)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "知": {
+    "meaning": "know",
+    "memory": "Knowledge shoots from the mouth like an arrow: know.",
+    "parts": [
+      "arrow (矢)",
+      "mouth (口)"
+    ],
+    "layout": "left then right"
+  },
+  "道": {
+    "meaning": "road-way",
+    "memory": "A person walks along it, finding the way: road.",
+    "parts": [
+      "head (首)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "計": {
+    "meaning": "plot",
+    "memory": "Count the dots out loud: measure, plan.",
+    "parts": [
+      "words (言)",
+      "ten (十)"
+    ],
+    "layout": "left then right"
+  },
+  "朝": {
+    "meaning": "morning",
+    "memory": "The sun climbs while the moon is still out: morning.",
+    "parts": [
+      "sunrise (𠦝)",
+      "moon (月)"
+    ],
+    "layout": "left then right"
+  },
+  "台": {
+    "meaning": "pedestal",
+    "memory": "A nose over a mouth up on a stand, ready to speak: stand, platform.",
+    "parts": [
+      "private (厶)",
+      "mouth (口)"
+    ],
+    "layout": "top then bottom"
+  },
+  "広": {
+    "meaning": "wide",
+    "memory": "Arms stretched out under a huge roof: wide.",
+    "parts": [
+      "awning (广)",
+      "private (厶)"
+    ],
+    "layout": "top then bottom"
+  },
+  "少": {
+    "meaning": "few",
+    "memory": "Slice a bit off something small, and there's even less: few.",
+    "parts": [
+      "small (小)",
+      "slash (丿)"
+    ],
+    "layout": "top then bottom"
+  },
+  "工": {
+    "meaning": "craft",
+    "memory": "A carpenter's ruler, straight lines top and bottom: craft.",
+    "parts": [],
+    "layout": ""
+  },
+  "止": {
+    "meaning": "stop",
+    "memory": "A footprint planted on the ground: stop.",
+    "parts": [
+      "divining rod (卜)"
+    ],
+    "layout": ""
+  },
+  "切": {
+    "meaning": "cut",
+    "memory": "An apple meets a knife: cut.",
+    "parts": [
+      "seven (七)",
+      "knife (刀)"
+    ],
+    "layout": "left then right"
+  },
+  "楽": {
+    "meaning": "music",
+    "memory": "Notes and bells ringing out: music, fun.",
+    "parts": [
+      "part ()",
+      "tree (木)"
+    ],
+    "layout": "top then bottom"
+  },
+  "店": {
+    "meaning": "store",
+    "memory": "A little stall set up under an awning: shop.",
+    "parts": [
+      "awning (广)",
+      "fortune-teller (占)"
+    ],
+    "layout": "top then bottom"
+  },
+  "親": {
+    "meaning": "parent",
+    "memory": "A parent climbs a tree to watch for the kids coming home.",
+    "parts": [
+      "part ()",
+      "see (見)"
+    ],
+    "layout": "left then right"
+  },
+  "答": {
+    "meaning": "solution",
+    "memory": "A speech bubble fills in what's missing: answer.",
+    "parts": [
+      "bamboo (竹)",
+      "fit (合)"
+    ],
+    "layout": "top then bottom"
+  },
+  "夜": {
+    "meaning": "night",
+    "memory": "The moon rises above the roof while everyone sleeps: night.",
+    "parts": [
+      "lid (亠)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "帰": {
+    "meaning": "homecoming",
+    "memory": "Broom in hand, someone sweeps their way back home: return.",
+    "parts": [
+      "knife (刂)",
+      "broom (帚)"
+    ],
+    "layout": "left then right"
+  },
+  "古": {
+    "meaning": "old",
+    "memory": "An elder and a mouth: a story told for ten generations is old.",
+    "parts": [
+      "ten (十)",
+      "mouth (口)"
+    ],
+    "layout": "top then bottom"
+  },
+  "歌": {
+    "meaning": "song",
+    "memory": "An open mouth at a microphone: a song.",
+    "parts": [
+      "part ()",
+      "open mouth (欠)"
+    ],
+    "layout": "left then right"
+  },
+  "買": {
+    "meaning": "buy",
+    "memory": "A bag of shells, the old money: buy.",
+    "parts": [
+      "net (罒)",
+      "shell (貝)"
+    ],
+    "layout": "top then bottom"
+  },
+  "図": {
+    "meaning": "map",
+    "memory": "A map drawn inside its border.",
+    "parts": [
+      "enclosure (囗)",
+      "⺍ (⺍)",
+      "cross (乂)"
+    ],
+    "layout": "three components in listed order"
+  },
+  "週": {
+    "meaning": "week",
+    "memory": "The calendar goes round the road and comes back: a week.",
+    "parts": [
+      "around (周)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "室": {
+    "meaning": "room",
+    "memory": "A bed under a roof: a room.",
+    "parts": [
+      "roof (宀)",
+      "arrive (至)"
+    ],
+    "layout": "top then bottom"
+  },
+  "歩": {
+    "meaning": "walk",
+    "memory": "One foot, then the other: walk.",
+    "parts": [
+      "stop (止)",
+      "few (少)"
+    ],
+    "layout": "top then bottom"
+  },
+  "風": {
+    "meaning": "wind",
+    "memory": "A bug tumbles along, swept by the wind.",
+    "parts": [
+      "table (几)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "紙": {
+    "meaning": "paper",
+    "memory": "Threads pressed flat into a sheet: paper.",
+    "parts": [
+      "thread (糸)",
+      "clan (氏)"
+    ],
+    "layout": "left then right"
+  },
+  "黒": {
+    "meaning": "black",
+    "memory": "Fire under the house turns everything sooty black.",
+    "parts": [
+      "village (里)",
+      "灬 (灬)"
+    ],
+    "layout": "top then bottom"
+  },
+  "春": {
+    "meaning": "springtime",
+    "memory": "The sun wakes the flowers: spring.",
+    "parts": [
+      "𡗗 (𡗗)",
+      "sun (日)"
+    ],
+    "layout": "top then bottom"
+  },
+  "色": {
+    "meaning": "color",
+    "memory": "A bright flower: colour.",
+    "parts": [
+      "𠂊 (𠂊)",
+      "snake (巴)"
+    ],
+    "layout": "top then bottom"
+  },
+  "走": {
+    "meaning": "run",
+    "memory": "A person pumps their arms, feet flying: run.",
+    "parts": [
+      "earth (土)",
+      "foot (龰)"
+    ],
+    "layout": "top then bottom"
+  },
+  "秋": {
+    "meaning": "autumn",
+    "memory": "Fire burns the stubble after the grain is cut: autumn.",
+    "parts": [
+      "grain (禾)",
+      "fire (火)"
+    ],
+    "layout": "left then right"
+  },
+  "夏": {
+    "meaning": "summer",
+    "memory": "You drag your feet under the blazing sun: summer.",
+    "parts": [
+      "part ()",
+      "slow feet (夂)"
+    ],
+    "layout": "top then bottom"
+  },
+  "曜": {
+    "meaning": "weekday",
+    "memory": "A shining pheasant beside the sun: the days of the week are named after shining planets.",
+    "parts": [
+      "sun (日)",
+      "pheasant (翟)"
+    ],
+    "layout": "left then right"
+  },
+  "肉": {
+    "meaning": "meat",
+    "memory": "Ribs inside a slice of meat.",
+    "parts": [],
+    "layout": ""
+  },
+  "鳥": {
+    "meaning": "bird",
+    "memory": "A bird with a head, body and tail, standing on four toes.",
+    "parts": [
+      "灬 (灬)"
+    ],
+    "layout": ""
+  },
+  "冬": {
+    "meaning": "winter",
+    "memory": "Slow feet trudge through the snow: winter.",
+    "parts": [
+      "slow feet (夂)",
+      "ice (冫)"
+    ],
+    "layout": "top then bottom"
+  },
+  "昼": {
+    "meaning": "daytime",
+    "memory": "Measure the day and the sun is at its height: noon, daytime.",
+    "parts": [
+      "measure (尺)",
+      "dawn (旦)"
+    ],
+    "layout": "top then bottom"
+  },
+  "茶": {
+    "meaning": "tea",
+    "memory": "Leaves from a green plant, steeped in a cup: tea.",
+    "parts": [
+      "grass (艹)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "弟": {
+    "meaning": "younger brother",
+    "memory": "Lined up by height, the shortest comes last: little brother.",
+    "parts": [
+      "eight (八)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "牛": {
+    "meaning": "cow",
+    "memory": "A cow's head from the front, with horns: cow.",
+    "parts": [],
+    "layout": ""
+  },
+  "魚": {
+    "meaning": "fish",
+    "memory": "A fish: head, scaly body, and four dots for a tail.",
+    "parts": [
+      "𠂊 (𠂊)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "兄": {
+    "meaning": "elder brother",
+    "memory": "A big mouth on two legs: your older brother giving orders.",
+    "parts": [
+      "mouth (口)",
+      "legs (儿)"
+    ],
+    "layout": "top then bottom"
+  },
+  "妹": {
+    "meaning": "younger sister",
+    "memory": "A girl holding a small flower: your little sister.",
+    "parts": [
+      "woman (女)",
+      "not yet (未)"
+    ],
+    "layout": "left then right"
+  },
+  "姉": {
+    "meaning": "elder sister",
+    "memory": "A grown woman shops for the family: your big sister.",
+    "parts": [
+      "woman (女)",
+      "market (市)"
+    ],
+    "layout": "left then right"
+  },
+  "事": {
+    "meaning": "matter",
+    "memory": "A hand raises the flag: time to do the job, the matter at hand.",
+    "parts": [
+      "mouth (口)",
+      "hand (⺕)",
+      "hook (亅)"
+    ],
+    "layout": "three components in listed order"
+  },
+  "発": {
+    "meaning": "departure",
+    "memory": "The arrow leaves the bow: depart.",
+    "parts": [
+      "footsteps (癶)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "者": {
+    "meaning": "someone",
+    "memory": "An elder walking in the sun: someone.",
+    "parts": [
+      "old (耂)",
+      "sun (日)"
+    ],
+    "layout": "top then bottom"
+  },
+  "業": {
+    "meaning": "business",
+    "memory": "A worker's chart on the wall: business.",
+    "parts": [
+      "业 (业)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "員": {
+    "meaning": "employee",
+    "memory": "A mouth to feed and a shell of pay: a staff member.",
+    "parts": [
+      "mouth (口)",
+      "shell (貝)"
+    ],
+    "layout": "top then bottom"
+  },
+  "開": {
+    "meaning": "open",
+    "memory": "Hands push the gate open.",
+    "parts": [
+      "gate (門)",
+      "even (开)"
+    ],
+    "layout": "top then bottom"
+  },
+  "問": {
+    "meaning": "question",
+    "memory": "A mouth at the gate calls out a question.",
+    "parts": [
+      "gate (門)",
+      "mouth (口)"
+    ],
+    "layout": "top then bottom"
+  },
+  "代": {
+    "meaning": "substitute",
+    "memory": "One person leaves the post and the next takes over: a new generation.",
+    "parts": [
+      "person (亻)",
+      "stake (弋)"
+    ],
+    "layout": "left then right"
+  },
+  "動": {
+    "meaning": "move",
+    "memory": "It's heavy, so you need strength to move it.",
+    "parts": [
+      "heavy (重)",
+      "strength (力)"
+    ],
+    "layout": "left then right"
+  },
+  "主": {
+    "meaning": "lord",
+    "memory": "A lamp flame burns over the person in charge of the house: master.",
+    "parts": [
+      "lid (亠)",
+      "king (王)"
+    ],
+    "layout": "top then bottom"
+  },
+  "題": {
+    "meaning": "topic",
+    "memory": "A question, and a person thinking it over: the topic.",
+    "parts": [
+      "correct (是)",
+      "head (頁)"
+    ],
+    "layout": "left then right"
+  },
+  "意": {
+    "meaning": "idea",
+    "memory": "A bulb lights up over your heart: an idea.",
+    "parts": [
+      "sound (音)",
+      "heart (心)"
+    ],
+    "layout": "top then bottom"
+  },
+  "度": {
+    "meaning": "degrees",
+    "memory": "A hand reads the thermometer: degrees.",
+    "parts": [
+      "awning (广)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "持": {
+    "meaning": "hold",
+    "memory": "A hand carries an offering to the temple: hold.",
+    "parts": [
+      "hand (扌)",
+      "temple (寺)"
+    ],
+    "layout": "left then right"
+  },
+  "世": {
+    "meaning": "generation",
+    "memory": "Three tens joined make thirty years, one generation of people in the world.",
+    "parts": [
+      "twenty (廿)"
+    ],
+    "layout": ""
+  },
+  "安": {
+    "meaning": "relax",
+    "memory": "A woman sits safe under her own roof, relaxed and at peace.",
+    "parts": [
+      "roof (宀)",
+      "woman (女)"
+    ],
+    "layout": "top then bottom"
+  },
+  "院": {
+    "meaning": "Inst.",
+    "memory": "A complete group of buildings on the hill: an institution.",
+    "parts": [
+      "hill (⻖)",
+      "complete (完)"
+    ],
+    "layout": "left then right"
+  },
+  "界": {
+    "meaning": "world",
+    "memory": "A flag between two fields marks the boundary of your world.",
+    "parts": [
+      "field (田)",
+      "between (介)"
+    ],
+    "layout": "top then bottom"
+  },
+  "重": {
+    "meaning": "heavy",
+    "memory": "A person staggers under a huge weight: heavy.",
+    "parts": [
+      "thousand (千)",
+      "village (里)"
+    ],
+    "layout": "top then bottom"
+  },
+  "集": {
+    "meaning": "gather",
+    "memory": "Birds flock to one tree: gather.",
+    "parts": [
+      "bird (隹)",
+      "tree (木)"
+    ],
+    "layout": "top then bottom"
+  },
+  "物": {
+    "meaning": "thing",
+    "memory": "A flag on a cow marks it as yours: a thing you own.",
+    "parts": [
+      "cow (牛)",
+      "flag (勿)"
+    ],
+    "layout": "left then right"
+  },
+  "使": {
+    "meaning": "use",
+    "memory": "A boss points and a helper runs: use someone for the job.",
+    "parts": [
+      "person (亻)",
+      "official (吏)"
+    ],
+    "layout": "left then right"
+  },
+  "品": {
+    "meaning": "goods",
+    "memory": "Three boxes stacked on a shelf: goods.",
+    "parts": [
+      "mouth (口)",
+      "part ()"
+    ],
+    "layout": "top then bottom"
+  },
+  "死": {
+    "meaning": "death",
+    "memory": "A bone beside a ghost: death.",
+    "parts": [
+      "bones (歹)",
+      "spoon (匕)"
+    ],
+    "layout": "left then right"
+  },
+  "始": {
+    "meaning": "commence",
+    "memory": "She runs off the moment the flag drops: begin.",
+    "parts": [
+      "woman (女)",
+      "stand (台)"
+    ],
+    "layout": "left then right"
+  },
+  "運": {
+    "meaning": "carry",
+    "memory": "A cart rolls down the road: carry.",
+    "parts": [
+      "army (軍)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "終": {
+    "meaning": "end",
+    "memory": "The thread runs out and the flag drops: the end.",
+    "parts": [
+      "thread (糸)",
+      "winter (冬)"
+    ],
+    "layout": "left then right"
+  },
+  "住": {
+    "meaning": "dwell",
+    "memory": "A person is the master of their own house: live, dwell.",
+    "parts": [
+      "person (亻)",
+      "master (主)"
+    ],
+    "layout": "left then right"
+  },
+  "真": {
+    "meaning": "true",
+    "memory": "Under the magnifying glass, it proves true.",
+    "parts": [
+      "ten (十)",
+      "tool (具)"
+    ],
+    "layout": "top then bottom"
+  },
+  "有": {
+    "meaning": "possess",
+    "memory": "A hand holding meat: you have it.",
+    "parts": [
+      "moon (月)"
+    ],
+    "layout": ""
+  },
+  "急": {
+    "meaning": "hurry",
+    "memory": "A hand grabs your heart and pulls you along: hurry!",
+    "parts": [
+      "part ()",
+      "heart (心)"
+    ],
+    "layout": "top then bottom"
+  },
+  "送": {
+    "meaning": "escort",
+    "memory": "A box travels down the road: send.",
+    "parts": [
+      "关 (关)",
+      "road (⻌)"
+    ],
+    "layout": "right then left"
+  },
+  "転": {
+    "meaning": "revolve",
+    "memory": "A cart's wheels roll and turn.",
+    "parts": [
+      "cart (車)",
+      "cloud (云)"
+    ],
+    "layout": "left then right"
+  },
+  "研": {
+    "meaning": "polish",
+    "memory": "A stone grinds the gem until it shines: sharpen, polish.",
+    "parts": [
+      "stone (石)",
+      "even (开)"
+    ],
+    "layout": "left then right"
+  },
+  "究": {
+    "meaning": "research",
+    "memory": "Look inside the box with a magnifying glass: research.",
+    "parts": [
+      "hole (穴)",
+      "nine (九)"
+    ],
+    "layout": "top then bottom"
+  },
+  "起": {
+    "meaning": "rouse",
+    "memory": "The sun's up, so you jump out of bed: wake up.",
+    "parts": [
+      "run (走)",
+      "self (己)"
+    ],
+    "layout": "left then right"
+  },
+  "着": {
+    "meaning": "don",
+    "memory": "Sheep's wool in view: time to wear a warm coat.",
+    "parts": [
+      "part ()",
+      "eye (目)"
+    ],
+    "layout": "top then bottom"
+  },
+  "病": {
+    "meaning": "ill",
+    "memory": "Lying in bed with a fever: sick.",
+    "parts": [
+      "sickness (疒)",
+      "fever (丙)"
+    ],
+    "layout": "left then right"
+  },
+  "待": {
+    "meaning": "wait",
+    "memory": "Stand on the road by the temple and wait.",
+    "parts": [
+      "road (彳)",
+      "temple (寺)"
+    ],
+    "layout": "left then right"
+  },
+  "族": {
+    "meaning": "tribe",
+    "memory": "Everyone gathers under one flag: a family, a tribe.",
+    "parts": [
+      "direction (方)",
+      "part ()"
+    ],
+    "layout": "left then right"
+  },
+  "銀": {
+    "meaning": "silver",
+    "memory": "A pale metal beside the gold: silver.",
+    "parts": [
+      "metal (金)",
+      "stubborn (艮)"
+    ],
+    "layout": "left then right"
+  },
+  "医": {
+    "meaning": "doctor",
+    "memory": "The arrow goes in the box once a doctor has taken it out.",
+    "parts": [
+      "box (匸)",
+      "arrow (矢)"
+    ],
+    "layout": "left then right"
+  },
+  "仕": {
+    "meaning": "attend",
+    "memory": "A person bows to serve their lord: attend, serve.",
+    "parts": [
+      "person (亻)",
+      "samurai (士)"
+    ],
+    "layout": "left then right"
+  },
+  "去": {
+    "meaning": "gone",
+    "memory": "A person runs from the house and leaves it behind: gone.",
+    "parts": [
+      "earth (土)",
+      "private (厶)"
+    ],
+    "layout": "top then bottom"
+  },
+  "味": {
+    "meaning": "flavor",
+    "memory": "Fruit in your mouth: taste, flavour.",
+    "parts": [
+      "mouth (口)",
+      "not yet (未)"
+    ],
+    "layout": "left then right"
+  },
+  "写": {
+    "meaning": "copy",
+    "memory": "A cover over the paper, tracing it line by line: copy.",
+    "parts": [
+      "cover (冖)",
+      "give (与)"
+    ],
+    "layout": "top then bottom"
+  },
+  "注": {
+    "meaning": "pour",
+    "memory": "A drop of water falls into the cup: pour.",
+    "parts": [
+      "water (氵)",
+      "master (主)"
+    ],
+    "layout": "left then right"
+  },
+  "悪": {
+    "meaning": "bad",
+    "memory": "A ghost hiding in a dark heart: bad.",
+    "parts": [
+      "mask (亜)",
+      "heart (心)"
+    ],
+    "layout": "top then bottom"
+  },
+  "館": {
+    "meaning": "building",
+    "memory": "A castle-like building with food inside: a large hall.",
+    "parts": [
+      "food (飠)",
+      "official (官)"
+    ],
+    "layout": "left then right"
+  },
+  "屋": {
+    "meaning": "roof",
+    "memory": "A house with an awning out front: a roof, a shop.",
+    "parts": [
+      "awning (尸)",
+      "arrive (至)"
+    ],
+    "layout": "top then bottom"
+  },
+  "習": {
+    "meaning": "learn",
+    "memory": "A chick spreads its wings again and again, learning to fly.",
+    "parts": [
+      "wings (羽)",
+      "white (白)"
+    ],
+    "layout": "top then bottom"
+  },
+  "駅": {
+    "meaning": "station",
+    "memory": "Riders once changed horses here. Now trains stop here: station.",
+    "parts": [
+      "horse (馬)",
+      "measure (尺)"
+    ],
+    "layout": "left then right"
+  },
+  "洋": {
+    "meaning": "ocean",
+    "memory": "Sheep-white waves across the water: ocean.",
+    "parts": [
+      "water (氵)",
+      "sheep (羊)"
+    ],
+    "layout": "left then right"
+  },
+  "旅": {
+    "meaning": "trip",
+    "memory": "Bag packed, you follow the flag on a trip.",
+    "parts": [
+      "direction (方)",
+      "part ()"
+    ],
+    "layout": "left then right"
+  },
+  "服": {
+    "meaning": "clothing",
+    "memory": "Shirts on a rail, for every body: clothes.",
+    "parts": [
+      "moon (月)",
+      "part ()"
+    ],
+    "layout": "left then right"
+  },
+  "飲": {
+    "meaning": "drink",
+    "memory": "A cup at an open mouth: drink.",
+    "parts": [
+      "food (飠)",
+      "open mouth (欠)"
+    ],
+    "layout": "left then right"
+  },
+  "勉": {
+    "meaning": "exertion",
+    "memory": "Book in hand, you put in real strength: work hard.",
+    "parts": [
+      "excuse (免)",
+      "strength (力)"
+    ],
+    "layout": "left then right"
+  },
+  "漢": {
+    "meaning": "Sino-",
+    "memory": "Water beside a castle: the Han river, which gave China its name.",
+    "parts": [
+      "water (氵)",
+      "part ()"
+    ],
+    "layout": "left then right"
+  },
+  "不": {
+    "meaning": "negative",
+    "memory": "A line blocks the flower from growing up. Not this time.",
+    "parts": [
+      "one (一)",
+      "slash (丿)",
+      "line (丨)"
+    ],
+    "layout": "three components in listed order"
+  },
+  "以": {
+    "meaning": "by means of",
+    "memory": "A person moves the load using a cart: by means of.",
+    "parts": [
+      "part ()",
+      "person (人)"
+    ],
+    "layout": "left then right"
+  },
+  "別": {
+    "meaning": "separate",
+    "memory": "A knife slices between two people: separate.",
+    "parts": [
+      "part ()",
+      "knife (刂)"
+    ],
+    "layout": "left then right"
+  },
+  "特": {
+    "meaning": "special",
+    "memory": "A prize cow at the temple: special.",
+    "parts": [
+      "cow (牛)",
+      "temple (寺)"
+    ],
+    "layout": "left then right"
+  },
+  "料": {
+    "meaning": "fee",
+    "memory": "Rice scooped with a dipper to work out the price: fee.",
+    "parts": [
+      "rice (米)",
+      "dipper (斗)"
+    ],
+    "layout": "left then right"
+  },
+  "建": {
+    "meaning": "build",
+    "memory": "A worker carries bricks up to the tower: build.",
+    "parts": [
+      "brush (聿)",
+      "long stride (廴)"
+    ],
+    "layout": "right then left"
+  },
+  "試": {
+    "meaning": "test",
+    "memory": "Words on a paper, under pressure: a test.",
+    "parts": [
+      "words (言)",
+      "ceremony (式)"
+    ],
+    "layout": "left then right"
+  },
+  "験": {
+    "meaning": "verification",
+    "memory": "A horse is timed against the clock: test, verify.",
+    "parts": [
+      "horse (馬)",
+      "㑒 (㑒)"
+    ],
+    "layout": "left then right"
+  },
+  "英": {
+    "meaning": "England",
+    "memory": "A crowned hero rises from the grass: excellent. And, by sound, England.",
+    "parts": [
+      "grass (艹)",
+      "centre (央)"
+    ],
+    "layout": "top then bottom"
+  },
+  "借": {
+    "meaning": "borrow",
+    "memory": "A person holds a book that belongs to someone else: borrow.",
+    "parts": [
+      "person (亻)",
+      "long ago (昔)"
+    ],
+    "layout": "left then right"
+  },
+  "堂": {
+    "meaning": "public chamber",
+    "memory": "A temple on a raised platform of earth: a grand hall.",
+    "parts": [
+      "esteem (尚)",
+      "earth (土)"
+    ],
+    "layout": "top then bottom"
+  },
+  "飯": {
+    "meaning": "meal",
+    "memory": "A hand reaches for the bowl of rice: a meal.",
+    "parts": [
+      "food (飠)",
+      "against (反)"
+    ],
+    "layout": "left then right"
+  },
+  "質": {
+    "meaning": "substance",
+    "memory": "Axes test the shell to see how good it is: quality.",
+    "parts": [
+      "part ()",
+      "shell (貝)"
+    ],
+    "layout": "top then bottom"
+  },
+  "貸": {
+    "meaning": "lend",
+    "memory": "Hand over a book, and a shell comes back later: lend.",
+    "parts": [
+      "substitute (代)",
+      "shell (貝)"
+    ],
+    "layout": "top then bottom"
+  },
+  "私": {
+    "meaning": "private",
+    "memory": "This grain is mine, close to my heart: I, private.",
+    "parts": [
+      "grain (禾)",
+      "private (厶)"
+    ],
+    "layout": "left then right"
+  },
+  "映": {
+    "meaning": "reflect",
+    "memory": "The sun sits above the water and its light is reflected.",
+    "parts": [
+      "sun (日)",
+      "centre (央)"
+    ],
+    "layout": "left then right"
+  }
+}
