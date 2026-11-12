@@ -3,8 +3,8 @@
     "meaning": "stand up",
     "memory": "A person with feet planted on the ground: stand.",
     "parts": [
-      "lid (亠)",
-      "part ()"
+      "top mark and cap",
+      "standing person on ground"
     ],
     "layout": "top then bottom"
   },
@@ -112,7 +112,7 @@
   },
   "花": {
     "meaning": "flower",
-    "memory": "Grass changes into a flower.",
+    "memory": "A grassy top becomes the roof of the scene; beneath it, a standing figure changes into a flower.",
     "parts": [
       "grass (艹)",
       "change (化)"
@@ -123,8 +123,8 @@
     "meaning": "red",
     "memory": "A person glows beside the fire: red.",
     "parts": [
-      "earth (土)",
-      "part ()"
+      "soil or upper cross",
+      "flames below"
     ],
     "layout": "top then bottom"
   },
@@ -150,7 +150,7 @@
       "big (大)",
       "dot (丶)"
     ],
-    "layout": "bottom then top"
+    "layout": "large person-like body with one small ear dot at upper right"
   },
   "会": {
     "meaning": "meeting",
@@ -169,7 +169,7 @@
       "one (一)",
       "mouth (口)"
     ],
-    "layout": "three components in listed order"
+    "layout": "outer frame surrounds one line above a mouth"
   },
   "自": {
     "meaning": "oneself",
@@ -201,8 +201,8 @@
     "meaning": "direction",
     "memory": "A sign points the way: direction.",
     "parts": [
-      "lid (亠)",
-      "part ()"
+      "top cap",
+      "bent directional stroke"
     ],
     "layout": "top then bottom"
   },
@@ -210,8 +210,8 @@
     "meaning": "new",
     "memory": "An axe bites into a tree, showing fresh wood: new.",
     "parts": [
-      "part ()",
-      "axe (斤)"
+      "standing tree or wood",
+      "axe"
     ],
     "layout": "left then right"
   },
@@ -237,8 +237,8 @@
     "meaning": "capital",
     "memory": "A grand castle rises over the city: the capital.",
     "parts": [
-      "lid (亠)",
-      "part ()"
+      "top roof",
+      "tall capital tower"
     ],
     "layout": "top then bottom"
   },
@@ -249,7 +249,7 @@
       "path (甬)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "main symbol above/right; road stroke wraps around lower left"
   },
   "言": {
     "meaning": "say",
@@ -296,8 +296,8 @@
     "meaning": "strong",
     "memory": "A tiny bug pulls a giant bow: strong.",
     "parts": [
-      "bow (弓)",
-      "part ()"
+      "bow",
+      "insect"
     ],
     "layout": "left then right"
   },
@@ -377,7 +377,7 @@
       "axe (斤)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "axe above/right; road stroke wraps around lower left"
   },
   "考": {
     "meaning": "consider",
@@ -396,7 +396,7 @@
       "reason (由)",
       "open box (凵)"
     ],
-    "layout": "three components in listed order"
+    "layout": "top line over picture or field, with an open box below and around it"
   },
   "海": {
     "meaning": "sea",
@@ -411,8 +411,8 @@
     "meaning": "sell",
     "memory": "A samurai stands at the shop with goods to sell.",
     "parts": [
-      "samurai (士)",
-      "part ()"
+      "samurai-like top mark",
+      "covered stall and legs"
     ],
     "layout": "top then bottom"
   },
@@ -432,7 +432,7 @@
       "head (首)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "head or walking figure above/right; road stroke wraps around lower left"
   },
   "計": {
     "meaning": "plot",
@@ -506,8 +506,8 @@
     "meaning": "music",
     "memory": "Notes and bells ringing out: music, fun.",
     "parts": [
-      "part ()",
-      "tree (木)"
+      "music or white upper cluster",
+      "tree"
     ],
     "layout": "top then bottom"
   },
@@ -524,8 +524,8 @@
     "meaning": "parent",
     "memory": "A parent climbs a tree to watch for the kids coming home.",
     "parts": [
-      "part ()",
-      "see (見)"
+      "standing tree",
+      "eye"
     ],
     "layout": "left then right"
   },
@@ -542,8 +542,8 @@
     "meaning": "night",
     "memory": "The moon rises above the roof while everyone sleeps: night.",
     "parts": [
-      "lid (亠)",
-      "part ()"
+      "top roof",
+      "person and evening crescent"
     ],
     "layout": "top then bottom"
   },
@@ -569,8 +569,8 @@
     "meaning": "song",
     "memory": "An open mouth at a microphone: a song.",
     "parts": [
-      "part ()",
-      "open mouth (欠)"
+      "repeated mouths or song notes",
+      "open mouth"
     ],
     "layout": "left then right"
   },
@@ -591,7 +591,7 @@
       "⺍ (⺍)",
       "cross (乂)"
     ],
-    "layout": "three components in listed order"
+    "layout": "outer square enclosure contains two crossing inner marks"
   },
   "週": {
     "meaning": "week",
@@ -600,7 +600,7 @@
       "around (周)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "calendar-like block above/right; road stroke wraps around lower left"
   },
   "室": {
     "meaning": "room",
@@ -624,8 +624,8 @@
     "meaning": "wind",
     "memory": "A bug tumbles along, swept by the wind.",
     "parts": [
-      "table (几)",
-      "part ()"
+      "outer wind frame",
+      "insect"
     ],
     "layout": "top then bottom"
   },
@@ -687,8 +687,8 @@
     "meaning": "summer",
     "memory": "You drag your feet under the blazing sun: summer.",
     "parts": [
-      "part ()",
-      "slow feet (夂)"
+      "head and eye",
+      "walking feet"
     ],
     "layout": "top then bottom"
   },
@@ -737,8 +737,8 @@
     "meaning": "tea",
     "memory": "Leaves from a green plant, steeped in a cup: tea.",
     "parts": [
-      "grass (艹)",
-      "part ()"
+      "grass",
+      "tea leaves and wood"
     ],
     "layout": "top then bottom"
   },
@@ -746,8 +746,8 @@
     "meaning": "younger brother",
     "memory": "Lined up by height, the shortest comes last: little brother.",
     "parts": [
-      "eight (八)",
-      "part ()"
+      "two upper marks",
+      "bent bow and lower stroke"
     ],
     "layout": "top then bottom"
   },
@@ -761,8 +761,8 @@
     "meaning": "fish",
     "memory": "A fish: head, scaly body, and four dots for a tail.",
     "parts": [
-      "𠂊 (𠂊)",
-      "part ()"
+      "fish head",
+      "body and tail"
     ],
     "layout": "top then bottom"
   },
@@ -801,14 +801,14 @@
       "hand (⺕)",
       "hook (亅)"
     ],
-    "layout": "three components in listed order"
+    "layout": "top mouth or flag, central gripping hand, descending lower hook"
   },
   "発": {
     "meaning": "departure",
     "memory": "The arrow leaves the bow: depart.",
     "parts": [
-      "footsteps (癶)",
-      "part ()"
+      "two stepping feet",
+      "bow or launch below"
     ],
     "layout": "top then bottom"
   },
@@ -825,8 +825,8 @@
     "meaning": "business",
     "memory": "A worker's chart on the wall: business.",
     "parts": [
-      "业 (业)",
-      "part ()"
+      "upper branching strokes",
+      "lower wood-like base"
     ],
     "layout": "top then bottom"
   },
@@ -906,8 +906,8 @@
     "meaning": "degrees",
     "memory": "A hand reads the thermometer: degrees.",
     "parts": [
-      "awning (广)",
-      "part ()"
+      "wide awning",
+      "hand below"
     ],
     "layout": "top then bottom"
   },
@@ -995,8 +995,8 @@
     "meaning": "goods",
     "memory": "Three boxes stacked on a shelf: goods.",
     "parts": [
-      "mouth (口)",
-      "part ()"
+      "one upper mouth-box",
+      "two lower mouth-boxes"
     ],
     "layout": "top then bottom"
   },
@@ -1025,7 +1025,7 @@
       "army (軍)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "cart above/right; road stroke wraps around lower left"
   },
   "終": {
     "meaning": "end",
@@ -1066,8 +1066,8 @@
     "meaning": "hurry",
     "memory": "A hand grabs your heart and pulls you along: hurry!",
     "parts": [
-      "part ()",
-      "heart (心)"
+      "grasping hand above",
+      "heart"
     ],
     "layout": "top then bottom"
   },
@@ -1078,7 +1078,7 @@
       "关 (关)",
       "road (⻌)"
     ],
-    "layout": "right then left"
+    "layout": "sent object above/right; road stroke wraps around lower left"
   },
   "転": {
     "meaning": "revolve",
@@ -1120,8 +1120,8 @@
     "meaning": "don",
     "memory": "Sheep's wool in view: time to wear a warm coat.",
     "parts": [
-      "part ()",
-      "eye (目)"
+      "wool or sheep-like upper part",
+      "eye"
     ],
     "layout": "top then bottom"
   },
@@ -1147,8 +1147,8 @@
     "meaning": "tribe",
     "memory": "Everyone gathers under one flag: a family, a tribe.",
     "parts": [
-      "direction (方)",
-      "part ()"
+      "flag",
+      "person with arrow"
     ],
     "layout": "left then right"
   },
@@ -1273,8 +1273,8 @@
     "meaning": "trip",
     "memory": "Bag packed, you follow the flag on a trip.",
     "parts": [
-      "direction (方)",
-      "part ()"
+      "flag",
+      "traveler"
     ],
     "layout": "left then right"
   },
@@ -1282,8 +1282,8 @@
     "meaning": "clothing",
     "memory": "Shirts on a rail, for every body: clothes.",
     "parts": [
-      "moon (月)",
-      "part ()"
+      "body or cloth at left",
+      "hand and bent figure at right"
     ],
     "layout": "left then right"
   },
@@ -1309,8 +1309,8 @@
     "meaning": "Sino-",
     "memory": "Water beside a castle: the Han river, which gave China its name.",
     "parts": [
-      "water (氵)",
-      "part ()"
+      "water",
+      "dense right-side riverbank form"
     ],
     "layout": "left then right"
   },
@@ -1322,14 +1322,14 @@
       "slash (丿)",
       "line (丨)"
     ],
-    "layout": "three components in listed order"
+    "layout": "one upper line, a slanted branch, and a central descending line"
   },
   "以": {
     "meaning": "by means of",
     "memory": "A person moves the load using a cart: by means of.",
     "parts": [
-      "part ()",
-      "person (人)"
+      "curved tool or load",
+      "person"
     ],
     "layout": "left then right"
   },
@@ -1337,8 +1337,8 @@
     "meaning": "separate",
     "memory": "A knife slices between two people: separate.",
     "parts": [
-      "part ()",
-      "knife (刂)"
+      "separated left object",
+      "knife"
     ],
     "layout": "left then right"
   },
@@ -1367,7 +1367,7 @@
       "brush (聿)",
       "long stride (廴)"
     ],
-    "layout": "right then left"
+    "layout": "upright building/brush above/right; long stride stroke wraps around lower left"
   },
   "試": {
     "meaning": "test",
@@ -1427,8 +1427,8 @@
     "meaning": "substance",
     "memory": "Axes test the shell to see how good it is: quality.",
     "parts": [
-      "part ()",
-      "shell (貝)"
+      "two axes",
+      "shell"
     ],
     "layout": "top then bottom"
   },
