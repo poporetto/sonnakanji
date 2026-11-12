@@ -6,31 +6,36 @@
       "top mark and cap",
       "standing person on ground"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One full standing child forms the center: small head at top, wide arms across, both feet planted on a single ground line."
   },
   "手": {
     "meaning": "hand",
     "memory": "An open hand, fingers spread across the wrist.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One giant open hand with five visible fingers and a narrow wrist, with the fingers forming the upper branches."
   },
   "力": {
     "meaning": "power",
     "memory": "An arm bent to show its muscle: power.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One visibly bent muscular arm curves from a short top bar into a long descending hook."
   },
   "目": {
     "meaning": "eye",
     "memory": "An eye turned on its side, the pupil in the middle.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One large rectangular eye turned upright, with a central pupil and two internal horizontal bands."
   },
   "田": {
     "meaning": "rice field",
     "memory": "A rice field cut into four neat plots.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One square rice field split by exactly one vertical and one horizontal path into four planted plots."
   },
   "正": {
     "meaning": "correct",
@@ -39,7 +44,8 @@
       "one (一)",
       "stop (止)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One foot is planted exactly against a long straight line, with one short upright marker at the contact point."
   },
   "文": {
     "meaning": "sentence",
@@ -48,13 +54,15 @@
       "lid (亠)",
       "cross (乂)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One person spreads the arms and legs beneath two upper marks while a patterned mark sits on the chest."
   },
   "口": {
     "meaning": "mouth",
     "memory": "A wide open mouth, drawn square.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One enormous rounded-square open mouth, with small teeth and tongue inside."
   },
   "町": {
     "meaning": "town",
@@ -63,7 +71,8 @@
       "field (田)",
       "nail (丁)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A four-plot field fills the left; a straight road and a small town appear on the right."
   },
   "空": {
     "meaning": "empty",
@@ -72,7 +81,8 @@
       "hole (穴)",
       "craft (工)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A roof-shaped cloud reveals one hole above; a compact craft-like platform sits below."
   },
   "足": {
     "meaning": "leg",
@@ -81,7 +91,8 @@
       "mouth (口)",
       "foot (龰)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "An open knee-like bend sits above one long leg ending in a clear foot; keep upper box and lower walking foot stacked. No solid red kanji glyph."
   },
   "早": {
     "meaning": "early",
@@ -90,7 +101,8 @@
       "sun (日)",
       "ten (十)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A square morning sun sits above a tiny vertical sprout crossing the ground line; upper sun and lower cross remain distinct."
   },
   "字": {
     "meaning": "character",
@@ -99,7 +111,8 @@
       "roof (宀)",
       "child (子)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A curved roof sits over one small child carefully drawing a blank page; roof above child."
   },
   "音": {
     "meaning": "sound",
@@ -108,7 +121,8 @@
       "stand (立)",
       "sun (日)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A bell with a broad cap and two lower chimes sits above a sun-shaped circular resonance chamber; stack the two parts."
   },
   "花": {
     "meaning": "flower",
@@ -117,7 +131,8 @@
       "grass (艹)",
       "change (化)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A grassy strip spans the top; below it a standing figure on the left transforms or reaches toward a flower on the right."
   },
   "赤": {
     "meaning": "red",
@@ -126,7 +141,8 @@
       "soil or upper cross",
       "flames below"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A person or soil cross glows above three separate flames below; top and bottom stack vertically."
   },
   "青": {
     "meaning": "blue",
@@ -135,13 +151,15 @@
       "growth (龶)",
       "moon (月)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Fresh green shoots rise on top while a cool blue crescent rests below them."
   },
   "夕": {
     "meaning": "evening",
     "memory": "A sliver of moon comes out as the day ends: evening.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One slender crescent with a single diagonal highlight and short inner mark; the evening moon is the whole silhouette."
   },
   "犬": {
     "meaning": "dog",
@@ -150,7 +168,8 @@
       "big (大)",
       "dot (丶)"
     ],
-    "layout": "large person-like body with one small ear dot at upper right"
+    "layout": "large person-like body with one small ear dot at upper right",
+    "visual": "A four-limbed dog stretches into a big-person shape, with one small dot-like ear at the upper right."
   },
   "会": {
     "meaning": "meeting",
@@ -159,7 +178,8 @@
       "person (人)",
       "cloud (云)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A person-shaped roof shelters a little cloud of voices; narrow top over wide lower cloud."
   },
   "同": {
     "meaning": "same",
@@ -169,7 +189,8 @@
       "one (一)",
       "mouth (口)"
     ],
-    "layout": "outer frame surrounds one line above a mouth"
+    "layout": "outer frame surrounds one line above a mouth",
+    "visual": "One protective outer frame surrounds a small mouth and one line inside it; two matching voices agree."
   },
   "自": {
     "meaning": "oneself",
@@ -177,7 +198,8 @@
     "parts": [
       "eye (目)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "A large nose seen close up with two nostrils and a bridge; keep a tall eye-like outline with internal horizontal bands."
   },
   "社": {
     "meaning": "company",
@@ -186,7 +208,8 @@
       "altar (礻)",
       "earth (土)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A little shrine altar stands on the left and a firm mound of soil stands on the right, clearly separate."
   },
   "地": {
     "meaning": "ground",
@@ -195,7 +218,8 @@
       "earth (土)",
       "snake (也)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Dark soil and sprout on the left; a winding, snake-like path curves to the right."
   },
   "方": {
     "meaning": "direction",
@@ -204,7 +228,8 @@
       "top cap",
       "bent directional stroke"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A short cap at the top and one long bent directional arrow or path below it."
   },
   "新": {
     "meaning": "new",
@@ -213,7 +238,8 @@
       "standing tree or wood",
       "axe"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A young tree occupies the left; one sturdy axe to the right exposes fresh light wood."
   },
   "場": {
     "meaning": "location",
@@ -222,7 +248,8 @@
       "earth (土)",
       "rising sun (昜)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A mound of ground sits on the left; a large rising sun and open field occupy the right."
   },
   "明": {
     "meaning": "bright",
@@ -231,7 +258,8 @@
       "sun (日)",
       "moon (月)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A bright square sun on the left and a slim crescent moon on the right, equally prominent."
   },
   "京": {
     "meaning": "capital",
@@ -240,7 +268,8 @@
       "top roof",
       "tall capital tower"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A tall capital tower with a small roof, central window, and two wide lower legs; the tower itself traces the shape."
   },
   "通": {
     "meaning": "traffic",
@@ -249,7 +278,8 @@
       "path (甬)",
       "road (⻌)"
     ],
-    "layout": "main symbol above/right; road stroke wraps around lower left"
+    "layout": "main symbol above/right; road stroke wraps around lower left",
+    "visual": "A long curved road wraps around the lower left of a central upright walkway on the right; child passes through."
   },
   "言": {
     "meaning": "say",
@@ -257,7 +287,8 @@
     "parts": [
       "mouth (口)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "Several stacked speech lines rise above one clear square mouth at the bottom."
   },
   "理": {
     "meaning": "logic",
@@ -266,7 +297,8 @@
       "king (王)",
       "village (里)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A polished jade stone on the left reveals orderly layered grain in a stone or village shape on the right."
   },
   "体": {
     "meaning": "body",
@@ -275,7 +307,8 @@
       "person (亻)",
       "root (本)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A standing person on the left, a tree with a marked trunk-root on the right; both form one body silhouette."
   },
   "作": {
     "meaning": "make",
@@ -284,13 +317,15 @@
       "person (亻)",
       "sudden (乍)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A maker stands on the left; a compact stack of tools or cut wood on the right."
   },
   "用": {
     "meaning": "utilize",
     "memory": "A sturdy frame, ready to be put to use.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "A sturdy upright rectangular frame with one central vertical divider and two crossbars, as an object ready for use."
   },
   "強": {
     "meaning": "strong",
@@ -299,7 +334,8 @@
       "bow",
       "insect"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A huge curved bow fills the left; a tiny determined insect pulls it from the right."
   },
   "公": {
     "meaning": "public",
@@ -308,7 +344,8 @@
       "eight (八)",
       "private (厶)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two diverging arms or paths rise at top over a small central private parcel below, now opened to everyone."
   },
   "野": {
     "meaning": "plains",
@@ -317,7 +354,8 @@
       "village (里)",
       "give (予)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A square field or village edge on the left opens into grassy plains on the right."
   },
   "思": {
     "meaning": "think",
@@ -326,7 +364,8 @@
       "field (田)",
       "heart (心)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A square field of little thought bubbles sits above one warm heart below."
   },
   "家": {
     "meaning": "house",
@@ -335,7 +374,8 @@
       "roof (宀)",
       "pig (豕)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A broad roof shelters a friendly pig beneath it; roof and pig form one compact house."
   },
   "多": {
     "meaning": "many",
@@ -344,13 +384,15 @@
       "evening (夕)",
       "evening (夕)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two crescent-shaped pieces stack one above the other, multiplied into many."
   },
   "心": {
     "meaning": "heart",
     "memory": "A heart with drops of feeling around it.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "A rounded heart with one central low curve and three small emotion drops around it."
   },
   "教": {
     "meaning": "teach",
@@ -359,7 +401,8 @@
       "devotion (孝)",
       "strike (攵)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A seated child listens on the left; an older teacher points from the right."
   },
   "元": {
     "meaning": "beginning",
@@ -368,7 +411,8 @@
       "two (二)",
       "legs (儿)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A head sits above a broad horizontal shoulder line and two spreading legs, the beginning of a person."
   },
   "近": {
     "meaning": "near",
@@ -377,7 +421,8 @@
       "axe (斤)",
       "road (⻌)"
     ],
-    "layout": "axe above/right; road stroke wraps around lower left"
+    "layout": "axe above/right; road stroke wraps around lower left",
+    "visual": "A small axe stands above and to the right while a curved road wraps around its lower left, putting it nearby."
   },
   "考": {
     "meaning": "consider",
@@ -386,7 +431,8 @@
       "old (耂)",
       "cane (丂)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "An elderly figure with a high hair tuft and a cane below leans forward to think."
   },
   "画": {
     "meaning": "brush-stroke",
@@ -396,7 +442,8 @@
       "reason (由)",
       "open box (凵)"
     ],
-    "layout": "top line over picture or field, with an open box below and around it"
+    "layout": "top line over picture or field, with an open box below and around it",
+    "visual": "One long top line caps a framed picture, with the picture resting inside an open-bottom box."
   },
   "海": {
     "meaning": "sea",
@@ -405,7 +452,8 @@
       "water (氵)",
       "every (毎)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Water drops stream vertically on the left; the wide sea and a fish fill the right."
   },
   "売": {
     "meaning": "sell",
@@ -414,7 +462,8 @@
       "samurai-like top mark",
       "covered stall and legs"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A covered market stall and a vendor stand above two small leg-like supports; goods are for sale."
   },
   "知": {
     "meaning": "know",
@@ -423,7 +472,8 @@
       "arrow (矢)",
       "mouth (口)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A pointed arrow occupies the left; a speaking mouth occupies the right."
   },
   "道": {
     "meaning": "road-way",
@@ -432,7 +482,8 @@
       "head (首)",
       "road (⻌)"
     ],
-    "layout": "head or walking figure above/right; road stroke wraps around lower left"
+    "layout": "head or walking figure above/right; road stroke wraps around lower left",
+    "visual": "A head or walking figure occupies the upper right, while a road loops around its lower left."
   },
   "計": {
     "meaning": "plot",
@@ -441,7 +492,8 @@
       "words (言)",
       "ten (十)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Speech lines on the left count one cross-shaped tally on the right."
   },
   "朝": {
     "meaning": "morning",
@@ -450,7 +502,8 @@
       "sunrise (𠦝)",
       "moon (月)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A sunrise and plants fill the left while a pale moon lingers on the right."
   },
   "台": {
     "meaning": "pedestal",
@@ -459,7 +512,8 @@
       "private (厶)",
       "mouth (口)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A small triangular nose-like support sits above one clear mouth-shaped opening."
   },
   "広": {
     "meaning": "wide",
@@ -468,7 +522,8 @@
       "awning (广)",
       "private (厶)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A huge protective roof covers a figure spreading both arms widely beneath."
   },
   "少": {
     "meaning": "few",
@@ -477,13 +532,15 @@
       "small (小)",
       "slash (丿)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A little central stroke with two dots above, then one long slashing stroke below removes a bit more."
   },
   "工": {
     "meaning": "craft",
     "memory": "A carpenter's ruler, straight lines top and bottom: craft.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "A simple carpenter's tool with two parallel horizontal rails connected by one centered vertical support."
   },
   "止": {
     "meaning": "stop",
@@ -491,7 +548,8 @@
     "parts": [
       "divining rod (卜)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "A planted foot with short toes spreading from one central upright leg stops on a baseline."
   },
   "切": {
     "meaning": "cut",
@@ -500,7 +558,8 @@
       "seven (七)",
       "knife (刀)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A round apple sits to the left; one vertical knife slices down on the right."
   },
   "楽": {
     "meaning": "music",
@@ -509,7 +568,8 @@
       "music or white upper cluster",
       "tree"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A cluster of cheerful bells or notes sits above one broad tree trunk and roots, like music growing from wood."
   },
   "店": {
     "meaning": "store",
@@ -518,7 +578,8 @@
       "awning (广)",
       "fortune-teller (占)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A broad awning or roof covers one compact shop stall with a small sign-like panel below."
   },
   "親": {
     "meaning": "parent",
@@ -527,7 +588,8 @@
       "standing tree",
       "eye"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A tall family tree or parent stands on the left, an attentive eye watches on the right."
   },
   "答": {
     "meaning": "solution",
@@ -536,7 +598,8 @@
       "bamboo (竹)",
       "fit (合)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A bamboo-like tuft rests on top; below, two people or speech bubbles meet in one answer."
   },
   "夜": {
     "meaning": "night",
@@ -545,7 +608,8 @@
       "top roof",
       "person and evening crescent"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A roof or starry canopy hangs above a small sleeping person and crescent moon."
   },
   "帰": {
     "meaning": "homecoming",
@@ -554,7 +618,8 @@
       "knife (刂)",
       "broom (帚)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A returning traveler and broom occupy the left; a home gate and roof sit on the right."
   },
   "古": {
     "meaning": "old",
@@ -563,7 +628,8 @@
       "ten (十)",
       "mouth (口)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A single old cross or ten-mark sits above a mouth telling an old story."
   },
   "歌": {
     "meaning": "song",
@@ -572,7 +638,8 @@
       "repeated mouths or song notes",
       "open mouth"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Two small singing mouths or notes stack on the left; one large open mouth answers on the right."
   },
   "買": {
     "meaning": "buy",
@@ -581,7 +648,8 @@
       "net (罒)",
       "shell (貝)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A net or shopping bag spans the upper half; precious shell coins sit beneath it."
   },
   "図": {
     "meaning": "map",
@@ -591,7 +659,8 @@
       "⺍ (⺍)",
       "cross (乂)"
     ],
-    "layout": "outer square enclosure contains two crossing inner marks"
+    "layout": "outer square enclosure contains two crossing inner marks",
+    "visual": "A clear square border encloses a folded map with two intersecting route lines."
   },
   "週": {
     "meaning": "week",
@@ -600,7 +669,8 @@
       "around (周)",
       "road (⻌)"
     ],
-    "layout": "calendar-like block above/right; road stroke wraps around lower left"
+    "layout": "calendar-like block above/right; road stroke wraps around lower left",
+    "visual": "A curved road loops around the lower left of an upright calendar block on the right."
   },
   "室": {
     "meaning": "room",
@@ -609,7 +679,8 @@
       "roof (宀)",
       "arrive (至)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A wide roof encloses a tiny bed or room at the bottom, leaving a clear vertical space between them."
   },
   "歩": {
     "meaning": "walk",
@@ -618,7 +689,8 @@
       "stop (止)",
       "few (少)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One planted foot appears above a second, smaller step below, producing a walking trail."
   },
   "風": {
     "meaning": "wind",
@@ -627,7 +699,8 @@
       "outer wind frame",
       "insect"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A huge curling wind-shaped outer frame encloses a tiny tumbling bug or leaf."
   },
   "紙": {
     "meaning": "paper",
@@ -636,7 +709,8 @@
       "thread (糸)",
       "clan (氏)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Several visible threads run down the left; a light unmarked paper sheet occupies the right."
   },
   "黒": {
     "meaning": "black",
@@ -645,7 +719,8 @@
       "village (里)",
       "灬 (灬)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A soot-blackened pot or block stands above four small fire flickers."
   },
   "春": {
     "meaning": "springtime",
@@ -654,7 +729,8 @@
       "𡗗 (𡗗)",
       "sun (日)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Three flowering branches rise at the top while a warm round sun sits below them."
   },
   "色": {
     "meaning": "color",
@@ -663,7 +739,8 @@
       "𠂊 (𠂊)",
       "snake (巴)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two interacting figures or a curled ribbon create the bent upper and lower forms; vivid color is the memory cue."
   },
   "走": {
     "meaning": "run",
@@ -672,7 +749,8 @@
       "earth (土)",
       "foot (龰)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A runner's upright upper body sits above a large forward-striding foot."
   },
   "秋": {
     "meaning": "autumn",
@@ -681,7 +759,8 @@
       "grain (禾)",
       "fire (火)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Ripe grain stalks fill the left half; a warm harvest fire fills the right."
   },
   "夏": {
     "meaning": "summer",
@@ -690,7 +769,8 @@
       "head and eye",
       "walking feet"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A large hot sun or head sits high, while two slow dragging feet form the lower half."
   },
   "曜": {
     "meaning": "weekday",
@@ -699,13 +779,15 @@
       "sun (日)",
       "pheasant (翟)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A square sun sits on the left; a bright feathered bird or sparkling wings occupy the right."
   },
   "肉": {
     "meaning": "meat",
     "memory": "Ribs inside a slice of meat.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "One rounded slice of meat encloses two lighter curved rib-like lines."
   },
   "鳥": {
     "meaning": "bird",
@@ -713,7 +795,8 @@
     "parts": [
       "灬 (灬)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "One complete bird with a head and beak above, broad body and tail through the center, and four small toes below."
   },
   "冬": {
     "meaning": "winter",
@@ -722,7 +805,8 @@
       "slow feet (夂)",
       "ice (冫)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two trudging feet sit at top; two snowflake or chill dots fall below."
   },
   "昼": {
     "meaning": "daytime",
@@ -731,7 +815,8 @@
       "measure (尺)",
       "dawn (旦)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A tall measuring shade or doorway stands above a warm square sun below."
   },
   "茶": {
     "meaning": "tea",
@@ -740,7 +825,8 @@
       "grass",
       "tea leaves and wood"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A strip of tea leaves spans the top; a cup and small wooden stem sit below."
   },
   "弟": {
     "meaning": "younger brother",
@@ -749,13 +835,15 @@
       "two upper marks",
       "bent bow and lower stroke"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A shorter child stands beneath two upper marks, wrapped by a broad bow-like ribbon."
   },
   "牛": {
     "meaning": "cow",
     "memory": "A cow's head from the front, with horns: cow.",
     "parts": [],
-    "layout": ""
+    "layout": "",
+    "visual": "A cow head viewed from the front: two horns at top, a vertical face, and one broad horizontal muzzle line."
   },
   "魚": {
     "meaning": "fish",
@@ -764,7 +852,8 @@
       "fish head",
       "body and tail"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A fish head sits high, body in the center, and four little tail flickers below."
   },
   "兄": {
     "meaning": "elder brother",
@@ -773,7 +862,8 @@
       "mouth (口)",
       "legs (儿)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One large speaking mouth occupies the top; a taller brother's two legs spread below."
   },
   "妹": {
     "meaning": "younger sister",
@@ -782,7 +872,8 @@
       "woman (女)",
       "not yet (未)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A young woman on the left holds a small not-yet-open flower branch on the right."
   },
   "姉": {
     "meaning": "elder sister",
@@ -791,7 +882,8 @@
       "woman (女)",
       "market (市)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A grown woman stands at left, with a compact market or shop symbol at right."
   },
   "事": {
     "meaning": "matter",
@@ -801,7 +893,8 @@
       "hand (⺕)",
       "hook (亅)"
     ],
-    "layout": "top mouth or flag, central gripping hand, descending lower hook"
+    "layout": "top mouth or flag, central gripping hand, descending lower hook",
+    "visual": "A raised flag or mouth sits at top, a gripping hand across center, and a hooked pole descends below."
   },
   "発": {
     "meaning": "departure",
@@ -810,7 +903,8 @@
       "two stepping feet",
       "bow or launch below"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two little feet spring from the top while a bent bow or launch mechanism propels an arrow below."
   },
   "者": {
     "meaning": "someone",
@@ -819,7 +913,8 @@
       "old (耂)",
       "sun (日)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "An older person with a high hat fills the upper half and a warm sun-like disc fills the lower half."
   },
   "業": {
     "meaning": "business",
@@ -828,7 +923,8 @@
       "upper branching strokes",
       "lower wood-like base"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A branching crown of tools rises at top above a sturdy wooden workbench or base."
   },
   "員": {
     "meaning": "employee",
@@ -837,7 +933,8 @@
       "mouth (口)",
       "shell (貝)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "An open mouth sits at top over a big shell-shaped coin below."
   },
   "開": {
     "meaning": "open",
@@ -846,7 +943,8 @@
       "gate (門)",
       "even (开)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two tall gate doors stand on the outside while two hands push them open from the center."
   },
   "問": {
     "meaning": "question",
@@ -855,7 +953,8 @@
       "gate (門)",
       "mouth (口)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A small speaking mouth appears inside two tall closed gate doors."
   },
   "代": {
     "meaning": "substitute",
@@ -864,7 +963,8 @@
       "person (亻)",
       "stake (弋)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "One person on the left hands a position or baton to a successor on the right."
   },
   "動": {
     "meaning": "move",
@@ -873,7 +973,8 @@
       "heavy (重)",
       "strength (力)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A heavy layered object occupies the left while a strong bent arm pushes from the right."
   },
   "主": {
     "meaning": "lord",
@@ -882,7 +983,8 @@
       "lid (亠)",
       "king (王)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One small lamp flame sits at the very top of a sturdy central pillar and broad base."
   },
   "題": {
     "meaning": "topic",
@@ -891,7 +993,8 @@
       "correct (是)",
       "head (頁)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A puzzle or question-shaped panel sits left of a large thinking head on the right."
   },
   "意": {
     "meaning": "idea",
@@ -900,7 +1003,8 @@
       "sound (音)",
       "heart (心)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Musical sound or ringing lines sit directly above a warm heart, making an idea felt inside."
   },
   "度": {
     "meaning": "degrees",
@@ -909,7 +1013,8 @@
       "wide awning",
       "hand below"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A broad awning spans the top while a careful hand measures an object below."
   },
   "持": {
     "meaning": "hold",
@@ -918,7 +1023,8 @@
       "hand (扌)",
       "temple (寺)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A gripping hand on the left holds an offering beside a small temple on the right."
   },
   "世": {
     "meaning": "generation",
@@ -926,7 +1032,8 @@
     "parts": [
       "twenty (廿)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "Three vertical generation markers are linked together by one horizontal bar."
   },
   "安": {
     "meaning": "relax",
@@ -935,7 +1042,8 @@
       "roof (宀)",
       "woman (女)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A broad safe roof shelters a seated woman below."
   },
   "院": {
     "meaning": "Inst.",
@@ -944,16 +1052,18 @@
       "hill (⻖)",
       "complete (完)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A sloping hill line fills the left; a complete group of roofed buildings fills the right."
   },
   "界": {
     "meaning": "world",
-    "memory": "A flag between two fields marks the boundary of your world.",
+    "memory": "Two people meet beneath a divided field and mark the boundary between their worlds.",
     "parts": [
       "field (田)",
       "between (介)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A four-plot field fills the upper half. Below it, two figures face one another across a boundary, matching 田 above 介."
   },
   "重": {
     "meaning": "heavy",
@@ -962,7 +1072,8 @@
       "thousand (千)",
       "village (里)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Several heavy slabs stack on one upright central pole, weighing down a small person."
   },
   "集": {
     "meaning": "gather",
@@ -971,7 +1082,8 @@
       "bird (隹)",
       "tree (木)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Several small birds gather high on the branches of one tree below."
   },
   "物": {
     "meaning": "thing",
@@ -980,7 +1092,8 @@
       "cow (牛)",
       "flag (勿)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A cow stands at left while a small identification flag or object sits at right."
   },
   "使": {
     "meaning": "use",
@@ -989,7 +1102,8 @@
       "person (亻)",
       "official (吏)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A helper person stands on the left; an official hand gives a task from the right."
   },
   "品": {
     "meaning": "goods",
@@ -998,7 +1112,8 @@
       "one upper mouth-box",
       "two lower mouth-boxes"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Exactly three square boxes or mouths form a triangle: one on top and two below."
   },
   "死": {
     "meaning": "death",
@@ -1007,7 +1122,8 @@
       "bones (歹)",
       "spoon (匕)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A bare bone or fallen figure lies on the left while a pale departing spirit floats on the right; child-friendly and no gore."
   },
   "始": {
     "meaning": "commence",
@@ -1016,7 +1132,8 @@
       "woman (女)",
       "stand (台)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A woman on the left raises the starting flag; a small platform or mouth-like start cue sits on the right."
   },
   "運": {
     "meaning": "carry",
@@ -1025,7 +1142,8 @@
       "army (軍)",
       "road (⻌)"
     ],
-    "layout": "cart above/right; road stroke wraps around lower left"
+    "layout": "cart above/right; road stroke wraps around lower left",
+    "visual": "A cart carries goods high on the right while a road curves around its lower left."
   },
   "終": {
     "meaning": "end",
@@ -1034,7 +1152,8 @@
       "thread (糸)",
       "winter (冬)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A long thread runs down the left and reaches a winter snowflake or end marker on the right."
   },
   "住": {
     "meaning": "dwell",
@@ -1043,7 +1162,8 @@
       "person (亻)",
       "master (主)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A person stands on the left beside a sturdy upright house pillar on the right."
   },
   "真": {
     "meaning": "true",
@@ -1052,7 +1172,8 @@
       "ten (十)",
       "tool (具)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One small top cross sits over a boxed jewel or truth mirror, with two short supports below."
   },
   "有": {
     "meaning": "possess",
@@ -1060,7 +1181,8 @@
     "parts": [
       "moon (月)"
     ],
-    "layout": ""
+    "layout": "",
+    "visual": "A reaching hand comes from the upper left and holds a piece of meat or prized possession below right."
   },
   "急": {
     "meaning": "hurry",
@@ -1069,7 +1191,8 @@
       "grasping hand above",
       "heart"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A grasping hand hovers over a heart that races underneath it."
   },
   "送": {
     "meaning": "escort",
@@ -1078,7 +1201,8 @@
       "关 (关)",
       "road (⻌)"
     ],
-    "layout": "sent object above/right; road stroke wraps around lower left"
+    "layout": "sent object above/right; road stroke wraps around lower left",
+    "visual": "A wrapped gift sits upper right; a road curves around its lower left as it travels away."
   },
   "転": {
     "meaning": "revolve",
@@ -1087,7 +1211,8 @@
       "cart (車)",
       "cloud (云)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A cart with turning wheels fills the left; a swirling rotation mark fills the right."
   },
   "研": {
     "meaning": "polish",
@@ -1096,7 +1221,8 @@
       "stone (石)",
       "even (开)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A rough stone sits left; a grinding tool polishes it on the right."
   },
   "究": {
     "meaning": "research",
@@ -1105,7 +1231,8 @@
       "hole (穴)",
       "nine (九)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A roof with a little opening sits at top; a searching figure or nine clues occupy the lower half."
   },
   "起": {
     "meaning": "rouse",
@@ -1114,7 +1241,8 @@
       "run (走)",
       "self (己)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A running foot and body sit at left while a curled waking person rises on the right."
   },
   "着": {
     "meaning": "don",
@@ -1123,7 +1251,8 @@
       "wool or sheep-like upper part",
       "eye"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Warm wool or a sheep-like upper shape sits above one large eye looking below."
   },
   "病": {
     "meaning": "ill",
@@ -1132,7 +1261,8 @@
       "sickness (疒)",
       "fever (丙)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A sick person rests under a slanted hospital awning or shelter, with a small fever mark inside."
   },
   "待": {
     "meaning": "wait",
@@ -1141,7 +1271,8 @@
       "road (彳)",
       "temple (寺)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A long path runs down the left; a small temple and waiting figure sit on the right."
   },
   "族": {
     "meaning": "tribe",
@@ -1150,7 +1281,8 @@
       "flag",
       "person with arrow"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A tall flag stands at left while a family with an arrow-like travel staff gathers on the right."
   },
   "銀": {
     "meaning": "silver",
@@ -1159,7 +1291,8 @@
       "metal (金)",
       "stubborn (艮)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A bright silver metal nugget and gold-like mineral lines sit at left, with a pale shining ingot on the right."
   },
   "医": {
     "meaning": "doctor",
@@ -1168,7 +1301,8 @@
       "box (匸)",
       "arrow (矢)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "One squared medical cabinet or enclosure contains a single arrow being removed by a doctor."
   },
   "仕": {
     "meaning": "attend",
@@ -1177,7 +1311,8 @@
       "person (亻)",
       "samurai (士)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A serving person bows at left toward a stern samurai-like figure at right."
   },
   "去": {
     "meaning": "gone",
@@ -1186,7 +1321,8 @@
       "earth (土)",
       "private (厶)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One earthen mound sits above a small departing footprint or private enclosure below."
   },
   "味": {
     "meaning": "flavor",
@@ -1195,7 +1331,8 @@
       "mouth (口)",
       "not yet (未)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "One large tasting mouth on the left meets a fresh fruit branch on the right."
   },
   "写": {
     "meaning": "copy",
@@ -1204,7 +1341,8 @@
       "cover (冖)",
       "give (与)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A protective cover sits above a blank sheet being traced below, with one hand following its edge."
   },
   "注": {
     "meaning": "pour",
@@ -1213,7 +1351,8 @@
       "water (氵)",
       "master (主)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Three water drops run down the left; a small cup and central pouring stream fill the right."
   },
   "悪": {
     "meaning": "bad",
@@ -1222,7 +1361,8 @@
       "mask (亜)",
       "heart (心)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A dark angular shape or shadow rests above one worried heart below."
   },
   "館": {
     "meaning": "building",
@@ -1231,7 +1371,8 @@
       "food (飠)",
       "official (官)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Food and a bowl sit at left; a large welcoming hall with roof and doorway fills the right."
   },
   "屋": {
     "meaning": "roof",
@@ -1240,7 +1381,8 @@
       "awning (尸)",
       "arrive (至)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "One large protective roof or awning curves over an inner shop or small house."
   },
   "習": {
     "meaning": "learn",
@@ -1249,7 +1391,8 @@
       "wings (羽)",
       "white (白)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two feathered wings spread at top over a small pale sun or chick below, practicing flight."
   },
   "駅": {
     "meaning": "station",
@@ -1258,7 +1401,8 @@
       "horse (馬)",
       "measure (尺)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A horse stands at left while a simple station platform or sign occupies the right."
   },
   "洋": {
     "meaning": "ocean",
@@ -1267,7 +1411,8 @@
       "water (氵)",
       "sheep (羊)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Blue water streams at left; sheep-white ocean waves roll on the right."
   },
   "旅": {
     "meaning": "trip",
@@ -1276,7 +1421,8 @@
       "flag",
       "traveler"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A guiding flag stands at left; a traveler with pack and feet strides on the right."
   },
   "服": {
     "meaning": "clothing",
@@ -1285,7 +1431,8 @@
       "body or cloth at left",
       "hand and bent figure at right"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A body or hanging cloth fills the left; folded shirts and a hand fill the right."
   },
   "飲": {
     "meaning": "drink",
@@ -1294,7 +1441,8 @@
       "food (飠)",
       "open mouth (欠)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A food bowl sits on the left; one open drinking mouth and cup fill the right."
   },
   "勉": {
     "meaning": "exertion",
@@ -1303,7 +1451,8 @@
       "excuse (免)",
       "strength (力)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A book or determined student fills the left; a strong flexing arm pushes from the right."
   },
   "漢": {
     "meaning": "Sino-",
@@ -1312,7 +1461,8 @@
       "water",
       "dense right-side riverbank form"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A vertical stream of water fills the left; a broad riverbank city and Han river landscape fill the right."
   },
   "不": {
     "meaning": "negative",
@@ -1322,7 +1472,8 @@
       "slash (丿)",
       "line (丨)"
     ],
-    "layout": "one upper line, a slanted branch, and a central descending line"
+    "layout": "one upper line, a slanted branch, and a central descending line",
+    "visual": "One long horizontal bar blocks a slanted growing stem and central downstroke beneath it."
   },
   "以": {
     "meaning": "by means of",
@@ -1331,7 +1482,8 @@
       "curved tool or load",
       "person"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A curved tool or load fills the left while a person uses it on the right."
   },
   "別": {
     "meaning": "separate",
@@ -1340,7 +1492,8 @@
       "separated left object",
       "knife"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "One object splits into two on the left; one sharp upright knife stands on the right."
   },
   "特": {
     "meaning": "special",
@@ -1349,7 +1502,8 @@
       "cow (牛)",
       "temple (寺)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A special cow stands at left beside a small temple or prize pedestal at right."
   },
   "料": {
     "meaning": "fee",
@@ -1358,7 +1512,8 @@
       "rice (米)",
       "dipper (斗)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Rice grains fill the left; one upright scoop or dipper counts them on the right."
   },
   "建": {
     "meaning": "build",
@@ -1367,7 +1522,8 @@
       "brush (聿)",
       "long stride (廴)"
     ],
-    "layout": "upright building/brush above/right; long stride stroke wraps around lower left"
+    "layout": "upright building/brush above/right; long stride stroke wraps around lower left",
+    "visual": "An upright building frame or tall brush stands at upper right while a long stride wraps around lower left."
   },
   "試": {
     "meaning": "test",
@@ -1376,7 +1532,8 @@
       "words (言)",
       "ceremony (式)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Speech or written lines occupy the left; a craft or spear-like test apparatus stands on the right."
   },
   "験": {
     "meaning": "verification",
@@ -1385,7 +1542,8 @@
       "horse (馬)",
       "㑒 (㑒)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A horse stands on the left; a compact testing group or timing apparatus occupies the right."
   },
   "英": {
     "meaning": "England",
@@ -1394,7 +1552,8 @@
       "grass (艹)",
       "centre (央)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A strip of grass crowns the top; a bright hero or flower-like figure rises below it."
   },
   "借": {
     "meaning": "borrow",
@@ -1403,7 +1562,8 @@
       "person (亻)",
       "long ago (昔)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A person at left holds an old sun-marked book temporarily borrowed from the right."
   },
   "堂": {
     "meaning": "public chamber",
@@ -1412,7 +1572,8 @@
       "esteem (尚)",
       "earth (土)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A broad grand roof and upper room sit above a sturdy earthen platform below."
   },
   "飯": {
     "meaning": "meal",
@@ -1421,7 +1582,8 @@
       "food (飠)",
       "against (反)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "Food or rice in a bowl fills the left; a reaching hand returns to the meal on the right."
   },
   "質": {
     "meaning": "substance",
@@ -1430,7 +1592,8 @@
       "two axes",
       "shell"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "Two small axes or tools cross at top; a precious shell coin sits beneath them."
   },
   "貸": {
     "meaning": "lend",
@@ -1439,7 +1602,8 @@
       "substitute (代)",
       "shell (貝)"
     ],
-    "layout": "top then bottom"
+    "layout": "top then bottom",
+    "visual": "A person passing an item occupies the upper half, with a shell coin below as the loan marker."
   },
   "私": {
     "meaning": "private",
@@ -1448,7 +1612,8 @@
       "grain (禾)",
       "private (厶)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "One grain stalk stands at left; a small private bundle or parcel sits at right."
   },
   "映": {
     "meaning": "reflect",
@@ -1457,6 +1622,7 @@
       "sun (日)",
       "centre (央)"
     ],
-    "layout": "left then right"
+    "layout": "left then right",
+    "visual": "A square sun shines at left; its reflection or lit screen appears to the right."
   }
 }
