@@ -292,13 +292,13 @@
   },
   "理": {
     "meaning": "logic",
-    "memory": "Polish jade and the grain inside shows why it looks that way: reason.",
+    "memory": "Jade on the left and an orderly village on the right reveal a clear pattern: reason.",
     "parts": [
-      "king (王)",
+      "jade (王)",
       "village (里)"
     ],
     "layout": "left then right",
-    "visual": "A polished jade stone on the left reveals orderly layered grain in a stone or village shape on the right."
+    "visual": "An actual polished green jade gem sits on the left; an orderly four-plot village with houses and paths sits on the right. No sculpted glyph."
   },
   "体": {
     "meaning": "body",
@@ -493,7 +493,7 @@
       "ten (十)"
     ],
     "layout": "left then right",
-    "visual": "Speech lines on the left count one cross-shaped tally on the right."
+    "visual": "Stacked speech lines and a small mouth fill the left; a single crossed tally stick and a few pebbles fill the right. No nine-stone board."
   },
   "朝": {
     "meaning": "morning",
@@ -527,13 +527,13 @@
   },
   "少": {
     "meaning": "few",
-    "memory": "Slice a bit off something small, and there's even less: few.",
+    "memory": "Three tiny crumbs above; a broomstroke sweeps more away, leaving only a few.",
     "parts": [
       "small (小)",
       "slash (丿)"
     ],
     "layout": "top then bottom",
-    "visual": "A little central stroke with two dots above, then one long slashing stroke below removes a bit more."
+    "visual": "Three tiny crumbs form the upper marks; one long diagonal broom sweep below removes the extras, leaving only a few."
   },
   "工": {
     "meaning": "craft",
@@ -1028,7 +1028,7 @@
   },
   "世": {
     "meaning": "generation",
-    "memory": "Three tens joined make thirty years, one generation of people in the world.",
+    "memory": "Three generations stand side by side, joined by one ribbon: a world of people.",
     "parts": [
       "twenty (廿)"
     ],

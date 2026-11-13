@@ -26,9 +26,9 @@ production domain automatically; set `SITE_URL` in Vercel to override it.
 | `src/data/parts.json` | Hand | English names for kanji components |
 | `src/data/slugs.json` | `node scripts/build-slugs.mjs` | Permanent URL per kanji; existing entries never change |
 | `scripts/art/scenes.mjs` | Hand | One drawing per kanji, built from the kit in `sprites.mjs` |
-| `art-source/hand/` | Hand | Transparent N5 illustration sources; these take priority over scenes |
-| `art-source/n5-shape-briefs.json` | Hand | Visual memory cues for all 79 N5 illustrations |
-| `art-source/review/` | Hand | Contact sheets for reviewing the N5 set |
+| `art-source/hand/` | Hand | Transparent N5 and N4 illustration sources; these take priority over scenes |
+| `art-source/n5-shape-briefs.json`, `art-source/n4-shape-briefs.json` | Hand | Visual memory cues and component layouts for the 79 N5 and 166 N4 illustrations |
+| `art-source/review/` | Hand | Contact sheets for reviewing the N5 and N4 sets |
 | `public/art/` | `npm run art` | WebP files from hand sources and SVGs from scenes; rerun after editing either |
 
 `npm run data` caches every response in `.cache/`, so reruns are offline and
