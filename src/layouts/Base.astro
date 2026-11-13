@@ -22,6 +22,8 @@ const shareImage = new URL('/og/sonnakanji.png', Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <GoogleTag />
     <Analytics />
+    <!-- Mailchimp sign-up forms. SonnaKanji pages only; Kanjimono has its own layout. -->
+    <script is:inline id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/8aa50c5caf425281889e8a4e1/3bd352077d3dbc7d6e79e795f.js");</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
