@@ -1981,2060 +1981,2067 @@
     "reviewStatus": "reviewed"
   },
   "達": {
-    "meaning": "accomplished",
+    "meaning": "reach",
     "memory": "A sheep walking to its destination: reach.",
     "parts": [
-      "component 1",
+      "sheep at goal",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with component 1 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "goal center; road wraps left and bottom",
+    "visual": "A friendly sheep reaches a bright destination marker in the center; a winding road curves from the left beneath it, and the boy celebrates arrival.",
+    "reviewStatus": "reviewed"
   },
   "良": {
     "meaning": "good",
     "memory": "Food sifted clean: good.",
     "parts": [
-      "stubborn (艮)"
+      "upright food vessel",
+      "clean grains"
     ],
-    "layout": "single main shape",
-    "visual": "Make 良 recognizable through one large good object or silhouette; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "single food vessel silhouette",
+    "visual": "One tall food sieve or vessel holds clean golden grains; the boy tastes the finished food and gives a happy thumbs-up.",
+    "reviewStatus": "reviewed"
   },
   "候": {
-    "meaning": "climate",
+    "meaning": "weather/season",
     "memory": "A person waits for the weather: climate.",
     "parts": [
       "person (亻)",
-      "component 2"
+      "weather station"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; weather right",
+    "visual": "One person waits on the left; on the right a tall weather station shows sun, cloud and rain changing over time. No text.",
+    "reviewStatus": "reviewed"
   },
   "満": {
     "meaning": "full",
     "memory": "Water filling up: full.",
     "parts": [
-      "water (氵)",
-      "component 2"
+      "water drops (氵)",
+      "filled vessel"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; vessel right",
+    "visual": "Three water drops line the left; a large clear vessel on the right fills right to its rim as the boy watches.",
+    "reviewStatus": "reviewed"
   },
   "敗": {
-    "meaning": "failure",
+    "meaning": "defeat",
     "memory": "A hand strikes a shell and breaks it: defeat.",
     "parts": [
-      "shell (貝)",
-      "strike (攵)"
+      "toy shell (貝)",
+      "strike hand (攵)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with shell and strike in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shell left; striking hand right",
+    "visual": "A toy shell token stands on the left; a hand taps it from the right and it splits into puzzle pieces after a game defeat. No injury.",
+    "reviewStatus": "reviewed"
   },
   "積": {
-    "meaning": "volume",
+    "meaning": "pile up",
     "memory": "Grain piled high with debts: pile up.",
     "parts": [
-      "grain (禾)",
-      "責 (責)"
+      "grain stalk (禾)",
+      "tall pile (責)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with grain and 責 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "grain left; pile right",
+    "visual": "A ripe grain stalk fills the left; a high orderly stack of grain sacks fills the right as the boy piles them up.",
+    "reviewStatus": "reviewed"
   },
   "飛": {
     "meaning": "fly",
     "memory": "Wings beating: fly.",
     "parts": [
-      "升 (升)"
+      "two wings",
+      "central body"
     ],
-    "layout": "single main shape",
-    "visual": "Make 飛 recognizable through one large fly object or silhouette; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "wings spread from center",
+    "visual": "One joyful bird spreads two large symmetrical wings from a narrow central body; the boy looks up as it flies.",
+    "reviewStatus": "reviewed"
   },
   "殺": {
     "meaning": "kill",
     "memory": "A hand with a spear: kill.",
     "parts": [
-      "component 1",
-      "strike (殳)"
+      "target/object",
+      "toy spear or striking hand"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and strike in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "object left; strike right",
+    "visual": "A soft game target stands on the left; the boy on the right taps it with a padded toy spear and the target falls over. No people or animals harmed.",
+    "reviewStatus": "reviewed"
   },
   "単": {
-    "meaning": "simple",
+    "meaning": "single/simple",
     "memory": "A simple fork-shaped weapon: single.",
     "parts": [
-      "⺍ (⺍)",
-      "甲 (甲)"
+      "three top marks (⺍)",
+      "one upright fork (甲)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with ⺍ and 甲 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "marks above one fork",
+    "visual": "Three small marks sit across the top; below them one simple upright fork-shaped tool stands alone, with the boy showing just one.",
+    "reviewStatus": "reviewed"
   },
   "完": {
-    "meaning": "perfect",
+    "meaning": "complete",
     "memory": "A roof over the beginning: complete.",
     "parts": [
       "roof (宀)",
-      "元 (元)"
+      "finished foundation (元)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and 元 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above foundation",
+    "visual": "A broad roof sits atop a complete little house foundation with two legs below; the boy places the final piece.",
+    "reviewStatus": "reviewed"
   },
   "給": {
-    "meaning": "salary",
+    "meaning": "supply",
     "memory": "Thread that meets a need: salary.",
     "parts": [
       "thread (糸)",
-      "fit (合)"
+      "fitting box (合)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with thread and fit in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "thread left; fitted box right",
+    "visual": "Colored threads hang down the left; on the right a lid fits precisely on a supply box the boy hands to a friend.",
+    "reviewStatus": "reviewed"
   },
   "辞": {
-    "meaning": "resign",
+    "meaning": "word/resign",
     "memory": "A tongue with a sharp needle: word, resign.",
     "parts": [
       "tongue (舌)",
-      "辛 (辛)"
+      "sharp writing stylus (辛)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with tongue and 辛 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "tongue left; stylus right",
+    "visual": "One friendly speaking tongue or mouth fills the left; a pointed writing stylus stands on the right as the boy chooses his words. No injury.",
+    "reviewStatus": "reviewed"
   },
   "愛": {
     "meaning": "love",
     "memory": "A heart held in a hand, walking slowly: love.",
     "parts": [
-      "⺤ (⺤)",
-      "component 2"
+      "gentle hand (⺤)",
+      "heart and walking feet"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with ⺤ and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand above heart and feet",
+    "visual": "A gentle hand cups one warm heart in the middle; two little walking feet step carefully below as the boy follows.",
+    "reviewStatus": "reviewed"
   },
   "未": {
-    "meaning": "un-",
+    "meaning": "not yet",
     "memory": "A tree still growing: not yet.",
     "parts": [
-      "tree (木)"
+      "tree (木)",
+      "short upper branch"
     ],
-    "layout": "single main shape",
-    "visual": "Make 未 recognizable through one large un- object or silhouette; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "single tree with short top",
+    "visual": "One young tree has a short upper branch and a visibly longer lower branch; a tiny new bud has not opened yet.",
+    "reviewStatus": "reviewed"
   },
   "冷": {
-    "meaning": "cool",
+    "meaning": "cold",
     "memory": "Ice on order: cold.",
     "parts": [
-      "ice (冫)",
-      "order (令)"
+      "ice drops (冫)",
+      "order token (令)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with ice and order in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "ice left; token right",
+    "visual": "Two crisp blue ice drops line the left; a square hanging order token on the right frosts over as the boy shivers. No letters.",
+    "reviewStatus": "reviewed"
   },
   "類": {
-    "meaning": "sort",
+    "meaning": "kind/type",
     "memory": "Rice, a dog, a head, all sorted: sort, kind.",
     "parts": [
-      "component 1",
+      "sorted rice and dog",
       "head (頁)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and head in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "examples left; head right",
+    "visual": "On the left the boy sorts a rice sheaf and a friendly dog into different kinds; one large observing head sits on the right.",
+    "reviewStatus": "reviewed"
   },
   "熱": {
     "meaning": "heat",
     "memory": "Fire under a planted seedling: heat.",
     "parts": [
-      "埶 (埶)",
-      "灬 (灬)"
+      "planted seedling (埶)",
+      "four fire dots (灬)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 埶 and 灬 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "seedling above fire dots",
+    "visual": "A small planted seedling and warm hands occupy the top; exactly four separated glowing fire dots sit below, heating the soil safely.",
+    "reviewStatus": "reviewed"
   },
   "覚": {
-    "meaning": "memorize",
+    "meaning": "remember",
     "memory": "Light your eyes see: remember, wake.",
     "parts": [
-      "component 1",
-      "see (見)"
+      "light and shelter",
+      "seeing eye (見)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and see in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "light above eye",
+    "visual": "A bright light glows under a small shelter at the top; one large open eye with little legs below sees and remembers it.",
+    "reviewStatus": "reviewed"
   },
   "便": {
-    "meaning": "convenience",
+    "meaning": "convenient",
     "memory": "A person changes things for the better: convenience.",
     "parts": [
       "person (亻)",
-      "更 (更)"
+      "improved tool (更)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 更 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; handy tool right",
+    "visual": "One person stands on the left; a clever improved tool on the right makes their job easier as the boy demonstrates.",
+    "reviewStatus": "reviewed"
   },
   "努": {
-    "meaning": "toil",
+    "meaning": "strive",
     "memory": "A slave's full strength: strive.",
     "parts": [
-      "奴 (奴)",
+      "determined person",
       "strength (力)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 奴 and strength in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person above strong arm",
+    "visual": "A determined person works at the top; one large bent muscular arm supports them below as the boy tries hard. No enslavement imagery.",
+    "reviewStatus": "reviewed"
   },
   "散": {
     "meaning": "scatter",
     "memory": "Beat the meat and bits scatter.",
     "parts": [
-      "component 1",
-      "strike (攵)"
+      "little pieces",
+      "moving hand (攵)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and strike in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "pieces left; hand right",
+    "visual": "Small colorful paper pieces gather on the left; an open hand sweeps from the right and scatters them safely.",
+    "reviewStatus": "reviewed"
   },
   "静": {
     "meaning": "quiet",
     "memory": "Blue, calm and free of conflict: quiet.",
     "parts": [
-      "blue (青)",
-      "争 (争)"
+      "blue calm shape (青)",
+      "settled tug (争)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with blue and 争 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "blue left; still ribbon right",
+    "visual": "A blue sky and calm water fill the left; on the right two hands let go of a ribbon and everything becomes still.",
+    "reviewStatus": "reviewed"
   },
   "喜": {
     "meaning": "rejoice",
     "memory": "A drum and a mouth: rejoice.",
     "parts": [
-      "吉 (吉)",
-      "component 2"
+      "drum (吉)",
+      "mouth"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 吉 and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "drum above mouth",
+    "visual": "One festive drum stands at the top; a huge smiling open mouth below cheers while the boy celebrates.",
+    "reviewStatus": "reviewed"
   },
   "老": {
-    "meaning": "old man",
+    "meaning": "old",
     "memory": "A bent old person with a cane: old.",
     "parts": [
-      "old (耂)",
-      "spoon (匕)"
+      "bent elder (耂)",
+      "cane (匕)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with old and spoon in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "elder above cane",
+    "visual": "One kindly elderly person bends slightly above a curved walking cane; the boy walks alongside.",
+    "reviewStatus": "reviewed"
   },
   "徒": {
-    "meaning": "on foot",
+    "meaning": "walk",
     "memory": "Walking along the road: on foot.",
     "parts": [
-      "road (彳)",
-      "run (走)"
+      "stepping road (彳)",
+      "walking feet (走)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with road and run in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "road left; walking figure right",
+    "visual": "A path of short stepping stones runs down the left; the boy walks on foot on the right with two clear legs in motion.",
+    "reviewStatus": "reviewed"
   },
   "欠": {
-    "meaning": "lack",
+    "meaning": "lack/yawn",
     "memory": "A person with their mouth wide open: yawn, lack.",
     "parts": [
-      "component 1",
-      "component 2"
+      "wide mouth",
+      "person’s legs"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "mouth above legs",
+    "visual": "One big yawning mouth opens above a small person’s two legs; the boy notices the missing breath and yawns too.",
+    "reviewStatus": "reviewed"
   },
   "願": {
-    "meaning": "petition",
+    "meaning": "wish",
     "memory": "Head turned to the source: request, vow.",
     "parts": [
-      "原 (原)",
+      "spring source (原)",
       "head (頁)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 原 and head in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "spring left; head right",
+    "visual": "A little spring flows from beneath a cliff on the left; a thoughtful head on the right wishes beside it.",
+    "reviewStatus": "reviewed"
   },
   "笑": {
     "meaning": "laugh",
     "memory": "Bamboo bending like a laughing person: laugh.",
     "parts": [
       "bamboo (竹)",
-      "夭 (夭)"
+      "bending person (夭)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with bamboo and 夭 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "bamboo above person",
+    "visual": "Two bamboo stalks bend across the top; beneath them the boy bends forward laughing with a wide smile.",
+    "reviewStatus": "reviewed"
   },
   "束": {
     "meaning": "bundle",
     "memory": "A tree with a band around it: bundle.",
     "parts": [
       "tree (木)",
-      "mouth (口)"
+      "central band (口)"
     ],
-    "layout": "first component around second",
-    "visual": "Build one connected scene with tree and mouth in the kanji's first component around second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "band wraps tree center",
+    "visual": "One upright tree-like bundle of sticks is held tightly by a broad square band across its center; the boy ties it.",
+    "reviewStatus": "reviewed"
   },
   "折": {
     "meaning": "fold",
     "memory": "An axe and a hand: fold, break.",
     "parts": [
       "hand (扌)",
-      "axe (斤)"
+      "wood/axe (斤)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and axe in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; folded branch right",
+    "visual": "A large hand on the left folds a thin branch into two clear angled segments on the right; a safe little craft tool rests nearby.",
+    "reviewStatus": "reviewed"
   },
   "政": {
-    "meaning": "politics",
+    "meaning": "government",
     "memory": "Correct something with a strike: government.",
     "parts": [
-      "correct (正)",
-      "strike (攵)"
+      "straight mark (正)",
+      "correcting hand (攵)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with correct and strike in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "straight mark left; hand right",
+    "visual": "One tall straight ruler and foot marker fill the left; a hand on the right adjusts a crooked sign to correct it.",
+    "reviewStatus": "reviewed"
   },
   "経": {
-    "meaning": "sutra",
+    "meaning": "pass through",
     "memory": "Threads run through a loom: pass through.",
     "parts": [
-      "thread (糸)",
-      "圣 (圣)"
+      "threads (糸)",
+      "loom frame (圣)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with thread and 圣 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "threads left; loom right",
+    "visual": "Several bright threads stream down the left and pass through the square frame of a loom on the right as the boy weaves.",
+    "reviewStatus": "reviewed"
   },
   "現": {
-    "meaning": "present",
+    "meaning": "appear/real",
     "memory": "A jewel you can see: present, real.",
     "parts": [
-      "king (王)",
-      "see (見)"
+      "jewel (王)",
+      "seeing eye (見)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with king and see in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "jewel left; eye right",
+    "visual": "A shining jewel fills the left; one large seeing eye with small lower legs fills the right as the boy notices it appear.",
+    "reviewStatus": "reviewed"
   },
   "性": {
-    "meaning": "sex",
+    "meaning": "nature",
     "memory": "A living heart: nature, sex.",
     "parts": [
       "heart (忄)",
-      "life (生)"
+      "living sprout (生)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with heart and life in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "heart left; sprout right",
+    "visual": "Three heart-like marks stand on the left; a green living sprout grows on the right, showing the nature of life.",
+    "reviewStatus": "reviewed"
   },
   "制": {
-    "meaning": "system",
+    "meaning": "rule/control",
     "memory": "A knife cuts branches: rule, system.",
     "parts": [
-      "component 1",
-      "knife (刂)"
+      "branches",
+      "safe shears (刂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and knife in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "branches left; shears right",
+    "visual": "A cluster of growing branches fills the left; upright child-safe shears on the right trim them into an orderly shape.",
+    "reviewStatus": "reviewed"
   },
   "務": {
-    "meaning": "task",
+    "meaning": "duty",
     "memory": "Spear in hand, strength at work: duties.",
     "parts": [
-      "矛 (矛)",
-      "component 2"
+      "ceremonial spear (矛)",
+      "working strength"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 矛 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "spear left; work right",
+    "visual": "One tall harmless ceremonial spear stands on the left; the boy works diligently with a strong bent arm on the right.",
+    "reviewStatus": "reviewed"
   },
   "支": {
-    "meaning": "branch",
+    "meaning": "support",
     "memory": "A hand holds a branch: support.",
     "parts": [
-      "ten (十)",
+      "branch (十)",
       "hand (又)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with ten and hand in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "branch above hand",
+    "visual": "One branching pole forms a cross at the top; an open hand beneath supports it as the boy steadies the branch.",
+    "reviewStatus": "reviewed"
   },
   "報": {
     "meaning": "report",
     "memory": "A hand on a kneeling prisoner: report, reward.",
     "parts": [
-      "幸 (幸)",
-      "component 2"
+      "left placard (幸)",
+      "messenger hand"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 幸 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "placard left; messenger right",
+    "visual": "A tall notice placard stands on the left; the boy on the right hands a rolled report to a friend. No words on the page.",
+    "reviewStatus": "reviewed"
   },
   "解": {
-    "meaning": "unravel",
+    "meaning": "solve",
     "memory": "A knife cuts the horn off a cow: unravel, solve.",
     "parts": [
-      "角 (角)",
-      "component 2"
+      "bull horn (角)",
+      "untying tool"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 角 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "horn left; tool right",
+    "visual": "A friendly bull’s curved horn sits safely on the left; the boy on the right uses a small tool to untie a knot beside it. No injury.",
+    "reviewStatus": "reviewed"
   },
   "資": {
-    "meaning": "assets",
+    "meaning": "resources",
     "memory": "A shell for the next one: assets.",
     "parts": [
-      "次 (次)",
-      "shell (貝)"
+      "next step (次)",
+      "shell purse (貝)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 次 and shell in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "next step above purse",
+    "visual": "A bright next-step marker or small path sits above a shell-shaped resource purse below; the boy gathers supplies for the journey.",
+    "reviewStatus": "reviewed"
   },
   "際": {
     "meaning": "occasion",
-    "memory": "A hill where offerings meet the sky: edge, occasion.",
+    "memory": "A gathering at the edge of a hill marks an occasion.",
     "parts": [
-      "hill (⻖)",
-      "祭 (祭)"
+      "hill edge (⻖)",
+      "festival offering (祭)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hill and 祭 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hill left; stacked offering right",
+    "visual": "The boy stands beside a narrow green hill on the left. On the right he carefully presents a layered festival offering with a little star above it; the pieces follow 祭.",
+    "reviewStatus": "reviewed"
   },
   "判": {
-    "meaning": "judgement",
-    "memory": "A knife cuts it in half: judge.",
+    "meaning": "judge",
+    "memory": "A blade divides the half mark to decide.",
     "parts": [
-      "半 (半)",
-      "knife (刂)"
+      "half mark (半)",
+      "blade (刂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 半 and knife in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "half left; upright blade right",
+    "visual": "A broad half-shaped divider stands on the left, its horizontal bars clear. The boy uses a safe, rounded craft blade at the far right to divide two colored cards equally.",
+    "reviewStatus": "reviewed"
   },
   "在": {
     "meaning": "exist",
-    "memory": "Soil holds a growing sprout: exist.",
+    "memory": "A sprout planted firmly in earth is here.",
     "parts": [
-      "component 1",
+      "slanted stem and vertical stroke",
       "earth (土)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and earth in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "stem above and left; earth below",
+    "visual": "A sprout’s long slant and upright stem rise from a simple layered mound of earth. The boy points to it: it is here. Keep the 土 cross and base visible below.",
+    "reviewStatus": "reviewed"
   },
   "件": {
-    "meaning": "affair",
-    "memory": "A person and a cow: a matter of business.",
+    "meaning": "matter",
+    "memory": "A person and a cow have a matter to discuss.",
     "parts": [
       "person (亻)",
       "cow (牛)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and cow in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; cow right",
+    "visual": "The boy stands as a slim upright figure on the left, speaking gently with a friendly cow on the right; its upright horns and crossbar echo 牛.",
+    "reviewStatus": "reviewed"
   },
   "任": {
     "meaning": "responsibility",
-    "memory": "A person carrying a load: responsibility.",
+    "memory": "A person takes charge of a tall task.",
     "parts": [
       "person (亻)",
-      "壬 (壬)"
+      "upright post with two rails (壬)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 壬 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; post right",
+    "visual": "The boy stands at the left and steadies a tall upright post on the right with two clear horizontal rails. A small duty ribbon sits on the post.",
+    "reviewStatus": "reviewed"
   },
   "増": {
     "meaning": "increase",
-    "memory": "Earth piled on the stack: increase.",
+    "memory": "Soil adds one more layer to the stack.",
     "parts": [
       "earth (土)",
-      "曽 (曽)"
+      "stacked layers (曽)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with earth and 曽 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "earth left; tall stack right",
+    "visual": "A little soil mound with a crisp cross shape sits on the left. The boy adds another level to a right-hand stack with paired marks above, a square middle and a sunlike bottom.",
+    "reviewStatus": "reviewed"
   },
   "情": {
     "meaning": "feelings",
-    "memory": "A clear blue heart: emotion.",
+    "memory": "A heart fills with clear blue feeling.",
     "parts": [
-      "heart (忄)",
+      "heart drops (忄)",
       "blue (青)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with heart and blue in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "heart drops left; blue tower right",
+    "visual": "Three heart-shaped droplets form the slim left side. A tall blue sprout and glowing moonlike base fill the right as the boy shows a warm, expressive face.",
+    "reviewStatus": "reviewed"
   },
   "示": {
     "meaning": "show",
-    "memory": "An altar on a table: show.",
+    "memory": "A small altar displays its shining gift.",
     "parts": [
-      "component 1",
-      "component 2"
+      "top display shelf (二)",
+      "altar legs and central stem (小)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelf above; stem and legs below",
+    "visual": "The boy proudly shows a tiny star on a flat two-tier display shelf. One central stem and two short outward legs beneath the shelf preserve the 示 silhouette.",
+    "reviewStatus": "reviewed"
   },
   "確": {
-    "meaning": "assurance",
-    "memory": "A bird hard as stone: firm, certain.",
+    "meaning": "certain",
+    "memory": "A stone and a sheltered bird make the answer firm.",
     "parts": [
       "stone (石)",
-      "寉 (寉)"
+      "bird under cover (寉)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with stone and 寉 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "stone left; covered bird right",
+    "visual": "A sturdy stone with an open mouthlike face sits on the left. On the right, a small bird stands under a narrow roof, with its upright body and three wing bars visible; the boy gives a confident nod.",
+    "reviewStatus": "reviewed"
   },
   "容": {
     "meaning": "contain",
-    "memory": "A valley under a roof: contain.",
+    "memory": "A roof contains the whole valley.",
     "parts": [
       "roof (宀)",
       "valley (谷)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and valley in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above; valley below",
+    "visual": "A broad rounded roof arches over a narrow V-shaped valley with a small square opening at its bottom. The boy tucks supplies inside the sheltered valley.",
+    "reviewStatus": "reviewed"
   },
   "演": {
-    "meaning": "performance",
-    "memory": "Water spreading out in a performance: act.",
+    "meaning": "perform",
+    "memory": "Water joins a play beneath the stage roof.",
     "parts": [
-      "water (氵)",
-      "寅 (寅)"
+      "water drops (氵)",
+      "stage under roof (寅)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and 寅 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; roof and stage right",
+    "visual": "Three blue drops run down the left. On the right a roof covers a square stage with a central upright panel and two little feet; the boy performs with a bright ribbon.",
+    "reviewStatus": "reviewed"
   },
   "能": {
     "meaning": "ability",
-    "memory": "A bear full of talent: ability.",
+    "memory": "The little creature shows what it can do.",
     "parts": [
-      "䏍 (䏍)",
-      "component 2"
+      "upright body with moon belly (䏍)",
+      "two hooked marks (匕匕)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 䏍 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "body left; two hooks right",
+    "visual": "A cheerful creature has a small head over a tall crescent belly at the left and two clear hooked feet stacked at the right. It balances a star to show its skill.",
+    "reviewStatus": "reviewed"
   },
   "格": {
     "meaning": "status",
-    "memory": "Each tree in its place: status.",
+    "memory": "Each visitor finds a place by the tree.",
     "parts": [
       "tree (木)",
-      "each (各)"
+      "walking visitor and call (各)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with tree and each in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "tree left; visitor right",
+    "visual": "A clean branch-and-trunk tree rises on the left. On the right a tiny walking visitor descends from above to call from a square mouth at the bottom; the boy gives each a place.",
+    "reviewStatus": "reviewed"
   },
   "過": {
-    "meaning": "overdo",
-    "memory": "Passing a bone down the road: go beyond.",
+    "meaning": "pass beyond",
+    "memory": "The winding road goes beyond the stacked doorway.",
     "parts": [
-      "咼 (咼)",
+      "stacked chamber (咼)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with 咼 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "chamber center right; road wraps left and bottom",
+    "visual": "A tall lopsided chamber with a small square opening stands at the right. A curving path sweeps from the left beneath it, and the boy walks past its far edge.",
+    "reviewStatus": "reviewed"
   },
   "常": {
     "meaning": "usual",
-    "memory": "A cloth still in place: usual.",
+    "memory": "The familiar lamp shines above the everyday cloth.",
     "parts": [
-      "esteem (尚)",
-      "吊 (吊)"
+      "lit upper room (尚)",
+      "hanging cloth (巾)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with esteem and 吊 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "lit room above; cloth below",
+    "visual": "A tiny lit room with three rays sits at the top. Under it hangs a simple broad cloth on a central peg, its two sides straight; the boy reaches for his usual scarf.",
+    "reviewStatus": "reviewed"
   },
   "状": {
-    "meaning": "status quo",
-    "memory": "A dog's shape: condition.",
+    "meaning": "condition",
+    "memory": "The dog’s condition is marked beside him.",
     "parts": [
-      "⺦ (⺦)",
+      "two upright marks (丬)",
       "dog (犬)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with ⺦ and dog in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "marks left; dog right",
+    "visual": "Two slim upright marker boards stand on the left. A friendly dog on the right stretches its four limbs around a central body; the boy checks how it feels.",
+    "reviewStatus": "reviewed"
   },
   "職": {
-    "meaning": "post",
-    "memory": "Ears ready for the post: job.",
+    "meaning": "occupation",
+    "memory": "A listening ear and work bell announce the job.",
     "parts": [
       "ear (耳)",
-      "戠 (戠)"
+      "sound and crossed tool (戠)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with ear and 戠 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "ear left; bell and tool right",
+    "visual": "A tall ear with three inner bars fills the left. On the right a stacked music bell and a safe crossed work tool make a job signal; the boy listens for it.",
+    "reviewStatus": "reviewed"
   },
   "構": {
-    "meaning": "posture",
-    "memory": "Timber frames built up: posture, build.",
+    "meaning": "build",
+    "memory": "Timber beams lock into a growing frame.",
     "parts": [
-      "tree (木)",
-      "冓 (冓)"
+      "tree timber (木)",
+      "crossed framework (冓)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with tree and 冓 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "timber left; framework right",
+    "visual": "A simple tree trunk with horizontal boughs stands at the left. The boy assembles interlocking horizontal beams into a tall open frame on the right.",
+    "reviewStatus": "reviewed"
   },
   "断": {
-    "meaning": "severance",
-    "memory": "An axe cuts the threads: sever.",
+    "meaning": "cut off",
+    "memory": "An axe separates the threads.",
     "parts": [
-      "component 1",
+      "threads in a frame",
       "axe (斤)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and axe in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "thread bundle left; axe right",
+    "visual": "A bundle of short yarn strands is held in a slim open frame at the left. At the right the boy uses a blunt craft axe to split the loose strands, making a clear break.",
+    "reviewStatus": "reviewed"
   },
   "規": {
     "meaning": "standard",
-    "memory": "A man looking at a compass: standard.",
+    "memory": "A person looks closely at the measuring rule.",
     "parts": [
-      "husband (夫)",
-      "see (見)"
+      "standing person (夫)",
+      "seeing eye (見)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with husband and see in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; eye and legs right",
+    "visual": "A standing person with extended arms fills the left. On the right a large square eye above little legs studies a straight measuring rule between them.",
+    "reviewStatus": "reviewed"
   },
   "術": {
-    "meaning": "art",
-    "memory": "A road through the sticky millet fields: technique.",
+    "meaning": "technique",
+    "memory": "A careful path surrounds the little craft.",
     "parts": [
-      "go (行)",
-      "朮 (朮)",
-      "component 3"
+      "two road columns (行)",
+      "central sprout and dot (朮)"
     ],
-    "layout": "follow visible component positions",
-    "visual": "Build one connected scene with go, 朮, component 3 in their visible stroke positions; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "road columns flank center; sprout in middle",
+    "visual": "Two narrow parallel walking lanes frame the image at left and right. In the center the boy carefully ties one dot or bead to a small upright sprout, showing a practiced technique.",
+    "reviewStatus": "reviewed"
   },
   "備": {
-    "meaning": "equip",
-    "memory": "A person prepares a quiver of arrows: equip.",
+    "meaning": "prepare",
+    "memory": "A person stocks a ready quiver.",
     "parts": [
       "person (亻)",
-      "component 2"
+      "rack and quiver (𤰇)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; rack and quiver right",
+    "visual": "The boy stands as a slim figure at the left. On the right a little rack above a long vertical quiver holds neatly arranged arrows, ready for the trip.",
+    "reviewStatus": "reviewed"
   },
   "限": {
     "meaning": "limit",
-    "memory": "A hill with a stubborn wall: limit.",
+    "memory": "A hill sets the boundary for a watchful traveler.",
     "parts": [
       "hill (⻖)",
-      "stubborn (艮)"
+      "eye and stopping foot (艮)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hill and stubborn in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hill left; eye and foot right",
+    "visual": "A narrow cliff rises on the left. On the right a large watchful eye sits above a planted foot at a bright boundary line; the boy stops there.",
+    "reviewStatus": "reviewed"
   },
   "退": {
     "meaning": "retreat",
-    "memory": "A foot steps back along the road: retreat.",
+    "memory": "A foot turns back along the road.",
     "parts": [
-      "stubborn (艮)",
+      "turning eye and foot (艮)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with stubborn and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "eye and foot center right; road wraps left and bottom",
+    "visual": "A wide eye over a foot faces back toward the boy at the right. A curved road sweeps from left to bottom as he steps safely away.",
+    "reviewStatus": "reviewed"
   },
   "非": {
-    "meaning": "un-",
-    "memory": "Wings pointing in opposite directions: not, wrong.",
+    "meaning": "not",
+    "memory": "Two feathered sides point away from one another.",
     "parts": [
-      "component 1",
-      "component 2"
+      "left feathered rail",
+      "right feathered rail"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "parallel rails left and right, strokes point outward",
+    "visual": "Two upright rails stand side by side, each with three short feather bars pointing away from the middle. The boy shakes his head between them: no.",
+    "reviewStatus": "reviewed"
   },
   "財": {
     "meaning": "property",
-    "memory": "A shell for a gifted person: money.",
+    "memory": "A shell purse holds a talented gift.",
     "parts": [
-      "shell (貝)",
-      "才 (才)"
+      "shell purse (貝)",
+      "crossed skill marker (才)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with shell and 才 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "purse left; marker right",
+    "visual": "A tall shell-shaped purse with two inner eye marks and little feet sits at the left. The boy ties a ribbon around a slim cross-shaped talent marker on the right.",
+    "reviewStatus": "reviewed"
   },
   "識": {
-    "meaning": "discriminating",
-    "memory": "Words you recognise from a mark: know.",
+    "meaning": "recognize",
+    "memory": "Words and a sound mark help the boy recognize it.",
     "parts": [
-      "words (言)",
-      "戠 (戠)"
+      "speech lines (言)",
+      "sound and crossed mark (戠)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and 戠 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; sound mark right",
+    "visual": "A tall stack of speech lines and a square mouth runs down the left. On the right a little bell sits above a distinctive crossed mark; the boy recognizes its sound.",
+    "reviewStatus": "reviewed"
   },
   "程": {
     "meaning": "extent",
-    "memory": "Grain presented in measures: extent.",
+    "memory": "Grain rises to the marked measuring height.",
     "parts": [
-      "grain (禾)",
-      "呈 (呈)"
+      "grain stalk (禾)",
+      "mouth and ruler (呈)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with grain and 呈 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "grain left; measure right",
+    "visual": "A grain stalk with a top tuft and side leaves grows at the left. On the right a small square label stands above a three-bar measuring pole, showing how far the grain reaches.",
+    "reviewStatus": "reviewed"
   },
   "師": {
-    "meaning": "expert",
-    "memory": "A teacher leading an army: master.",
+    "meaning": "teacher",
+    "memory": "The guide leads beside a tall banner.",
     "parts": [
-      "component 1",
-      "component 2"
+      "stacked guide crest (𠂤)",
+      "banner (帀)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "crest left; banner right",
+    "visual": "A friendly guide with a stacked cap-like crest stands on the left. A straight pole with a wide hanging banner fills the right as the boy follows the lesson.",
+    "reviewStatus": "reviewed"
   },
   "易": {
     "meaning": "easy",
-    "memory": "A lizard shifting easily: easy.",
+    "memory": "The sun lifts a few light sweeping ribbons.",
     "parts": [
       "sun (日)",
-      "flag (勿)"
+      "sweeping rays (勿)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with sun and flag in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "sun above; curved rays below",
+    "visual": "A simple square sun glows at the top. Below it three curved rays or light ribbons sweep down to the right; the boy lifts one with ease.",
+    "reviewStatus": "reviewed"
   },
   "破": {
-    "meaning": "rend",
-    "memory": "Stone tearing leather: rip.",
+    "meaning": "break",
+    "memory": "A stone tears a strip of leather.",
     "parts": [
       "stone (石)",
-      "skin (皮)"
+      "leather skin (皮)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with stone and skin in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "stone left; leather right",
+    "visual": "A firm stone with a little square opening sits at the left. The boy pulls apart a soft leather strip on the right, its forked hanging shape still visible.",
+    "reviewStatus": "reviewed"
   },
   "責": {
-    "meaning": "blame",
-    "memory": "A shell demanded with a thorn: blame.",
+    "meaning": "responsibility",
+    "memory": "A thorny request sits above the shell purse.",
     "parts": [
-      "growth (龶)",
-      "shell (貝)"
+      "thorny growth (龶)",
+      "shell purse (貝)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with growth and shell in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "thorny growth above; shell purse below",
+    "visual": "A short upright sprout crossed by three bars stands above a shell-shaped purse with inner marks and tiny feet. The boy carefully accepts the duty of caring for it.",
+    "reviewStatus": "reviewed"
   },
   "因": {
     "meaning": "cause",
-    "memory": "A big person lying on a mat: cause.",
+    "memory": "The big figure inside the frame starts the story.",
     "parts": [
       "enclosure (囗)",
-      "big (大)"
+      "big figure (大)"
     ],
-    "layout": "first component around second",
-    "visual": "Build one connected scene with enclosure and big in the kanji's first component around second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "enclosure surrounds big figure",
+    "visual": "A bold square picture frame encloses the boy with arms and legs spread in a large 大 shape. A small glowing cause-and-effect spark starts at his hand inside the frame.",
+    "reviewStatus": "reviewed"
   },
   "富": {
     "meaning": "wealth",
-    "memory": "A full jar under a roof: wealth.",
+    "memory": "A full jar beneath a roof holds the treasure.",
     "parts": [
       "roof (宀)",
-      "畐 (畐)"
+      "full jar (畐)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and 畐 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above; jar below",
+    "visual": "A broad roof shelters a tall jar below, with a narrow neck, square middle opening and divided lower compartment. The boy finds plenty of rice inside.",
+    "reviewStatus": "reviewed"
   },
   "適": {
     "meaning": "suitable",
-    "memory": "A foot heading straight to the root: suitable.",
+    "memory": "The road leads to the fitting little house.",
     "parts": [
-      "啇 (啇)",
+      "stacked house (啇)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with 啇 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "house center right; road wraps left and bottom",
+    "visual": "A small house with pointed roof, wide middle frame and square door stands on the right. A winding road wraps from the left beneath it; the boy arrives at a perfect fit.",
+    "reviewStatus": "reviewed"
   },
   "婦": {
-    "meaning": "lady",
-    "memory": "A woman with a broom: lady, wife.",
+    "meaning": "woman",
+    "memory": "The woman stands beside a broom.",
     "parts": [
       "woman (女)",
       "broom (帚)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with woman and broom in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "woman left; broom right",
+    "visual": "A capable woman with the crossing 女 silhouette stands at the left. A tall broom with a wrapped head and hanging bristles stands at the right; she and the boy tidy together.",
+    "reviewStatus": "reviewed"
   },
   "寄": {
-    "meaning": "draw near",
-    "memory": "A strange house to approach: draw near.",
+    "meaning": "approach",
+    "memory": "Under the roof, a curious visitor draws near.",
     "parts": [
       "roof (宀)",
-      "奇 (奇)"
+      "large figure over can (奇)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and 奇 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above; figure over square stand below",
+    "visual": "A broad roof tops the scene. Below it a large-armed visitor balances over a small square stand and the boy approaches to say hello.",
+    "reviewStatus": "reviewed"
   },
   "余": {
-    "meaning": "too much",
-    "memory": "A big roof with a lot left over: surplus.",
+    "meaning": "surplus",
+    "memory": "A person has extra stores below the roofline.",
     "parts": [
-      "person (人)",
-      "component 2"
+      "person roof (𠆢)",
+      "crossed shelf and spare strokes"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with person and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person roof above; shelf and spare strokes below",
+    "visual": "A person’s broad triangular arms make a roof at the top. Under them a vertical shelf crosses two bars, with two little spare supplies falling to either side; plenty is left over.",
+    "reviewStatus": "reviewed"
   },
   "妻": {
     "meaning": "wife",
-    "memory": "A hand tidying a woman's hair: wife.",
+    "memory": "A woman tidies her hair with a hand above.",
     "parts": [
-      "component 1",
+      "hand and hair comb",
       "woman (女)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and woman in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand and comb above; woman below",
+    "visual": "An adult woman forms the crossed 女 shape at the bottom. Above her, one hand holds a straight comb through her hair, with the horizontal upper strokes clear.",
+    "reviewStatus": "reviewed"
   },
   "険": {
-    "meaning": "precipitous",
-    "memory": "A steep hill that everybody fears: dangerous.",
+    "meaning": "dangerous",
+    "memory": "A steep hill and a crowded ledge call for care.",
     "parts": [
       "hill (⻖)",
-      "㑒 (㑒)"
+      "people beneath ledges (㑒)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hill and 㑒 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "cliff left; ledges and people right",
+    "visual": "A narrow steep cliff stands at the left. On the right a small roof covers stacked ledges and two people below; the boy steps carefully along the safe path.",
+    "reviewStatus": "reviewed"
   },
   "許": {
-    "meaning": "permit",
-    "memory": "Words at noon say it's fine: permit.",
+    "meaning": "allow",
+    "memory": "Spoken words give the go-ahead at noon.",
     "parts": [
-      "words (言)",
-      "午 (午)"
+      "speech lines (言)",
+      "noon marker (午)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and 午 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; noon marker right",
+    "visual": "The boy speaks beside a tall stack of speech lines on the left. On the right a sunlit vertical post with a short top slash and horizontal crossbar stands for 午; a green go-ahead ribbon connects them.",
+    "reviewStatus": "reviewed"
   },
   "留": {
-    "meaning": "detain",
-    "memory": "A field held in place: detain.",
+    "meaning": "remain",
+    "memory": "A field keeps the little visitor for a while.",
     "parts": [
-      "卯 (卯)",
+      "two hooks above (卯)",
       "field (田)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 卯 and field in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "two hooks above; field below",
+    "visual": "Two curved hooklike ribbons hang at the top. Below them is a crisp four-part rice field; the boy waits cheerfully beside it.",
+    "reviewStatus": "reviewed"
   },
   "罪": {
-    "meaning": "guilt",
-    "memory": "A net for wrongdoers: crime.",
+    "meaning": "wrongdoing",
+    "memory": "A net catches the crossed-out mistake.",
     "parts": [
       "net (罒)",
-      "not (非)"
+      "opposing rails (非)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with net and not in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "net above; opposed rails below",
+    "visual": "A broad four-pane net stretches above. Beneath it two parallel rails with short bars pointing outward form 非; the boy spots a harmless crossed-out mistake.",
+    "reviewStatus": "reviewed"
   },
   "精": {
     "meaning": "refined",
-    "memory": "Blue, refined rice: refined.",
+    "memory": "Rice becomes a bright blue gem.",
     "parts": [
       "rice (米)",
-      "blue (青)"
+      "blue sprout (青)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with rice and blue in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "rice left; blue sprout right",
+    "visual": "A plump rice grain star with eight rays fills the left. On the right a bright blue upright sprout stands over a moonlike base; the boy polishes one grain until it gleams.",
+    "reviewStatus": "reviewed"
   },
   "絶": {
-    "meaning": "discontinue",
-    "memory": "Thread cut by a blade of colour: cut off.",
+    "meaning": "cut off",
+    "memory": "A thread ends at a vivid color ribbon.",
     "parts": [
       "thread (糸)",
-      "色 (色)"
+      "color wrap (色)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with thread and 色 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "thread left; color wrap right",
+    "visual": "A tall loose spool and three thread dots fill the left. The thread stops at a large folded color ribbon on the right, whose top hook and lower curled tail echo 色.",
+    "reviewStatus": "reviewed"
   },
   "居": {
     "meaning": "reside",
-    "memory": "A body sitting in an old place: reside.",
+    "memory": "An old story rests under a shelter.",
     "parts": [
-      "awning (尸)",
-      "old (古)"
+      "shelter (尸)",
+      "old sign (古)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with awning and old in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelter around top and left; old sign below",
+    "visual": "A curved shelter roofs the scene and drops down the left. Under it an upright old sign has a cross above a square opening; the boy settles in with a cushion.",
+    "reviewStatus": "reviewed"
   },
   "雑": {
     "meaning": "miscellaneous",
-    "memory": "Birds and trees in a mess: miscellaneous.",
+    "memory": "Nine different things gather by a bird.",
     "parts": [
-      "component 1",
+      "nine marker (九)",
+      "tree (木)",
       "bird (隹)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and bird in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "nine and tree left; bird right",
+    "visual": "At the left nine colorful trinkets cluster around a small tree. At the right a tidy bird stands tall with visible wing bars; the boy sorts the mixed collection.",
+    "reviewStatus": "reviewed"
   },
   "招": {
-    "meaning": "beckon",
-    "memory": "A hand waves you over: invite.",
+    "meaning": "invite",
+    "memory": "A waving hand calls a visitor over.",
     "parts": [
       "hand (扌)",
-      "召 (召)"
+      "curved call and mouth (召)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and 召 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; call above mouth right",
+    "visual": "A tall waving hand rises at the left. A curved inviting ribbon at upper right bends toward a square speaking mouth below; the boy welcomes a friend.",
+    "reviewStatus": "reviewed"
   },
   "賛": {
-    "meaning": "approve",
-    "memory": "Two men bring shells: approve.",
+    "meaning": "praise",
+    "memory": "Two friends offer a shell purse in approval.",
     "parts": [
-      "component 1",
-      "shell (貝)"
+      "two standing figures (夫夫)",
+      "shell purse (貝)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and shell in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "two figures above; shell purse below",
+    "visual": "Two little standing friends with outstretched arms sit side by side at the top. They lift a large shell purse with inner eye marks below; the boy applauds.",
+    "reviewStatus": "reviewed"
   },
   "犯": {
-    "meaning": "crime",
-    "memory": "A dog steps past the kneeling man: crime.",
+    "meaning": "commit an offense",
+    "memory": "A curious animal crosses a marked boundary.",
     "parts": [
-      "beast (⺨)",
-      "㔾 (㔾)"
+      "animal (犭)",
+      "bent boundary hook (㔾)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with beast and 㔾 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "animal left; hook right",
+    "visual": "A harmless curious doglike animal stands tall on the left. A bold bent boundary marker curls down on the right; the boy gently guides it back after it crosses the line.",
+    "reviewStatus": "reviewed"
   },
   "似": {
-    "meaning": "becoming",
-    "memory": "A person using another as a model: resemble.",
+    "meaning": "resemble",
+    "memory": "A person copies a simple pose.",
     "parts": [
       "person (亻)",
-      "以 (以)"
+      "matching pose (以)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 以 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; matching pose right",
+    "visual": "The boy forms a slim upright figure at the left. On the right a second tiny figure repeats his bent pose across a little center dot, showing resemblance.",
+    "reviewStatus": "reviewed"
   },
   "迷": {
-    "meaning": "astray",
-    "memory": "A grain of rice lost on the road: astray.",
+    "meaning": "lost",
+    "memory": "Rice grains wander off the winding road.",
     "parts": [
-      "rice (米)",
+      "rice star (米)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with rice and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "rice center right; road wraps left and bottom",
+    "visual": "A single rice-shaped star sits at upper right, with six clear rays. A curved path sweeps around from the left beneath it as the boy searches for his way.",
+    "reviewStatus": "reviewed"
   },
   "夢": {
     "meaning": "dream",
-    "memory": "Seeing grass in the evening under a cover: dream.",
+    "memory": "At dusk a covered scene becomes a dream.",
     "parts": [
-      "component 1",
-      "evening (夕)"
+      "grass and eye under cover",
+      "evening moon (夕)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and evening in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "grass and wide cover above; moon below",
+    "visual": "A little grassy crest and horizontal eye sit beneath a broad top cover. Underneath, a crescent evening moon curls down; the boy sleeps and dreams of stars.",
+    "reviewStatus": "reviewed"
   },
   "慣": {
     "meaning": "accustomed",
-    "memory": "A heart threaded through with habit: accustomed.",
+    "memory": "A heart repeats the same threaded path.",
     "parts": [
-      "heart (忄)",
-      "貫 (貫)"
+      "heart drops (忄)",
+      "threaded coin stack (貫)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with heart and 貫 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "heart left; threaded stack right",
+    "visual": "Three heart drops form the left side. On the right a straight cord passes through a tall stack of shelllike tokens; the boy repeats the familiar routine.",
+    "reviewStatus": "reviewed"
   },
   "貧": {
-    "meaning": "poverty",
-    "memory": "Money divided up: poverty.",
+    "meaning": "poor",
+    "memory": "The divided shell purse has little left.",
     "parts": [
       "divide (分)",
-      "shell (貝)"
+      "shell purse (貝)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with divide and shell in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "dividing arms above; purse below",
+    "visual": "Two downward slanted arms at top split a small token. Beneath sits a shell purse with its inner marks visible and only one coin; the boy shares kindly.",
+    "reviewStatus": "reviewed"
   },
   "祖": {
     "meaning": "ancestor",
-    "memory": "An altar stacked over generations: ancestor.",
+    "memory": "A family offering stands beside stacked generations.",
     "parts": [
       "altar (礻)",
-      "stack (且)"
+      "stacked tablets (且)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with altar and stack in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "altar left; tablets right",
+    "visual": "A slim offering altar with one top dot and two side marks rises on the left. On the right three horizontal family tablets stack inside a tall frame; the boy remembers his family.",
+    "reviewStatus": "reviewed"
   },
   "権": {
     "meaning": "authority",
-    "memory": "A tree with a bird of power: authority.",
+    "memory": "A tree stands beside a bird under a crown of grass.",
     "parts": [
       "tree (木)",
-      "component 2"
+      "grass-topped bird (𮥶)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with tree and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "tree left; grassy bird right",
+    "visual": "A simple tree with strong trunk fills the left. On the right a tall bird with layered wings stands under a small grassy crown; the boy receives a symbolic key to care for the garden.",
+    "reviewStatus": "reviewed"
   },
   "済": {
-    "meaning": "settle (debt, etc.)",
-    "memory": "Water that levels it all: finish, settle.",
+    "meaning": "complete",
+    "memory": "Water brings every line into balance.",
     "parts": [
-      "water (氵)",
-      "斉 (斉)"
+      "water drops (氵)",
+      "aligned marks (斉)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and 斉 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; aligned marks right",
+    "visual": "Three blue water drops run down the left. On the right a broad top line, crossing pair and two aligned lower marks form a tidy finish line; the boy completes the task.",
+    "reviewStatus": "reviewed"
   },
   "認": {
     "meaning": "acknowledge",
-    "memory": "Words you hold back with a heart: acknowledge.",
+    "memory": "Words meet a patient heart.",
     "parts": [
-      "words (言)",
-      "忍 (忍)"
+      "speech lines (言)",
+      "blade over heart (忍)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and 忍 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; blade and heart right",
+    "visual": "Tall speech lines end in a square mouth at the left. At the right a safe paper-cutting blade shape rests above a soft heart; the boy calmly says what happened.",
+    "reviewStatus": "reviewed"
   },
   "論": {
-    "meaning": "argument",
-    "memory": "Words put in order: argument.",
+    "meaning": "discussion",
+    "memory": "Spoken words are placed in order.",
     "parts": [
-      "words (言)",
-      "侖 (侖)"
+      "speech lines (言)",
+      "ordered shelves (侖)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and 侖 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; person roof and shelves right",
+    "visual": "A tall stack of speech lines fills the left. On the right a triangular person-roof covers several neatly ordered shelves; two friends discuss the ideas.",
+    "reviewStatus": "reviewed"
   },
   "疑": {
     "meaning": "doubt",
-    "memory": "A person unsure which way to go: doubt.",
+    "memory": "Two paths make the traveler hesitate.",
     "parts": [
-      "component 1",
-      "component 2"
+      "person and question hook",
+      "forked stepping path (疋)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "questioning figure left; forked path right",
+    "visual": "A curious figure with a hooked question mark shape stands at the left. Two branching steps and an upright path sit at the right; the boy pauses between them.",
+    "reviewStatus": "reviewed"
   },
   "供": {
-    "meaning": "submit",
-    "memory": "A person hands something with two hands: offer.",
+    "meaning": "offer",
+    "memory": "A person offers a shared tray.",
     "parts": [
       "person (亻)",
-      "together (共)"
+      "together tray (共)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and together in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; shared tray right",
+    "visual": "The boy stands as a tall slim figure at the left. On the right two upright hands support a broad horizontal tray with two little feet; he offers food to friends.",
+    "reviewStatus": "reviewed"
   },
   "割": {
-    "meaning": "proportion",
-    "memory": "A knife that harms it in two: divide.",
+    "meaning": "divide",
+    "memory": "A safe cutter separates two matching shares.",
     "parts": [
-      "害 (害)",
-      "knife (刂)"
+      "roofed stack (害)",
+      "blade (刂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 害 and knife in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roofed stack left; blade right",
+    "visual": "A roof covers a stack of horizontal layers above a small square opening at the left. A rounded upright craft blade at the right parts the stack into fair shares.",
+    "reviewStatus": "reviewed"
   },
   "難": {
     "meaning": "difficult",
-    "memory": "A bird on a bird-trap: difficult.",
+    "memory": "A tangled task stands beside a determined bird.",
     "parts": [
-      "component 1",
+      "dense crossed bundle (𦰩)",
       "bird (隹)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and bird in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "crossed bundle left; bird right",
+    "visual": "A dense crisscrossing bundle of colored ribbons fills the left. A small upright bird with clear wing stripes stands at the right; the boy carefully untangles the hard task.",
+    "reviewStatus": "reviewed"
   },
   "優": {
-    "meaning": "tenderness",
-    "memory": "A person with a sad heart: tender, excel.",
+    "meaning": "kind",
+    "memory": "A person gently supports a worried heart.",
     "parts": [
       "person (亻)",
-      "憂 (憂)"
+      "crowned eye, heart and feet (憂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 憂 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; layered heart and feet right",
+    "visual": "The boy forms a slim figure at the left. On the right a broad cover tops a watchful eye, a warm heart and little walking feet; he offers gentle help.",
+    "reviewStatus": "reviewed"
   },
   "収": {
-    "meaning": "income",
-    "memory": "A hand takes in the harvest: obtain.",
+    "meaning": "receive",
+    "memory": "A hand gathers a harvest into a narrow basket.",
     "parts": [
-      "component 1",
+      "upright receiving rail (丩)",
       "hand (又)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and hand in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "rail left; hand right",
+    "visual": "A tall narrow hooked basket rail stands at the left. At the right a clear two-stroke hand lifts a few grain heads into it; the boy receives the harvest.",
+    "reviewStatus": "reviewed"
   },
   "宅": {
     "meaning": "home",
-    "memory": "A plant growing under a roof: home.",
+    "memory": "A small plant settles under a roof.",
     "parts": [
       "roof (宀)",
-      "乇 (乇)"
+      "bent sprout (乇)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and 乇 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above; sprout below",
+    "visual": "A broad roof arches across the top. A short slanted shoot, long vertical stem and bent root grow below it; the boy welcomes it home.",
+    "reviewStatus": "reviewed"
   },
   "警": {
-    "meaning": "admonish",
-    "memory": "Words respected as a warning: admonish.",
+    "meaning": "warn",
+    "memory": "Careful action and words sound an alert.",
     "parts": [
-      "敬 (敬)",
-      "words (言)"
+      "respectful action (敬)",
+      "speech lines (言)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 敬 and words in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "action above; speech below",
+    "visual": "At the top a small grassy sign, square call and careful hand make an alert gesture. Below, stacked speech lines end in a square mouth as the boy warns friends of a puddle.",
+    "reviewStatus": "reviewed"
   },
   "訪": {
-    "meaning": "call on",
-    "memory": "Words in a direction: visit.",
+    "meaning": "visit",
+    "memory": "Words travel toward a chosen direction.",
     "parts": [
-      "words (言)",
-      "direction (方)"
+      "speech lines (言)",
+      "direction flag (方)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and direction in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; flag right",
+    "visual": "Tall speech lines and a square mouth fill the left. On the right a broad top flag narrows into a slanting path; the boy follows it to visit a friend.",
+    "reviewStatus": "reviewed"
   },
   "若": {
     "meaning": "young",
-    "memory": "A young grass held by the right hand: young.",
+    "memory": "Tender grass grows above a helping hand.",
     "parts": [
       "grass (艹)",
-      "右 (右)"
+      "right hand and mouth (右)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with grass and 右 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "grass above; right-hand shape below",
+    "visual": "Two fresh grass shoots sit across the top. Beneath, a large right-hand arm reaches around a small square opening; the boy admires the young plant.",
+    "reviewStatus": "reviewed"
   },
   "段": {
-    "meaning": "grade",
-    "memory": "A hand steps up in stages: steps.",
+    "meaning": "step",
+    "memory": "Each step needs one careful tap.",
     "parts": [
-      "component 1",
-      "strike (殳)"
+      "stacked steps",
+      "tapping hand (殳)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and strike in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "steps left; tapping hand right",
+    "visual": "Three short ledges stack like a stair at the left. At the right a safe little tapping hand with bent wrist marks each level as the boy climbs.",
+    "reviewStatus": "reviewed"
   },
   "呼": {
     "meaning": "call",
-    "memory": "A mouth breathing out: call.",
+    "memory": "A mouth sends a breath across the air.",
     "parts": [
       "mouth (口)",
-      "乎 (乎)"
+      "breath with central line (乎)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with mouth and 乎 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "mouth left; breath right",
+    "visual": "A big square calling mouth sits at the left. On the right a small top puff crosses a long horizontal breath line and vertical stem; the boy calls a friend.",
+    "reviewStatus": "reviewed"
   },
   "値": {
-    "meaning": "price",
-    "memory": "A person worth a straight look: price.",
+    "meaning": "value",
+    "memory": "A person looks straight at the price.",
     "parts": [
       "person (亻)",
-      "straight (直)"
+      "straight eye sign (直)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and straight in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; straight sign right",
+    "visual": "The boy forms a slim upright figure at the left. On the right a straight top cross stands above a tall framed eye with horizontal bars; a small price tag hangs below.",
+    "reviewStatus": "reviewed"
   },
   "処": {
-    "meaning": "dispose",
-    "memory": "A person settled on a stool: deal with.",
+    "meaning": "deal with",
+    "memory": "Walking feet arrive at the little desk.",
     "parts": [
-      "slow feet (夂)",
-      "table (几)"
+      "walking feet (夂)",
+      "small desk (几)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with slow feet and table in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "feet above left; desk below right",
+    "visual": "Two curved walking steps enter from upper left. A small two-legged desk stands at lower right; the boy reaches it to deal with a task.",
+    "reviewStatus": "reviewed"
   },
   "否": {
-    "meaning": "negate",
-    "memory": "A mouth saying not: no.",
+    "meaning": "no",
+    "memory": "The mouth says no beneath the crossed sign.",
     "parts": [
-      "不 (不)",
+      "not sign (不)",
       "mouth (口)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 不 and mouth in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "crossed sign above; mouth below",
+    "visual": "A broad horizontal no-sign with slanting arms fills the top. Beneath it a square mouth says no, while the boy shakes his head politely.",
+    "reviewStatus": "reviewed"
   },
   "存": {
     "meaning": "exist",
-    "memory": "A child with a sprout: exist.",
+    "memory": "A child lives beneath a sheltering sprout.",
     "parts": [
-      "component 1",
+      "slanted shelter and stem",
       "child (子)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with component 1 and child in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "sheltering strokes above; child below",
+    "visual": "A long slanted shelter and short upright stem form the upper shape. A small child with a round head and crossing arms stands safely below; the boy points to the child who is here.",
+    "reviewStatus": "reviewed"
   },
   "座": {
-    "meaning": "squat",
-    "memory": "Two people on the ground under an awning: seat.",
+    "meaning": "seat",
+    "memory": "Two people sit on earth under a roof.",
     "parts": [
-      "awning (广)",
-      "坐 (坐)"
+      "wide roof (广)",
+      "two people on earth (坐)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with awning and 坐 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof around top and left; people and earth below",
+    "visual": "A broad awning bends over from the top and down the left. Beneath it two friends sit symmetrically on a clear earth platform; the boy offers a seat.",
+    "reviewStatus": "reviewed"
   },
   "除": {
-    "meaning": "exclude",
-    "memory": "Remove earth to level the hill: exclude.",
+    "meaning": "remove",
+    "memory": "A hill is cleared of extra stones.",
     "parts": [
       "hill (⻖)",
-      "surplus (余)"
+      "extra shelf (余)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hill and surplus in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hill left; person-roof and shelf right",
+    "visual": "A narrow hill rises on the left. At the right a person-shaped roof covers a crossed shelf with two loose pebbles; the boy removes the extras.",
+    "reviewStatus": "reviewed"
   },
   "降": {
     "meaning": "descend",
-    "memory": "Feet come down the hill: descend.",
+    "memory": "Two feet come down the hill.",
     "parts": [
       "hill (⻖)",
-      "夅 (夅)"
+      "descending feet (夅)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hill and 夅 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hill left; descending feet right",
+    "visual": "A steep but friendly hill stands at the left. On the right two successive foot shapes step down over a short horizontal landing; the boy descends carefully.",
+    "reviewStatus": "reviewed"
   },
   "危": {
-    "meaning": "dangerous",
-    "memory": "A person on a cliff: dangerous.",
+    "meaning": "danger",
+    "memory": "A figure near the cliff pauses at the edge.",
     "parts": [
-      "𠂊 (𠂊)",
-      "厄 (厄)"
+      "top bent figure (𠂊)",
+      "cliff and curled foot (厄)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 𠂊 and 厄 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "bent figure above; cliff and foot below",
+    "visual": "At the top a small bent figure leans toward a cliff. Below, a curved foot stops just before the edge; the boy notices the danger and steps back.",
+    "reviewStatus": "reviewed"
   },
   "亡": {
-    "meaning": "deceased",
-    "memory": "A person hiding in a corner: deceased.",
+    "meaning": "gone",
+    "memory": "An empty corner shows someone has gone.",
     "parts": [
-      "lid (亠)",
-      "box (匸)"
+      "top line and dot (亠)",
+      "open corner (匸)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with lid and box in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "top line above; open corner below",
+    "visual": "A little top line and dot form a rooflike marker above an empty open corner. The boy gently notices an empty place where a friend was.",
+    "reviewStatus": "reviewed"
   },
   "背": {
-    "meaning": "stature",
-    "memory": "Two people back to back on a body: back.",
+    "meaning": "back",
+    "memory": "Two figures stand back to back above the body.",
     "parts": [
-      "北 (北)",
-      "moon (月)"
+      "opposed figures (北)",
+      "body (月)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 北 and moon in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "opposed figures above; body below",
+    "visual": "Two tiny figures face away from one another across a center gap at the top. Below, a rounded upright body with two inner bands supports them; the boy points to his back.",
+    "reviewStatus": "reviewed"
   },
   "勤": {
     "meaning": "diligence",
-    "memory": "Strength spent on hard clay: work hard.",
+    "memory": "Strong arms work through a tall garden task.",
     "parts": [
-      "菫 (菫)",
+      "grass and stacked soil (菫)",
       "strength (力)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 菫 and strength in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "stacked garden left; strong arm right",
+    "visual": "On the left a grassy crest sits above a tall stack of soil layers. On the right one big bent arm works steadily as the boy cares for the garden.",
+    "reviewStatus": "reviewed"
   },
   "困": {
-    "meaning": "quandary",
-    "memory": "A tree trapped in a box: in trouble.",
+    "meaning": "trouble",
+    "memory": "A tree is crowded inside a square fence.",
     "parts": [
       "enclosure (囗)",
       "tree (木)"
     ],
-    "layout": "first component around second",
-    "visual": "Build one connected scene with enclosure and tree in the kanji's first component around second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "square enclosure around tree",
+    "visual": "A simple tree with clear branches and trunk fills a square fence so tightly its leaves touch the sides; the boy helps make room.",
+    "reviewStatus": "reviewed"
   },
   "刻": {
-    "meaning": "engrave",
-    "memory": "A knife carves the pig: engrave.",
+    "meaning": "carve",
+    "memory": "A craft blade engraves a patterned block.",
     "parts": [
-      "亥 (亥)",
-      "knife (刂)"
+      "patterned block (亥)",
+      "blade (刂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 亥 and knife in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "patterned block left; blade right",
+    "visual": "A layered block with top cap, crossed middle and two lower legs fills the left. A rounded upright craft blade at the right makes a small decorative engraving.",
+    "reviewStatus": "reviewed"
   },
   "欲": {
-    "meaning": "longing",
-    "memory": "An open mouth over a valley: greed.",
+    "meaning": "want",
+    "memory": "A valley opens beside a reaching breath.",
     "parts": [
       "valley (谷)",
-      "open mouth (欠)"
+      "open reaching figure (欠)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with valley and open mouth in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "valley left; reaching figure right",
+    "visual": "A V-shaped valley with a small square opening sits at the left. On the right a bent figure reaches toward a wished-for star; the boy’s hopeful face shows wanting.",
+    "reviewStatus": "reviewed"
   },
   "痛": {
     "meaning": "pain",
-    "memory": "Sickness that passes through: pain.",
+    "memory": "A sore place sits under the sickness shelter.",
     "parts": [
-      "sickness (疒)",
-      "path (甬)"
+      "sickness shelter (疒)",
+      "tunnel path (甬)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with sickness and path in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelter around top and left; tunnel inside",
+    "visual": "A sloping roof with two small side dots shelters the scene from top and left. Inside, a narrow path passes through a square tunnel; the boy holds a small bandage.",
+    "reviewStatus": "reviewed"
   },
   "探": {
-    "meaning": "grope",
-    "memory": "A hand reaching into a cave: search.",
+    "meaning": "search",
+    "memory": "A hand reaches into a covered nook.",
     "parts": [
       "hand (扌)",
-      "component 2"
+      "covered nook and tree (罙)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and component 2 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; nook above tree right",
+    "visual": "The boy’s long reaching hand fills the left. On the right a little cover with two hanging dots sits above a small tree; he searches beneath it for a hidden star.",
+    "reviewStatus": "reviewed"
   },
   "閉": {
-    "meaning": "closed",
-    "memory": "A gate with a bar: shut.",
+    "meaning": "close",
+    "memory": "A crossbar locks the tall gate.",
     "parts": [
-      "gate (門)",
-      "才 (才)"
+      "double gate (門)",
+      "crossbar (才)"
     ],
-    "layout": "first component around second",
-    "visual": "Build one connected scene with gate and 才 in the kanji's first component around second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "two gate sides around crossbar",
+    "visual": "Two tall gate leaves with square inner panels frame a central crossing bar. The boy gently slides the bar across to close the gate.",
+    "reviewStatus": "reviewed"
   },
   "暮": {
-    "meaning": "evening",
-    "memory": "The sun sets behind grass: evening.",
+    "meaning": "dusk",
+    "memory": "The sun settles beneath grass and a wide horizon.",
     "parts": [
-      "莫 (莫)",
+      "grass (艹)",
+      "wide horizon (大)",
       "sun (日)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 莫 and sun in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "grass top; horizon middle; sun bottom",
+    "visual": "A grassy crest forms the top. A broad spreading horizon sits in the middle and a square sun drops below it; the boy watches dusk arrive.",
+    "reviewStatus": "reviewed"
   },
   "吸": {
-    "meaning": "suck",
-    "memory": "A mouth reaches and pulls in: suck.",
+    "meaning": "inhale",
+    "memory": "The mouth draws a ribbon inward.",
     "parts": [
       "mouth (口)",
-      "及 (及)"
+      "reaching curl (及)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with mouth and 及 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "mouth left; curled reach right",
+    "visual": "A square open mouth sits at the left. A curled ribbon with a top hook and long lower sweep bends toward it from the right as the boy takes a breath.",
+    "reviewStatus": "reviewed"
   },
   "忘": {
     "meaning": "forget",
-    "memory": "A heart with something gone: forget.",
+    "memory": "What is gone leaves a little gap in the heart.",
     "parts": [
-      "亡 (亡)",
+      "gone sign (亡)",
       "heart (心)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 亡 and heart in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "gone sign above; heart below",
+    "visual": "An open corner beneath a top dot forms the upper gone sign. A plump heart with three small pulses sits below; the boy searches kindly for a forgotten thought.",
+    "reviewStatus": "reviewed"
   },
   "誤": {
     "meaning": "mistake",
-    "memory": "Words led astray: mistake.",
+    "memory": "Words turn toward the wrong answer.",
     "parts": [
-      "words (言)",
-      "呉 (呉)"
+      "speech lines (言)",
+      "misdirected mouth and legs (呉)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with words and 呉 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "speech left; mouth and legs right",
+    "visual": "Stacked speech lines and a square mouth fill the left. On the right a second square mouth sits over two stepping legs pointing the wrong way; the boy corrects a harmless mistake.",
+    "reviewStatus": "reviewed"
   },
   "洗": {
     "meaning": "wash",
-    "memory": "Water on your feet first: wash.",
+    "memory": "Water pours over the first step.",
     "parts": [
-      "water (氵)",
-      "先 (先)"
+      "water drops (氵)",
+      "first step (先)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and 先 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; top mark and legs right",
+    "visual": "Three blue water drops descend at the left. On the right a short slant and crossbar stand over a pair of walking legs; the boy washes his hands before setting off.",
+    "reviewStatus": "reviewed"
   },
   "窓": {
     "meaning": "window",
-    "memory": "A hole for a person to look out: window.",
+    "memory": "A heart looks out through the roof opening.",
     "parts": [
-      "hole (穴)",
-      "component 2"
+      "roof opening (穴)",
+      "heart and view (忩)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with hole and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof and small opening above; heart below",
+    "visual": "A broad roof with two little hanging light marks frames a window at the top. Under it a small view and warm heart form the lower shape; the boy looks outside.",
+    "reviewStatus": "reviewed"
   },
   "腹": {
-    "meaning": "abdomen",
-    "memory": "Flesh that doubles over: belly.",
+    "meaning": "belly",
+    "memory": "The body rests beside a returning foot.",
     "parts": [
-      "moon (月)",
-      "复 (复)"
+      "body (月)",
+      "covered sun and steps (复)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with moon and 复 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "body left; sun and steps right",
+    "visual": "A rounded upright body with two inner bands fills the left. On the right a tiny capped square sun stands above walking feet; the boy pats a full belly after lunch.",
+    "reviewStatus": "reviewed"
   },
   "頂": {
-    "meaning": "place on the head",
-    "memory": "A nail through the head: top.",
+    "meaning": "top",
+    "memory": "A tall post reaches the very top of a head.",
     "parts": [
-      "nail (丁)",
+      "top post (丁)",
       "head (頁)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with nail and head in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "post left; head right",
+    "visual": "A clean upright post with a top bar stands at the left. On the right a friendly head shape with wide hair cap, tall face and little legs rises to its highest point; a star marks the top.",
+    "reviewStatus": "reviewed"
   },
   "晩": {
-    "meaning": "nightfall",
-    "memory": "The sun escapes: nightfall.",
+    "meaning": "evening",
+    "memory": "The sun slips behind a turning figure.",
     "parts": [
       "sun (日)",
-      "excuse (免)"
+      "turning figure (免)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with sun and excuse in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "sun left; turning figure right",
+    "visual": "A square sun glows at the left. On the right a capped figure with square middle and curled lower legs turns away as evening begins; the boy lights a lantern.",
+    "reviewStatus": "reviewed"
   },
   "歳": {
-    "meaning": "year-end",
-    "memory": "Steps and a blade mark each year: age.",
+    "meaning": "year",
+    "memory": "A little step marks another year.",
     "parts": [
-      "stop (止)",
-      "戌 (戌)",
-      "small (小)"
+      "stopping step (止)",
+      "crossed tally (戌)",
+      "small strokes (小)"
     ],
-    "layout": "follow visible component positions",
-    "visual": "Build one connected scene with stop, 戌, small in their visible stroke positions; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "step above; crossed tally center; small strokes below",
+    "visual": "A clear stopping foot stands at the top. Below it a safe crossed tally line and three tiny marks count another passing year while the boy adds a calendar star.",
+    "reviewStatus": "reviewed"
   },
   "与": {
-    "meaning": "bestow",
-    "memory": "A hand gives one thing: bestow.",
+    "meaning": "give",
+    "memory": "One little gift passes from hand to hand.",
     "parts": [
-      "one (一)"
+      "bent upper hand",
+      "horizontal gift line (一)"
     ],
-    "layout": "single main shape",
-    "visual": "Make 与 recognizable through one large bestow object or silhouette; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "bent hand above; gift line below",
+    "visual": "A simple bent hand reaches from above and presents a single horizontal ribbon or gift below. The boy passes it to a friend.",
+    "reviewStatus": "reviewed"
   },
   "違": {
-    "meaning": "difference",
-    "memory": "A foot going the wrong way down the road: differ.",
+    "meaning": "different",
+    "memory": "One foot turns a different way on the road.",
     "parts": [
-      "韋 (韋)",
+      "opposed feet around center (韋)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with 韋 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "opposed feet center right; road wraps left and bottom",
+    "visual": "A vertical sign with two little feet facing opposite directions stands at the right. A curved road wraps from left beneath it as the boy chooses a different path.",
+    "reviewStatus": "reviewed"
   },
   "渡": {
-    "meaning": "transit",
-    "memory": "Water to be crossed by degrees: cross over.",
+    "meaning": "cross over",
+    "memory": "Water lies beside the measured crossing.",
     "parts": [
-      "water (氵)",
-      "度 (度)"
+      "water drops (氵)",
+      "sheltered crossing (度)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and 度 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; shelter and path right",
+    "visual": "Three blue water drops run down the left. A broad shelter at the right covers a horizontal bridge and a stepping hand; the boy crosses the water.",
+    "reviewStatus": "reviewed"
   },
   "突": {
-    "meaning": "stab",
-    "memory": "A dog bursts out of a hole: stab.",
+    "meaning": "burst out",
+    "memory": "A playful dog pops through an opening.",
     "parts": [
-      "hole (穴)",
-      "big (大)"
+      "roof opening (穴)",
+      "dog (犬)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with hole and big in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "opening above; dog below",
+    "visual": "A broad roof with two tiny hanging marks frames a round opening above. A friendly dog springs up from below with spread limbs and one little dot.",
+    "reviewStatus": "reviewed"
   },
   "捕": {
     "meaning": "catch",
-    "memory": "A hand seizes it: catch.",
+    "memory": "A hand catches the marked bundle.",
     "parts": [
       "hand (扌)",
-      "甫 (甫)"
+      "marked bundle (甫)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and 甫 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; upright bundle right",
+    "visual": "A long reaching hand fills the left. At the right a tall bundle with top dot, square middle and central vertical tie is caught gently by the boy.",
+    "reviewStatus": "reviewed"
   },
   "迎": {
     "meaning": "welcome",
-    "memory": "Walk up the road and raise your eyes: welcome.",
+    "memory": "A greeting figure waits beside the winding road.",
     "parts": [
-      "卬 (卬)",
+      "bent greeter (卬)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with 卬 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "greeter center right; road wraps left and bottom",
+    "visual": "A friendly greeter bends forward at the right with one raised hand. A curved road wraps from left beneath them as the boy welcomes a visitor.",
+    "reviewStatus": "reviewed"
   },
   "彼": {
     "meaning": "he",
-    "memory": "A person on the road in leather: he.",
+    "memory": "That traveler walks beside a leather cloak.",
     "parts": [
-      "road (彳)",
-      "skin (皮)"
+      "walking steps (彳)",
+      "leather (皮)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with road and skin in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "steps left; leather cloak right",
+    "visual": "Two small stepping marks lead down the left. On the right a traveler wears a leather cloak with a top crest and forked lower fold; the boy points to him.",
+    "reviewStatus": "reviewed"
   },
   "舞": {
     "meaning": "dance",
-    "memory": "Feet crossing in step: dance.",
+    "memory": "Flowing sleeves rise above crossing dance feet.",
     "parts": [
-      "component 1",
-      "舛 (舛)"
+      "flowing upper sleeves",
+      "crossing feet (舛)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and 舛 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "flowing sleeves above; opposed feet below",
+    "visual": "A row of flowing sleeves and tiny hanging tassels fills the top. Beneath, two feet turn in opposite directions with a clear center crossing as the boy dances.",
+    "reviewStatus": "reviewed"
   },
   "込": {
     "meaning": "crowded",
-    "memory": "Step in along the road: crowded.",
+    "memory": "Many friends enter along one curved road.",
     "parts": [
-      "入 (入)",
+      "entering pair (入)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with 入 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "entering pair center right; road wraps left and bottom",
+    "visual": "A simple V-shaped pair of footsteps enters at the upper right. A winding road curves from left beneath them while several tiny friends queue along it.",
+    "reviewStatus": "reviewed"
   },
   "頼": {
-    "meaning": "trust",
-    "memory": "A head tied to a bundle: trust, request.",
+    "meaning": "rely on",
+    "memory": "A tied bundle rests beside a trusted head.",
     "parts": [
-      "bundle (束)",
+      "tied bundle (束)",
       "head (頁)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with bundle and head in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "bundle left; head right",
+    "visual": "A neat vertical bundle crossed by two straps fills the left. On the right a friendly head with cap, face and lower feet looks over it; the boy asks for help.",
+    "reviewStatus": "reviewed"
   },
   "途": {
     "meaning": "route",
-    "memory": "A road with plenty of room: route.",
+    "memory": "A spare shelf stands along the winding road.",
     "parts": [
-      "surplus (余)",
+      "extra shelf (余)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with surplus and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelf center right; road wraps left and bottom",
+    "visual": "A person-shaped top shelters a crossed shelf with two little supplies at the right. A curved path wraps from left beneath it, giving the boy a clear route.",
+    "reviewStatus": "reviewed"
   },
   "抜": {
-    "meaning": "slip out",
-    "memory": "A hand plucks it out: extract.",
+    "meaning": "pull out",
+    "memory": "A hand pulls a friend from a snug spot.",
     "parts": [
       "hand (扌)",
-      "友 (友)"
+      "friend hand (友)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and 友 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; reaching friend right",
+    "visual": "A tall pulling hand fills the left. On the right two friendly hands cross under a short overhang as the boy helps a friend out of a soft pile of leaves.",
+    "reviewStatus": "reviewed"
   },
   "婚": {
     "meaning": "marriage",
-    "memory": "A woman at dusk: marriage.",
+    "memory": "Two partners meet under the evening sun.",
     "parts": [
       "woman (女)",
-      "昏 (昏)"
+      "dusk sun (昏)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with woman and 昏 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "woman left; sunset right",
+    "visual": "An adult woman with the crossed 女 silhouette stands at the left. On the right a slanting horizon sits over a square setting sun; two partners celebrate together at dusk.",
+    "reviewStatus": "reviewed"
   },
   "浮": {
-    "meaning": "floating",
-    "memory": "Water holding a child up: float.",
+    "meaning": "float",
+    "memory": "Water gently lifts a child.",
     "parts": [
-      "water (氵)",
-      "孚 (孚)"
+      "water drops (氵)",
+      "hands over child (孚)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with water and 孚 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "water left; hands above child right",
+    "visual": "Three blue water drops run down the left. On the right two cupped hands hover above a small child-shaped float; the boy watches it bob safely on water.",
+    "reviewStatus": "reviewed"
   },
   "押": {
     "meaning": "push",
-    "memory": "A hand with a shield: push.",
+    "memory": "A hand pushes the square shield.",
     "parts": [
       "hand (扌)",
-      "甲 (甲)"
+      "marked shield (甲)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and 甲 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; shield right",
+    "visual": "A tall open hand presses from the left against a square shield on the right, with its central vertical and crossbar plainly visible.",
+    "reviewStatus": "reviewed"
   },
   "倒": {
-    "meaning": "overthrow",
-    "memory": "A person who has arrived at the bottom: fall over.",
+    "meaning": "fall over",
+    "memory": "A person tips beside the arrival marker.",
     "parts": [
       "person (亻)",
-      "到 (到)"
+      "arrival marker and blade (到)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 到 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; marker and blade right",
+    "visual": "A slim figure at the left tips gently onto a cushion. On the right an upright arrival marker with base and a safe straight craft blade marks the place.",
+    "reviewStatus": "reviewed"
   },
   "払": {
     "meaning": "pay",
-    "memory": "A hand brushes something off: pay.",
+    "memory": "A hand passes a small private token.",
     "parts": [
       "hand (扌)",
-      "private (厶)"
+      "curled token (厶)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and private in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; curled token right",
+    "visual": "The boy’s upright hand reaches from the left. A small curled triangular token at the right passes to a shopkeeper as payment.",
+    "reviewStatus": "reviewed"
   },
   "遅": {
-    "meaning": "slow",
-    "memory": "A sheep walking down the road: slow.",
+    "meaning": "late",
+    "memory": "A sheep moves slowly from a shelter onto the road.",
     "parts": [
-      "component 1",
+      "shelter (尸)",
+      "sheep (羊)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with component 1 and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelter and sheep center right; road wraps left and bottom",
+    "visual": "A friendly sheep with clear horns and horizontal wool bands stands under a curved shelter at right. A winding road wraps from left beneath it; the boy waits as it arrives late.",
+    "reviewStatus": "reviewed"
   },
   "更": {
-    "meaning": "grow late",
-    "memory": "One more strike each night: grow late.",
+    "meaning": "later",
+    "memory": "The sun gains one more crossing mark.",
     "parts": [
-      "one (一)",
+      "top line (一)",
       "sun (日)",
-      "cross (乂)"
+      "crossing stroke (乂)"
     ],
-    "layout": "follow visible component positions",
-    "visual": "Build one connected scene with one, sun, cross in their visible stroke positions; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "top line above; sun middle; crossing stroke below",
+    "visual": "A horizontal horizon runs above a square sun. Two diagonal sweeping lines cross below it like another tally as the boy watches the day grow later.",
+    "reviewStatus": "reviewed"
   },
   "抱": {
     "meaning": "embrace",
-    "memory": "A hand wraps around: embrace.",
+    "memory": "A hand wraps gently around a friend.",
     "parts": [
       "hand (扌)",
-      "wrap (包)"
+      "wrapped figure (包)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and wrap in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; curved wrap right",
+    "visual": "A tall open hand fills the left. On the right a broad curled ribbon encloses a tiny smiling friend, with a lower bent tail; the boy gives a warm hug.",
+    "reviewStatus": "reviewed"
   },
   "恐": {
     "meaning": "fear",
-    "memory": "A heart struck by a tool: fear.",
+    "memory": "A heart trembles beneath a crossed tool.",
     "parts": [
-      "component 1",
+      "crossed tool (巩)",
       "heart (心)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with component 1 and heart in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "tool above; heart below",
+    "visual": "At the top a safe crossed craft tool and small mark form a compact shape. A soft heart with three pulse drops sits beneath; the boy feels afraid and reaches for a friend.",
+    "reviewStatus": "reviewed"
   },
   "戻": {
-    "meaning": "re-",
-    "memory": "A dog at the door: return.",
+    "meaning": "return",
+    "memory": "A big figure comes back through the door.",
     "parts": [
       "door (戸)",
-      "big (大)"
+      "big figure (大)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with door and big in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "door above and left; big figure below",
+    "visual": "A broad door frame curves over from top and down the left. Beneath it the boy spreads his arms and legs in a big 大 pose as he returns home.",
+    "reviewStatus": "reviewed"
   },
   "越": {
-    "meaning": "surpass",
-    "memory": "Run with an axe across: go over.",
+    "meaning": "go beyond",
+    "memory": "A runner crosses over a high mark.",
     "parts": [
-      "run (走)",
-      "戉 (戉)"
+      "running figure (走)",
+      "crossing pole (戉)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with run and 戉 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "runner left; crossing pole right",
+    "visual": "A running figure with a top earth marker and long lower step fills the left. On the right a safe slanted pole crosses a tall mark; the boy runs beyond it.",
+    "reviewStatus": "reviewed"
   },
   "互": {
-    "meaning": "mutually",
-    "memory": "Two hooks linked: mutually.",
+    "meaning": "mutual",
+    "memory": "Two hooks fit together in the middle.",
     "parts": [
-      "two (二)",
-      "彑 (彑)"
+      "top line (一)",
+      "interlocking hooks (彑)",
+      "base line (一)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with two and 彑 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "top line above; two hooks middle; base line below",
+    "visual": "Two colorful hook shapes turn toward one another and connect between a top and bottom horizontal rail. Two friends share a gift back and forth.",
+    "reviewStatus": "reviewed"
   },
   "逃": {
     "meaning": "escape",
-    "memory": "Omens of danger on the road: flee.",
+    "memory": "A traveler takes the road away from a split sign.",
     "parts": [
-      "omen (兆)",
+      "split sign (兆)",
       "road (⻌)"
     ],
-    "layout": "second left, first right",
-    "visual": "Build one connected scene with omen and road in the kanji's second left, first right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "split sign center right; road wraps left and bottom",
+    "visual": "A central upright sign splits into two curling marks at right. A curved path sweeps from left beneath it as the boy hurries away from a harmless rain cloud.",
+    "reviewStatus": "reviewed"
   },
   "緒": {
-    "meaning": "thong",
-    "memory": "Thread and a person: cord, beginning.",
+    "meaning": "beginning",
+    "memory": "The first thread starts with a person’s mark.",
     "parts": [
       "thread (糸)",
-      "someone (者)"
+      "person over sun (者)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with thread and someone in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "thread left; person and sun right",
+    "visual": "A tall thread spool with three loose dots stands at the left. On the right a small personlike cross stands above a square sun; the boy ties the first knot of a new project.",
+    "reviewStatus": "reviewed"
   },
   "掛": {
     "meaning": "hang",
-    "memory": "A hand hanging a divining stick: hang.",
+    "memory": "A hand hangs two square signs on a peg.",
     "parts": [
       "hand (扌)",
-      "卦 (卦)"
+      "paired earth marks (圭)",
+      "peg mark (卜)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with hand and 卦 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hand left; paired signs center; peg right",
+    "visual": "A tall reaching hand fills the left. Two small stacked cross-shaped signs hang at center from an upright peg on the far right; the boy adjusts them.",
+    "reviewStatus": "reviewed"
   },
   "到": {
-    "meaning": "arrival",
-    "memory": "Arrive with a sword: reach.",
+    "meaning": "arrive",
+    "memory": "A traveler reaches a marker beside the upright blade.",
     "parts": [
-      "arrive (至)",
-      "knife (刂)"
+      "arrival mark (至)",
+      "upright blade (刂)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with arrive and knife in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "arrival mark left; blade right",
+    "visual": "A small traveler lands on a horizontal base beneath a top arrow at left. A safe upright craft blade shape marks the far right edge; a bright star celebrates arrival.",
+    "reviewStatus": "reviewed"
   },
   "寝": {
-    "meaning": "lie down",
-    "memory": "A broom under a roof: lie down, sleep.",
+    "meaning": "sleep",
+    "memory": "A resting figure lies beneath the roof.",
     "parts": [
       "roof (宀)",
-      "component 2"
+      "bed and resting hand (寢 lower shape)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with roof and component 2 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "roof above; bed and hand below",
+    "visual": "A broad roof spans the top. Beneath it a long bed with layered blanket fills the left and a curled resting hand lies at the right; the boy sleeps peacefully.",
+    "reviewStatus": "reviewed"
   },
   "盗": {
     "meaning": "steal",
-    "memory": "A dish taken and gone: steal.",
+    "memory": "A missing dish leaves a gap beneath the next step.",
     "parts": [
-      "次 (次)",
+      "next step (次)",
       "dish (皿)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 次 and dish in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "next step above; dish below",
+    "visual": "At the top a person shaped like an open reaching breath looks beside two small marks. Below is a wide empty dish on short legs; the boy notices a missing cookie.",
+    "reviewStatus": "reviewed"
   },
   "御": {
-    "meaning": "honorable",
-    "memory": "A road with a kneeling rider: honourable, govern.",
+    "meaning": "honor",
+    "memory": "Careful steps lead to a respectful gate.",
     "parts": [
-      "road (彳)",
-      "卸 (卸)"
+      "walking steps (彳)",
+      "receiving sign (卸)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with road and 卸 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "steps left; stacked sign and kneeling mark right",
+    "visual": "Two small walking steps descend the left. On the right a tall marked sign stands beside a small bent greeting figure; the boy offers a respectful bow.",
+    "reviewStatus": "reviewed"
   },
   "吹": {
     "meaning": "blow",
-    "memory": "A mouth blows: blow.",
+    "memory": "A mouth sends a gust toward a reaching figure.",
     "parts": [
       "mouth (口)",
-      "open mouth (欠)"
+      "open reaching figure (欠)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with mouth and open mouth in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "mouth left; reaching figure right",
+    "visual": "A square mouth at the left puffs a soft gust. On the right a bent figure with open arms and little legs leans into the breeze; the boy blows a paper pinwheel.",
+    "reviewStatus": "reviewed"
   },
   "娘": {
     "meaning": "daughter",
-    "memory": "A good woman: daughter.",
+    "memory": "A young woman stands beside a bright good-luck sign.",
     "parts": [
       "woman (女)",
-      "good (良)"
+      "good sign (良)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with woman and good in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "woman left; good sign right",
+    "visual": "A cheerful daughter forms the crossed 女 silhouette at the left. On the right a tall good-luck sign has a top dot, square middle and sweeping lower foot; she smiles with her family.",
+    "reviewStatus": "reviewed"
   },
   "怒": {
     "meaning": "angry",
-    "memory": "A heart like a slave's: angry.",
+    "memory": "An upset heart needs a calm hand.",
     "parts": [
-      "奴 (奴)",
+      "woman and hand (奴)",
       "heart (心)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 奴 and heart in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "figure and hand above; heart below",
+    "visual": "At the top a figure and bent hand show a small disagreement. A soft heart with three pulse marks below turns red as the boy feels angry, then takes a breath.",
+    "reviewStatus": "reviewed"
   },
   "杯": {
-    "meaning": "counter for cupfuls",
-    "memory": "A wooden cup: glass.",
+    "meaning": "cup",
+    "memory": "A wooden cup holds a simple drink.",
     "parts": [
-      "tree (木)",
-      "不 (不)"
+      "tree wood (木)",
+      "not sign (不)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with tree and 不 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "wood left; crossed sign right",
+    "visual": "A small tree trunk with branch arms stands at the left. On the right a flat top and forked lower stand hold a wooden cup; the boy lifts it.",
+    "reviewStatus": "reviewed"
   },
   "疲": {
-    "meaning": "exhausted",
-    "memory": "Sickness in the skin: exhausted.",
+    "meaning": "tired",
+    "memory": "A worn cloak rests beneath the sickness shelter.",
     "parts": [
-      "sickness (疒)",
-      "skin (皮)"
+      "sickness shelter (疒)",
+      "skin cloak (皮)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with sickness and skin in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "shelter top and left; cloak inside",
+    "visual": "A sloping shelter with two side dots frames the scene. Inside a soft leather cloak with top crest and forked lower fold droops as the boy takes a rest.",
+    "reviewStatus": "reviewed"
   },
   "皆": {
-    "meaning": "all",
-    "memory": "Everyone says the same white words: all.",
+    "meaning": "everyone",
+    "memory": "Two figures gather above a bright shared square.",
     "parts": [
-      "比 (比)",
-      "white (白)"
+      "paired figures (比)",
+      "white square (白)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 比 and white in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "paired figures above; white square below",
+    "visual": "Two small matching figures stand side by side at the top. Below them a bright square white gathering mat with top dot brings everyone together.",
+    "reviewStatus": "reviewed"
   },
   "煙": {
     "meaning": "smoke",
-    "memory": "Fire with a west wind: smoke.",
+    "memory": "Fire sends curls above a tall clay chimney.",
     "parts": [
       "fire (火)",
-      "垔 (垔)"
+      "tall chimney and earth (垔)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with fire and 垔 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "fire left; chimney right",
+    "visual": "Warm orange flames make four clear rays at the left. On the right a tall capped chimney stands over a small earth base; gentle smoke curls upward while the boy watches safely.",
+    "reviewStatus": "reviewed"
   },
   "眠": {
     "meaning": "sleep",
-    "memory": "Eyes of the people close: sleep.",
+    "memory": "The eye closes beside a quiet person.",
     "parts": [
       "eye (目)",
-      "民 (民)"
+      "bent person (民)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with eye and 民 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "eye left; person right",
+    "visual": "A tall framed eye with inner bars stands at the left and slowly closes. At the right a bent person shape with a top frame and lower curled foot rests; the boy sleeps.",
+    "reviewStatus": "reviewed"
   },
   "怖": {
-    "meaning": "dreadful",
-    "memory": "A heart wrapped in cloth: fear.",
+    "meaning": "afraid",
+    "memory": "A trembling heart hides behind a cloth.",
     "parts": [
-      "heart (忄)",
-      "布 (布)"
+      "heart drops (忄)",
+      "hanging cloth (布)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with heart and 布 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "heart left; cloth right",
+    "visual": "Three heart drops form the left. On the right a short overhang supports a wide hanging cloth with a central vertical fold; the boy peeks from behind it.",
+    "reviewStatus": "reviewed"
   },
   "髪": {
-    "meaning": "hair of the head",
-    "memory": "A hair style tied up: hair.",
+    "meaning": "hair",
+    "memory": "Long strands sweep above a friendly hand.",
     "parts": [
-      "髟 (髟)",
-      "友 (友)"
+      "long hair fringe (髟)",
+      "friend hand (友)"
     ],
-    "layout": "first above second",
-    "visual": "Build one connected scene with 髟 and 友 in the kanji's first above second arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "hair fringe above; crossed hands below",
+    "visual": "A broad top comb and several long curling hair strands flow down from above. Two crossed friendly hands below help the boy tie the hair.",
+    "reviewStatus": "reviewed"
   },
   "忙": {
     "meaning": "busy",
-    "memory": "A heart gone: busy.",
+    "memory": "The heart races as the last moment slips away.",
     "parts": [
-      "heart (忄)",
-      "亡 (亡)"
+      "heart drops (忄)",
+      "gone sign (亡)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with heart and 亡 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "heart left; gone sign right",
+    "visual": "Three energetic heart drops stand at the left. On the right a top dot and line hover over an open corner sign; the boy hurries between two small tasks.",
+    "reviewStatus": "reviewed"
   },
   "靴": {
     "meaning": "shoes",
-    "memory": "Leather that has changed shape: shoes.",
+    "memory": "Leather changes shape into a pair of shoes.",
     "parts": [
-      "革 (革)",
-      "change (化)"
+      "leather frame (革)",
+      "changing figures (化)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with 革 and change in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "leather left; changing figure right",
+    "visual": "A tall leather frame with grassy top, square middle and central cross fills the left. On the right two changing figure poses turn into a pair of comfy shoes for the boy.",
+    "reviewStatus": "reviewed"
   },
   "恥": {
-    "meaning": "shame",
-    "memory": "An ear burns red in the heart: shame.",
+    "meaning": "embarrassed",
+    "memory": "An ear hears the heart’s blush.",
     "parts": [
       "ear (耳)",
       "heart (心)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with ear and heart in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "ear left; heart right",
+    "visual": "A tall ear with three inner bars fills the left. A soft pink heart with three pulse marks sits on the right as the boy blushes after a small mistake.",
+    "reviewStatus": "reviewed"
   },
   "偶": {
-    "meaning": "accidentally",
-    "memory": "A person meeting a monkey by chance: accidentally.",
+    "meaning": "by chance",
+    "memory": "A person unexpectedly meets a patterned creature.",
     "parts": [
       "person (亻)",
-      "禺 (禺)"
+      "patterned creature (禺)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 禺 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; patterned creature right",
+    "visual": "A slim walking person stands at the left. At the right a friendly creature with square top, framed body and curled tail appears by chance; both look surprised.",
+    "reviewStatus": "reviewed"
   },
   "偉": {
     "meaning": "admirable",
-    "memory": "A person going far: admirable.",
+    "memory": "A person guides two feet through a difficult route.",
     "parts": [
       "person (亻)",
-      "韋 (韋)"
+      "opposed feet around center (韋)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with person and 韋 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "person left; opposed feet right",
+    "visual": "The boy stands tall as a slim figure on the left. On the right a vertical guide sign is flanked by two little feet facing opposite ways; he helps them find the route.",
+    "reviewStatus": "reviewed"
   },
   "猫": {
     "meaning": "cat",
-    "memory": "A beast among seedlings: cat.",
+    "memory": "A cat explores the seedlings by the field.",
     "parts": [
-      "beast (⺨)",
-      "苗 (苗)"
+      "animal (犭)",
+      "seedlings over field (苗)"
     ],
-    "layout": "first left, second right",
-    "visual": "Build one connected scene with beast and 苗 in the kanji's first left, second right arrangement; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "cat left; seedlings and field right",
+    "visual": "A friendly cat with an upright curving tail fills the left. On the right two tiny grass shoots grow above a crisp four-pane field; the cat pads among them.",
+    "reviewStatus": "reviewed"
   },
   "幾": {
     "meaning": "how many",
-    "memory": "Threads on a spear: how many.",
+    "memory": "Tiny paired threads invite a count.",
     "parts": [
-      "thin thread (幺)",
-      "thin thread (幺)",
-      "戍 (戍)"
+      "two tiny threads (幺幺)",
+      "crossed tally with feet (戍)"
     ],
-    "layout": "follow visible component positions",
-    "visual": "Build one connected scene with thin thread, thin thread, 戍 in their visible stroke positions; use the memory cue as the action.",
-    "reviewStatus": "draft"
+    "layout": "paired threads above; crossed tally and feet below",
+    "visual": "Two small matching loops of thread sit side by side at the top. Below, a safe crossed tally line and two little feet mark the count as the boy asks how many.",
+    "reviewStatus": "reviewed"
   }
 }
