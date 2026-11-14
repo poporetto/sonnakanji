@@ -52,6 +52,29 @@ function styleOf(s: Species) {
   return { paint: type ?? BRIGHT[seed % BRIGHT.length], gear: seed % 3 ? 'rays' : 'star', split: '' };
 }
 
+const blend = (a: string, b: string, t: number) => {
+  const at = (hex: string, i: number) => parseInt(hex.slice(i, i + 2), 16);
+  return `rgb(${[1, 3, 5].map((i) => Math.round(at(a, i) + (at(b, i) - at(a, i)) * t)).join(',')})`;
+};
+
+// Accessories are drawn on a coarse grid, then grown threefold with their diagonals rounded off,
+// so they sit at the same pixel size as the kanji they belong to.
+function rounded(rows: string[]) {
+  const at = (x: number, y: number) => { const ch = rows[y]?.[x]; return ch && INKS[ch] ? ch : '.'; };
+  const out: string[][] = Array.from({ length: rows.length * 3 }, () => []);
+  for (let y = 0; y < rows.length; y++) for (let x = 0; x < rows[0].length; x++) {
+    const [A, B, C, D, E, F, G, H, I] = [at(x - 1, y - 1), at(x, y - 1), at(x + 1, y - 1), at(x - 1, y), at(x, y), at(x + 1, y), at(x - 1, y + 1), at(x, y + 1), at(x + 1, y + 1)];
+    const cut = B !== H && D !== F;
+    const cells = !cut ? [E, E, E, E, E, E, E, E, E] : [
+      D === B ? D : E, (D === B && E !== C) || (B === F && E !== A) ? B : E, B === F ? F : E,
+      (D === B && E !== G) || (D === H && E !== A) ? D : E, E, (B === F && E !== I) || (H === F && E !== C) ? F : E,
+      D === H ? D : E, (D === H && E !== I) || (H === F && E !== G) ? H : E, H === F ? F : E,
+    ];
+    cells.forEach((ch, i) => { out[y * 3 + Math.floor(i / 3)][x * 3 + (i % 3)] = ch; });
+  }
+  return out.map((row) => row.join(''));
+}
+
 export const MARGIN = 26;
 interface Body { art: HTMLCanvasElement; fx: number; fy: number; gap: number; tiny: boolean; pale: boolean; size: number; seed: number }
 const bodies = new Map<string, Body>();
@@ -91,11 +114,11 @@ export const loadLettering = (kanji: string) => Promise.all([document.fonts.load
 });
 
 // The kanji as a heavy rounded letter, filling the sprite, then fattened by a few pixels.
-function lettered(s: Species, size: number, grow: number) {
+function lettered(s: Species, size: number, grow: number, weight = 900, need = 5) {
   const big = size * 3;
   const scratch = canvas(big, big);
   const g = scratch.getContext('2d', { willReadFrequently: true })!;
-  g.font = `900 ${big}px ${FACE}`;
+  g.font = `${weight} ${big}px ${FACE}`;
   g.textAlign = 'center'; g.textBaseline = 'alphabetic';
   const m = g.measureText(s.k);
   const inkW = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, inkH = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
@@ -108,7 +131,7 @@ function lettered(s: Species, size: number, grow: number) {
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
     let on = 0;
     for (let j = 0; j < 3; j++) for (let i = 0; i < 3; i++) if (data[((y * 3 + j) * big + x * 3 + i) * 4 + 3] > 120) on++;
-    mask[y * size + x] = on >= 5 ? 1 : 0;
+    mask[y * size + x] = on >= need ? 1 : 0;
   }
   for (let step = 0; step < grow; step++) {
     const next = new Uint8Array(mask);
@@ -122,19 +145,21 @@ function lettered(s: Species, size: number, grow: number) {
 }
 
 // The lettering already keeps its gaps open, so only the simplest kanji get any extra weight.
-function chunky(s: Species, size: number) {
-  if (!lettering.has(s.k)) return inked(s, size, 9);
-  return lettered(s, size, s.strokes <= 5 ? 1 : 0);
+// The small runners on the title screen are a shade lighter, so busy kanji stay readable:
+// simple ones keep the full weight, and busy ones use the bold face filled out by about half a pixel.
+function chunky(s: Species, size: number, slim = false) {
+  if (!lettering.has(s.k)) return inked(s, size, slim ? 6 : 9);
+  return slim ? lettered(s, size, 0, s.strokes <= 8 ? 900 : 700, s.strokes <= 8 ? 5 : 3) : lettered(s, size, s.strokes <= 5 ? 1 : 0);
 }
 
-function body(s: Species, size: number, back = false): Body {
-  const key = `${s.k}${size}${back}${lettering.has(s.k)}`;
+function body(s: Species, size: number, back = false, slim = false): Body {
+  const key = `${s.k}${size}${back}${slim}${lettering.has(s.k)}`;
   const hit = bodies.get(key);
   if (hit) return hit;
   const k = size / 72, W = size + MARGIN * 2, seed = s.k.codePointAt(0)!;
   const { paint, gear, split } = styleOf(s);
   const ramp = PAINT[paint], line = OUTLINE_OF[paint];
-  const mask = chunky(s, size);
+  const mask = chunky(s, size, slim);
   const on = (x: number, y: number) => x >= 0 && y >= 0 && x < size && y < size && mask[y * size + x] === 1;
 
   // The face sits high on the kanji, like a head: the first place from the top with room for it.
@@ -144,12 +169,18 @@ function body(s: Species, size: number, back = false): Body {
     return true;
   };
   const u = (v: number) => Math.round(v * k);
+  let top = size, bottom = 0, left = size, right = 0;
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (on(x, y)) { top = Math.min(top, y); bottom = Math.max(bottom, y); left = Math.min(left, x); right = Math.max(right, x); }
+  const high = bottom - top + 1;
+  // A hat or sprout on top of the kanji must not land on the face.
+  const hat = ON_TOP.includes(gear) && gear !== 'umbrella' && GEAR[gear] ? (GEAR[gear][0].length * Math.max(1, Math.round(3 * k))) / 2 : 0;
   // Narrow strokes get a smaller face, down to a tiny one that fits a single slim stroke.
   let fx = -1, fy = -1, gap = 0, tiny = false;
   for (const [g, small] of [[6, false], [5, false], [4, false], [3, false], [3, true], [2, true]] as [number, boolean][]) {
     const w = u(g) + u(small ? 2 : 3), tall = u(small ? 4 : 6);
     let best = -1e9;
     for (let y = 0; y < size * 0.8; y++) for (let x = Math.floor(size * 0.1); x < size * 0.9; x++) {
+      if (hat && y < top + u(7) && Math.abs(x - (left + right) / 2) < hat + w) continue;
       if (!solid(x - w, y - 1, x + w, y + tall)) continue;
       const score = -y * 1.1 - Math.abs(x - size / 2) * 0.45;
       if (score > best) { best = score; fx = x; fy = y; gap = u(g); tiny = small; }
@@ -157,22 +188,27 @@ function body(s: Species, size: number, back = false): Body {
     if (gap) break;
   }
 
-  let top = size, bottom = 0, left = size, right = 0;
-  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (on(x, y)) { top = Math.min(top, y); bottom = Math.max(bottom, y); left = Math.min(left, x); right = Math.max(right, x); }
-  const high = bottom - top + 1;
 
   const art = canvas(W, W);
   const g = art.getContext('2d')!;
   const dot = (c: string, x: number, y: number, w = 1, h = 1) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
-  dot('rgba(30,30,70,.2)', MARGIN + left + 4, MARGIN + bottom + 5 * k, right - left - 7, 2);
+  // A soft oval shadow on the ground, denser towards the middle.
+  const sx = MARGIN + (left + right) / 2, sy = MARGIN + bottom + 4 * k, srx = Math.max(4, (right - left) * 0.46), sry = Math.max(1.5, 3.2 * k);
+  for (let y = -Math.ceil(sry); y <= Math.ceil(sry); y++) for (let x = -Math.ceil(srx); x <= Math.ceil(srx); x++) {
+    const d = (x / srx) ** 2 + (y / sry) ** 2;
+    if (d <= 1 && (d < 0.55 || (x + y) % 2 === 0)) dot('rgba(30,30,70,.22)', sx + x, sy + y);
+  }
 
   // A bold outline, then the body with a light band along the top of each stroke and a shaded band below it.
   const reach = Math.max(1, Math.round(2.4 * k));
+  const lit = blend(line, ramp[0], 0.4);
+  const fine = size >= 48, a = Math.max(1, Math.round(2 * k));
   for (let y = -reach; y < size + reach; y++) for (let x = -reach; x < size + reach; x++) {
     if (on(x, y)) continue;
     let near = false;
     for (let j = -reach; j <= reach && !near; j++) for (let i = -reach; i <= reach && !near; i++) if (i * i + j * j <= reach * reach + 1 && on(x + i, y + j)) near = true;
-    if (near) dot(line, MARGIN + x, MARGIN + y);
+    // The outline is a touch lighter where the light falls, along the top of each stroke.
+    if (near) dot(on(x, y + 1) || on(x, y + 2) ? lit : line, MARGIN + x, MARGIN + y);
   }
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
     if (!on(x, y)) continue;
@@ -182,7 +218,12 @@ function body(s: Species, size: number, back = false): Body {
     if (split === 'moss' && t < 0.42) shade = PAINT.green;
     if (split === 'snow' && t < 0.3) shade = PAINT.white;
     if (split === 'dusk' && t > 0.7) shade = PAINT.lilac;
-    const c = !on(x, y + 2) || !on(x + 2, y + 1) ? shade[0] : !on(x, y - 2) || !on(x - 2, y) ? shade[3] : !on(x, y - 4) ? shade[2] : shade[1];
+    let c = !on(x, y + 2) || !on(x + 2, y + 1) ? shade[0] : !on(x, y - 2) || !on(x - 2, y) ? shade[3] : !on(x, y - 4) ? shade[2] : shade[1];
+    if (fine) {
+      // The underside falls into deeper shade, and a small glint sits in the top left of every stroke.
+      if (!on(x, y + 1)) c = blend(shade[0], line, 0.3);
+      else if (on(x, y - a) && !on(x, y - a * 2) && on(x - a, y) && !on(x - a * 2 - 1, y) && on(x + 2, y + 1) && on(x, y + 2)) c = blend(shade[3], '#ffffff', 0.75);
+    }
     dot(c, MARGIN + x, MARGIN + y);
   }
 
@@ -190,16 +231,20 @@ function body(s: Species, size: number, back = false): Body {
   const cell = Math.max(1, Math.round(3 * k));
   if (gear === 'rays') {
     const ray = '#ffc83a', [cx, cy] = [MARGIN + right, MARGIN + top + 2 * k];
-    for (const [dx, dy, w, h] of [[6, -11, 4, 9], [13, -5, 9, 4], [12, 5, 8, 4]]) dot(ray, cx + dx * k, cy + dy * k, Math.round(w * k), Math.round(h * k));
+    const rays = [[6, -11, 3, 8], [13, -5, 8, 3], [12, 5, 6, 3]], rim = Math.max(1, Math.round(k));
+    for (const [dx, dy, w, h] of rays) dot(INKS.o, cx + dx * k - rim, cy + dy * k - rim, Math.round(w * k) + rim * 2, Math.round(h * k) + rim * 2);
+    for (const [dx, dy, w, h] of rays) { dot(ray, cx + dx * k, cy + dy * k, Math.round(w * k), Math.round(h * k)); dot('#fff0a0', cx + dx * k, cy + dy * k, Math.round(w * k), 1); }
   } else if (GEAR[gear]) {
-    const rows = GEAR[gear], gw = rows[0].length * cell, gh = rows.length * cell;
+    // At full size each grid square is three pixels, which is where the rounding applies.
+    const smooth = cell === 3, rows = smooth ? rounded(GEAR[gear]) : GEAR[gear], step = smooth ? 1 : cell;
+    const gw = rows[0].length * step, gh = rows.length * step;
     const above = ON_TOP.includes(gear);
     // Beside the kanji, but never so far out that the edge of the battle screen cuts it off.
     const gx = gear === 'umbrella' ? MARGIN + right - gw + 7 * k : above ? MARGIN + (left + right) / 2 - gw / 2 : Math.min(MARGIN + right + (gear.startsWith('die') ? 8 : 3) * k - gw / 2, MARGIN + size + 12 * k - gw);
     const gy = gear === 'umbrella' ? MARGIN + top - 7 * cell : above ? MARGIN + top - gh + 4 * k : LOW.includes(gear) ? MARGIN + bottom - gh + 3 * k : MARGIN + top - gh / 2 + 4 * k;
     const edge = Math.max(1, Math.round(1.6 * k));
-    if (LOOSE.includes(gear)) rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS.o, gx + x * cell - edge, gy + y * cell - edge, cell + edge * 2, cell + edge * 2); }));
-    rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS[ch], gx + x * cell, gy + y * cell, cell, cell); }));
+    if (LOOSE.includes(gear)) rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS.o, gx + x * step - edge, gy + y * step - edge, step + edge * 2, step + edge * 2); }));
+    rows.forEach((row, y) => [...row].forEach((ch, x) => { if (INKS[ch]) dot(INKS[ch], gx + x * step, gy + y * step, step, step); }));
   }
 
   const made = { art, fx: MARGIN + fx, fy: MARGIN + fy, gap, tiny, pale: paint === 'dark', size, seed };
@@ -208,7 +253,7 @@ function body(s: Species, size: number, back = false): Body {
 }
 
 // A tiny face that fits inside a single stroke: dot eyes, a small smile between them, and a hint of blush.
-function face(o: CanvasRenderingContext2D, b: Body) {
+function face(o: CanvasRenderingContext2D, b: Body, blink = false) {
   if (!b.gap) return;
   const k = b.size / 72, n = (v: number) => Math.max(1, Math.round(v * k));
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { o.fillStyle = c; o.fillRect(Math.round(x), Math.round(y), w, h); };
@@ -216,7 +261,12 @@ function face(o: CanvasRenderingContext2D, b: Body) {
   const INK = pale ? '#fdf8ef' : '#241c2e';
   const ew = n(tiny ? 2 : 3), eh = n(tiny ? 3 : 4), my = fy + n(tiny ? 2 : 2), mouth = seed % 6;
   for (const x of [fx - gap - ew + 1, fx + gap]) {
-    r(INK, x, fy, ew, eh);
+    // Shut eyes are a single line; open ones catch a speck of light.
+    if (blink) r(INK, x, fy + eh - n(2), ew, n(1));
+    else {
+      r(INK, x, fy, ew, eh);
+      if (ew >= 3 && !pale) r('#ffffff', x, fy, 1, 1);
+    }
     if (!tiny && gap >= n(4)) {
       o.globalAlpha = 0.5;
       r('#ff7f9e', x + (x < fx ? -n(3) : n(3)), fy + n(3), n(3), n(2));
@@ -232,15 +282,15 @@ function face(o: CanvasRenderingContext2D, b: Body) {
 const sprites = new Map<string, HTMLCanvasElement>();
 
 // Your own kanji is seen from behind in battle, so its back view has no face.
-export function kanjiSprite(s: Species, size = 72, back = false) {
-  const key = `${s.k}${size}${back}${lettering.has(s.k)}`;
+export function kanjiSprite(s: Species, size = 72, back = false, blink = false, slim = false) {
+  const key = `${s.k}${size}${back}${blink}${slim}${lettering.has(s.k)}`;
   const hit = sprites.get(key);
   if (hit) return hit;
-  const b = body(s, size, back);
+  const b = body(s, size, back, slim);
   const c = canvas(b.art.width, b.art.height);
   const o = c.getContext('2d')!;
   o.drawImage(b.art, 0, 0);
-  if (!back) face(o, b);
+  if (!back) face(o, b, blink);
   sprites.set(key, c);
   return c;
 }
@@ -249,8 +299,13 @@ export function kanjiSprite(s: Species, size = 72, back = false) {
 type Look = Record<string, string>;
 const SKIN = { s: '#f5cda0', S: '#d99e74', e: OUTLINE, o: OUTLINE };
 export const LOOKS: Record<string, Look> = {
-  hero: { ...SKIN, k: '#33283f', K: '#5c4a70', r: '#e0483e', R: '#a82c38', c: '#2f78c8', C: '#1f4f94', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#39405e', P: '#262b45', b: '#e0483e' },
-  heroine: { ...SKIN, k: '#8a4a30', K: '#b87858', r: '#e0483e', R: '#a82c38', c: '#e85f8c', C: '#b43a6c', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#39405e', P: '#262b45', b: '#e0483e' },
+  hero: { ...SKIN, h: '#f0a890', k: '#2a2530', K: '#4c4658', r: '#e0483e', R: '#a82c38', c: '#3a58a0', C: '#243a74', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#ece0c4', P: '#c4b490', b: '#7a4a24' },
+  heroine: { ...SKIN, h: '#f0a890', k: '#3a2c4c', K: '#6a5484', r: '#e0483e', R: '#a82c38', c: '#2f9e8e', C: '#1f6f68', w: '#fdf3dc', y: '#ffc857', B: '#8a5a34', p: '#ece0c4', P: '#c4b490', b: '#7a4a24' },
+  // More townspeople: a ginger-haired girl, a craftsman in a white headcloth, a sailor in a white cap and an auntie with her hair up.
+  girl: { ...SKIN, h: '#d9783c', j: '#f0a05c', H: '#a8542c', k: '#d9783c', c: '#ffd23f', C: '#d9a020', w: '#fdf3dc', p: '#ffd23f', P: '#d9a020', b: '#e0483e' },
+  artisan: { ...SKIN, h: '#f6f1e2', j: '#ffffff', H: '#c9c2d0', k: '#3a2c30', c: '#34508c', C: '#22366a', w: '#f6f1e2', y: '#f6f1e2', p: '#5a5048', P: '#40382f', b: '#3a3048' },
+  sailor: { ...SKIN, h: '#f6f8fb', j: '#ffffff', H: '#2a3c78', k: '#4a3428', c: '#f6f8fb', C: '#c8d4e4', w: '#2a3c78', y: '#ffd23f', p: '#2a3c78', P: '#1c2a58', b: '#17151c' },
+  auntie: { ...SKIN, h: '#3a2c30', j: '#5c4a50', H: '#241c20', k: '#3a2c30', c: '#5a9a5c', C: '#3c7444', w: '#f6e9c8', p: '#5a9a5c', P: '#3c7444', b: '#7a4a24' },
   woman: { ...SKIN, h: '#6a3a2c', j: '#8a5240', H: '#4a2820', k: '#6a3a2c', c: '#e0a03c', C: '#b87820', w: '#fdf3dc', p: '#e0a03c', P: '#b87820', b: '#7a4a24' },
   oldman: { ...SKIN, h: '#f5cda0', j: '#ffe0bc', H: '#d99e74', k: '#c8c8d0', c: '#6a7a5c', C: '#4e5c44', w: '#d9d2c0', p: '#5a5048', P: '#40382f', b: '#3a3048' },
   oldwoman: { ...SKIN, h: '#c8c8d0', j: '#e6e6ec', H: '#a0a0ac', k: '#c8c8d0', c: '#8a5a8c', C: '#6a3f6c', w: '#e6d8c0', p: '#8a5a8c', P: '#6a3f6c', b: '#3a3048' },
@@ -292,6 +347,7 @@ const LONG_SIDE = [
   '.....ooooo......', '...oohhhhhoo....', '..ohjjhhhhhho...', '..ohjhhhhhhhho..', '..ohhhhhhhhhho..', '..ohhhhhhhhhho..', '..osshhhhhhhho..',
   '..osesshhhhhho..', '..osesshhhhhho..', '..osssssshhhho..', '...oSSsssshhho..', '...ocwcccchhho..', '...ocwcCccchho..', '...ocwsSCcchho..', '...ocwoSCcoo....', '....oppppPo.....',
 ];
+HEADS.girl = LONG_HAIR; HEADS.artisan = HEADS.worker; HEADS.sailor = HEADS.police; HEADS.auntie = HEADS.oldwoman;
 const sideHead = (rows: string[]) => [...rows, ...SIDE.slice(7)];
 const SIDES: Record<string, string[]> = {
   miko: LONG_SIDE, mom: LONG_SIDE, rival: LONG_SIDE, woman: LONG_SIDE,
@@ -301,22 +357,28 @@ const SIDES: Record<string, string[]> = {
   nurse: sideHead(['.....oooooo.....', '...oommmmmmoo...', '..ommrrmmmmmmo..', '..ommrrmmmmmmo..', '..ohhhhhhhhhho..', '..ohhhhhhhhhho..', '..osshhhhhhhho..']),
   worker: sideHead(['.....oooooo.....', '...oohhhhhhoo...', '..ohjjhhhhhhho..', '..ohhhhyhhhhho..', '..oHHHHHHHHHHo..', 'oHHHHHHHHHHHHo..', '.ooooooooooooo..']),
 };
-// The hero: spiky hair, a red headband, a blue jacket and a satchel with a scroll on his back.
+SIDES.girl = LONG_SIDE; SIDES.artisan = SIDES.worker; SIDES.sailor = SIDES.police; SIDES.auntie = SIDES.oldwoman;
+// Haru: tousled black hair with a tuft on top, a red scarf, an indigo jacket tied with a yellow sash,
+// and the handle of a writing brush showing at the back.
 const HERO = {
-  front: ['....o.oo', '...okokk', '..okKkkk', '.okKkkkk', '.orrrrrr', '.oRRRRRR', '..okkskk', '..oksess', '..oksess', '..okssss', '...osssS', '..ocwccc', '.oCcCwcc', '.osCcCwy', '.oSoyyyy', '..ooppPp'],
-  back: ['....o.oo', '...okokk', '..okKkkk', '.okKkkkk', '.orrrrrr', '.oRRRRRR', '..okkkkk', '..okkkkk', '..okkkkk', '..okkkkk', '...okkkk', '..ocBwww', '.oCcBBcw', '.osCcBBw', '.oSoyyyy', '..ooppPp'],
+  front: ['......oo', '....ookk', '..ookkKk', '.okkKKkk', '.okkkkkk', '.okkkkkk', '.okksksk', '.okssess', '..ossess', '..oshsss', '..orrrrr', '.orRrrRr', '.oCcwccc', '.oscwccc', '.oSoyyyy', '..ooppPp'],
+  back: ['......oo', '....ookk', '..ookkKk', '.okkKKkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '..okkkkk', '..okkkkk', '..orrrrr', '.orRrrrr', '.oCccccB', '.osCcccB', '.oSoyyyy', '..ooppPp'],
   side: [
-    '.....oo.o.o.....', '....okkokkoko...', '...okKkkkkkkko..', '..okKkkkkkkkkko.', '.orrrrrrrrrrrro.', '.oRRRRRRRRRRRoro', '..osskkkkkkkko..',
-    '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskko...', '...owwccccBBo...', '..oscwcCcccBBo..', '..oSswcCccCBBo..', '...ooyyyyyyyo...', '....oppppppPo...',
+    '.......oo.......', '....oookkkoo....', '...okkKkkkkkoo..', '..okkKKkkkkkkko.', '..okkkkkkkkkkko.', '..okkkkkkkkkkko.', '..osskskkkkkkko.',
+    '..osesskkkkkkko.', '..osesskkkkkkko.', '..oshsssskkkko..', '..orrrrrrrroo...', '...orRrrrrrrroo.', '...occwccccBorro', '..osccwccCcBo.o.', '...ooyyyyyyyo...', '....oppppppPo...',
   ],
 };
-// The same hero as a girl: long chestnut hair, a red ribbon and a pink jacket.
+// Haru as a girl: dark hair in two buns tied with red and a fringe swept to one side, with the same scarf and a teal jacket.
+// Her front view is drawn in full, since the fringe isn't symmetrical.
 const HEROINE = {
-  front: ['.....ooo', '...ookkk', '..okrrkk', '.okKrrkk', '.okKkkkk', '.okkkkkk', '.okkkkss', '.okksess', '.okksess', '.okkssss', '.okkosss', '.okkcwcc', '.oCcCCwc', '.osCcCwy', '.oSoyyyy', '..ooppPp'],
-  back: ['.....ooo', '...ookkk', '..okKkkk', '.okKkkkk', '.okkkkrr', '.okkkkrr', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.oCkkkkk', '.osCkkkk', '.oSoyyyy', '..ooppPp'],
+  front: [
+    '..oo........oo..', '.okko.oooo.okko.', '.okKookkkkooKko.', '..orokKkkKkoro..', '..okkKkkkkKkko..', '.okkkkkkkkkkkko.', '.okkkkkkkksskko.',
+    '.okkkesssseskko.', '.okksesssseskko.', '.okoshsssshsoko.', '.okorrrrrrrroko.', '.oorRrrRRrrRroo.', '.oCcwccccccwcCo.', '.oscwccccccwcso.', '.oSoyyyyyyyyoSo.', '..ooppPppPppoo..',
+  ],
+  back: ['..oo....', '.okko.oo', '.okKookk', '..orokKk', '..okkKkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okkkkkk', '.okokkkk', '.okorrrr', '.oorRrrr', '.oCccccB', '.osCcccB', '.oSoyyyy', '..ooppPp'],
   side: [
-    '.....ooooo......', '...ookkkkkoo....', '..okKkkkrrkko...', '..okKkkkrrkkko..', '..okkkkkkkkkko..', '..okkkkkkkkkko..', '..osskkkkkkkko..',
-    '..osesskkkkkko..', '..osesskkkkkko..', '..osssssskkkko..', '...oSSsssskkko..', '...owwcccckkko..', '..oscwcCcckkko..', '..oSswcCccCkko..', '...ooyyyyyyyo...', '....oppppppPo...',
+    '..........oo....', '....ooooookkoo..', '...okkKkkkokKko.', '..okkKKkkkkrrko.', '..okkkkkkkkkkko.', '..okkkkkkkkkkko.', '..okkskkkkkkkko.',
+    '..okesskkkkkkko.', '..osesskkkkkkko.', '..oshssskkkkko..', '..orrrrrrrkkoo..', '...orRrrrrrrroo.', '...occwccccBorro', '..osccwccCcBo.o.', '...ooyyyyyyyo...', '....oppppppPo...',
   ],
 };
 // Lukas, on the ?lukas page: short round hair with a slightly spiky fringe, a white shirt and brown trousers.
@@ -380,12 +442,22 @@ const LEGS = {
 
 const people = new Map<string, HTMLCanvasElement>();
 
-function raster(rows: string[], look: Look, flip: boolean) {
+// Outlines take on the colour they enclose, so hair is edged in dark brown and a white coat in grey-blue,
+// and only the feet and the underside keep the full dark line.
+function raster(rows: string[], look: Look, flip: boolean, blink = false) {
   const c = canvas(16, rows.length);
   const g = c.getContext('2d')!;
+  const fill = (x: number, y: number) => { const ch = rows[y]?.[x]; return ch && ch !== '.' && ch !== 'o' && ch !== 'e' && look[ch]?.startsWith('#') ? look[ch] : null; };
   rows.forEach((row, y) => [...row].forEach((ch, x) => {
     if (ch === '.') return;
-    g.fillStyle = look[ch] ?? ch;
+    let colour = look[ch] ?? ch;
+    if (ch === 'o') {
+      const inner = fill(x, y + 1) ?? fill(x + 1, y) ?? fill(x - 1, y);
+      if (inner) colour = blend(inner, OUTLINE, 0.62);
+    }
+    // Shut eyes: the upper pixel of each eye turns to skin.
+    if (blink && ch === 'e' && rows[y + 1]?.[x] === 'e') colour = look.s;
+    g.fillStyle = colour;
     g.fillRect(flip ? 15 - x : x, y, 1, 1);
   }));
   return c;
@@ -404,8 +476,8 @@ export function asleep(ctx: CanvasRenderingContext2D, look: string, x: number, y
   ctx.fillRect(x + 4, eyes + 1, 2, 1); ctx.fillRect(x + 10, eyes + 1, 2, 1);
 }
 
-export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y: number, dir: string, step: number) {
-  const key = `${look}${dir}${step}`;
+export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y: number, dir: string, step: number, blink = false) {
+  const key = `${look}${dir}${step}${blink}`;
   let c = people.get(key);
   if (!c) {
     const hat = HEADS[look] ?? HAT;
@@ -416,7 +488,7 @@ export function person(ctx: CanvasRenderingContext2D, look: string, x: number, y
     const rows = dir === 'down' ? [...whole(front), ...legs.front[step]]
       : dir === 'up' ? [...whole(rear), ...legs.front[step]]
       : [...side, ...legs.side[step]];
-    c = raster(rows, LOOKS[look], dir === 'right');
+    c = raster(rows, LOOKS[look], dir === 'right', blink);
     people.set(key, c);
   }
   shadow(ctx, x, y);
@@ -442,7 +514,9 @@ export function bear(ctx: CanvasRenderingContext2D, x: number, y: number) {
 }
 
 function shadow(ctx: CanvasRenderingContext2D, x: number, y: number) {
-  ctx.fillStyle = 'rgba(30,30,70,.28)';
-  ctx.fillRect(x + 3, y + 13, 10, 3);
-  ctx.fillRect(x + 2, y + 14, 12, 1);
+  ctx.fillStyle = 'rgba(30,30,70,.2)';
+  ctx.fillRect(x + 4, y + 13, 8, 4);
+  ctx.fillRect(x + 2, y + 14, 12, 2);
+  ctx.fillStyle = 'rgba(30,30,70,.14)';
+  ctx.fillRect(x + 4, y + 14, 8, 2);
 }

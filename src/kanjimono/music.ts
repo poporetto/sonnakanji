@@ -70,6 +70,46 @@ export const TRACKS: Record<string, Track> = {
     bass: `C3 . G3 . C3 . G3 . | C3 . G3 . E3 . G3 . | F2 . C3 . F2 . C3 . | G2 . D3 . G2 . D3 . |
            A2 . E3 . E3 . B3 . | F2 . C3 . C3 . G3 . | D3 . A3 . G2 . D3 . | C3 . G3 . C3 . . .`,
   },
+  // The Seaside Road: an easy stroll with the wind behind you.
+  coast: {
+    bpm: 116, drums: true,
+    lead: `D5 - G5 - B5 - A5 G5 | E5 - G5 - D5 - - - | C5 - E5 - G5 - F#5 E5 | D5 - - - B4 - - - |
+           D5 - G5 - B5 - D6 - | C6 - B5 A5 G5 - E5 - | F#5 - A5 - D5 - F#5 - | G5 - - - . . . .`,
+    bass: `G2 . D3 . G3 . D3 . | C3 . G3 . G2 . D3 . | C3 . G3 . C3 . G3 . | G2 . D3 . G2 . D3 . |
+           G2 . D3 . B2 . F#3 . | C3 . G3 . E3 . B3 . | D3 . A3 . D3 . A3 . | G2 . D3 . G2 . . .`,
+  },
+  // Minato Harbour: a jaunty tune for a busy quay.
+  minato: {
+    bpm: 132, drums: true,
+    lead: `A4 D5 F#5 A5 - F#5 D5 . | B4 E5 G5 B5 - G5 E5 . | A4 C#5 E5 A5 - G5 F#5 E5 | D5 - F#5 - A5 - - - |
+           B5 - A5 G5 F#5 - D5 . | G5 - F#5 E5 D5 - B4 . | E5 . F#5 G5 A5 - C#5 - | D5 - - - . . . .`,
+    bass: `D3 . A3 . D3 . A3 . | E3 . B3 . E3 . B3 . | A2 . E3 . A2 . E3 . | D3 . A3 . D3 . F#3 . |
+           G2 . D3 . D3 . A3 . | G2 . D3 . B2 . F#3 . | A2 . E3 . A2 . E3 . | D3 . A3 . D3 . . .`,
+  },
+  // Bamboo Grove: slow and still, like light through the leaves.
+  bamboo: {
+    bpm: 96, voice: 'triangle',
+    lead: `E5 - - G5 A5 - B5 - | D6 - B5 - A5 - - - | G5 - - A5 B5 - A5 G5 | E5 - - - D5 - - - |
+           E5 - - G5 A5 - D6 - | E6 - D6 B5 A5 - G5 - | A5 - B5 - G5 - D5 - | E5 - - - . . . .`,
+    bass: `E2 . B2 . E3 . B2 . | G2 . D3 . G3 . D3 . | C3 . G3 . C3 . G3 . | A2 . E3 . B2 . F#3 . |
+           E2 . B2 . E3 . B2 . | C3 . G3 . G2 . D3 . | A2 . E3 . B2 . F#3 . | E2 . B2 . E2 . . .`,
+  },
+  // Lantern Town: festival drums and a tune to dance to.
+  matsuri: {
+    bpm: 138, drums: true,
+    lead: `A5 A5 . C6 A5 . G5 E5 | A5 A5 . C6 D6 - C6 - | G5 G5 . A5 G5 . E5 D5 | E5 - G5 - A5 - - - |
+           C6 C6 . D6 E6 . D6 C6 | A5 A5 . C6 A5 - G5 - | E5 G5 A5 C6 D6 C6 A5 G5 | A5 - - - . . . .`,
+    bass: `A2 . E3 A2 . E3 A2 . | A2 . E3 A2 . E3 A2 . | G2 . D3 G2 . D3 G2 . | A2 . E3 A2 . E3 A2 . |
+           C3 . G3 C3 . G3 C3 . | A2 . E3 A2 . E3 A2 . | G2 . D3 G2 . D3 E2 . | A2 . E3 A2 . . . .`,
+  },
+  // Inkstone Cape: grave and windswept, at the end of the road.
+  cape: {
+    bpm: 100, drums: true,
+    lead: `D5 - - F5 A5 - - G5 | F5 - E5 - D5 - - - | Bb4 - - D5 F5 - - E5 | A4 - - - C#5 - - - |
+           D5 - - F5 A5 - - C6 | D6 - - C6 A5 - G5 - | F5 - G5 - E5 - C#5 - | D5 - - - . . . .`,
+    bass: `D3 A3 D4 A3 D3 A3 D4 A3 | D3 A3 D4 A3 D3 A3 D4 A3 | Bb2 F3 Bb3 F3 Bb2 F3 Bb3 F3 | A2 E3 A3 E3 A2 E3 A3 E3 |
+           D3 A3 D4 A3 F2 C3 F3 C3 | Bb2 F3 Bb3 F3 C3 G3 C4 G3 | G2 D3 G3 D3 A2 E3 A3 E3 | D3 A3 D4 A3 D3 . . .`,
+  },
   // Wild battles: fast, bright and a bit cheeky.
   battle: {
     bpm: 172, drums: true,

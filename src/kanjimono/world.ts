@@ -21,8 +21,14 @@ const GRASS: Record<string, string[]> = {
   forest: ['#2c6a58', '#3f8460', '#559c68', '#74b478'],
   onsen: ['#5f8a5a', '#78a260', '#92b86c', '#b0cc80'],
   castle: ['#7a9448', '#94ac52', '#aec060', '#ccd47c'],
+  // The N3 lands: a breezy shore, a harbour, a bamboo grove, a town in autumn and a windswept cape.
+  coast: ['#4c9a74', '#66b47c', '#84c888', '#aadc9c'],
+  minato: ['#56966a', '#70ae70', '#8cc47c', '#b0d890'],
+  bamboo: ['#3f8a4a', '#5aa652', '#7cc05e', '#a4d874'],
+  matsuri: ['#8a8a44', '#a4a04c', '#c0b458', '#dccc74'],
+  cape: ['#4a7a70', '#609078', '#7ca888', '#9cc09c'],
 };
-const FLOWERS: Record<string, string[]> = { village: ['#fff4f4', '#f7a8c4'], fields: ['#fff0a0', '#ffffff'], pass: ['#c8c8ff', '#ffffff'], kawabe: ['#ffffff', '#ffd23f'], forest: ['#c8e8c8', '#ffffff'], onsen: ['#ffd0a0', '#ffffff'], castle: ['#f4c060', '#ffffff'] };
+const FLOWERS: Record<string, string[]> = { village: ['#fff4f4', '#f7a8c4'], fields: ['#fff0a0', '#ffffff'], pass: ['#c8c8ff', '#ffffff'], kawabe: ['#ffffff', '#ffd23f'], forest: ['#c8e8c8', '#ffffff'], onsen: ['#ffd0a0', '#ffffff'], castle: ['#f4c060', '#ffffff'], coast: ['#ffffff', '#ffd23f'], minato: ['#bfeaff', '#ffffff'], bamboo: ['#ffffff', '#c8e8a0'], matsuri: ['#f4983e', '#ffe2b0'], cape: ['#c9aef5', '#ffffff'] };
 const SAND = ['#b08f5e', '#d2b27a', '#e4cb96', '#f1deb2'];
 const WATER = ['#2c6ea8', '#3c8fc8', '#54ace0', '#8ad4ee', '#dcf6f6'];
 const ROCK = ['#3e3d55', '#5a5a70', '#7b7b8c', '#9c9ca6', '#bfc2b8'];
@@ -31,14 +37,47 @@ type Kind = 0 | 1 | 2 | 3 | 4;
 const GROUND = 0, PATH = 1, POND = 2, PADDY = 3, STONE = 4;
 const kindOf = (c: string): Kind => (c === ',' || c === 't' || c === 's' || c === 'C' || c === 'Q' ? PATH : c === '~' ? POND : c === 'r' ? PADDY : c === 'P' ? STONE : GROUND);
 
-function tree(pink: boolean, seed: number) {
+type Leaf = 'pine' | 'blossom' | 'bamboo' | 'maple';
+const LEAVES: Record<Leaf, { ramp: string[]; line: string; blobs: number[][] }> = {
+  pine: { ramp: ['#163f44', '#1f5f50', '#2f7f58', '#55a564', '#93cc78'], line: '#10282f', blobs: [[15, 22, 13, 7], [15, 15, 11, 7], [15, 8, 8, 7]] },
+  blossom: { ramp: ['#a84f7a', '#d9779c', '#f4a8c0', '#ffcfdc', '#fff0f2'], line: '#6e2f5c', blobs: [[8, 16, 8, 7], [22, 17, 7, 7], [15, 19, 12, 7], [15, 10, 12, 9]] },
+  // Bamboo grows in tall feathery plumes, and the maples of Lantern Town have turned for autumn.
+  bamboo: { ramp: ['#2c6a3a', '#4a9648', '#74bc58', '#a4d870', '#d8f0a0'], line: '#1c4a2c', blobs: [[15, 21, 9, 8], [12, 13, 8, 8], [18, 7, 7, 6]] },
+  maple: { ramp: ['#8a2c2a', '#c2462c', '#e8703a', '#f8a44a', '#ffd878'], line: '#5a1c24', blobs: [[8, 16, 8, 7], [22, 17, 7, 7], [15, 19, 12, 7], [15, 10, 12, 9]] },
+};
+
+// Bamboo is all stem: tall jointed canes with small sprays of leaves, so a grove reads as a wall of green poles.
+function bambooClump(seed: number) {
   const W = 30, H = 34;
   const c = canvas(W, H);
   const g = c.getContext('2d')!;
-  const ramp = (pink ? ['#a84f7a', '#d9779c', '#f4a8c0', '#ffcfdc', '#fff0f2'] : ['#163f44', '#1f5f50', '#2f7f58', '#55a564', '#93cc78']).map(rgb);
-  const blobs = pink
-    ? [[8, 16, 8, 7], [22, 17, 7, 7], [15, 19, 12, 7], [15, 10, 12, 9]]
-    : [[15, 22, 13, 7], [15, 15, 11, 7], [15, 8, 8, 7]];
+  const r = (colour: string, x: number, y: number, w: number, h: number) => { g.fillStyle = colour; g.fillRect(x, y, w, h); };
+  r('rgba(30,30,70,.3)', 5, 31, 20, 3);
+  const canes = [0, 1, 2, 3].map((i) => 5 + i * 6 + Math.floor(hash(seed * 7 + i, 3) * 3));
+  canes.forEach((x, i) => {
+    // Kept low enough that someone on the path above is only hidden to the ankles.
+    const top = 10 + Math.floor(hash(seed + i, 9) * 5);
+    r('#1c4a2c', x - 1, top, 4, 33 - top);
+    r('#5aa03c', x, top, 2, 32 - top); r('#a4d85c', x, top, 1, 32 - top);
+    for (let y = top + 3 + (i % 3); y < 32; y += 6) { r('#2c6a2c', x, y, 2, 1); r('#d8f0a0', x, y + 1, 1, 1); }
+  });
+  // Leaves fan out from the joints, lighter on top.
+  canes.forEach((x, i) => {
+    for (let n = 0; n < 4; n++) {
+      const y = 12 + Math.floor(hash(seed * 3 + i, n) * 15), way = (i + n) % 2 ? 1 : -1, lx = x + (way > 0 ? 2 : -5);
+      r('#1c4a2c', lx - 1, y - 1, 6, 4);
+      r('#3f8a3c', lx, y, 4, 2); r('#8ccc58', lx + (way > 0 ? 0 : 1), y, 3, 1); r('#3f8a3c', lx + (way > 0 ? 3 : -1), y + 1, 2, 1);
+    }
+  });
+  return c;
+}
+
+function tree(kind: Leaf, seed: number) {
+  if (kind === 'bamboo') return bambooClump(seed);
+  const W = 30, H = 34;
+  const c = canvas(W, H);
+  const g = c.getContext('2d')!;
+  const ramp = LEAVES[kind].ramp.map(rgb), blobs = LEAVES[kind].blobs;
   const img = g.createImageData(W, H);
   const mask = new Uint8Array(W * H);
   const put = (x: number, y: number, v: number[]) => {
@@ -54,15 +93,25 @@ function tree(pink: boolean, seed: number) {
     mask[y * W + x] = 1;
   }
   const on = (x: number, y: number) => x >= 0 && y >= 0 && x < W && y < H && mask[y * W + x] === 1;
-  const outline = rgb(pink ? '#6e2f5c' : '#10282f');
+  const outline = rgb(LEAVES[kind].line);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     if (!on(x, y) && (on(x + 1, y) || on(x - 1, y) || on(x, y + 1) || on(x, y - 1))) put(x, y, outline);
   }
   g.fillStyle = 'rgba(30,30,70,.3)'; g.fillRect(6, 30, 18, 3); g.fillRect(8, 33, 14, 1);
-  g.fillStyle = OUTLINE; g.fillRect(11, 25, 8, 8);
-  g.fillStyle = '#7a5230'; g.fillRect(12, 25, 6, 7);
-  g.fillStyle = '#54382a'; g.fillRect(15, 25, 3, 7);
-  g.fillStyle = '#9c7048'; g.fillRect(13, 27, 1, 3);
+  if (kind === 'bamboo') {
+    // Three jointed green canes, not a trunk.
+    for (const [x, top] of [[10, 14], [14, 10], [18, 16]]) {
+      g.fillStyle = OUTLINE; g.fillRect(x - 1, top, 4, 33 - top);
+      g.fillStyle = '#7cb04c'; g.fillRect(x, top, 2, 32 - top);
+      g.fillStyle = '#b4dc7c'; g.fillRect(x, top, 1, 32 - top);
+      g.fillStyle = '#3f7a34'; for (let y = top + 4; y < 32; y += 6) g.fillRect(x, y, 2, 1);
+    }
+  } else {
+    g.fillStyle = OUTLINE; g.fillRect(11, 25, 8, 8);
+    g.fillStyle = '#7a5230'; g.fillRect(12, 25, 6, 7);
+    g.fillStyle = '#54382a'; g.fillRect(15, 25, 3, 7);
+    g.fillStyle = '#9c7048'; g.fillRect(13, 27, 1, 3);
+  }
   const top = canvas(W, H);
   const t = top.getContext('2d')!;
   t.putImageData(img, 0, 0);
@@ -91,6 +140,11 @@ function house(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: 
     for (let i = 3; i < 11; i += 4) r('#7a5230', wx + i, wallY + 10, 1, 6);
     r('#7a5230', wx, wallY + 12, 11, 1);
   }
+  // A box of flowers under each window.
+  for (const wx of [8, w - 19]) {
+    r(OUTLINE, wx - 1, wallY + 17, 13, 4); r('#8a5c34', wx, wallY + 18, 11, 2); r('#b58a56', wx, wallY + 18, 11, 1);
+    for (let i = 0; i < 11; i += 2) r(i % 4 ? '#68b862' : dojo ? '#ff8ab0' : '#ffd23f', wx + i, wallY + 17, 1, 1);
+  }
   // Doorway with a split noren.
   const dx = Math.floor(w / 2) - 7;
   r(OUTLINE, dx - 1, wallY + 7, 16, h - wallY - 7);
@@ -99,6 +153,10 @@ function house(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: 
   r(noren[0], dx, wallY + 8, 14, 7); r(noren[1], dx, wallY + 8, 14, 1); r(noren[2], dx, wallY + 14, 14, 1);
   r(OUTLINE, dx + 6, wallY + 9, 2, 6);
   r('#f6f1e2', dx + 2, wallY + 10, 2, 2); r('#f6f1e2', dx + 10, wallY + 10, 2, 2);
+  // A stone step, and a paper lantern hanging by the door.
+  r('#6f6a78', dx - 2, h - 2, 18, 2); r('#c8c4cc', dx - 1, h - 2, 16, 1);
+  r(OUTLINE, dx - 6, wallY + 8, 1, 2); r(OUTLINE, dx - 8, wallY + 10, 5, 7);
+  r(dojo ? '#e8625a' : '#fff0bc', dx - 7, wallY + 11, 3, 5); r(dojo ? '#ffb0a0' : '#ffffff', dx - 7, wallY + 11, 1, 3); r(OUTLINE, dx - 7, wallY + 10, 3, 1); r(OUTLINE, dx - 7, wallY + 16, 3, 1);
   // Kawara tiles: columns of rounded channels, stepped row by row.
   for (let py = 0; py < roofH; py++) {
     const inset = Math.round((roofH - 1 - py) * 0.32) - 3;
@@ -147,6 +205,11 @@ function castle(g: CanvasRenderingContext2D, x: number, y: number) {
   };
   tier(44, 96, 14); tier(26, 72, 12); tier(10, 46, 10);
   r(OUTLINE, 44, -2, 40, 4); r('#ffd23f', 45, -1, 38, 2); r('#fff0a0', 45, -1, 38, 1);
+  // Golden fish stand guard at each end of the ridge.
+  for (const [px, way] of [[41, 1], [84, -1]]) {
+    r(OUTLINE, px, -8, 4, 7); r('#ffd23f', px + 1, -7, 2, 5); r('#fff0a0', px + (way > 0 ? 1 : 2), -7, 1, 2);
+    r(OUTLINE, px + (way > 0 ? 3 : -2), -9, 3, 3); r('#ffd23f', px + (way > 0 ? 3 : -1), -8, 2, 1);
+  }
 }
 
 // The 6-7 Kombini: a flat-roofed shop with a lit sign and a glass front.
@@ -272,6 +335,58 @@ function torii(base: CanvasRenderingContext2D, fg: CanvasRenderingContext2D, x: 
   }
 }
 
+// The lighthouse on Inkstone Cape: a white tower banded in red, with a lit lamp room.
+function lighthouse(g: CanvasRenderingContext2D, x: number, y: number, h: number) {
+  const r = (c: string, a: number, b: number, w: number, rh: number) => { g.fillStyle = c; g.fillRect(x + a, y + b, w, rh); };
+  r('rgba(30,30,70,.3)', 2, h, 32, 3);
+  for (let py = 0; py < h; py++) {
+    const inset = Math.round((h - py) * 0.07);
+    const band = Math.floor(py / 12) % 2 === 1;
+    r(OUTLINE, 3 + inset, py, 26 - inset * 2, 1);
+    r(band ? '#d6332a' : '#f6f1e2', 4 + inset, py, 24 - inset * 2, 1);
+    r(band ? '#f0645a' : '#ffffff', 4 + inset, py, 3, 1);
+    r(band ? '#8c1f28' : '#c9c2d0', 23 - inset, py, 5, 1);
+  }
+  r(OUTLINE, 12, h - 13, 8, 13); r('#54382a', 13, h - 12, 6, 12); r('#7a5230', 13, h - 12, 2, 12); r('#ffd23f', 17, h - 7, 1, 2);
+  r(OUTLINE, 13, 18, 6, 8); r('#8fd0f0', 14, 19, 4, 6); r('#d8f2ff', 14, 19, 1, 6);
+  // Gallery, lamp room and dome.
+  r(OUTLINE, 3, -3, 26, 4); r('#5a5a70', 4, -2, 24, 2); r('#9c9ca6', 4, -2, 24, 1);
+  r(OUTLINE, 7, -15, 18, 12); r('#fff0a0', 8, -14, 16, 10); r('#ffffff', 10, -13, 4, 8); r('#ffd23f', 18, -14, 6, 10);
+  for (const px of [12, 16, 20]) r(OUTLINE, px, -14, 1, 10);
+  r(OUTLINE, 5, -19, 22, 5); r('#d6332a', 6, -18, 20, 3); r('#f0645a', 6, -18, 20, 1);
+  r(OUTLINE, 10, -23, 12, 5); r('#d6332a', 11, -22, 10, 3); r('#f0645a', 11, -22, 4, 1);
+  r(OUTLINE, 15, -28, 2, 6); r('#ffd23f', 14, -30, 4, 3);
+}
+
+// Small things that stand about the towns: stone lanterns, bushes and boulders.
+function prop(g: CanvasRenderingContext2D, c: string, x: number, y: number, bloom: string[]) {
+  const r = (colour: string, a: number, b: number, w: number, h: number) => { g.fillStyle = colour; g.fillRect(x + a, y + b, w, h); };
+  if (c === 'l') {
+    r('rgba(30,30,70,.3)', 2, 13, 12, 3);
+    r(OUTLINE, 4, 11, 8, 4); r('#8a8a96', 5, 12, 6, 2); r('#b4b4bc', 5, 12, 6, 1);
+    r(OUTLINE, 6, 5, 4, 7); r('#8a8a96', 7, 5, 2, 6); r('#b4b4bc', 7, 5, 1, 6);
+    r(OUTLINE, 3, -3, 10, 9); r('#7b7b8c', 4, -2, 8, 7); r('#ffe27a', 6, -1, 4, 4); r('#fff8d0', 7, 0, 2, 2); r(OUTLINE, 8, -1, 1, 4);
+    r(OUTLINE, 1, -6, 14, 4); r('#5a5a70', 2, -5, 12, 2); r('#9c9ca6', 2, -5, 12, 1);
+    r(OUTLINE, 6, -9, 4, 4); r('#9c9ca6', 7, -8, 2, 2);
+  }
+  if (c === 'B') {
+    r('rgba(30,30,70,.3)', 1, 13, 14, 3);
+    const [dark, mid, light] = ['#2c6a48', '#4f9e5a', '#8cd070'];
+    r(OUTLINE, 2, 3, 12, 12); r(OUTLINE, 0, 6, 16, 8); r(OUTLINE, 4, 1, 8, 3);
+    r(mid, 3, 4, 10, 10); r(mid, 1, 7, 14, 6); r(mid, 5, 2, 6, 3);
+    r(dark, 3, 11, 10, 3); r(dark, 1, 10, 3, 3); r(dark, 11, 8, 4, 5);
+    r(light, 5, 3, 4, 2); r(light, 3, 6, 3, 2); r(light, 8, 6, 2, 1);
+    for (const [fx, fy] of [[4, 8], [9, 4], [11, 10]]) { r(bloom[0], fx, fy, 2, 2); r(bloom[1], fx, fy, 1, 1); }
+  }
+  if (c === 'k') {
+    r('rgba(30,30,70,.3)', 1, 13, 14, 3);
+    r(OUTLINE, 3, 3, 9, 12); r(OUTLINE, 1, 7, 14, 8);
+    r('#8a8a96', 4, 4, 7, 10); r('#8a8a96', 2, 8, 12, 6);
+    r('#b8b8c0', 4, 4, 5, 2); r('#b8b8c0', 2, 8, 3, 2); r('#5a5a70', 9, 9, 5, 5); r('#5a5a70', 3, 12, 8, 2);
+    r('#68b862', 5, 4, 2, 1); r('#68b862', 3, 9, 1, 1);
+  }
+}
+
 export interface Scene { base: HTMLCanvasElement; fg: HTMLCanvasElement; shimmer: [number, number][] }
 const scenes = new Map<string, Scene>();
 
@@ -354,7 +469,7 @@ function paintRoom(rows: string[], konbini = false): Scene {
   const g = base.getContext('2d')!;
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
   const ch = (x: number, y: number) => rows[y]?.[x] ?? 'V';
-  const under = (c: string) => 'cbo'.includes(c);
+  const under = (c: string) => 'cbovzgaMGEDNIJ'.includes(c);
   for (let y = 0; y < 16; y++) for (let x = 0; x < 24; x++) {
     const c = ch(x, y), px = x * T, py = y * T;
     if (c === 'V') { r('#14162e', px, py, T, T); continue; }
@@ -417,6 +532,85 @@ function paintRoom(rows: string[], konbini = false): Scene {
       r('#94663c', px + (left ? 1 : 0), py + (top ? 4 : 0), left ? 15 : 14, top ? 11 : 10);
       if (top) r('#b58a56', px + (left ? 1 : 0), py + 4, left ? 15 : 14, 1);
       if (!top) r('#54382a', px, py + 11, T, 3);
+    }
+    // The tools of each household's trade.
+    if ('vG'.includes(c)) {
+      // Shelves of books, or of bottled ink.
+      r('rgba(30,30,70,.3)', px, py + 14, T, 2);
+      r(OUTLINE, px, py - 8, T, 23); r(c === 'v' ? '#8a5c34' : '#a87848', px + 1, py - 7, 14, 21);
+      for (const row of [-6, 1, 8]) {
+        r('#54382a', px + 1, py + row + 5, 14, 1);
+        for (let i = 0; i < 4; i++) {
+          if (c === 'v') { r(PACKETS[Math.floor(hash(x * 5 + i, row + y) * PACKETS.length)], px + 2 + i * 3 + (i > 1 ? 1 : 0), py + row, 2, 5); r('#ffffff', px + 2 + i * 3 + (i > 1 ? 1 : 0), py + row + 1, 2, 1); }
+          else if (i < 3) { r('#2b2036', px + 2 + i * 4, py + row + 1, 3, 4); r('#c7302c', px + 2 + i * 4, py + row + 3, 3, 1); r('#8d8796', px + 3 + i * 4, py + row, 1, 1); }
+        }
+      }
+    }
+    if (c === 'z') {
+      r('rgba(30,30,70,.3)', px + 1, py + 13, 14, 3);
+      r(OUTLINE, px + 1, py + 8, 14, 6); r('#8a8a96', px + 2, py + 9, 12, 4); r('#b4b4bc', px + 2, py + 9, 12, 1);
+      r(OUTLINE, px + 4, py - 2, 8, 11); r('#c2703c', px + 5, py - 1, 6, 9); r('#e8985c', px + 5, py - 1, 2, 9); r('#94502c', px + 9, py - 1, 2, 9);
+      r(OUTLINE, px + 5, py - 4, 6, 3); r('#8a4a24', px + 6, py - 3, 4, 1);
+    }
+    if (c === 'g') {
+      // Paper lanterns hung up to dry on a rail.
+      r('rgba(30,30,70,.25)', px + 1, py + 13, 14, 2);
+      r(OUTLINE, px, py - 7, T, 3); r('#7a5230', px, py - 6, T, 1);
+      for (const [lx, paper, glow] of [[1, '#fff0bc', '#ffd23f'], [9, '#e8625a', '#ffb0a0']] as const) {
+        r(OUTLINE, px + lx, py - 4, 6, 12); r(paper, px + lx + 1, py - 3, 4, 10); r(glow, px + lx + 1, py + 1, 4, 3);
+        r(OUTLINE, px + lx + 1, py - 4, 4, 1); r(OUTLINE, px + lx + 1, py + 7, 4, 1); r('#ffffff', px + lx + 1, py - 2, 1, 4);
+      }
+    }
+    if (c === 'a') {
+      // A festival drum on its stand.
+      r('rgba(30,30,70,.3)', px + 1, py + 13, 14, 3);
+      r(OUTLINE, px + 2, py + 9, 3, 6); r(OUTLINE, px + 11, py + 9, 3, 6); r('#7a5230', px + 3, py + 10, 1, 4); r('#7a5230', px + 12, py + 10, 1, 4);
+      r(OUTLINE, px + 1, py - 3, 14, 14); r('#a02f36', px + 2, py - 2, 12, 12); r('#d9534f', px + 2, py + 1, 3, 8);
+      r('#f4e4c0', px + 2, py - 2, 12, 3); r('#ffffff', px + 3, py - 2, 5, 1);
+      for (let i = 0; i < 4; i++) r('#ffd23f', px + 3 + i * 3, py + 2, 1, 1);
+    }
+    if (c === 'M') {
+      // A model ship, kept on a side table.
+      r('rgba(30,30,70,.3)', px + 1, py + 13, 14, 3);
+      r(OUTLINE, px + 1, py + 6, 14, 9); r('#8a5c34', px + 2, py + 7, 12, 7); r('#a87848', px + 2, py + 7, 12, 1);
+      r(OUTLINE, px + 2, py + 1, 12, 6); r('#2a3c78', px + 3, py + 2, 10, 3); r('#d6332a', px + 3, py + 4, 10, 1);
+      r(OUTLINE, px + 7, py - 8, 2, 10); r(OUTLINE, px + 9, py - 7, 5, 7); r('#f6f1e2', px + 9, py - 6, 4, 5);
+      r(OUTLINE, px + 3, py - 5, 4, 5); r('#f6f1e2', px + 4, py - 4, 3, 4);
+    }
+    if (c === 'E') {
+      // Spears standing in a rack.
+      r('rgba(30,30,70,.3)', px + 2, py + 13, 12, 3);
+      r(OUTLINE, px + 1, py + 9, 14, 5); r('#54382a', px + 2, py + 10, 12, 3); r('#7a5230', px + 2, py + 10, 12, 1);
+      for (const sx of [3, 7, 11]) { r(OUTLINE, px + sx, py - 8, 3, 18); r('#a87848', px + sx + 1, py - 3, 1, 13); r('#c3cdd8', px + sx + 1, py - 7, 1, 4); }
+    }
+    if (c === 'D') {
+      // A carpenter's bench with a saw on it.
+      r('rgba(30,30,70,.3)', px, py + 14, T, 2);
+      r(OUTLINE, px, py + 2, T, 13); r('#b58a56', px + 1, py + 3, 14, 5); r('#d9b078', px + 1, py + 3, 14, 1); r('#6e4628', px + 1, py + 8, 14, 6);
+      r('#c3cdd8', px + 2, py + 4, 9, 2); r('#8d97a8', px + 2, py + 6, 9, 1); r('#8a5c34', px + 11, py + 3, 3, 4);
+      r('#f1deb2', px + 3, py + 10, 4, 1); r('#f1deb2', px + 9, py + 11, 3, 1);
+    }
+    if (c === 'N') {
+      // A heap of fishing net and floats.
+      r('rgba(30,30,70,.3)', px + 1, py + 13, 14, 3);
+      r(OUTLINE, px + 1, py + 3, 14, 12); r('#4a6a80', px + 2, py + 4, 12, 10);
+      for (let i = 0; i < 4; i++) { r('#8fb0c0', px + 3 + i * 3, py + 4, 1, 10); r('#8fb0c0', px + 2, py + 5 + i * 3, 12, 1); }
+      r(OUTLINE, px + 2, py, 5, 5); r('#e0483e', px + 3, py + 1, 3, 3); r(OUTLINE, px + 9, py + 1, 5, 5); r('#ffd23f', px + 10, py + 2, 3, 3);
+    }
+    if (c === 'I') {
+      // A low writing desk with an inkstone, a brush and a sheet of paper.
+      r('rgba(30,30,70,.3)', px, py + 14, T, 2);
+      r(OUTLINE, px, py + 4, T, 11); r('#94663c', px + 1, py + 5, 14, 5); r('#b58a56', px + 1, py + 5, 14, 1); r('#6e4628', px + 1, py + 10, 14, 4);
+      r(OUTLINE, px + 2, py + 6, 5, 3); r('#55505e', px + 3, py + 7, 3, 1);
+      r('#fdf8ef', px + 8, py + 6, 6, 3); r(OUTLINE, px + 10, py + 7, 2, 1);
+      r(OUTLINE, px + 7, py + 1, 1, 6); r('#a87848', px + 7, py + 1, 1, 3);
+    }
+    if (c === 'J') {
+      // Wooden bath tubs with a towel over the edge.
+      r('rgba(30,30,70,.3)', px + 1, py + 13, 14, 3);
+      r(OUTLINE, px + 6, py, 9, 9); r('#d9b078', px + 7, py + 1, 7, 7); r('#8a5c34', px + 7, py + 4, 7, 1); r('#f1deb2', px + 7, py + 1, 7, 1);
+      r(OUTLINE, px + 1, py + 5, 10, 10); r('#d9b078', px + 2, py + 6, 8, 8); r('#8a5c34', px + 2, py + 10, 8, 1); r('#f1deb2', px + 2, py + 6, 8, 1);
+      r('#ffffff', px + 3, py + 4, 4, 4); r('#bfeaff', px + 3, py + 6, 4, 1);
     }
     if (c === 'o') {
       r('rgba(30,30,70,.3)', px + 2, py + 13, 12, 3);
@@ -504,7 +698,7 @@ export function paintMap(id: string, rows: string[]): Scene {
 
   const r = (c: string, x: number, y: number, w = 1, h = 1) => { b.fillStyle = c; b.fillRect(x, y, w, h); };
   const shimmer: [number, number][] = [];
-  const pines = [0, 1, 2].map((s) => tree(false, s)), blossoms = [0, 1, 2].map((s) => tree(true, s));
+  const pines = [0, 1, 2].map((s) => tree(id === 'bamboo' ? 'bamboo' : 'pine', s)), blossoms = [0, 1, 2].map((s) => tree(id === 'matsuri' ? 'maple' : 'blossom', s));
   const [g0, , g2, g3] = GRASS[id];
 
   for (let y = 0; y < down; y++) for (let x = 0; x < across; x++) {
@@ -512,6 +706,21 @@ export function paintMap(id: string, rows: string[]): Scene {
     if (c === '.' && seed < 0.1) {
       const [a, e] = FLOWERS[id];
       for (const [fx, fy] of [[3, 4], [10, 9], [6, 12]]) { r(a, px + fx, py + fy, 3, 1); r(a, px + fx + 1, py + fy - 1, 1, 3); r(e, px + fx + 1, py + fy, 1, 1); }
+    }
+    if (c === '*') {
+      // A flower bed, thick with blooms.
+      const [a, e] = FLOWERS[id];
+      for (let i = 0; i < 7; i++) {
+        const fx = 1 + Math.floor(hash(x * 5 + i, y * 3) * 11), fy = 2 + Math.floor(hash(x, y * 7 + i) * 11);
+        const petal = i % 3 === 0 ? e : a;
+        r(g0, fx + 1, fy + 2, 1, 2); r(petal, fx, fy, 3, 1); r(petal, fx + 1, fy - 1, 1, 3); r(i % 3 === 0 ? a : '#ffd23f', fx + 1, fy, 1, 1);
+      }
+    }
+    if (c === '~' && seed < 0.1 && ch(x - 1, y) === '~' && ch(x + 1, y) === '~' && ch(x, y - 1) === '~' && ch(x, y + 1) === '~' && !['coast', 'minato', 'cape'].includes(id)) {
+      // A lily pad, sometimes in flower.
+      r('#2c7a45', px + 4, py + 6, 8, 5); r('#2c7a45', px + 5, py + 5, 6, 7); r('#55b060', px + 5, py + 6, 6, 4); r('#8cd070', px + 6, py + 6, 3, 1);
+      r(WATER[1], px + 9, py + 8, 3, 1);
+      if (seed < 0.05) { r('#ffffff', px + 6, py + 8, 2, 2); r('#f7a8c4', px + 7, py + 8, 1, 1); }
     }
     if (c === '"') {
       for (let i = 0; i < 11; i++) {
@@ -571,6 +780,13 @@ export function paintMap(id: string, rows: string[]): Scene {
     }
     if (c === 't' && ch(x + 2, y) === 't') torii(b, f, x * T - 8, y * T);
     if (c === 'S') sign(b, x * T, y * T);
+    if ('lBk'.includes(c)) standing(y * T, (g) => prop(g, c, x * T, y * T, FLOWERS[id]));
+    if (c === 'L' && !seen.has('lighthouse')) {
+      seen.add('lighthouse');
+      let tall = 0;
+      while (ch(x, y + tall) === 'L' && y + tall < down) tall++;
+      standing(y * T, (g) => lighthouse(g, x * T, y * T, tall * T));
+    }
     if (c === 'C' && !seen.has('castle')) {
       seen.add('castle');
       standing(y * T, (g) => castle(g, x * T, y * T));
@@ -605,10 +821,16 @@ const SKIES: Record<string, Sky> = {
   forest: { sky: ['#4f9cb8', '#7cc0c0', '#b0dcc0', '#e0ecc0'], hills: [['#2f7f6a', '#3f9070'], ['#1f5f50', '#2c6f5a']], ground: GRASS.forest, pad: ['#2c6a58', '#559c68', '#74b478', '#a0d090'] },
   onsen: { sky: ['#e08a7c', '#f0b090', '#f8d4a8', '#fff0cc'], hills: [['#a88aa0', '#c0a0ac'], ['#6f8a6a', '#88a070']], ground: GRASS.onsen, snow: true, pad: ['#5f8a5a', '#92b86c', '#b0cc80', '#dce4a0'] },
   castle: { sky: ['#6a7cc0', '#a090c8', '#e0a8b0', '#ffd8a8'], hills: [['#8078a8', '#9888b4'], ['#7a9448', '#94ac52']], ground: GRASS.castle, pad: ['#7a9448', '#aec060', '#ccd47c', '#ece8a0'] },
+  coast: { sky: ['#5cb4ec', '#8cd4f4', '#c4ecf4', '#fff4d8'], hills: [['#8cc4dc', '#a8d8e4'], ['#5aa8d0', '#78bcdc']], ground: GRASS.coast, pad: ['#b08f5e', '#d2b27a', '#e4cb96', '#f1deb2'] },
+  minato: { sky: ['#68b8e8', '#98d4f0', '#ccecf0', '#fff0d0'], hills: [['#98b8cc', '#b0ccd8'], ['#5aa8d0', '#78bcdc']], ground: GRASS.minato, pad: ['#56966a', '#8cc47c', '#b0d890', '#d8ecb0'] },
+  bamboo: { sky: ['#78c4b0', '#a4dcc0', '#d0f0cc', '#f4f8d0'], hills: [['#5aa870', '#74bc7c'], ['#3f8a4a', '#559c58']], ground: GRASS.bamboo, pad: ['#3f8a4a', '#7cc05e', '#a4d874', '#d4f0a0'] },
+  matsuri: { sky: ['#3a3a78', '#7a5a9c', '#d88a8c', '#ffd098'], hills: [['#6a5a8c', '#8a7098'], ['#b05a3c', '#c8743c']], ground: GRASS.matsuri, pad: ['#8a8a44', '#c0b458', '#dccc74', '#f0e4a0'] },
+  cape: { sky: ['#46589c', '#7c8cc0', '#b8c4dc', '#f0e4d8'], hills: [['#7888b0', '#94a4c4'], ['#4a7a70', '#609078']], ground: GRASS.cape, snow: true, pad: ['#5a5a70', '#7b7b8c', '#9c9ca6', '#bfc2b8'] },
   title: { sky: ['#8fd4f4', '#b8e8f6', '#dcf5ee', '#fff3d6'], hills: [['#f4bcd0', '#fbd4e0'], ['#8fd07c', '#a8dc88']], ground: ['#5fae5a', '#78c468', '#94d67a', '#b4e48c'], pad: [] },
 };
 
 const backs = new Map<string, HTMLCanvasElement>();
+const FUJI = 130;
 
 export function backdrop(id: string) {
   const hit = backs.get(id);
@@ -622,7 +844,11 @@ export function backdrop(id: string) {
   const cloud = rgb('#ffffff'), cloudLow = rgb(id === 'title' ? '#e4d8f8' : '#dce8f4'), snow = rgb('#f4f8ff');
   const ridge = (x: number, i: number) => {
     const n = noise(x / (i ? 46 : 70) + i * 5, i) * 0.7 + noise(x / 15, i + 3) * 0.3;
-    if (i === 0 && P.snow) return horizon - 12 - Math.max(0, 68 - Math.abs(x - 130) * 0.8) + n * 12;
+    if (i === 0 && P.snow) {
+      // Mount Fuji: a short level summit, then long slopes that start steep and sweep out wide at the foot.
+      const d = Math.abs(x - FUJI), t = Math.min(1, Math.max(0, d - 10) / 92);
+      return horizon - 12 - 50 * (1 - t) ** 1.45 + (d < 8 ? 0 : d < 10 ? 1 : n * 5 * t);
+    }
     return horizon - (i ? 4 : 12) - n * (i ? 14 : 24);
   };
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
@@ -631,12 +857,15 @@ export function backdrop(id: string) {
       const t = (y / horizon) * (sky.length - 1), i = Math.floor(t);
       col = sky[Math.min(sky.length - 1, i + (t - i > bayer(x, y) ? 1 : 0))];
       const puff = noise(x / 26 + 3, y / 8) * 0.8 + noise(x / 9, y / 4) * 0.2;
-      if (y < horizon * 0.6 && puff > 0.68) col = puff + (bayer(x, y) - 0.5) * 0.04 > 0.72 ? cloud : cloudLow;
+      // The sky stays clear around Fuji's summit, so cloud never blurs its outline.
+      const thin = P.snow ? Math.max(0, 1 - Math.abs(x - FUJI) / 80) * 0.5 : 0;
+      if (y < horizon * 0.6 && puff - thin > 0.68) col = puff + (bayer(x, y) - 0.5) * 0.04 > 0.72 ? cloud : cloudLow;
       for (let i = 0; i < 2; i++) {
         const top = ridge(x, i);
         if (y >= top) {
           col = hills[i][(y - top) * 0.09 + (bayer(x, y) - 0.5) + noise(x / 7, i) * 0.6 < 0.7 ? 1 : 0];
-          if (i === 0 && P.snow && y < 44 + noise(x / 4, 1) * 14) col = snow;
+          // The snow cap ends in long fingers running down the gullies.
+          if (i === 0 && P.snow && Math.abs(x - FUJI) < 46 && y < horizon - 49 + Math.abs((x % 8) - 4) * 2.2 + noise(x / 5, 1) * 5) col = snow;
         }
       }
     } else {

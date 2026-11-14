@@ -7,6 +7,7 @@ const KANJI = /[々一-鿿]/;
 export const READINGS = new Map(Object.entries({
   桜餅: 'sakuramochi', 鮎の塩焼き: 'ayu no shioyaki', 温泉たまご: 'onsen tamago', 三色団子: 'sanshoku dango', 弁当: 'bentou', お茶: 'ocha', 雑誌: 'zasshi',
   墨: 'sumi', 金墨: 'kinboku', 紙札: 'kamifuda', 金札: 'kinfuda', 桜札: 'sakurafuda', 川札: 'kawafuda', 湯札: 'yufuda', 筆札: 'fudefuda',
+  たこ焼き: 'takoyaki', りんご飴: 'ringoame', 波札: 'namifuda', 灯札: 'akarifuda',
   巫女: 'miko', 葵: 'aoi', 消しゴム: 'keshigomu', 招き猫: 'manekineko', 鳥居: 'torii', 漢字: 'kanji',
 }));
 export function learnReadings(species: { k: string; r: string; moves: { w: string; r: string }[] }[]) {

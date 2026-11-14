@@ -16,8 +16,8 @@ const data: { kanji: string; level: string }[] = JSON.parse(readFileSync('src/da
 const levelOf = new Map(data.map((k) => [k.kanji, k.level]));
 const pooled = Object.values(POOLS).flatMap((p) => [...p]);
 
-test('every N5 and N4 kanji lives in exactly one wild area', () => {
-  const wanted = [...data.filter((k) => k.level === 'N5' || k.level === 'N4').map((k) => k.kanji), '耳'].sort();
+test('every N5, N4 and N3 kanji lives in exactly one wild area', () => {
+  const wanted = data.filter((k) => ['N5', 'N4', 'N3'].includes(k.level)).map((k) => k.kanji).sort();
   assert.deepEqual([...pooled].sort(), wanted);
 });
 
@@ -116,7 +116,7 @@ test('friendlier meanings only cover kanji in the game', () => {
 });
 
 test('every town has a shop you can walk into, and items heal correctly', () => {
-  for (const town of ['village', 'kawabe', 'onsen', 'castle']) {
+  for (const town of ['village', 'kawabe', 'onsen', 'castle', 'minato', 'matsuri']) {
     assert.ok(MAPS[town].doors!.some((d) => d.to.startsWith('shop')), town);
     assert.ok(MAPS[town].doors!.some((d) => d.to.startsWith('charm')), town);
     assert.equal(charmsIn(town).length, 3, town);
@@ -165,7 +165,7 @@ test('everything in the Collection has pixel art, and every manga has a joke', (
 
 test('every kombini sells the next volume of every manga', () => {
   const towns = Object.keys(MAPS).filter((id) => id.startsWith('shop-')).map((id) => id.replace('shop-', ''));
-  assert.equal(towns.length, 4);
+  assert.equal(towns.length, 6);
   for (const town of towns) assert.equal(mangaIn(town).length, 8, town);
   assert.deepEqual(mangaIn('kawabe').map((m) => m.name)[0], 'Three Pieces #2');
   assert.equal(new Set(MANGA.map((m) => m.note)).size, MANGA.length);
@@ -174,13 +174,13 @@ test('every kombini sells the next volume of every manga', () => {
 
 test('every kombini has one food of its own, on top of the usual shelf', () => {
   const usual = ITEMS.filter((i) => !i.town && !i.revive).map((i) => i.id);
-  const specials = ['village', 'kawabe', 'onsen', 'castle'].map((town) => {
+  const specials = ['village', 'kawabe', 'onsen', 'castle', 'minato', 'matsuri'].map((town) => {
     const shelf = shelfIn(town).map((i) => i.id);
     for (const id of usual) assert.ok(shelf.includes(id), `${town} ${id}`);
     assert.equal(shelf.length, usual.length + 1, town);
     return shelf.find((id) => !usual.includes(id));
   });
-  assert.equal(new Set(specials).size, 4);
+  assert.equal(new Set(specials).size, 6);
   for (const i of ITEMS.filter((x) => x.town)) assert.ok(i.heal! / i.price >= 0.65, i.id);
 });
 

@@ -81,9 +81,12 @@ function spelled<T extends HTMLElement>(el: T, raw: string) {
 const SPEAKER = /^([A-Z][A-Za-z0-9#' ]{2,24}): (.*)$/s;
 
 // Dialogue sits on the game screen, except in battle, where it would cover the fighters' cards.
+// On a phone, a long list of choices also moves below the screen, where there is room for all of it.
+const phone = matchMedia('(pointer: coarse)').matches;
 function dock() {
-  if (panelEl.parentElement !== (foe ? sideEl : stage)) { if (foe) sideEl.prepend(panelEl); else stage.append(panelEl); }
-  hudEl.hidden = !!foe;
+  const below = !!foe || (phone && mode !== 'title' && choicesEl.parentElement === panelEl && choicesEl.children.length > 4);
+  if (panelEl.parentElement !== (below ? sideEl : stage)) { if (below) sideEl.prepend(panelEl); else stage.append(panelEl); }
+  hudEl.hidden = below;
   // Money and charms change mid-conversation in shops, so the counts follow along.
   if (!foe && mode !== 'title') refreshStatus();
   panelEl.hidden = !foe && (textEl.hidden || !textEl.textContent) && !panelEl.querySelector('#choices button');
@@ -275,8 +278,8 @@ let foe: { s: Species; f: Fighter } | null = null;
 
 const map = () => MAPS[save.map];
 const tileAt = (x: number, y: number) => map().rows[y]?.[x] ?? 'T';
-const TUNES: Record<string, string> = { 'shop-village': 'home', 'shop-kawabe': 'kawabe', 'shop-onsen': 'onsen', 'shop-castle': 'castle', 'charm-village': 'home', 'charm-kawabe': 'kawabe', 'charm-onsen': 'onsen', 'charm-castle': 'castle', home: 'home', dojo: 'home', school: 'kawabe', inn: 'onsen', hall: 'castle' };
-const areaTune = () => TUNES[save.map] ?? save.map;
+const TUNES: Record<string, string> = { 'shop-village': 'home', 'shop-kawabe': 'kawabe', 'shop-onsen': 'onsen', 'shop-castle': 'castle', 'charm-village': 'home', 'charm-kawabe': 'kawabe', 'charm-onsen': 'onsen', 'charm-castle': 'castle', 'shop-minato': 'minato', 'shop-matsuri': 'matsuri', 'charm-minato': 'minato', 'charm-matsuri': 'matsuri', home: 'home', dojo: 'home', school: 'kawabe', inn: 'onsen', hall: 'castle' };
+const areaTune = () => TUNES[save.map] ?? map().tune ?? save.map;
 const npcsHere = () => map().npcs.filter((n) => !n.after || save.done.includes(n.after));
 const npcAt = (x: number, y: number) => npcsHere().find((n) => n.x === x && n.y === y);
 const DIRS: Record<string, [number, number]> = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
@@ -301,6 +304,8 @@ function walk(dir: string) {
   slide = T; stepFlip = !stepFlip;
   if ('"r'.includes(tileAt(nx, ny))) {
     sfx.rustle();
+    // A few blades fly up from the grass underfoot.
+    burst('wood', heroAt[0] + dx * T, heroAt[1] + dy * T + 12, 3, 0.22);
     if (Math.random() < 0.16) void encounter();
   }
 }
@@ -361,7 +366,8 @@ async function talk() {
   if (!n) return;
   mode = 'busy';
   facing = n;
-  if (!(await questTalk(n))) for (const line of n.guide ? [bearTip()] : n.mom ? momLines() : n.lines) await say(`${n.name}: ${line}`);
+  const busy = await questTalk(n);
+  if (!busy) for (const line of n.guide ? [bearTip()] : n.mom ? momLines() : n.lines) await say(`${n.name}: ${line}`);
   if (n.shop) await konbini();
   if (n.charms) await charmShop(n.charms);
   if (n.heal && save.party.length) {
@@ -373,7 +379,7 @@ async function talk() {
     await say(`Your team is fully restored.${gift ? ' Here are 3 paper charms to help you on your way.' : ''}`);
     store();
   }
-  if (n.master) await trial(LEVELS.find((l) => l.id === n.master)!);
+  if (n.master && !busy) await trial(LEVELS.find((l) => l.id === n.master)!);
   backToWorld();
 }
 
@@ -502,7 +508,9 @@ function unlocked(q: Quest) {
   if (q.after) return save.done.includes(q.after);
   const line = mains();
   const before = line[line.indexOf(q) - 1];
-  if (q.level === 'N4' && !save.trials.includes('N5')) return false;
+  // A land's missions wait until the land before it has been mastered.
+  const at = LEVELS.findIndex((l) => l.id === q.level);
+  if (at > 0 && !save.trials.includes(LEVELS[at - 1].id)) return false;
   return !before || save.done.includes(before.id);
 }
 
@@ -570,7 +578,7 @@ function goal(): { title: string; text: string; have?: number; need?: number } {
   if (!l) return { title: 'Keep reading', text: 'Catch every kanji and fill in every sign.', have: save.caught.length, need: all.length };
   const q = mains(l.id).find((m) => !save.done.includes(m.id));
   if (q) {
-    if (!save.active.includes(q.id)) return { title: q.title, text: q.giver === 'Mom' ? 'Go home and talk to Mom.' : `Talk to ${['Aoi', 'Kanji Bear'].includes(q.giver) ? q.giver : `the ${q.giver}`} in ${q.where}.` };
+    if (!save.active.includes(q.id)) return { title: q.title, text: q.giver === 'Mom' ? 'Go home and talk to Mom.' : `Talk to ${['Aoi', 'Kanji Bear'].includes(q.giver) ? q.giver : `the ${q.giver}`} ${q.where.endsWith('Road') ? 'on' : 'in'} ${q.where}.` };
     const p = progress(q);
     if (!p) return { title: q.title, text: q.wait };
     return p[0] < p[1] ? { title: q.title, text: q.wait, have: p[0], need: p[1] } : { title: q.title, text: `Report to the ${q.giver} in ${q.where}.`.replace('the Kanji Bear', 'Kanji Bear'), have: p[0], need: p[1] };
@@ -595,7 +603,7 @@ function bearTip() {
   const l = nextLevel();
   if (l) return `${goal().text} And read every sign on the way.`;
   const left = all.length - save.caught.length;
-  if (left) return `You passed N5 and N4! The roads to N3, N2 and N1 are still closed, so keep catching. ${left} kanji are left to find.`;
+  if (left) return `The Great Inkstone is whole again, thanks to you. Still, ${left} kanji are left to find. Shall we finish the set?`;
   return 'You found every kanji! I could not be prouder.';
 }
 
@@ -845,11 +853,30 @@ async function trial(l: Level) {
   stamp('合格');
   for (const line of l.win) await say(`${l.master}: ${line}`);
   await say(`You mastered ${l.id}!`);
-  if (!nextLevel()) {
-    await say('Letter by letter, the signs of Japan fill with ink again.');
-    await say('Kanji Bear: You did it, my student. Go home and tell your mother. You can read the world now.');
-  }
   store();
+  if (!nextLevel()) await ending();
+}
+
+// The end of the story. Play carries on afterwards, so every kanji can still be found.
+async function ending() {
+  silence();
+  await say('Aoi holds the lamp while you grind. Round and round, slow and even, the way it was always done. The water turns black as night.');
+  await say('Inkstone Keeper: That is true ink. Carry it carefully. It remembers the hand that made it.');
+  veil.curtain = 1.6;
+  await pause(700);
+  music('castle');
+  await say('In Castle Town, the Scribe dips a brush and writes the seal once more. This time the strokes stay dark.');
+  flashScreen(0.6, '#fff0c0');
+  sfx.bless();
+  for (let i = 0; i < 5; i++) burst('bless', 40 + i * 40, 60 + (i % 2) * 30, 14, 0.9);
+  await say('Letter by letter, the signs of Japan fill with ink again. Shop fronts, timetables, a poem fifty years old.');
+  await say('Castle Scribe: The Great Inkstone is whole. It was mended by reading, as it was broken by forgetting.');
+  await say('Aoi: I am going back to the start again, Haru. Not because I have to. I just like the walk now.');
+  await say('Kanji Bear: You did it, my student. You left home unable to read a sign, and now the whole world is written for you.');
+  await say('Kanji Bear: Go home and tell your mother. Read her something on the way.');
+  stamp('完');
+  music('home');
+  await say(`The End\nThank you for playing Kanjimono! You found ${save.caught.length} of ${all.length} kanji. The rest are still out there, if you would like to meet them.`);
 }
 
 // One quiz: pick the English meaning from four options.
@@ -909,7 +936,7 @@ async function playerTurn(me: Fighter, move: Move) {
     foe!.f.hp = Math.max(0, foe!.f.hp - dealt);
     popup(`-${dealt}`, 'foe', bonus > 1 ? 'big' : '');
   });
-  await say(`${right ? 'Correct! Full power!' : `Not quite: it means "${move.m}".`}\n${s.k} used ${move.w}! ${dealt} damage.${bonus > 1 ? ' Super strong!' : bonus < 1 ? ' Weak...' : ''}`);
+  await say(`${right ? 'Correct! Full power!' : `Not quite. It means "${move.m}".`}\n${s.k} used ${move.w}! ${dealt} damage.${bonus > 1 ? ' Super strong!' : bonus < 1 ? ' Weak...' : ''}`);
   return foe!.f.hp <= 0;
 }
 
@@ -1008,6 +1035,109 @@ async function switchLead() {
   return true;
 }
 
+// ---- Team and Zukan screens: full pages over the game, since a team and 612 kanji don't fit in a dialogue box.
+const book = document.createElement('dialog');
+book.id = 'book';
+document.body.append(book);
+const make = <K extends keyof HTMLElementTagNameMap>(tag: K, cls = '', text = '') => Object.assign(document.createElement(tag), { className: cls, textContent: text });
+const cap = (m: string) => m[0].toUpperCase() + m.slice(1);
+
+// A kanji creature as a picture for the page. Unmet ones are shown as a flat shadow.
+function portrait(s: Species, size: number, known = true) {
+  const src = kanjiSprite(s, size), pad = 12;
+  const c = Object.assign(make('canvas', 'portrait'), { width: size + pad * 2, height: size + pad * 2 });
+  const g = c.getContext('2d')!;
+  g.drawImage(src, MARGIN - pad, MARGIN - pad, c.width, c.height, 0, 0, c.width, c.height);
+  if (!known) { g.globalCompositeOperation = 'source-in'; g.fillStyle = '#4a4f8a'; g.fillRect(0, 0, c.width, c.height); }
+  return c;
+}
+
+function openBook(title: string, fill: (body: HTMLElement) => void) {
+  const head = make('header'), close = make('button', 'back', 'Close'), body = make('div', 'pages');
+  close.type = 'button';
+  close.addEventListener('click', () => book.close());
+  head.append(make('h2', '', title), close);
+  book.replaceChildren(head, body);
+  fill(body);
+  book.showModal();
+  close.focus();
+  return new Promise<void>((done) => book.addEventListener('close', () => done(), { once: true }));
+}
+
+const meter = (cls: string, part: number) => {
+  const track = make('div', `track ${cls}`), fill = make('div', 'fill');
+  fill.style.width = `${Math.max(0, Math.min(1, part)) * 100}%`;
+  if (cls === 'hp') fill.dataset.level = part > 0.5 ? 'good' : part > 0.2 ? 'low' : 'danger';
+  track.append(fill);
+  return track;
+};
+
+async function teamScreen() {
+  await loadLettering(save.party.map((f) => f.k).join(''));
+  await openBook('Team', function draw(body) {
+    body.replaceChildren(...save.party.map((f, i) => {
+      const s = spec(f.k), max = maxHp(s, f.lv);
+      const card = make('article', 'member'), words = make('div', 'about'), top = make('p', 'name');
+      top.append(make('b', '', `${s.k} ${cap(s.m)}`), make('i', '', `Lv ${f.lv}`));
+      const hp = make('p', 'stat'), xp = make('p', 'stat');
+      hp.append(make('span', '', 'HP'), meter('hp', f.hp / max), make('span', '', `${Math.max(0, f.hp)} / ${max}`));
+      xp.append(make('span', '', 'XP'), meter('xp', f.xp / xpToNext(f.lv)), make('span', '', `${f.xp} / ${xpToNext(f.lv)}`));
+      const moves = make('ul', 'moves');
+      for (const m of s.moves) {
+        const li = make('li');
+        li.append(spelled(Object.assign(make('b'), { lang: 'ja' }), m.w), make('span', '', brief(m.m)));
+        moves.append(li);
+      }
+      words.append(top, hp, xp, moves);
+      if (i) {
+        const lead = make('button', 'back', 'Send out first');
+        lead.type = 'button';
+        lead.addEventListener('click', () => { save.party.unshift(...save.party.splice(i, 1)); store(); sfx.pick(); draw(body); });
+        words.append(lead);
+      } else words.append(make('span', 'tag', 'Goes first'));
+      card.append(portrait(s, 48), words);
+      return card;
+    }), ...(save.box.length ? [make('p', 'note', `${save.box.length} more kanji are resting in storage. A team holds six.`)] : []));
+  });
+}
+
+async function zukanScreen() {
+  const lands = Object.keys(POOLS);
+  let land = POOLS[save.map] ? save.map : lands.find((id) => [...POOLS[id]].some((k) => !save.caught.includes(k))) ?? lands[0];
+  await openBook('Zukan', function draw(body) {
+    const found = (ks: string[]) => ks.filter((k) => save.caught.includes(k)).length;
+    const tally = make('p', 'tally');
+    tally.append(make('b', '', `${save.caught.length} of ${all.length} found`), ...LEVELS.map((l) => make('span', 'tag', `${l.id} ${caughtIn(l.id)} / ${all.filter((s) => s.level === l.id).length}`)));
+    const tabs = make('nav', 'lands');
+    for (const id of lands) {
+      const ks = [...POOLS[id]], tab = make('button', id === land ? 'on' : '');
+      tab.type = 'button';
+      tab.append(make('span', '', MAPS[id].name), make('small', '', `${found(ks)} / ${ks.length}`));
+      tab.addEventListener('click', () => { land = id; sfx.move(); draw(body); });
+      tabs.append(tab);
+    }
+    const detail = make('p', 'detail', 'Choose a kanji you have caught to read about it.');
+    const grid = make('div', 'grid');
+    body.replaceChildren(tally, tabs, detail, grid);
+    void loadLettering(POOLS[land]).then(() => {
+      if (!grid.isConnected) return;
+      for (const k of POOLS[land]) {
+        const s = spec(k), caught = save.caught.includes(k), seen = save.seen.includes(k);
+        const cell = make('button', caught ? 'cell got' : seen ? 'cell met' : 'cell');
+        cell.type = 'button';
+        if (caught || seen) cell.append(portrait(s, 32, caught)); else cell.append(make('span', 'blank', '?'));
+        cell.append(make('b', '', caught ? cap(brief(s.m)) : seen ? 'Seen' : 'Not met'));
+        cell.addEventListener('click', () => {
+          if (!caught) { detail.textContent = seen ? `You have met this one in ${MAPS[land].name}, but not caught it yet.` : `Somewhere in ${MAPS[land].name}, a kanji is waiting.`; return; }
+          detail.replaceChildren(spelled(Object.assign(make('b', 'ja'), { lang: 'ja' }), s.k), make('span', '', `${cap(s.m)} · ${s.r} · ${s.strokes} strokes`),
+            ...s.moves.slice(0, 3).map((m) => { const w = make('span', 'word'); w.append(spelled(Object.assign(make('b'), { lang: 'ja' }), m.w), ` ${brief(m.m)}`); return w; }));
+        });
+        grid.append(cell);
+      }
+    });
+  });
+}
+
 // ---- Menu
 async function collection() {
   for (;;) {
@@ -1041,8 +1171,8 @@ async function menu() {
       await say([...open, `${save.done.length} of ${QUESTS.length} missions complete.`].join('\n\n'));
     }
     if (chosen === 'Journey') await say([`${SIGNS.filter((g) => save.caught.includes(g.k)).length} of ${SIGNS.length} signs restored`, ...LEVELS.map((l) => `${l.id}  ${l.land}: ${save.trials.includes(l.id) ? 'mastered' : `${caughtIn(l.id)} caught`}`), ...CLOSED.map((id) => `${id}  road closed`)].join('\n'));
-    if (chosen === 'Team') await say(save.party.map((f) => { const s = spec(f.k); return `${s.k} ${s.m}  Lv${f.lv}  HP ${f.hp}/${maxHp(s, f.lv)}  XP ${f.xp}/${xpToNext(f.lv)}`; }).join('\n'));
-    if (chosen === 'Zukan') await say(all.filter((s) => save.caught.includes(s.k)).slice(-14).map((s) => `${s.k} ${s.m}`).join(' · ') || 'Nothing caught yet.');
+    if (chosen === 'Team') await teamScreen();
+    if (chosen === 'Zukan') await zukanScreen();
   }
   backToWorld();
 }
@@ -1131,7 +1261,7 @@ async function chooseStarter(i: number) {
   await say(`${s.k} (${s.m}) joined you!`);
   await say('Kanji Bear: A fine choice. The other two will rest in their charms until the next student comes.');
   await say('Kanji Bear: Attacks are real words, so answer their meanings to hit hard. A paper charm only binds a kanji you can name.');
-  await say('Kanji Bear: Your path runs through five levels, from N5 up to N1. Today, two lands are open. N5 runs from the Rice Fields to the Cedar Forest, and N4 from the Mountain Pass to Castle Town.');
+  await say('Kanji Bear: Your path runs through three lands. N5 runs from the Rice Fields to the Cedar Forest, N4 from the Mountain Pass to Castle Town, and N3 along the sea road to Inkstone Cape.');
   await say('Kanji Bear: Take your time. Help the people you meet, read everything, and each master will test you when you are ready.');
   await say('Kanji Bear: Your first lesson: catch 3 kanji in the Rice Fields, then come back to me.');
   store();
@@ -1179,17 +1309,21 @@ function drawWorld() {
     ctx.fillRect(x + 3 + (y % 5) - cx, y + 5 + (x % 7) - cy, glint < 0.25 ? 5 : 3, 1);
   }
   if (save.map === 'dojo' && save.chapter === 'journey') starterRow.forEach((s, i) => { if (s.k !== save.starter) ctx.drawImage(charmArt(s), 80 - cx + i * 48 - 16, 6 - cy); });
-  if (save.map === 'dojo' && save.chapter !== 'journey') starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 32), 56 - MARGIN + i * 48, 14 - MARGIN + Math.round(Math.sin(tick / 20 + i))));
+  if (save.map === 'dojo' && save.chapter !== 'journey') starterRow.forEach((s, i) => ctx.drawImage(kanjiSprite(s, 32, false, blinking(i * 61)), 56 - MARGIN + i * 48, 14 - MARGIN + Math.round(Math.sin(tick / 20 + i))));
   heroAt = [Math.round(px - cx) + 8, Math.round(py - cy)];
   const step = slide > 8 ? (stepFlip ? 1 : 2) : 0;
   const actors = [...npcsHere().map((n) => ({ y: n.y * T, draw: () => {
     if (n.guide) bear(ctx, n.x * T - cx, n.y * T - cy);
     else if (intro && n.mom) person(ctx, n.look ?? 'hero', Math.round(intro.x), n.y * T, intro.dir, intro.walking ? [1, 0, 2, 0][Math.floor(tick / 6) % 4] : 0);
-    else person(ctx, n.look ?? 'hero', n.x * T - cx, n.y * T - cy, n === facing ? toward(n) : 'down', 0);
+    else {
+      // Townspeople glance at Haru as he comes close, and blink now and then.
+      const close = Math.abs(save.x - n.x) + Math.abs(save.y - n.y) <= 2 && !('xy'.includes(tileAt(n.x, n.y + 1)));
+      person(ctx, n.look ?? 'hero', n.x * T - cx, n.y * T - cy, n === facing || close ? toward(n) : 'down', 0, blinking(n.x * 37 + n.y * 91));
+    }
   } })), { y: py, draw: () => {
     if (intro?.asleep) return asleep(ctx, haru, BED.x, BED.y);
     const [hx, hy] = intro?.hop ?? [px, py];
-    person(ctx, haru, Math.round(hx - cx), Math.round(hy - cy), save.dir, intro ? 0 : step);
+    person(ctx, haru, Math.round(hx - cx), Math.round(hy - cy), save.dir, intro ? 0 : step, !step && blinking(23));
   } }];
   for (const a of actors.sort((p, q) => p.y - q.y)) a.draw();
   // Tall grass and rice close over the walker's legs.
@@ -1202,6 +1336,7 @@ function drawWorld() {
   }
   if (save.map === 'village' && !still) drawPetals('#ffd5e2', '#f4a8c0');
   if (save.map === 'onsen' && !still) drawPetals('#ffffff', '#e8eef4');
+  if (save.map === 'matsuri' && !still) drawPetals('#f8a44a', '#c2462c');
 }
 
 function drawPetals(light: string, dark: string) {
@@ -1218,6 +1353,9 @@ function drawPetals(light: string, dark: string) {
 const cards = { foe: document.getElementById('foe-card')!, me: document.getElementById('me-card')! };
 const shown = new Map<HTMLElement, string>();
 
+// Every so often a kanji shuts its eyes for a moment.
+const blinking = (offset: number) => !still && (tick + offset) % 190 < 7;
+
 function card(el: HTMLElement, name: string, lv: number, hp: number, max: number) {
   const key = `${name}|${lv}|${hp}|${max}`;
   if (shown.get(el) === key) return;
@@ -1227,11 +1365,13 @@ function card(el: HTMLElement, name: string, lv: number, hp: number, max: number
   el.querySelector('b')!.textContent = name[0].toUpperCase() + name.slice(1);
   el.querySelector('i')!.textContent = `Lv ${lv}`;
   el.querySelector('output')!.textContent = `${Math.max(0, hp)} / ${max}`;
-  const fill = el.querySelector<HTMLElement>('.fill')!;
+  const fill = el.querySelector<HTMLElement>('.fill')!, ghost = el.querySelector<HTMLElement>('.ghost')!;
   // A new fighter's bar starts at the right value; only damage and healing slide.
-  if (fresh) fill.style.transition = 'none';
-  fill.style.width = `${f * 100}%`;
-  if (fresh) { void fill.offsetWidth; fill.style.transition = ''; }
+  // The pale bar behind it lingers a moment, so the size of each hit can be seen.
+  const bars = [fill, ghost];
+  if (fresh) for (const b of bars) b.style.transition = 'none';
+  for (const b of bars) b.style.width = `${f * 100}%`;
+  if (fresh) { void fill.offsetWidth; for (const b of bars) b.style.transition = ''; }
   fill.dataset.level = f > 0.5 ? 'good' : f > 0.2 ? 'low' : 'danger';
 }
 
@@ -1241,7 +1381,7 @@ function drawBattle() {
   const me = onField;
   cards.foe.style.visibility = foe ? '' : 'hidden';
   if (foe) {
-    drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72), foe.s, 151 - MARGIN, 20 - MARGIN + bob, 72);
+    drawKanji(ctx, views.foe, kanjiSprite(foe.s, 72, false, blinking(foe.s.k.codePointAt(0)!)), foe.s, 151 - MARGIN, 20 - MARGIN + bob, 72);
     card(cards.foe, save.caught.includes(foe.s.k) ? foe.s.m : 'Unknown kanji', foe.f.lv, foe.f.hp, maxHp(foe.s, foe.f.lv));
   }
   if (me) {
@@ -1264,7 +1404,7 @@ async function nextChase() {
   const s = all[rand(all.length)], dir = rand(2) ? 1 : -1;
   await loadLettering(s.k);
   // Now and then the tables turn, and the kanji chases Haru instead.
-  chase = { s, dir, speed: 0.8 + Math.random() * 0.7, hop: 2 + rand(5), gap: 34 + rand(26), size: 24 + rand(3) * 6, turned: rand(4) === 0, x: dir > 0 ? -20 : 260 };
+  chase = { s, dir, speed: 0.8 + Math.random() * 0.7, hop: 2 + rand(5), gap: 34 + rand(26), size: 32 + rand(3) * 6, turned: rand(4) === 0, x: dir > 0 ? -20 : 260 };
 }
 
 function drawTitle() {
@@ -1293,7 +1433,7 @@ function drawTitle() {
   ctx.fillStyle = 'rgba(30,30,70,.28)';
   ctx.fillRect(Math.round(kanjiX + c.size / 6), GROUND - 1, Math.round(c.size * 2 / 3), 2);
   const runners = [
-    () => ctx.drawImage(kanjiSprite(c.s, c.size), Math.round(kanjiX) - MARGIN, Math.round(GROUND - c.size - hop) - MARGIN),
+    () => ctx.drawImage(kanjiSprite(c.s, c.size, false, false, true), Math.round(kanjiX) - MARGIN, Math.round(GROUND - c.size - hop) - MARGIN),
     () => person(ctx, guest ?? 'hero', Math.round(boyX), GROUND - 16, c.dir > 0 ? 'right' : 'left', [1, 0, 2, 0][Math.floor(tick / 5) % 4]),
   ];
   for (const run of runners) run();
@@ -1353,12 +1493,23 @@ function press(action: string) {
 }
 
 addEventListener('keydown', (e) => {
-  if (settings.open) return;
+  if (settings.open || book.open) return;
   const action = KEYS[e.key];
   if (!action) return;
   e.preventDefault();
   if (DIRS[action]) held.add(action);
   if (!e.repeat) press(action);
+});
+// Number keys answer straight away: 1 for the first choice, 2 for the second, and so on.
+addEventListener('keydown', (e) => {
+  if (settings.open || book.open || e.repeat || e.metaKey || e.ctrlKey || e.altKey || !/^[1-9]$/.test(e.key)) return;
+  if ((e.target as HTMLElement).closest?.('input, select, textarea, dialog')) return;
+  if (Number(e.key) > choicesEl.children.length) return;
+  e.preventDefault();
+  unlock();
+  selected = Number(e.key) - 1;
+  mark();
+  pick(selected);
 });
 addEventListener('keyup', (e) => held.delete(KEYS[e.key]));
 
@@ -1515,7 +1666,7 @@ document.getElementById('close-settings')!.addEventListener('click', () => setti
 addEventListener('pointerdown', unlock);
 addEventListener('keydown', (e) => {
   unlock();
-  if (e.key === 'm' && !settings.open) settings.showModal();
+  if (e.key === 'm' && !settings.open && !book.open) settings.showModal();
 });
 showSwitches();
 

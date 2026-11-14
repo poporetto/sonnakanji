@@ -11,6 +11,8 @@ export const ITEMS: Item[] = [
   { id: 'ayu', icon: 'ayu', name: '鮎の塩焼き', en: 'grilled sweetfish, town special', price: 90, town: 'kawabe', heal: 60 },
   { id: 'egg', icon: 'onsenegg', name: '温泉たまご', en: 'hot-spring egg, town special', price: 100, town: 'onsen', heal: 70 },
   { id: 'dango', icon: 'dango', name: '三色団子', en: 'tri-colour dango, town special', price: 150, town: 'castle', heal: 110 },
+  { id: 'takoyaki', icon: 'takoyaki', name: 'たこ焼き', en: 'takoyaki, town special', price: 180, town: 'minato', heal: 130 },
+  { id: 'ringo', icon: 'candyapple', name: 'りんご飴', en: 'candy apple, town special', price: 210, town: 'matsuri', heal: 150 },
   { id: 'bento', icon: 'bento', name: '弁当', en: 'bento', price: 300, full: true },
   { id: 'magazine', icon: 'magazine', name: '雑誌', en: 'joke magazine', price: 20, keep: 'Joke magazine' },
   { id: 'ink', icon: 'ink', name: '墨', en: 'ink, revives at half health', price: 150, revive: 0.5 },
@@ -28,61 +30,79 @@ export const CHARMS: Charm[] = [
   { id: 'river', name: '川札', en: 'River charm', price: 70, town: 'kawabe', ink: '#2f80d8', note: 'Narrows the naming quiz to two answers.', easy: true },
   { id: 'spring', name: '湯札', en: 'Spring charm', price: 90, town: 'onsen', ink: '#2f9e8e', note: 'Heals your kanji 30 health when thrown.', soothe: 30 },
   { id: 'scribe', name: '筆札', en: 'Scribe charm', price: 200, town: 'castle', ink: '#6a42c0', note: 'If you name the kanji, it never breaks free.', sure: true },
+  { id: 'tide', name: '波札', en: 'Tide charm', price: 120, town: 'minato', ink: '#2a6cc0', note: 'A firmer hold, and the kanji joins you at full health.', bonus: 0.15, refresh: true },
+  { id: 'lantern', name: '灯札', en: 'Lantern charm', price: 150, town: 'matsuri', ink: '#f4983e', note: 'Two answers to choose from, and a firmer hold.', easy: true, bonus: 0.2 },
 ];
 
 // What a gachapon capsule can hold.
 export const PRIZES = ['Mini Kanji Bear plushie', '火 keychain', '水 keychain', '木 keychain', 'Tiny Miko figure', 'Tiny Aoi figure', 'Rice ball eraser', 'Melon bread eraser', 'Sparkly 一 sticker', 'Golden 金 sticker', 'Lucky cat charm', 'Pocket torii gate'];
 
 // The kombini's manga rack. Each town sells the next volume of every series, so the stories carry on as you travel.
-const TOWNS = ['village', 'kawabe', 'onsen', 'castle'];
+const TOWNS = ['village', 'kawabe', 'onsen', 'castle', 'minato', 'matsuri'];
 const SERIES = [
   { icon: 'threepieces', title: 'Three Pieces', volumes: [
     "It's a manga about pirates who like to eat fruit.",
     'The captain tries a vegetable. The crew is shaken, and a mutiny begins.',
     'They reach the legendary treasure island at last. The treasure is a fruit salad.',
-    'Final volume! The true treasure was the friends they ate fruit with along the way.',
+    'The true treasure was the friends they ate fruit with along the way. Then someone finds a second map.',
+    'The crew sets sail again, this time for vegetables. Morale is low.',
+    'Final volume! They discover the tomato, and argue for 200 pages about whether it counts.',
   ] },
   { icon: 'dragonbox', title: 'Dragon Box', volumes: [
     'I heard if you collect the boxes you get to call a dragon.',
     'They find six boxes. The seventh is in the attic, full of Christmas decorations.',
     'The dragon finally appears. It asks if anyone kept the receipt.',
-    'Final volume! With one wish left, the heroes ask for more shelves.',
+    'With one wish left, the heroes ask for more shelves.',
+    'The shelves arrive flat-packed. A new saga begins.',
+    'Final volume! The dragon returns to help with the instructions. There is one screw left over.',
   ] },
   { icon: 'snacktitan', title: 'Snack on Titan', volumes: [
     'Giants climb over the wall. All they want is your crisps.',
     'The wall is rebuilt, twice as tall. The giants come back with a ladder.',
     'A shocking twist! One of the soldiers is a giant, and he just wanted the cheese puffs.',
-    'Final volume! Humans and giants sign a peace treaty over one family-size bag.',
+    'Humans and giants sign a peace treaty over one family-size bag.',
+    'The peace treaty is broken. Someone opened the bag early.',
+    'Final volume! Both sides unite against the giant who only eats the flavoured ones.',
   ] },
   { icon: 'demonlaundry', title: 'Demon Laundry', volumes: [
     'A boy takes up the ancient art of getting evil out of whites.',
     'He trains in the mountains to master the Breath of the Spin Cycle.',
     'The Demon Lord arrives. His cape says dry clean only. Our hero is powerless.',
-    'Final volume! Evil is washed away forever. One sock is still missing.',
+    'Evil is washed away at last. One sock is still missing.',
+    'The missing sock returns, and it has trained in the mountains.',
+    'Final volume! Sock and hero face the last stain together. It was gravy all along.',
   ] },
   { icon: 'deathnotepad', title: 'Death Notepad', volumes: [
     'Anyone whose name is written in it must attend the Monday meeting.',
     'A brilliant detective closes in, and proves the meeting could have been an email.',
     'The meeting moves to Tuesday. Nobody is safe.',
-    'Final volume! He writes his own name by mistake. At least there are biscuits.',
+    'He writes his own name by mistake. At least there are biscuits.',
+    'A second notepad appears. This one schedules team-building days.',
+    'Final volume! The detective strikes back with an out-of-office reply, and the meetings end forever.',
   ] },
   { icon: 'heroaccounts', title: 'My Hero Accountancy', volumes: [
     'Everyone has superpowers. Someone still has to file the taxes.',
     'A new villain appears, claiming his secret lair as a home office.',
     'Tournament arc! The strongest heroes fight to the end over a ¥40 receipt.',
-    'Final volume! The world is saved. The paperwork takes three more years.',
+    'The world is saved. The paperwork takes three more years.',
+    'The paperwork is done at last. Then the tax office introduces a new form.',
+    'Final volume! Our hero unlocks his ultimate power: reading the instructions first.',
   ] },
   { icon: 'sailornoon', title: 'Sailor Noon', volumes: [
     'She fights evil, but only until lunchtime.',
     'Her greatest enemy strikes at 12:01. He knows her schedule.',
     'She meets Sailor Midnight, who works nights. They mostly leave each other notes.',
-    'Final volume! Her lunch break is cancelled. Evil has made a terrible mistake.',
+    'Her lunch break is cancelled. Evil has made a terrible mistake.',
+    'A new enemy only attacks at teatime. Sailor Noon checks her contract.',
+    'Final volume! She wins a four-day week, and evil has to reschedule everything.',
   ] },
   { icon: 'huntergatherer', title: 'Hunter x Gatherer', volumes: [
     'Two friends search the world for berries. Then they find agriculture.',
     'They invent the fence. Their friendship is tested.',
     'The Farmer Exam begins. Only one in a hundred can name every berry.',
-    'Final volume! They find the last berry on earth, and open a jam shop.',
+    'They find the last berry on earth, and open a jam shop.',
+    'The jam shop is a hit. A rival opens across the road, selling marmalade.',
+    'Final volume! Jam and marmalade make peace over toast. The friends invent brunch.',
   ] },
 ];
 export const MANGA = SERIES.flatMap((m) => m.volumes.map((note, i) => ({
