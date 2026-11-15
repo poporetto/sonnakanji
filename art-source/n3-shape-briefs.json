@@ -2070,13 +2070,13 @@
   },
   "単": {
     "meaning": "single/simple",
-    "memory": "A simple fork-shaped weapon: single.",
+    "memory": "Three marks above one divided square sign: a single sign.",
     "parts": [
       "three top marks (⺍)",
-      "one upright fork (甲)"
+      "one divided square and central stem (甲)"
     ],
-    "layout": "marks above one fork",
-    "visual": "Three small marks sit across the top; below them one simple upright fork-shaped tool stands alone, with the boy showing just one.",
+    "layout": "three marks above one divided square; central stem and long base below",
+    "visual": "Three small marks sit across the top. Below them one square sign is divided by a horizontal bar; a central stem continues through it to a broad bottom base. The boy proudly points to just one sign.",
     "reviewStatus": "reviewed"
   },
   "完": {
