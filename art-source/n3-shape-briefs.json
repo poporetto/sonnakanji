@@ -2334,13 +2334,13 @@
   },
   "現": {
     "meaning": "appear/real",
-    "memory": "A jewel you can see: present, real.",
+    "memory": "The king's staff appears before a seeing eye: present, real.",
     "parts": [
-      "jewel (王)",
+      "three-bar king's staff (王)",
       "seeing eye (見)"
     ],
-    "layout": "jewel left; eye right",
-    "visual": "A shining jewel fills the left; one large seeing eye with small lower legs fills the right as the boy notices it appear.",
+    "layout": "three-bar staff left; framed eye with legs right",
+    "visual": "A tall gold king's staff with three clear horizontal crossbars stands at the left. One large eye in a square frame with two little walking legs fills the right as the boy notices it appear. Keep solid outlines and clean transparency, with no glow.",
     "reviewStatus": "reviewed"
   },
   "性": {
