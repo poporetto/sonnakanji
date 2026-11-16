@@ -3064,10 +3064,10 @@
     "memory": "Words meet a patient heart.",
     "parts": [
       "speech lines (言)",
-      "blade over heart (忍)"
+      "slanted ribbon marker over heart (忍)"
     ],
-    "layout": "speech left; blade and heart right",
-    "visual": "Tall speech lines end in a square mouth at the left. At the right a safe paper-cutting blade shape rests above a soft heart; the boy calmly says what happened.",
+    "layout": "speech left; slanted ribbon and heart right",
+    "visual": "Tall speech lines end in a square mouth at the left. At the right a short slanted ribbon with one small dot floats above a soft heart; the boy calmly acknowledges a friend's words.",
     "reviewStatus": "reviewed"
   },
   "論": {
@@ -3369,13 +3369,13 @@
   },
   "痛": {
     "meaning": "pain",
-    "memory": "A sore place sits under the sickness shelter.",
+    "memory": "A difficult narrow path sits under a care shelter.",
     "parts": [
       "sickness shelter (疒)",
       "tunnel path (甬)"
     ],
     "layout": "shelter around top and left; tunnel inside",
-    "visual": "A sloping roof with two small side dots shelters the scene from top and left. Inside, a narrow path passes through a square tunnel; the boy holds a small bandage.",
+    "visual": "A sloping care shelter with two small side dots frames the top and left. Inside, a narrow golden path passes through a square tunnel; the boy walks carefully beside it.",
     "reviewStatus": "reviewed"
   },
   "探": {
