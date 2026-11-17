@@ -5,7 +5,7 @@ import { beginFrame, burst, charm, CENTRE, charmArt, drawBits, drawCharm, drawKa
 import { learnReadings, withRomaji } from './kana';
 import { MAPS, SOLID, type Door, type Npc } from './maps';
 import { ICONS, INKS } from './gear';
-import { charmsIn, CHARMS, healed, holdChance, INKWELL, ITEMS, JOKES, KEEPSAKES, mangaIn, PRIZES, revived, shelfIn, yenFor, type Charm } from './shop';
+import { charmsIn, CHARMS, healed, holdChance, INKWELL, ITEMS, JOKES, KEEPSAKES, MANGA, mangaIn, PRIZES, revived, shelfIn, yenFor, type Charm } from './shop';
 import { lured, CHECKS, CLOSED, LEVELS, POOLS, QUESTS, SIGNS, type Level, type LevelId, type Quest, type Read } from './story';
 import { backdrop, paintMap } from './world';
 
@@ -194,6 +194,8 @@ async function ask(text: string, options: (string | Ware)[]) {
     } else wareRow(b, text);
     if (options.length === 1) b.classList.add('full');
     b.addEventListener('click', () => pick(i));
+    // The mouse and the keys share one highlight. Only real pointer movement counts, so a list scrolling under a resting mouse can't steal it.
+    b.addEventListener('pointermove', () => { if (selected !== i) { selected = i; mark(); } });
     return b;
   }));
   mark();
@@ -389,13 +391,20 @@ const signText = (s: { k: string; word: string; en: string }) =>
 // ---- Shop and bag
 const charmTotal = () => save.charms + CHARMS.reduce((sum, c) => sum + (save.bag[c.id] ?? 0), 0);
 
+// Reading a volume: one page per line of the story.
+async function readManga(m: { name: string; story: string[] }) {
+  await say(`You open ${m.name} and start to read.`);
+  for (const page of m.story) await say(page);
+  await say('You close the book with a happy sigh.');
+}
+
 async function mangaRack() {
   const rack = mangaIn(save.map.replace('shop-', ''));
   for (;;) {
     const i = await ask(`You have ¥${save.yen}. Which manga?`, [...rack.map((m) => wareOf(m, save.prizes.includes(m.name) ? 'Owned' : `¥${m.price}`)), 'Back']);
     const m = rack[i];
     if (!m) return;
-    if (save.prizes.includes(m.name)) { await say(`${m.name}: ${m.note}`); continue; }
+    if (save.prizes.includes(m.name)) { if ((await ask(`${m.name}: read it again?`, ['Read', 'Not now'])) === 0) await readManga(m); continue; }
     if ((await ask(`${m.name}: ${m.note} Buy it for ¥${m.price}?`, ['Buy', 'No thanks'])) !== 0) continue;
     if (save.yen < m.price) { sfx.wrong(); await say(`Clerk: Sorry, that is ¥${m.price} and you have ¥${save.yen}.`); continue; }
     save.yen -= m.price;
@@ -403,6 +412,7 @@ async function mangaRack() {
     sfx.right();
     store();
     await say(`You bought ${m.name}! It joins your Collection.`);
+    if ((await ask('Read it now?', ['Read', 'Later'])) === 0) await readManga(m);
   }
 }
 
@@ -1152,6 +1162,7 @@ async function collection() {
     const name = names[await ask('Your collection', [...rows, 'Back'])];
     if (!name) return;
     if (name === 'Joke magazine') await say(`You flip through the magazine.\n${JOKES[rand(JOKES.length)]}`);
+    else if (MANGA.some((m) => m.name === name)) await readManga(MANGA.find((m) => m.name === name)!);
     else await say(KEEPSAKES[name]?.note || name);
   }
 }
@@ -1669,6 +1680,15 @@ addEventListener('keydown', (e) => {
   if (e.key === 'm' && !settings.open && !book.open) settings.showModal();
 });
 showSwitches();
+
+// iPad Safari ignores user-scalable=no, so a quick second tap would zoom the page. Stop it here.
+let lastTap = 0;
+addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTap < 350 && !(e.target as HTMLElement).closest?.('button, a, input, select, dialog')) e.preventDefault();
+  lastTap = now;
+}, { passive: false });
+for (const g of ['gesturestart', 'gesturechange']) addEventListener(g, (e) => e.preventDefault());
 
 // ---- Boot
 fetch('/kanjimono/data.json')

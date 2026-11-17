@@ -38,6 +38,7 @@ export const CHARMS: Charm[] = [
 export const PRIZES = ['Mini Kanji Bear plushie', '火 keychain', '水 keychain', '木 keychain', 'Tiny Miko figure', 'Tiny Aoi figure', 'Rice ball eraser', 'Melon bread eraser', 'Sparkly 一 sticker', 'Golden 金 sticker', 'Lucky cat charm', 'Pocket torii gate'];
 
 // The kombini's manga rack. Each town sells the next volume of every series, so the stories carry on as you travel.
+import { STORIES } from './manga.ts';
 const TOWNS = ['village', 'kawabe', 'onsen', 'castle', 'minato', 'matsuri'];
 const SERIES = [
   { icon: 'threepieces', title: 'Three Pieces', volumes: [
@@ -106,7 +107,7 @@ const SERIES = [
   ] },
 ];
 export const MANGA = SERIES.flatMap((m) => m.volumes.map((note, i) => ({
-  icon: m.icon, note, town: TOWNS[i], name: i ? `${m.title} #${i + 1}` : m.title, en: `manga, volume ${i + 1}`, price: 80,
+  icon: m.icon, note, town: TOWNS[i], name: i ? `${m.title} #${i + 1}` : m.title, en: `manga, volume ${i + 1}`, price: 80, story: STORIES[m.title]?.[i] ?? [note],
 })));
 export const mangaIn = (town: string) => MANGA.filter((m) => m.town === town);
 

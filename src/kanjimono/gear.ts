@@ -155,7 +155,7 @@ export const ICONS: Record<string, string[]> = {
   sakuramochi: ['..ggg....', '.oGgoooo.', 'oppppppPo', 'opwpppppo', 'oppppppPo', '.oPPPPPo.', '..ooooo..'],
   ayu: ['..oooo..o', '.osssSoso', 'osksssSoo', 'ossssSoso', '.ooooo..o'],
   onsenegg: ['...ooo...', '..ommmo..', '.ommwmmo.', '.ommmmmo.', 'ooooooooo', 'onNNNNNno', '.ooooooo.'],
-  dango: ['.ooo.', 'opppo', 'opppo', '.ooo.', 'ommmo', 'ommmo', '.ooo.', 'ogggo', 'ogggo', '.ooo.', '..n..'],
+  dango: ['.ooo.ooo.ooo.', 'opppommmogggo', 'opwpommmogggo', 'opppommmogggo', 'opppommmogggo', 'opppommmogggo', '.ooo.ooo.ooo.'],
   miniplush: ['oo...oo', 'onooono', 'onnnnno', 'oknnnko', 'onntnno', '.ooooo.'],
   keychain: ['..sss..', '.s...s.', '..sss..', '...s...', '.ooooo.', 'orrrrro', 'orwrrro', 'orrrrro', '.ooooo.'],
   mikofig: ['..ooo..', '.okkko.', '.ottto.', '.ommmo.', 'ommmmmo', '.orrro.', '.orrro.', '.ooooo.'],

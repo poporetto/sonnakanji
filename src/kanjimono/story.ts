@@ -78,7 +78,7 @@ export const QUESTS: Quest[] = [
     done: ['I can see the way home now. Thank you!'], charms: 3,
   },
   {
-    id: 'rival2', title: 'Aoi in the forest', giver: 'Aoi', where: 'the Cedar Forest', level: 'N5', task: { beat: { team: ['国', '電', '車'], lv: 14 } },
+    id: 'rival2', title: 'Aoi in the forest', giver: 'Aoi', where: 'the Cedar Forest', level: 'N5', task: { beat: { team: ['国', '電', '車'], lv: 12 } },
     offer: ['You again? I found something. Every blank sign points the same way: up the mountain.', 'Prove you are ready for it.'], wait: 'Back for more?',
     done: ['You really are getting stronger. Pass the Cedar Master, and I will see you on the mountain.'],
   },
@@ -151,7 +151,7 @@ export const QUESTS: Quest[] = [
     done: ['Light the lanterns! The festival is on.', 'The cape road is open, but mind yourself. The lighthouse has been dark for weeks.'], charms: 5,
   },
   {
-    id: 'rival6', title: 'Aoi at the festival', giver: 'Aoi', where: 'Lantern Town', level: 'N3', task: { beat: { team: ['夢', '愛', '信'], lv: 39 } },
+    id: 'rival6', title: 'Aoi at the festival', giver: 'Aoi', where: 'Lantern Town', level: 'N3', task: { beat: { team: ['夢', '愛', '信'], lv: 35 } },
     offer: ['I asked the lantern makers about the Inkstone. Nobody here has ground ink in years. They buy it in bottles.', 'I think that matters. But first, one match, before the fireworks.'], wait: 'One more before the fireworks?',
     done: ['You read faster than I can think. Go on to the cape. I will follow the lanterns.'],
   },
