@@ -1,0 +1,1602 @@
+{
+  "村": {
+    "meaning": "village",
+    "memory": "Trees and neatly measured plots make a village.",
+    "parts": [
+      "tree (木)",
+      "measure (寸)"
+    ],
+    "visual": "A broad tree stands on the left. To its right, a hooked measuring post crosses a short beam, with a small marker dot just to the left of the hook. The boy measures a tiny village plot beneath the tree.",
+    "reviewStatus": "reviewed"
+  },
+  "竹": {
+    "meaning": "bamboo",
+    "memory": "Two bamboo tips bend toward each other.",
+    "parts": [
+      "left bamboo tip",
+      "right bamboo tip"
+    ],
+    "visual": "Two distinct upright bamboo sprigs side by side. Each has a short diagonal tip, a horizontal twig and a long downward stem. The right stem curls slightly at its foot. Keep the pair large, with the boy peeking through the gap.",
+    "reviewStatus": "reviewed"
+  },
+  "森": {
+    "meaning": "forest",
+    "memory": "Three trees grow into a forest.",
+    "parts": [
+      "one tree above",
+      "two trees below"
+    ],
+    "visual": "Exactly three distinct 木-shaped trees, one centered high above two side by side below. Use staggered roots to keep the triangular shape unmistakable. The boy is tiny in the gap between the two lower trees.",
+    "reviewStatus": "reviewed"
+  },
+  "林": {
+    "meaning": "grove",
+    "memory": "Two trees standing side by side make a grove.",
+    "parts": [
+      "left tree (木)",
+      "right tree (木)"
+    ],
+    "visual": "Exactly two distinct trees side by side on the same baseline, each with an upright trunk, a pair of broad boughs and flared roots reflecting 木. The boy explores between them. No other trees.",
+    "reviewStatus": "reviewed"
+  },
+  "玉": {
+    "meaning": "jewel",
+    "memory": "One precious gem is tucked against the bottom of three tiers.",
+    "parts": [
+      "three bars on a stem (王)",
+      "jewel dot"
+    ],
+    "visual": "Three stacked golden display rails joined by a straight central stem. Place a single conspicuous jade gem in the lower-right gap immediately above the bottom rail. The boy admires it from outside the rails.",
+    "reviewStatus": "reviewed"
+  },
+  "虫": {
+    "meaning": "insect",
+    "memory": "A boxy bug sits on a stalk with a tiny tail dot.",
+    "parts": [
+      "box on a stem",
+      "lower sweep and dot"
+    ],
+    "visual": "Make a box-shaped beetle body with a vertical reed running through it and protruding above and below. Below, a low curved twig sweeps right under it. A tiny droplet sits at the right tip. The boy notices the insect through a small magnifier.",
+    "reviewStatus": "reviewed"
+  },
+  "糸": {
+    "meaning": "thread",
+    "memory": "A folded thread ends in three dangling tips.",
+    "parts": [
+      "folded thread above",
+      "three terminals below"
+    ],
+    "visual": "One thick red thread makes two clear angular bends, like a folded skein standing upright. Three separate loose ends fan out below: long middle, short diagonals either side. The mascot holds up the skein without obscuring it.",
+    "reviewStatus": "reviewed"
+  },
+  "貝": {
+    "meaning": "shellfish",
+    "memory": "An upright shell has two inner ridges and two little feet.",
+    "parts": [
+      "ridged shell above (目)",
+      "two tips below (八)"
+    ],
+    "visual": "A tall boxy seashell dominates, with two bold horizontal ridges inside. Two separate tapered shell tips splay outward at its base. The boy finds it at low tide. Show the shell from the front.",
+    "reviewStatus": "reviewed"
+  },
+  "算": {
+    "meaning": "calculate",
+    "memory": "Count the rows below bamboo, then work the answer out with your hands.",
+    "parts": [
+      "bamboo (⺮)",
+      "ridged tally board (目)"
+    ],
+    "visual": "Stack two little bamboo tips above a large vertical rectangular tally board with two horizontal inside bars. Under it, two upright toy levers rise through a single horizontal rail. The boy moves one tally. Preserve the three distinct tiers.",
+    "reviewStatus": "reviewed"
+  },
+  "線": {
+    "meaning": "line",
+    "memory": "A thread follows the line of a spring.",
+    "parts": [
+      "thread (糸)",
+      "spring (泉)"
+    ],
+    "visual": "At left is a folded red thread with three loose tips. At right a square pale stone spout sits directly above a blue flow that divides downward like 水. One thread follows the outline of the stream without masking either component.",
+    "reviewStatus": "reviewed"
+  },
+  "門": {
+    "meaning": "gate",
+    "memory": "Two tall hinged leaves form a gate.",
+    "parts": [
+      "left gate leaf",
+      "right gate leaf"
+    ],
+    "visual": "One tall double gate viewed head-on, with two short rectangular panels at the top and long posts extending straight down the outer sides. A broad opening below the panels keeps the overall 門 silhouette. The boy peeks out from inside.",
+    "reviewStatus": "reviewed"
+  },
+  "谷": {
+    "meaning": "valley",
+    "memory": "The slopes gather around a little opening in the valley.",
+    "parts": [
+      "two pairs of slopes (八 and 人)",
+      "square opening (口)"
+    ],
+    "visual": "Two small slanting ridges at top point into a second larger pair of sloping ridges. A square cave opening sits directly underneath at the bottom center. A tiny boy stands just outside the opening. Make the stacked shapes easy to pick out.",
+    "reviewStatus": "reviewed"
+  },
+  "細": {
+    "meaning": "thin",
+    "memory": "A fine thread runs beside the four plots of a field.",
+    "parts": [
+      "thread (糸)",
+      "field (田)"
+    ],
+    "visual": "A slim folded skein with three loose tips on the left, a square rice field split into exactly four plots on the right. The boy stretches a thin strand along the field edge. Use an almost top-down view for the square grid.",
+    "reviewStatus": "reviewed"
+  },
+  "丸": {
+    "meaning": "round",
+    "memory": "A curling shape hugs a round dot.",
+    "parts": [
+      "bent and hooked strokes (九-like)",
+      "round dot"
+    ],
+    "visual": "Two broad curved bands meet to form a large 九-like curling shape with a sweeping hooked foot. Tuck a single clearly separate round orange marble into the lower-left notch and let the boy reach toward it from one side.",
+    "reviewStatus": "reviewed"
+  },
+  "戸": {
+    "meaning": "door",
+    "memory": "A lintel and one sloping post frame a single door.",
+    "parts": [
+      "top horizontal lintel",
+      "door leaf and sweep"
+    ],
+    "visual": "One broad lintel sits floating just above a small boxlike upper door leaf. A long curved support sweeps down-left from the upper door leaf. The boy pushes that door inward. Front-facing and simple silhouette.",
+    "reviewStatus": "reviewed"
+  },
+  "羽": {
+    "meaning": "feather",
+    "memory": "Two hinged wings have a pair of feather marks each.",
+    "parts": [
+      "left folded wing",
+      "right folded wing"
+    ],
+    "visual": "Two compact matching stylized wings sit side by side, each with a near-horizontal top and a vertical right edge with a tiny inward hook at its bottom. Two small feather marks slant inside each wing. The boy marvels below the pair.",
+    "reviewStatus": "reviewed"
+  },
+  "岩": {
+    "meaning": "boulder",
+    "memory": "A boulder lies below a three-peaked mountain.",
+    "parts": [
+      "mountain (山)",
+      "stone (石)"
+    ],
+    "visual": "Put a distinct three-peaked mountain with a common base directly above a broad slanting stone ledge and a square boulder under its right side. The boy leans against the square boulder. Keep mountain and stone as two stacked shapes.",
+    "reviewStatus": "reviewed"
+  },
+  "角": {
+    "meaning": "corner",
+    "memory": "A hooked horn has a square base with three sharp divisions.",
+    "parts": [
+      "angled horn tip",
+      "sectioned square base"
+    ],
+    "visual": "One hooked golden horn tip bends across the top and tapers down to the left side of a stout rectangular horn base. Divide the base with one central upright and two horizontal grooves. The boy examines a sharp corner of the chunky shape. Make the horn a friendly carved toy.",
+    "reviewStatus": "reviewed"
+  },
+  "池": {
+    "meaning": "pond",
+    "memory": "Three droplets feed a pond with a curled bank.",
+    "parts": [
+      "water drops (氵)",
+      "curling bank (也)"
+    ],
+    "visual": "Three separate droplets descend diagonally along the left. To the right a wide pond edge is shaped as a long curling bowl with two upright reeds crossing the top rim, one tall in the middle. The boy looks for a fish without hiding the curl.",
+    "reviewStatus": "reviewed"
+  },
+  "星": {
+    "meaning": "star",
+    "memory": "A bright square light shines above a growing sprout.",
+    "parts": [
+      "sun or light (日)",
+      "growth (生)"
+    ],
+    "visual": "A rounded square yellow light with a clear horizontal dividing mark floats above an upright sprout made of three stacked horizontal leaves crossing one stem. Keep both shapes centered and bold. The boy gazes upward from the side.",
+    "reviewStatus": "reviewed"
+  },
+  "寺": {
+    "meaning": "temple",
+    "memory": "A measured post holds the temple platform.",
+    "parts": [
+      "earth platform (土)",
+      "measure (寸)"
+    ],
+    "visual": "A stacked platform with a central upright like 土 sits high. Below it, a lower bar crosses a hooked golden pillar with a single small marker dot to its left. Tiny temple visitor beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "弱": {
+    "meaning": "weak",
+    "memory": "Two soft bows droop side by side.",
+    "parts": [
+      "left drooping bow",
+      "right drooping bow"
+    ],
+    "visual": "Two matching bent bows shaped like 弓 sit side by side, sagging toward their matching bases. Beneath the inner bend of each, two small pale slanted ribbons droop. Boy gently tests one slack string.",
+    "reviewStatus": "reviewed"
+  },
+  "毛": {
+    "meaning": "fur",
+    "memory": "Three strokes of fur curl at their ends.",
+    "parts": [
+      "short upper sweep and two lines",
+      "curved central tuft"
+    ],
+    "visual": "A big soft tuft with a slanting top strand, two horizontal strands, and one long center strand descending through them before curling up to the right. Boy brushes it from the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "黄": {
+    "meaning": "yellow",
+    "memory": "A square yellow lantern glows on two little feet.",
+    "parts": [
+      "crossed cap and crossbar",
+      "square panel with splayed feet"
+    ],
+    "visual": "A saturated yellow lantern with a short crown made of two pegs crossed by a bar. Under it a thin rail, a centered square gridded body and two little splayed feet. Boy holds a yellow paint swatch off to the side.",
+    "reviewStatus": "reviewed"
+  },
+  "雲": {
+    "meaning": "cloud",
+    "memory": "Rain gathers over a curled cloud.",
+    "parts": [
+      "rain (雨)",
+      "curling vapor (云)"
+    ],
+    "visual": "The upper half is a broad arch with a flat top, strong center upright and four drops inside. Below the roof are two short bands and a wide low curling white vapor trail. Boy watches from one side.",
+    "reviewStatus": "reviewed"
+  },
+  "麦": {
+    "meaning": "barley",
+    "memory": "A barley stalk rises above its crossed roots.",
+    "parts": [
+      "upright crossed stalk",
+      "splayed roots (夂-like)"
+    ],
+    "visual": "Three short shelves of golden kernels cross one straight stem at the top. The lower stem bends left into a small zigzag before the two roots splay. Boy holds one harvested head off to the side.",
+    "reviewStatus": "reviewed"
+  },
+  "区": {
+    "meaning": "district",
+    "memory": "A district is marked by an X inside an open box.",
+    "parts": [
+      "open-right boundary (匚)",
+      "crossroads (乂)"
+    ],
+    "visual": "Show a map almost from above. A thick angular boundary holds the top, left and bottom edges, visibly open to the right. Inside it two contrasting paths cross diagonally in an X. Boy stands at the junction.",
+    "reviewStatus": "reviewed"
+  },
+  "県": {
+    "meaning": "prefecture",
+    "memory": "A prefecture sign hangs over three paths.",
+    "parts": [
+      "ridged vertical panel",
+      "hook rail and three tips"
+    ],
+    "visual": "A tall map sign with two or three inside divisions, above a long hooked platform extending left. Three short paths fan out beneath the platform from its center. Boy points at the divisions; no map labels.",
+    "reviewStatus": "reviewed"
+  },
+  "委": {
+    "meaning": "committee",
+    "memory": "The woman presents the grain for the committee.",
+    "parts": [
+      "grain (禾)",
+      "woman (女)"
+    ],
+    "visual": "Top is a broad grain stalk whose boughs splay like 禾. Below it sits a woman whose crossed legs and extended arm fit the 女 silhouette. She passes the grain to a smaller mascot at the edge, keeping the two tiers clear.",
+    "reviewStatus": "reviewed"
+  },
+  "島": {
+    "meaning": "island",
+    "memory": "A bird perches on an island with three peaks.",
+    "parts": [
+      "bird crest and curved body",
+      "mountain (山) inside lower outline"
+    ],
+    "visual": "A front-view seabird crest and boxy wing dominate the top. Its outer body drops left and sweeps loosely to the right around a distinct three-peaked rocky island along the bottom. A little boy spots it from the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "農": {
+    "meaning": "agriculture",
+    "memory": "A divided seed tray sits over the farmer’s plough and furrows.",
+    "parts": [
+      "divided tray (曲)",
+      "furrows (辰)"
+    ],
+    "visual": "A rectangular seed tray with one horizontal division and two upright dividers occupies the top. Below it a ledge sweeps down left, framing several long horizontal furrows and two outward root tracks. Boy tends the lower furrows.",
+    "reviewStatus": "reviewed"
+  },
+  "州": {
+    "meaning": "region",
+    "memory": "Three islands split the channels of a river.",
+    "parts": [
+      "three river lines",
+      "three dots beside the lines"
+    ],
+    "visual": "Use an overhead map. Across the frame the six large shapes alternate from left to right in this exact order: green sandbank, blue channel, green sandbank, blue channel, green sandbank, blue channel. Each sandbank is a short slanted dash beside the middle of its own tall channel. The first channel bends left at its foot. Tiny boy stands below the map and leaves the islands unobstructed.",
+    "reviewStatus": "reviewed"
+  },
+  "階": {
+    "meaning": "floor",
+    "memory": "A terraced cliff puts everyone on a floor.",
+    "parts": [
+      "hill (阝)",
+      "a pair over a box (皆)"
+    ],
+    "visual": "Narrow stepped cliff fills the left. On the right two small matching standing friends perch above a single wide landing with a clear square window and middle line. Floor boundaries read clearly at card size.",
+    "reviewStatus": "reviewed"
+  },
+  "橋": {
+    "meaning": "bridge",
+    "memory": "Wood supports a high bridge with two openings.",
+    "parts": [
+      "tree (木)",
+      "high stacked structure (喬)"
+    ],
+    "visual": "Large 木-shaped tree at left. At right, a high curved deck with two arms sits above a small square opening, then a wider rectangular arch with a smaller opening centered inside. Boy crosses the lower bridge.",
+    "reviewStatus": "reviewed"
+  },
+  "岸": {
+    "meaning": "shore",
+    "memory": "A mountain meets a cliff on the shore.",
+    "parts": [
+      "mountain (山)",
+      "left ledge and post (厂 and 干)"
+    ],
+    "visual": "Three low peaks crest the top, above a rocky ledge that runs across then down the left. Under the ledge two horizontal dock beams cross one tall vertical post. Boy walks beside the bottom post at the shore.",
+    "reviewStatus": "reviewed"
+  },
+  "央": {
+    "meaning": "center",
+    "memory": "A figure stands right through the middle of a frame.",
+    "parts": [
+      "narrow frame",
+      "large centered figure (大)"
+    ],
+    "visual": "One squat open-bottom frame in the middle, crossed by a bold rail halfway down. The boy is centered with both arms stretched along the rail and legs spread below; one small vertical fin rises above the frame.",
+    "reviewStatus": "reviewed"
+  },
+  "根": {
+    "meaning": "root",
+    "memory": "A tree stands beside a root bent like a boot.",
+    "parts": [
+      "tree (木)",
+      "box and sweeping root (艮)"
+    ],
+    "visual": "On the left show a 木-shaped tree above the ground. On the right build a squared upper stump with two horizontal bands. The bottom extends down into one angular foot and a long diagonal root sweeping to the right. Boy waters the tree.",
+    "reviewStatus": "reviewed"
+  },
+  "鉄": {
+    "meaning": "iron",
+    "memory": "A metal block drops beside a stack of metal bars.",
+    "parts": [
+      "metal (金)",
+      "dropping object (失)"
+    ],
+    "visual": "At left a small triangular cap over stacked gold bars and two small ingots. At right a blue-gray iron beam across two bars, with a toy magnet shape above and supports splaying below. A small boy catches a falling iron bolt next to it.",
+    "reviewStatus": "reviewed"
+  },
+  "短": {
+    "meaning": "short",
+    "memory": "The short arrow stands beside a bean jar.",
+    "parts": [
+      "arrow (矢)",
+      "bean vessel (豆)"
+    ],
+    "visual": "A compact toy arrow frame on left, formed by a tilted top piece, two crossbars and two spread feet. To its right, a squat bean pot with a flat lid, square opening and wide foot. Boy measures how short the arrow is.",
+    "reviewStatus": "reviewed"
+  },
+  "油": {
+    "meaning": "oil",
+    "memory": "Oil drips from a jar with a tall spout.",
+    "parts": [
+      "liquid dots (氵)",
+      "stem through square (由)"
+    ],
+    "visual": "Three large golden oil droplets on far left. On the right an upright square four-pane oil flask has a raised central pouring spout lined up with the vertical divider. Boy tips the flask only slightly so the square still reads.",
+    "reviewStatus": "reviewed"
+  },
+  "植": {
+    "meaning": "plant",
+    "memory": "Plant the tree so it stands straight.",
+    "parts": [
+      "tree (木)",
+      "straight frame (直)"
+    ],
+    "visual": "A tree with crossed boughs and roots fills left. At right a tall planting stake carries a cap cross, a box with two horizontal divisions, and a strong horizontal foot. The boy steadies the stalk beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "倍": {
+    "meaning": "double",
+    "memory": "One person hears a sound twice.",
+    "parts": [
+      "person (亻)",
+      "stand over mouth (咅)"
+    ],
+    "visual": "The boy forms a narrow, upright silhouette at left. At right a single two-tier object has a wide standalone top with two angled legs, stacked directly above one square speaker mouth. Two little echoes issue from the mouth.",
+    "reviewStatus": "reviewed"
+  },
+  "波": {
+    "meaning": "wave",
+    "memory": "Water follows the folds of a skin.",
+    "parts": [
+      "water (氵)",
+      "folded skin (皮)"
+    ],
+    "visual": "At left three separate blue droplets. At right the frozen curl of one broad wave resembles a draped sheet: wide hooked top, long upright through it, and two clearly crossed sweep lines below. Boy rides next to the curl.",
+    "reviewStatus": "reviewed"
+  },
+  "練": {
+    "meaning": "practice",
+    "memory": "Repeating the thread pattern takes practice.",
+    "parts": [
+      "thread (糸)",
+      "slotted practice board (柬)"
+    ],
+    "visual": "A red folded skein and three tips on left. At right, a golden weaving board, top rail over narrow divided center, one upright crossing it and two loose diagonal ends down low. Boy practices weaving.",
+    "reviewStatus": "reviewed"
+  },
+  "軽": {
+    "meaning": "lightweight",
+    "memory": "A little hand lifts a light wagon.",
+    "parts": [
+      "vehicle (車)",
+      "hand over earth (圣)"
+    ],
+    "visual": "Left has a square thin wagon viewed from above with a tall axle passing through a rectangular divided body and two rail lines. Right has a crossed hand ribbon above one short pedestal shaped like 土. The boy easily lifts the light toy.",
+    "reviewStatus": "reviewed"
+  },
+  "血": {
+    "meaning": "blood",
+    "memory": "A drop sits above a little tray.",
+    "parts": [
+      "single dot",
+      "dish (皿)"
+    ],
+    "visual": "Use an abstract red bead, isolated above one broad shallow golden tray with three vertical slots. A flat base and open spaces between slots must read clearly at card size. Boy points toward the display. Educational diagram feel, a clean symbolic image.",
+    "reviewStatus": "reviewed"
+  },
+  "温": {
+    "meaning": "warm",
+    "memory": "Water warms in a pan beneath the sun.",
+    "parts": [
+      "water (氵)",
+      "sun over dish (昷)"
+    ],
+    "visual": "At left three separate blue droplets. On the right stack a small square sun with a horizontal center mark directly above a distinct wide pan whose side has three vertical sections. Boy enjoys gentle warmth off to the side.",
+    "reviewStatus": "reviewed"
+  },
+  "庫": {
+    "meaning": "storehouse",
+    "memory": "A cart is kept inside a roofed storehouse.",
+    "parts": [
+      "shelter (广)",
+      "vehicle (車)"
+    ],
+    "visual": "A large shelter forms a cap roof and a long left sweeping wall. Inside, position a top-view square divided wooden cart with cross rails and tall long axle extending above and below. The boy rolls it into storage.",
+    "reviewStatus": "reviewed"
+  },
+  "坂": {
+    "meaning": "slope",
+    "memory": "The ground slopes under an overhanging ledge.",
+    "parts": [
+      "earth (土)",
+      "ledge and crossing supports (反)"
+    ],
+    "visual": "Put a narrow earth-shaped marker with one upright and two bars on left. Right holds a broad cap and downward-left buttress above a clear X made by two diagonal slopes. Boy slides only along the lower right slope.",
+    "reviewStatus": "reviewed"
+  },
+  "板": {
+    "meaning": "plank",
+    "memory": "Wood and a tilted support make a plank.",
+    "parts": [
+      "tree (木)",
+      "folded support (反)"
+    ],
+    "visual": "Large upright tree on left. Right has a plank forming a cap then slanting down-left just like an overhang. Below that two distinct angled timbers meet in an X. Boy holds the carpenter's plank with a peeking smile.",
+    "reviewStatus": "reviewed"
+  },
+  "章": {
+    "meaning": "chapter",
+    "memory": "An upright marker stands above an early sun.",
+    "parts": [
+      "standing cap (立)",
+      "sun over cross (早)"
+    ],
+    "visual": "Three clearly separated levels: a squat standing cap with two supports and a wide lower rail, a square sun with a dividing line, and a short cross foot. Make a golden chapter marker the boy slots between pages. No lettering or book cover behind.",
+    "reviewStatus": "reviewed"
+  },
+  "秒": {
+    "meaning": "second",
+    "memory": "Grain drops one at a time as seconds pass.",
+    "parts": [
+      "grain (禾)",
+      "few (少)"
+    ],
+    "visual": "Left is a tall grain sprig with crossed boughs. To its right a small vertical stalk with two separate side dots sits above a slashing down-left grain chute. Boy catches one grain in a cup, without obscuring the right silhouette.",
+    "reviewStatus": "reviewed"
+  },
+  "皮": {
+    "meaning": "hide",
+    "memory": "A hide hangs from an upright peg and crosses at its folds.",
+    "parts": [
+      "hooked top rail and stem",
+      "two crossed lower folds"
+    ],
+    "visual": "One broad warm leather hide hangs from a horizontal beam with a right hook and a tall centered peg extending beyond it. Its left edge drops as a long slant and the two broad lower folds clearly cross before flaring outward. Boy holds a corner.",
+    "reviewStatus": "reviewed"
+  },
+  "柱": {
+    "meaning": "pillar",
+    "memory": "The main pillar beside a tree supports the roof.",
+    "parts": [
+      "tree (木)",
+      "main post (主)"
+    ],
+    "visual": "A 木-shaped tree at left. At right one tall bold pavilion pillar crosses three wide beams above each other, with one distinct gold cap dot floating above. Boy tests its steadiness with both hands.",
+    "reviewStatus": "reviewed"
+  },
+  "祭": {
+    "meaning": "festival",
+    "memory": "Hands lift an offering above the festival altar.",
+    "parts": [
+      "offering and hands",
+      "altar (示)"
+    ],
+    "visual": "At top left a small wrapped offering with two fold marks. At top right two crossing open hands hold the offering. Beneath both, a wide altar with two rails, central leg and two short flared feet. The boy celebrates beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "筆": {
+    "meaning": "writing brush",
+    "memory": "Bamboo grips a brush with stacked bristles.",
+    "parts": [
+      "bamboo (⺮)",
+      "brush (聿)"
+    ],
+    "visual": "Top shows two separate bamboo tip accents. Directly below, a vertical brush handle crosses a rectangular stack of five short rails that look like layered bristles at its base. Boy writes a single little ink swoosh off to the side.",
+    "reviewStatus": "reviewed"
+  },
+  "童": {
+    "meaning": "child",
+    "memory": "A child stands above the divided floor.",
+    "parts": [
+      "stand (立)",
+      "divided field and base (里)"
+    ],
+    "visual": "At top, a boy stands with feet wide atop a rail and a small top knob above his head, forming a compressed 立-like block. Below is a rectangular four-pane platform with a vertical center reaching down through two lower bars.",
+    "reviewStatus": "reviewed"
+  },
+  "緑": {
+    "meaning": "green",
+    "memory": "A thread draws color from a ladle of green dye.",
+    "parts": [
+      "thread (糸)",
+      "ladle over split flow (彔)"
+    ],
+    "visual": "Folded red skein on the left. At right a squared stepped scoop above a short vertical green dye stream and three drops fanning outward below. The boy dips one thread; keep the green dye and stepped scoop prominent.",
+    "reviewStatus": "reviewed"
+  },
+  "荷": {
+    "meaning": "baggage",
+    "memory": "Grassy cargo is carried by a person beside a hook.",
+    "parts": [
+      "grass (艹)",
+      "carrier and hook (何)"
+    ],
+    "visual": "At top two sprigs along a horizontal grass rail. Under it boy stands upright on the left, carrying a bold object on right formed by a long top rail, one right hook and a square box tucked inside. Keep both tiers separate.",
+    "reviewStatus": "reviewed"
+  },
+  "炭": {
+    "meaning": "charcoal",
+    "memory": "Charcoal smolders under a mountain ledge.",
+    "parts": [
+      "mountain and cliff (山 and 厂)",
+      "fire (火)"
+    ],
+    "visual": "Three small mountain peaks on a shared line above a wide ledge curling down the left. Under it a single stylized orange flame rests on two black charcoal chunks, with two separate embers making the side marks. Boy watches from a safe distance.",
+    "reviewStatus": "reviewed"
+  },
+  "湖": {
+    "meaning": "lake",
+    "memory": "An old moon hangs over water to make a lake.",
+    "parts": [
+      "water (氵)",
+      "old sign and moon (胡)"
+    ],
+    "visual": "Three blue droplets down the left. To the right a short post crosses a bar above a square opening, next to a tall pale moon lantern with two interior bars. Link their bases with a tiny lake bank and put the boy under the moon.",
+    "reviewStatus": "reviewed"
+  },
+  "湯": {
+    "meaning": "hot water",
+    "memory": "Sunlight sends steam over hot water.",
+    "parts": [
+      "water (氵)",
+      "square sun and rays (昜)"
+    ],
+    "visual": "Three droplets descend down left. On the right a square sun with center stripe sits above one broad horizontal ledge. Beneath it three short curving golden steam ribbons sweep left. Boy looks at his small cup beside the plume.",
+    "reviewStatus": "reviewed"
+  },
+  "氷": {
+    "meaning": "ice",
+    "memory": "A frozen drop clings to the side of the water shape.",
+    "parts": [
+      "water (水)",
+      "small ice dot"
+    ],
+    "visual": "Build an icicle sculpture with a tall central hooked shard and broad sweeping blue wings on both sides, in the overall 水 silhouette. Add one separate short icy shard high and slightly left. Boy looks closely from the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "拾": {
+    "meaning": "pick up",
+    "memory": "A hand picks up a box with a lid that fits.",
+    "parts": [
+      "hand (扌)",
+      "lid over box (合)"
+    ],
+    "visual": "At left a tall curved wooden hand shape with two short fingers crosses an implied wrist; put the boy reaching alongside it. At right a broad triangular lid sits over one small square box. The boy is picking up the box.",
+    "reviewStatus": "reviewed"
+  },
+  "鼻": {
+    "meaning": "nose",
+    "memory": "A nose sits high above a divided mask and two feet.",
+    "parts": [
+      "nose (自)",
+      "divided square and two legs (畀)"
+    ],
+    "visual": "Top features a boxy stylized nose with one protruding curve at top and two short marks inside. Directly below sit a four-compartment square and a narrow rail with two legs dropping down. Boy peers around the side of the funny stacked nose mask.",
+    "reviewStatus": "reviewed"
+  },
+  "皿": {
+    "meaning": "dish",
+    "memory": "A rectangular shallow dish sits on a flat base.",
+    "parts": [
+      "open compartments",
+      "broad bottom rail"
+    ],
+    "visual": "Front view of one shallow rectangular golden serving dish, flat top rim, two internal straight dividers, broad flat base extending beyond the sides. Small boy peers from its side. No extra cups.",
+    "reviewStatus": "reviewed"
+  },
+  "協": {
+    "meaning": "cooperate",
+    "memory": "Three helpers pull together by a shared crossing post.",
+    "parts": [
+      "cross (十)",
+      "three little efforts (劦)"
+    ],
+    "visual": "Left is one broad cross-shaped wooden post. To the right three separate hooked pull levers are in a triangle (one high, two low); one slanting cord per lever. A small boy holds the low right cord.",
+    "reviewStatus": "reviewed"
+  },
+  "改": {
+    "meaning": "change",
+    "memory": "A hand turns an old curled piece into a new one.",
+    "parts": [
+      "bent frame (己)",
+      "tapping hand (攵)"
+    ],
+    "visual": "At left a squared wooden ribbon curls up from a low horizontal foot. To the right two hinged parts cross in a clear X beneath a small diagonal cap and one short bar. Boy turns a small handle at the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "府": {
+    "meaning": "government office",
+    "memory": "A person delivers a measured parcel under the office roof.",
+    "parts": [
+      "roof (广)",
+      "person and measure (付)"
+    ],
+    "visual": "Top eave with a little top knob and a long sloping left support wraps around two objects. Beneath: the boy upright on the inner left holds a parcel, beside a hooked post on inner right crossed by a rail with one small offset dot.",
+    "reviewStatus": "reviewed"
+  },
+  "軍": {
+    "meaning": "army",
+    "memory": "The column of wagons is kept under one canopy.",
+    "parts": [
+      "cover (冖)",
+      "wagon (車)"
+    ],
+    "visual": "A broad squat cap roof above a large top-down wooden supply wagon, with a square split body and vertical axle extending up and down through two rails. Small chibi boy in ordinary outfit carries a supply flag beside it. Quiet scene.",
+    "reviewStatus": "reviewed"
+  },
+  "各": {
+    "meaning": "each",
+    "memory": "Each path ends at its own entrance.",
+    "parts": [
+      "crossing footpath (夂)",
+      "square entrance (口)"
+    ],
+    "visual": "At top two broad narrow paths cross like a loose X with a short angled cap. Beneath center sits one square door, clearly separated from the paths. The boy chooses a path at the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "副": {
+    "meaning": "secondary",
+    "memory": "A spare container waits next to the divider.",
+    "parts": [
+      "full vessel (畐)",
+      "divider (刂)"
+    ],
+    "visual": "Left is a tiny cap above the square neck of a tall amber pot, then a wider square four-pane base. At right are two narrow upright silver divider tabs, the taller one curling at its foot. Boy places a second small lid beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "象": {
+    "meaning": "elephant",
+    "memory": "An elephant’s outline remembers its trunk and sweeping body.",
+    "parts": [
+      "head and tusks",
+      "body, legs and curling trunk"
+    ],
+    "visual": "One side-view stylized elephant, with a small angular cap above a boxy head and central groove. Its body tapers into three parallel sweeps diagonally down-left. Set its raised hooked trunk at bottom right. Tiny boy at side for scale.",
+    "reviewStatus": "reviewed"
+  },
+  "賞": {
+    "meaning": "prize",
+    "memory": "A shining stand presents a shell treasure as a prize.",
+    "parts": [
+      "canopy over opening (尚)",
+      "shell (貝)"
+    ],
+    "visual": "A festival stand sits at upper center, one tall accent between two little side accents above a broad canopy and a square opening. Below it a shell prize with two bold interior lines and two detached splayed tips. Boy reaches for the shell.",
+    "reviewStatus": "reviewed"
+  },
+  "辺": {
+    "meaning": "vicinity",
+    "memory": "A curved landmark sits beside the road.",
+    "parts": [
+      "curved marker (刀)",
+      "road (⻌)"
+    ],
+    "visual": "A wide curled yellow sign with a sweeping inner diagonal stands upper right. A winding orange path, starting with a separate small stepping stone high on the left, wraps down around that sign and sweeps horizontally across the bottom. Boy walks along its edge.",
+    "reviewStatus": "reviewed"
+  },
+  "低": {
+    "meaning": "low",
+    "memory": "A person ducks beneath a bent low beam.",
+    "parts": [
+      "person (亻)",
+      "bent beam and dot (氏 with dot)"
+    ],
+    "visual": "Put the boy left, with one shoulder-forward slant and a long straight outer leg. To the right a beam runs across and bends down into a long curling end, with a little separate gold marker below it. He checks how low the beam goes.",
+    "reviewStatus": "reviewed"
+  },
+  "課": {
+    "meaning": "lesson",
+    "memory": "Spoken directions explain how fruit grows.",
+    "parts": [
+      "speech (言)",
+      "fruit tree (果)"
+    ],
+    "visual": "Make a compact tall column of word lines above one square speaker on left, without letters. On the right show a square fruit crate with four compartments above roots and boughs centered on its extending vertical trunk. Boy teaches from the margin.",
+    "reviewStatus": "reviewed"
+  },
+  "極": {
+    "meaning": "extreme",
+    "memory": "A tree stands beside the far end of a course.",
+    "parts": [
+      "tree (木)",
+      "stack of marked endpoints (亟)"
+    ],
+    "visual": "Left is a tall tree. On right a short flat cap with little hook leads into a center platform with small square opening at left and crossed ribbons at right, atop a broad flat bottom line. Boy marks the very end of the course.",
+    "reviewStatus": "reviewed"
+  },
+  "量": {
+    "meaning": "quantity",
+    "memory": "A marked window sits above a divided measuring bin.",
+    "parts": [
+      "sun above a rail (旦)",
+      "divided bin (里)"
+    ],
+    "visual": "Top tier: rounded square window with one horizontal mark on a wide thin beam. Below, a four-pane box with its central upright continuing down through two horizontal platform bars. Boy counts rice portions next to the bin.",
+    "reviewStatus": "reviewed"
+  },
+  "型": {
+    "meaning": "mold",
+    "memory": "A pattern presses its shape into the clay base.",
+    "parts": [
+      "pattern and divider (刑)",
+      "clay base (土)"
+    ],
+    "visual": "At top left, two straight uprights pass through two horizontal rails. A smaller vertical divider and taller hooked tab stand to their right. Center everything over a bold clay base made of two stacked bars and a short middle peg. Boy presses the mold.",
+    "reviewStatus": "reviewed"
+  },
+  "史": {
+    "meaning": "history",
+    "memory": "One hand pulls a line through a square record.",
+    "parts": [
+      "record (口)",
+      "central stroke and sweeping hand"
+    ],
+    "visual": "Place a square wooden record frame high at center with one narrow upright that passes through and continues below. Under it two contrasting hands or paper strips sweep outward, the right strip long and low. The boy points at the record.",
+    "reviewStatus": "reviewed"
+  },
+  "管": {
+    "meaning": "pipe",
+    "memory": "A bamboo pipe leads through two stacked chambers.",
+    "parts": [
+      "bamboo (⺮)",
+      "roof and chambers (官)"
+    ],
+    "visual": "Two paired bamboo tips are at top. Below them, a small canopy goes over an upright pipe housing with a left vertical and two stacked rectangular openings of different widths. The boy listens from the edge to air flowing through it.",
+    "reviewStatus": "reviewed"
+  },
+  "兵": {
+    "meaning": "soldier",
+    "memory": "A soldier stands like a tall bracket on two planted feet.",
+    "parts": [
+      "upper body and frame (丘)",
+      "splayed feet (八)"
+    ],
+    "visual": "One friendly toy soldier at rest. Build his upper silhouette from a wide slanted cap, two raised shoulders, a strong upright and straight waist bar. The two feet below splay apart with a generous gap. Keep the pose still and ceremonial.",
+    "reviewStatus": "reviewed"
+  },
+  "録": {
+    "meaning": "record",
+    "memory": "Metal holds a record as the ink flows.",
+    "parts": [
+      "metal (金)",
+      "stepped scoop and flow (彔)"
+    ],
+    "visual": "At left a triangular cap over stacked gold rails with two ingot corners. Right has a stepped square ink scoop that feeds a vertical ink flow with small diagonal marks on both sides. Boy stamps one small dot at the bottom; no text.",
+    "reviewStatus": "reviewed"
+  },
+  "省": {
+    "meaning": "inspect",
+    "memory": "A small lens hangs over a watchful eye.",
+    "parts": [
+      "small (少)",
+      "eye (目)"
+    ],
+    "visual": "Top is an upright little lens handle between two separate small dots, with one sweeping diagonal reflection toward the left. Below it is an upright rectangular eye window with two dividing lines. Boy peers through from one edge.",
+    "reviewStatus": "reviewed"
+  },
+  "周": {
+    "meaning": "around",
+    "memory": "A boundary runs around a small courtyard.",
+    "parts": [
+      "open-bottom enclosure (冂)",
+      "upright sign above opening (吉-like)"
+    ],
+    "visual": "A tall U-shaped enclosure turned open downward wraps around an upright central sign and a square doorway below it. The mascot walks just inside one of the vertical edges. Keep square plan and empty room around the sign.",
+    "reviewStatus": "reviewed"
+  },
+  "材": {
+    "meaning": "lumber",
+    "memory": "A tree beside a hook becomes a beam.",
+    "parts": [
+      "tree (木)",
+      "hooked cut beam (才)"
+    ],
+    "visual": "Put a 木-shaped tree on the left. At right one bold wooden beam with hooked vertical from top to bottom, one horizontal crossbar and a shorter slanting support sweeping to lower left. Boy stands between them holding a smooth board.",
+    "reviewStatus": "reviewed"
+  },
+  "競": {
+    "meaning": "compete",
+    "memory": "Two runners race neck and neck.",
+    "parts": [
+      "left competitor",
+      "right competitor"
+    ],
+    "visual": "Two matching little racers face forward and fill the square side by side. Each has a small cap with a center knob, block-shaped shirt and two clearly separated angled legs. Use two distinct shirt colors. Keep their overall outlines parallel.",
+    "reviewStatus": "reviewed"
+  },
+  "歴": {
+    "meaning": "history",
+    "memory": "Footsteps of the past pass under a ledge and through two trees.",
+    "parts": [
+      "cliff over two trees",
+      "footstep (止)"
+    ],
+    "visual": "Big ledge across the top and sloping down the left encloses two short trees side by side above a wide-footed stair track with two upright supports. Boy follows one tiny footprint across the stair base.",
+    "reviewStatus": "reviewed"
+  },
+  "航": {
+    "meaning": "navigate",
+    "memory": "A boat follows the route marked by a tall buoy.",
+    "parts": [
+      "boat (舟)",
+      "cap over curled legs (亢)"
+    ],
+    "visual": "Left is a long narrow overhead view of a little wooden boat with a prow cap, a short crossbeam and two center marks. Right is a navigation buoy with a top dot above a bar and two downward curling legs. Boy pilots the boat beside the buoy.",
+    "reviewStatus": "reviewed"
+  },
+  "児": {
+    "meaning": "child",
+    "memory": "A child peeks through two shapes on little legs.",
+    "parts": [
+      "upright and square window",
+      "child legs (儿)"
+    ],
+    "visual": "Stack a straight left post and a square window with a center stripe on top. The little boy peeks through the window with his smiling face. Beneath the upper shapes, two legs separate clearly, one straight diagonal and one curved hook to the right.",
+    "reviewStatus": "reviewed"
+  },
+  "印": {
+    "meaning": "stamp",
+    "memory": "A hand presses a stamp into a seal.",
+    "parts": [
+      "hand-shaped bracket",
+      "upright seal (卩)"
+    ],
+    "visual": "The left half is a blocky hand shape with a tilted upper lid, short horizontal finger, and angled low thumb. On the right a taller golden seal has a square bent cap at top and long clear straight drop. The boy presses the two shapes together to leave one red print.",
+    "reviewStatus": "reviewed"
+  },
+  "輪": {
+    "meaning": "wheel",
+    "memory": "A cart needs a wheel with an even pattern.",
+    "parts": [
+      "cart (車)",
+      "joined slats (侖)"
+    ],
+    "visual": "A square wagon body with axle and two bars at left. At right a roof-shaped hub cap over a round wheel with four vertical spoke sections, mounted on a golden stand. Boy fits the wheel onto the wagon. Keep both silhouettes visually distinct.",
+    "reviewStatus": "reviewed"
+  },
+  "清": {
+    "meaning": "clear",
+    "memory": "Drops of clear water shine on a blue sprout.",
+    "parts": [
+      "water (氵)",
+      "blue (青)"
+    ],
+    "visual": "Three clear teal drops descend at left. At right a bright blue sprout made of three short horizontal shelves through one upright rests above a rectangular moon-blue window with two interior bars. Boy admires one droplet.",
+    "reviewStatus": "reviewed"
+  },
+  "億": {
+    "meaning": "hundred million",
+    "memory": "A person imagines a huge number.",
+    "parts": [
+      "person (亻)",
+      "idea over heart (意)"
+    ],
+    "visual": "Boy forms a narrow upright at far left. To the right a short tiered cap sits above one square window with a divider, and a large heart with tiny separated droplets at its sides sits below that. A few tiny stars inside its heart suggest an enormous thought. No numerals.",
+    "reviewStatus": "reviewed"
+  },
+  "芸": {
+    "meaning": "art",
+    "memory": "The craft brings together grass and a curled cloud.",
+    "parts": [
+      "grass (艹)",
+      "cloud curl (云)"
+    ],
+    "visual": "A short stem of foliage runs across the top with two reeds. Below it two short horizontal gold rods sit above an airy puff curling to the left then back right. Boy shapes the cloud from a piece of clay.",
+    "reviewStatus": "reviewed"
+  },
+  "停": {
+    "meaning": "stop",
+    "memory": "A person pauses beside a pavilion.",
+    "parts": [
+      "person (亻)",
+      "pavilion (亭)"
+    ],
+    "visual": "Boy clearly left with one foot paused. On the right stack a cap with a little crown, a square opening, a broad shelter ledge, then a single clear bent post dangling below it. The building remains taller than the person.",
+    "reviewStatus": "reviewed"
+  },
+  "陸": {
+    "meaning": "land",
+    "memory": "Earthen terraces rise next to a cliff.",
+    "parts": [
+      "hill (阝)",
+      "stacked earth terraces (坴)"
+    ],
+    "visual": "A slim mossy upright ridge at left, with two bumps at its top. At right two blocky earth ledges stack with an open pair of legs at center, above a low horizontal base; define each edge clearly. Boy steps onto solid land.",
+    "reviewStatus": "reviewed"
+  },
+  "帯": {
+    "meaning": "belt",
+    "memory": "A broad belt sits above cloth hanging from its buckle.",
+    "parts": [
+      "belt rails and loops",
+      "hanging cloth (巾)"
+    ],
+    "visual": "Three small loops poke upward from one prominent horizontal golden belt. Directly beneath, a broad tan band covers a small hanging fabric rectangle with a single strong center seam extending down. Boy adjusts a buckle beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "固": {
+    "meaning": "solid",
+    "memory": "An old sign sits inside a firm square frame.",
+    "parts": [
+      "frame (囗)",
+      "old sign (古)"
+    ],
+    "visual": "A bold thick square outer frame contains a smaller centered upright sign, with a short cross directly above one square opening. Tiny boy knocks on the frame from the outside to test its strength. Keep the inner sign separate from the outer edges.",
+    "reviewStatus": "reviewed"
+  },
+  "囲": {
+    "meaning": "surround",
+    "memory": "A heavy square fence surrounds a well.",
+    "parts": [
+      "enclosure (囗)",
+      "well frame (井)"
+    ],
+    "visual": "Use one nearly frontal square enclosure. Inside stand two short uprights crossing two horizontal rails like a井-grid. Boy peers across one outer fence edge. Separate interior pattern from enclosure with a generous gap.",
+    "reviewStatus": "reviewed"
+  },
+  "卒": {
+    "meaning": "graduate",
+    "memory": "Two graduates stand above a crossed post.",
+    "parts": [
+      "cap and pair (亠 and two 人)",
+      "cross (十)"
+    ],
+    "visual": "Top has a small cap and two little graduates with splayed legs side by side underneath. An oversized cross-shaped plinth anchors the scene below. Keep the tall stroke and crossbar visible and centered.",
+    "reviewStatus": "reviewed"
+  },
+  "順": {
+    "meaning": "follow",
+    "memory": "A row of three streams follows a page.",
+    "parts": [
+      "streams (川)",
+      "page (頁)"
+    ],
+    "visual": "At left three long aligned ribbons show the river paths, outer left slightly curved. At right a framed page stands above two tiny angled feet. A small top tag and two page dividers read at card size. The boy follows the streams.",
+    "reviewStatus": "reviewed"
+  },
+  "令": {
+    "meaning": "command",
+    "memory": "An instruction comes down from under the roof.",
+    "parts": [
+      "sloping roof (𠆢)",
+      "dot and bent seal"
+    ],
+    "visual": "Two broad slopes form a peaked roof. Center a distinct dot directly below its peak, then a short horizontal bar and a bent downward seal like a folded ribbon below that. Boy reads the symbolic seal, with no written words.",
+    "reviewStatus": "reviewed"
+  },
+  "貨": {
+    "meaning": "goods",
+    "memory": "A changed pair of shapes sits above a shell full of goods.",
+    "parts": [
+      "person and turned person (化)",
+      "shell (貝)"
+    ],
+    "visual": "Top left a standing child; top right another in a turning pose with a broad hook swept by a scarf below. Below both a boxy shell basket with two bands and two detached feet. Show goods such as a tiny wrapped parcel inside the shell, preserving the shell outline.",
+    "reviewStatus": "reviewed"
+  },
+  "季": {
+    "meaning": "season",
+    "memory": "A child watches the grain change with the season.",
+    "parts": [
+      "grain (禾)",
+      "child (子)"
+    ],
+    "visual": "Overhead a large grain stalk with central upright and crossed boughs. Directly below a boy’s bent body and straight outstretched arms make a hook crossed by a long horizontal line. Tie one golden seasonal ribbon to the upper stalk.",
+    "reviewStatus": "reviewed"
+  },
+  "底": {
+    "meaning": "bottom",
+    "memory": "A heavy hooked beam sits at the bottom of a shelter.",
+    "parts": [
+      "shelter (广)",
+      "bent rail and separate dot (氐)"
+    ],
+    "visual": "A short top knob and long eave fold down into the left support. Below and to the right, a horizontal brown beam swerves into a curved foot, with one distinct small pebble below its lowest part. Boy points to the pebble.",
+    "reviewStatus": "reviewed"
+  },
+  "希": {
+    "meaning": "hope",
+    "memory": "A cross above hanging cloth makes a wish flag.",
+    "parts": [
+      "crossed marks (乂)",
+      "cloth and support (布)"
+    ],
+    "visual": "Two thin crossing beams float at top. Beneath them one short rail has a long right-dangling cloth with central seam and a left slanting support. Boy ties a small golden charm to the cloth. Keep the cross above visibly distinct.",
+    "reviewStatus": "reviewed"
+  },
+  "仲": {
+    "meaning": "go-between",
+    "memory": "A person stands beside a post straight through the middle.",
+    "parts": [
+      "person (亻)",
+      "middle (中)"
+    ],
+    "visual": "Boy stands on the left, narrow body with one slanted shoulder. At right, one strong upright passes through the very center of a single square window and extends above and below. He passes a small parcel through the opening.",
+    "reviewStatus": "reviewed"
+  },
+  "栄": {
+    "meaning": "flourish",
+    "memory": "A tree flourishes beneath a bright shelter.",
+    "parts": [
+      "three rays and cover",
+      "tree (木)"
+    ],
+    "visual": "Arrange three well-separated glints over a broad low cover. Directly below, a magnificent tree with one tall straight trunk, horizontal branches and two splaying roots fills most of the picture. Boy waters the tree from the side.",
+    "reviewStatus": "reviewed"
+  },
+  "札": {
+    "meaning": "tag",
+    "memory": "A tree holds a dangling wooden tag.",
+    "parts": [
+      "tree (木)",
+      "hook (乚)"
+    ],
+    "visual": "Large 木 tree left. At right a single narrow vertical tag curves smoothly into a long upward hook at the bottom. A little ribbon connects the top of the tag to a tree branch while leaving open space between the shapes. Boy reaches for the blank tag.",
+    "reviewStatus": "reviewed"
+  },
+  "包": {
+    "meaning": "wrap",
+    "memory": "A curved wrapper folds around a curled parcel.",
+    "parts": [
+      "outer wrapper (勹)",
+      "inner curled ribbon (己)"
+    ],
+    "visual": "One large bright wrapper begins high at left, goes across the top and bends down on the right with a visible curved tip. Inside, one smaller squared ribbon folds twice and curls up at its right foot. Boy pulls a corner to wrap it.",
+    "reviewStatus": "reviewed"
+  },
+  "焼": {
+    "meaning": "bake",
+    "memory": "Fire bakes a stack on two feet.",
+    "parts": [
+      "fire (火)",
+      "stacked kiln (尭)"
+    ],
+    "visual": "At left a simple flame with two separated sparks and two splayed lower tips. At right an upright kiln with three horizontal shelves and two splayed feet under the lowest shelf. Boy checks a small loaf visible on the middle shelf.",
+    "reviewStatus": "reviewed"
+  },
+  "照": {
+    "meaning": "shine",
+    "memory": "A sun and a lamp call light down onto four embers.",
+    "parts": [
+      "sun and call (昭)",
+      "four glowing dots (灬)"
+    ],
+    "visual": "At top left a square sun with a dividing line. To its right a bent lamp top above one square glass opening. Directly below both make exactly four separate evenly spaced glowing orange drops. Small boy admires the light from the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "漁": {
+    "meaning": "fish",
+    "memory": "Water droplets lead to a fish with a gridded body and a fan of dots.",
+    "parts": [
+      "water (氵)",
+      "fish (魚)"
+    ],
+    "visual": "Three drops down the left. On the right a front-facing stylized fish has a hooked top head, square body divided into four panes, and four small fin marks evenly aligned below. Tiny boy holds a fishing line to its side.",
+    "reviewStatus": "reviewed"
+  },
+  "貯": {
+    "meaning": "store",
+    "memory": "The shell holds savings beside a roofed hook.",
+    "parts": [
+      "shell (貝)",
+      "roof and bent hook (宁)"
+    ],
+    "visual": "At left a boxy upright shell has two distinct inner bars and two splayed feet. At right a small roof covers an isolated horizontal rail and hooked upright. Boy saves a little bead inside the shell.",
+    "reviewStatus": "reviewed"
+  },
+  "訓": {
+    "meaning": "instruction",
+    "memory": "Spoken instructions flow in three clear lines.",
+    "parts": [
+      "speech (言)",
+      "river (川)"
+    ],
+    "visual": "Put a stack of three short speech bars under a dot and above a square mouth on left. At right exactly three vertical blue channels descend side by side. Boy points through them in sequence. No written letters.",
+    "reviewStatus": "reviewed"
+  },
+  "浴": {
+    "meaning": "bathe",
+    "memory": "Three drops lead down to the bath in the valley.",
+    "parts": [
+      "water (氵)",
+      "valley (谷)"
+    ],
+    "visual": "Three bright water drops at left. On the right two small slanting rocks above two wider slanting slopes lead down into a clearly square stone bath. Boy sits beside the bath with a folded towel. Keep all valleys and the square visible.",
+    "reviewStatus": "reviewed"
+  },
+  "塩": {
+    "meaning": "salt",
+    "memory": "Salt dries on a dish beside a patch of earth.",
+    "parts": [
+      "earth (土)",
+      "salt scoop above dish (皿)"
+    ],
+    "visual": "A simple cross and bottom base of earth on left. Right upper tier has a slanted scoop and small square mouth beneath a short ledge. Right bottom tier is a wider squared shallow pan with three vertical sections full of white crystals. Boy fills a tiny scoop.",
+    "reviewStatus": "reviewed"
+  },
+  "兆": {
+    "meaning": "omen",
+    "memory": "Two halves of a sign open with marks on each side.",
+    "parts": [
+      "two central outward bends",
+      "four side dashes"
+    ],
+    "visual": "Two tall ochre strokes near center bend away from each other at the bottom, one to each side. Two clearly separate short slanted sparks flank each side, four total. Boy gazes at this simple omen sign from a corner.",
+    "reviewStatus": "reviewed"
+  },
+  "祝": {
+    "meaning": "celebrate",
+    "memory": "A person beside a little altar offers congratulations.",
+    "parts": [
+      "altar (礻)",
+      "mouth over feet (兄)"
+    ],
+    "visual": "At far left a narrow ceremonial stand with a top dot and short crossed members. At right a bold square mouth opening above two splayed feet belongs to a friendly festival puppet. Boy ties one festive ribbon to the stand.",
+    "reviewStatus": "reviewed"
+  },
+  "衣": {
+    "meaning": "clothing",
+    "memory": "A collar opens into long folds of cloth.",
+    "parts": [
+      "collar and crossbar",
+      "crossed robe folds"
+    ],
+    "visual": "A single golden clasp dot centers over a straight shoulder rail. Two front folds of a coat slope down across each other, with a long right fold and a smaller upward left hem. Boy stands behind the garment with only his head visible.",
+    "reviewStatus": "reviewed"
+  },
+  "臣": {
+    "meaning": "retainer",
+    "memory": "A tall panel with a watchful eye stands at attention.",
+    "parts": [
+      "outer bracket",
+      "inner eyes and folds"
+    ],
+    "visual": "One tall rectangular costume shield with a clean continuous left upright. Within it, two short bars extend to the right and one square eye is tucked into the middle. Boy stands respectfully by it as an attendant.",
+    "reviewStatus": "reviewed"
+  },
+  "浅": {
+    "meaning": "shallow",
+    "memory": "A few long ripples cross shallow water.",
+    "parts": [
+      "water (氵)",
+      "crossed diagonal and rails"
+    ],
+    "visual": "Three separate water drops on far left. On the right a narrow diagonal reed and its tiny separate upper dot cross two long horizontal shallow water lines. Boy wades beside the lower line with visible shoes on the streambed.",
+    "reviewStatus": "reviewed"
+  },
+  "勇": {
+    "meaning": "courage",
+    "memory": "Courage moves a heavy tunnel gate.",
+    "parts": [
+      "tunnel (甬)",
+      "strength (力)"
+    ],
+    "visual": "At top a small angular cap above a square divided tunnel-gate frame with an extended central handle. Below it, a broad hooked lever and one diagonal support. Boy gathers courage and pulls the lever to open it.",
+    "reviewStatus": "reviewed"
+  },
+  "械": {
+    "meaning": "machine",
+    "memory": "A wooden machine has a crossbar and lever.",
+    "parts": [
+      "tree (木)",
+      "frame with hooked rod (戒)"
+    ],
+    "visual": "A tall 木 tree on the left. On the right a simple wooden machine with a horizontal crossbar, two small standing supports and a long diagonal hooked lever sweeping to the right with a tiny marker above. Boy tests the hand lever.",
+    "reviewStatus": "reviewed"
+  },
+  "菜": {
+    "meaning": "vegetable",
+    "memory": "A hand picks a vegetable under the leaves.",
+    "parts": [
+      "grass (艹)",
+      "hand above plant (采)"
+    ],
+    "visual": "A low grass rail with two leaf stems across the top. Below, a flattened open hand and three small fingers hover over a large upright vegetable with branching shoulders and splayed roots. Boy gathers it from the side.",
+    "reviewStatus": "reviewed"
+  },
+  "刷": {
+    "meaning": "printing",
+    "memory": "A brush stamps the cloth inside a shelter.",
+    "parts": [
+      "shelter and hanging cloth",
+      "marking bars (刂)"
+    ],
+    "visual": "A roof with a left sweep encloses a three-part cloth hanging down on center left. Two tall narrow brush handles stand on the right, the taller with a curled foot. Boy uses one brush to print a single star on the cloth.",
+    "reviewStatus": "reviewed"
+  },
+  "孫": {
+    "meaning": "grandchild",
+    "memory": "A child holds a ribbon that runs down the generations.",
+    "parts": [
+      "child (子)",
+      "slanted cap and thread (系)"
+    ],
+    "visual": "At left a tiny boy stands with one long arm at shoulder height, a curved leg below and a small cap above. On the right one short diagonal stroke sits over a broad knot of thread with three dangling tips. Boy takes one end of the family ribbon.",
+    "reviewStatus": "reviewed"
+  },
+  "毒": {
+    "meaning": "poison",
+    "memory": "A strange plant grows above a crossed warning bottle.",
+    "parts": [
+      "upright with three bars",
+      "tilted bottle with two dots (毋-like)"
+    ],
+    "visual": "At top show a stylized prickly stem through three rails. Beneath it a large tilted squared bottle crosses a horizontal strip, with two large round spots inside. Small boy points to the bottle from outside the composition. No liquid being used.",
+    "reviewStatus": "reviewed"
+  },
+  "粉": {
+    "meaning": "powder",
+    "memory": "Grains are divided into tiny powder.",
+    "parts": [
+      "rice (米)",
+      "divide (分)"
+    ],
+    "visual": "On the left rice grains fan from one upright like a star. On right two diagonals splay high above a squared crank with one curving lower arm. Boy turns the little mill to make a neat mound of flour at the lower right.",
+    "reviewStatus": "reviewed"
+  },
+  "灯": {
+    "meaning": "lamp",
+    "memory": "A flame hangs beside a straight hooked stand.",
+    "parts": [
+      "fire (火)",
+      "lamp stand (丁)"
+    ],
+    "visual": "One rounded stylized flame with a central tongue and two side sparks at left, and an oversized horizontal rod with a long hooked vertical at right. Boy watches the flame glowing beside the stand.",
+    "reviewStatus": "reviewed"
+  },
+  "胃": {
+    "meaning": "stomach",
+    "memory": "A divided food tray goes into a pouch.",
+    "parts": [
+      "field grid (田)",
+      "body pouch (月)"
+    ],
+    "visual": "Top is a four-pane square food tray, frontal and large. Directly beneath it one narrow rounded pouch with two horizontal marks opens upward, hinting at a full stomach. Boy pats his shirt next to the display.",
+    "reviewStatus": "reviewed"
+  },
+  "総": {
+    "meaning": "total",
+    "memory": "Tie all the threads into one bundle at the heart.",
+    "parts": [
+      "thread (糸)",
+      "folds and heart (忩)"
+    ],
+    "visual": "At left a red folded skein with three downward tips. On the right two short outward slants frame a single folded tie, all above one large heart with flanking little dots. Boy ties the skein to the bundle.",
+    "reviewStatus": "reviewed"
+  },
+  "領": {
+    "meaning": "territory",
+    "memory": "A seal defines the territory on a page.",
+    "parts": [
+      "order seal (令)",
+      "page (頁)"
+    ],
+    "visual": "Left is a sloping little roof over an isolated dot and bent seal ribbon. To its right a tall rigid map page has one top tag, two inner horizontal bars and two detached splayed feet. Boy seals a boundary without covering either shape.",
+    "reviewStatus": "reviewed"
+  },
+  "設": {
+    "meaning": "set up",
+    "memory": "Spoken directions set a stand in place.",
+    "parts": [
+      "speech (言)",
+      "stand and interlocking hand (殳)"
+    ],
+    "visual": "At left show a few short speech bars descending to a square speaker opening. At right two compact bent upright supports sit above an X made of crossing golden straps. Boy follows the directions and sets up the stand.",
+    "reviewStatus": "reviewed"
+  },
+  "査": {
+    "meaning": "inspect",
+    "memory": "Inspect the tree while it stands on its growing tray.",
+    "parts": [
+      "tree (木)",
+      "stand (且)"
+    ],
+    "visual": "Stack one large 木 tree directly atop a tall rectangular planter. Three bold horizontal lines divide the planter, with a broad straight foot extending beyond both sides. Boy inspects one root next to the square.",
+    "reviewStatus": "reviewed"
+  },
+  "団": {
+    "meaning": "group",
+    "memory": "A group gathers around a measure inside the square.",
+    "parts": [
+      "square enclosure (囗)",
+      "measure (寸)"
+    ],
+    "visual": "Bold square outward boundary surrounds a central hooked post crossed by a wide rail with one short circular marker to its lower left. Tiny children gather around the inside edge as a group, leaving the post and dot visible.",
+    "reviewStatus": "reviewed"
+  },
+  "勢": {
+    "meaning": "force",
+    "memory": "Stacked earth presses down onto a strong lever.",
+    "parts": [
+      "tiered earth and round weight (埶)",
+      "power lever (力)"
+    ],
+    "visual": "At top arrange an earth shelf at left and one curved weight on the right linked by a short rail, all stacked over a large bent diagonal lifting lever with a hooked foot. Boy pushes the lower lever with both hands.",
+    "reviewStatus": "reviewed"
+  },
+  "減": {
+    "meaning": "decrease",
+    "memory": "The water retreats beside a half-covered box.",
+    "parts": [
+      "water (氵)",
+      "slanted frame over box (咸)"
+    ],
+    "visual": "Three water beads descend along the far left in decreasing sizes. Right shows a long ledge and slanted outer leg, a short crossbar above a square opening inside, and a curling diagonal trailing right. Boy watches one little water level drop.",
+    "reviewStatus": "reviewed"
+  },
+  "再": {
+    "meaning": "again",
+    "memory": "A divided frame repeats a horizontal stroke.",
+    "parts": [
+      "top rail",
+      "repeated shelf and descending center"
+    ],
+    "visual": "A thin golden rail spans the top. Below it place a boxlike open-bottom frame with two horizontal interior lines, a center upright and a broad horizontal foot. Boy stacks one repeated wooden shelf into the frame.",
+    "reviewStatus": "reviewed"
+  },
+  "税": {
+    "meaning": "tax",
+    "memory": "A part of the harvest passes through the tax gate.",
+    "parts": [
+      "grain (禾)",
+      "opening and splayed feet (兌)"
+    ],
+    "visual": "Left is a grain stem with a drooping cluster at its upper left, crossing branch and roots. At right two short slants sit above a square gate mouth with two distinct splayed feet. Boy gives one small grain sack to the gate.",
+    "reviewStatus": "reviewed"
+  },
+  "営": {
+    "meaning": "operate",
+    "memory": "Two rooms operate beneath one covered entrance.",
+    "parts": [
+      "three accents and cover",
+      "two rooms (呂)"
+    ],
+    "visual": "Above a broad cover, place three small roof rays. Below it stand two stacked squared service windows, the upper smaller and the lower wider. Boy opens the lower one to run a little stall.",
+    "reviewStatus": "reviewed"
+  },
+  "比": {
+    "meaning": "compare",
+    "memory": "Two curled figures stand side by side to be compared.",
+    "parts": [
+      "left figure",
+      "right figure"
+    ],
+    "visual": "Two matching brown-haired mascots stand side by side, each leaning slightly forward with one bent leg ending in a foot curling right. Give the left child a clear short horizontal arm line and the right child a slanted raised arm. Keep both profiles visible.",
+    "reviewStatus": "reviewed"
+  },
+  "防": {
+    "meaning": "protect",
+    "memory": "A flag guards the side of the hill.",
+    "parts": [
+      "hill (阝)",
+      "flag on a bent pole (方)"
+    ],
+    "visual": "Left is a narrow green ridge with two bumps. Right a small gold flag finial sits above a broad rail and a long hooked banner support with a slant sweeping toward lower left. Boy stands beside the post as a lookout.",
+    "reviewStatus": "reviewed"
+  },
+  "境": {
+    "meaning": "boundary",
+    "memory": "A bright marker marks the end of the ground.",
+    "parts": [
+      "earth (土)",
+      "upright over sun and feet (竟)"
+    ],
+    "visual": "A short earthen cross stands at left. At right a tall marker has a roof cap above a square sunrise window and two long splayed feet at the bottom. Boy traces the boundary between them.",
+    "reviewStatus": "reviewed"
+  },
+  "導": {
+    "meaning": "guide",
+    "memory": "A path and its marker lead down to a guiding hand.",
+    "parts": [
+      "road and head (道)",
+      "measure (寸)"
+    ],
+    "visual": "Upper right has a rectangular head marker with two interior lines and two short rays above its cap. A low winding path comes from the top left and wraps under the marker. A broad hooked measuring post with a small dot sits directly beneath the whole top scene. Boy guides from the edge.",
+    "reviewStatus": "reviewed"
+  },
+  "輸": {
+    "meaning": "transport",
+    "memory": "A cart carries goods beside a covered loading stand.",
+    "parts": [
+      "cart (車)",
+      "cover over stacked cargo and posts (俞)"
+    ],
+    "visual": "At left a rectangular heavily lined wagon with central vertical axle. At right a triangular cover shelters a narrow two-shelf loading rack and two slim vertical posts. Boy wheels a small box toward it.",
+    "reviewStatus": "reviewed"
+  },
+  "述": {
+    "meaning": "describe",
+    "memory": "A traveler follows the path past a marked tree.",
+    "parts": [
+      "tree with dot (朮)",
+      "road (⻌)"
+    ],
+    "visual": "Upper right is a simple bold tree with crossed branches, a central stem, two angled roots and a single floating marker dot above its right branch. A curved path starts at one left stepping stone and sweeps across the bottom. Boy describes what he saw with a pointing gesture.",
+    "reviewStatus": "reviewed"
+  },
+  "武": {
+    "meaning": "martial",
+    "memory": "A steady footstep stands inside a bent practice frame.",
+    "parts": [
+      "foot (止)",
+      "hooked outer staff"
+    ],
+    "visual": "A golden toy training frame has two thin horizontal rails and a long curved upright sweeping down to the right, ending in a hook. Tuck a small stepped foot platform at lower left. Boy practices a balanced stance on it. Entire picture peaceful and simple.",
+    "reviewStatus": "reviewed"
+  },
+  "額": {
+    "meaning": "forehead",
+    "memory": "A visitor’s face is framed beside a head.",
+    "parts": [
+      "guest (客)",
+      "head (頁)"
+    ],
+    "visual": "Left has a small roof and below it two crossed ribbons over a small square doorway. Right is a tall head portrait with a wide forehead marked by a soft golden light, an outline with two short divisions, and two tiny splayed supports below. Boy touches his forehead beside it.",
+    "reviewStatus": "reviewed"
+  },
+  "準": {
+    "meaning": "standard",
+    "memory": "Water and a bird stand above the standard cross.",
+    "parts": [
+      "water and bird (淮)",
+      "cross (十)"
+    ],
+    "visual": "Upper left shows three blue drops, upper right a tall squat bird with three straight wing bars. Directly below both rises one broad centered cross-shaped starting marker. The boy points to the cross as the common level.",
+    "reviewStatus": "reviewed"
+  },
+  "造": {
+    "meaning": "make",
+    "memory": "A path leads past a sign for what we make.",
+    "parts": [
+      "sign (告)",
+      "road (⻌)"
+    ],
+    "visual": "At upper right a short angled stroke and two narrow bars cross a stem above a square opening. At left and below a winding orange workshop path wraps around the sign. Boy brings a small freshly made block along the path.",
+    "reviewStatus": "reviewed"
+  },
+  "技": {
+    "meaning": "skill",
+    "memory": "A skillful hand fits two crossed pieces under a post.",
+    "parts": [
+      "hand (扌)",
+      "branch (支)"
+    ],
+    "visual": "Left is a tall handlike hook with two short wrist rails. At right a bold cross-shaped wooden support above two curved interlocking pieces in a loose X. Boy fits them together carefully.",
+    "reviewStatus": "reviewed"
+  },
+  "復": {
+    "meaning": "return",
+    "memory": "A traveler repeats the steps around the same spot.",
+    "parts": [
+      "walking (彳)",
+      "sun and return foot (复)"
+    ],
+    "visual": "Boy stands narrow at left with two small downward tracking marks behind him. On the right one short diagonal and bar top a square divided sun above two crossing curved footsteps. Show one fine curved direction ribbon leading back under the sun.",
+    "reviewStatus": "reviewed"
+  },
+  "移": {
+    "meaning": "move",
+    "memory": "A grain stalk moves past two crescents.",
+    "parts": [
+      "grain (禾)",
+      "two crescents (多)"
+    ],
+    "visual": "Put a stylized golden grain stem at left. On right two bold crescent ribbons stack diagonally, second lower and slightly right, with one distinct inside dash each. Boy moves one of them nearer the stalk.",
+    "reviewStatus": "reviewed"
+  },
+  "個": {
+    "meaning": "individual",
+    "memory": "One person stands beside their own square space.",
+    "parts": [
+      "person (亻)",
+      "solid square (固)"
+    ],
+    "visual": "Left show one boy in a straight upright pose. At right one thick square frame surrounds a simple cross above one square opening like a personal cubby. Boy puts one leaf inside. Preserve the clear separation between person and box.",
+    "reviewStatus": "reviewed"
+  },
+  "接": {
+    "meaning": "connect",
+    "memory": "A hand reaches out and joins a figure under a stand.",
+    "parts": [
+      "hand (扌)",
+      "standing bar above woman (妾)"
+    ],
+    "visual": "Far left a tall curved hand silhouette with clear wrist and two short rails. To the right, a small pegged stand sits directly above a woman posed with crossed legs and outstretched arm. Her hand connects to the left fingertips over a visible gap.",
+    "reviewStatus": "reviewed"
+  },
+  "効": {
+    "meaning": "effect",
+    "memory": "Crossed parts set a lever in motion.",
+    "parts": [
+      "crossing frame (交)",
+      "strength lever (力)"
+    ],
+    "visual": "On left a small top dot and beam hover over two narrow ribbons that converge then cross at bottom. To the right one bold bent golden lever has one diagonal supporting leg and a curled foot. Boy pushes the lever and the little crossed ribbons turn.",
+    "reviewStatus": "reviewed"
+  },
+  "旧": {
+    "meaning": "old",
+    "memory": "An upright marks off an old familiar date.",
+    "parts": [
+      "vertical mark",
+      "sun or date square (日)"
+    ],
+    "visual": "One tall straight weathered post on left, one larger square old calendar tile on right split by a clean horizontal bar. No numerals. Boy dusts off the lower tile without covering the bar.",
+    "reviewStatus": "reviewed"
+  }
+}
