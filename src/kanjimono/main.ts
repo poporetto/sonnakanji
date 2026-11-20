@@ -1045,7 +1045,7 @@ async function switchLead() {
   return true;
 }
 
-// ---- Team and Zukan screens: full pages over the game, since a team and 612 kanji don't fit in a dialogue box.
+// ---- Team and Kanjimono Scroll screens: full pages over the game, since a team and 612 kanji don't fit in a dialogue box.
 const book = document.createElement('dialog');
 book.id = 'book';
 document.body.append(book);
@@ -1083,11 +1083,15 @@ const meter = (cls: string, part: number) => {
 };
 
 async function teamScreen() {
-  await loadLettering(save.party.map((f) => f.k).join(''));
+  await loadLettering([...save.party, ...save.box].map((f) => f.k).join(''));
+  // With a full team, tapping a resting kanji picks it, then tapping "Swap out" on a team member trades them.
+  let chosen: Fighter | null = null;
   await openBook('Team', function draw(body) {
-    body.replaceChildren(...save.party.map((f, i) => {
+    if (chosen && !save.box.includes(chosen)) chosen = null;
+    const again = () => { store(); sfx.pick(); draw(body); };
+    const members = save.party.map((f, i) => {
       const s = spec(f.k), max = maxHp(s, f.lv);
-      const card = make('article', 'member'), words = make('div', 'about'), top = make('p', 'name');
+      const card = make('article', 'member'), words = make('div', 'info'), top = make('p', 'name');
       top.append(make('b', '', `${s.k} ${cap(s.m)}`), make('i', '', `Lv ${f.lv}`));
       const hp = make('p', 'stat'), xp = make('p', 'stat');
       hp.append(make('span', '', 'HP'), meter('hp', f.hp / max), make('span', '', `${Math.max(0, f.hp)} / ${max}`));
@@ -1099,22 +1103,64 @@ async function teamScreen() {
         moves.append(li);
       }
       words.append(top, hp, xp, moves);
-      if (i) {
-        const lead = make('button', 'back', 'Send out first');
-        lead.type = 'button';
-        lead.addEventListener('click', () => { save.party.unshift(...save.party.splice(i, 1)); store(); sfx.pick(); draw(body); });
-        words.append(lead);
-      } else words.append(make('span', 'tag', 'Goes first'));
+      const row = make('div', 'actions');
+      if (chosen) {
+        const swap = make('button', 'back', `Swap out for ${spec(chosen.k).k}`);
+        swap.type = 'button';
+        swap.addEventListener('click', () => { const incoming = chosen!; save.box.splice(save.box.indexOf(incoming), 1, f); save.party[i] = incoming; chosen = null; again(); });
+        row.append(swap);
+      } else {
+        if (i) {
+          const lead = make('button', 'back', 'Send out first');
+          lead.type = 'button';
+          lead.addEventListener('click', () => { save.party.unshift(...save.party.splice(i, 1)); again(); });
+          row.append(lead);
+        } else row.append(make('span', 'tag', 'Goes first'));
+        if (save.party.length > 1) {
+          const rest = make('button', 'back', 'Rest in storage');
+          rest.type = 'button';
+          rest.addEventListener('click', () => { save.box.push(...save.party.splice(i, 1)); again(); });
+          row.append(rest);
+        }
+      }
+      words.append(row);
       card.append(portrait(s, 48), words);
       return card;
-    }), ...(save.box.length ? [make('p', 'note', `${save.box.length} more kanji are resting in storage. A team holds six.`)] : []));
+    });
+    const extra: HTMLElement[] = [];
+    if (save.box.length) {
+      const full = save.party.length >= 6;
+      const grid = make('div', 'rest-grid');
+      // Strongest first, so a big collection stays easy to scan.
+      const sorted = [...save.box].sort((x, y) => y.lv - x.lv || x.k.localeCompare(y.k));
+      for (const f of sorted) {
+        const s = spec(f.k), max = maxHp(s, f.lv);
+        const tile = make('button', `tile${f === chosen ? ' on' : ''}`);
+        tile.type = 'button';
+        tile.append(portrait(s, 48), make('b', '', s.k), make('small', '', `Lv ${f.lv}`), meter('hp', f.hp / max));
+        tile.title = `${s.k} ${cap(s.m)}`;
+        tile.addEventListener('click', () => {
+          if (!full) { save.party.push(...save.box.splice(save.box.indexOf(f), 1)); return again(); }
+          chosen = chosen === f ? null : f;
+          sfx.pick();
+          draw(body);
+        });
+        grid.append(tile);
+      }
+      extra.push(
+        make('p', 'shelf', `In storage (${save.box.length})`),
+        make('p', 'note', chosen ? `Now pick who leaves the team to make room for ${spec(chosen.k).k}, or tap it again to cancel.` : full ? 'A team holds six. Tap a resting kanji, then choose who to swap out.' : 'Tap a resting kanji to add it to your team.'),
+        grid,
+      );
+    }
+    body.replaceChildren(...members, ...extra);
   });
 }
 
 async function zukanScreen() {
   const lands = Object.keys(POOLS);
   let land = POOLS[save.map] ? save.map : lands.find((id) => [...POOLS[id]].some((k) => !save.caught.includes(k))) ?? lands[0];
-  await openBook('Zukan', function draw(body) {
+  await openBook('Kanjimono Scroll', function draw(body) {
     const found = (ks: string[]) => ks.filter((k) => save.caught.includes(k)).length;
     const tally = make('p', 'tally');
     tally.append(make('b', '', `${save.caught.length} of ${all.length} found`), ...LEVELS.map((l) => make('span', 'tag', `${l.id} ${caughtIn(l.id)} / ${all.filter((s) => s.level === l.id).length}`)));
@@ -1170,7 +1216,7 @@ async function collection() {
 async function menu() {
   mode = 'busy';
   for (;;) {
-    const options = save.chapter === 'journey' ? ['Team', 'Bag', 'Collection', 'Missions', 'Zukan', 'Journey', 'Ask Bear', 'Save', 'Close'] : ['Save', 'Close'];
+    const options = save.chapter === 'journey' ? ['Team', 'Bag', 'Collection', 'Missions', 'Kanjimono Scroll', 'Journey', 'Ask Bear', 'Save', 'Close'] : ['Save', 'Close'];
     const chosen = options[await ask(`Found ${save.caught.length} of ${all.length} · Charms ${save.charms}`, options)];
     if (chosen === 'Close') break;
     if (chosen === 'Save') { store(); await say('Saved.'); }
@@ -1183,7 +1229,7 @@ async function menu() {
     }
     if (chosen === 'Journey') await say([`${SIGNS.filter((g) => save.caught.includes(g.k)).length} of ${SIGNS.length} signs restored`, ...LEVELS.map((l) => `${l.id}  ${l.land}: ${save.trials.includes(l.id) ? 'mastered' : `${caughtIn(l.id)} caught`}`), ...CLOSED.map((id) => `${id}  road closed`)].join('\n'));
     if (chosen === 'Team') await teamScreen();
-    if (chosen === 'Zukan') await zukanScreen();
+    if (chosen === 'Kanjimono Scroll') await zukanScreen();
   }
   backToWorld();
 }

@@ -249,7 +249,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .done { width: 100%; min-height: 48px; margin-top: 4px; border: 2px solid #4e2410; border-radius: 12px; background: var(--accent); color: var(--on-accent); font: 700 1rem/1 var(--display); cursor: pointer; box-shadow: inset 0 2px 0 #ffffff80, inset 0 -3px 0 #c8862466; }
   .done:active { translate: 0 2px; }
   dialog button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-  /* The Team and Zukan pages. */
+  /* The Team and Kanjimono Scroll pages. */
   #book { width: min(100% - 16px, 720px); max-height: calc(100dvh - 24px); padding: 0; overflow: hidden; }
   #book[open] { display: flex; flex-direction: column; }
   #book header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 10px; }
@@ -259,16 +259,30 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .portrait { aspect-ratio: auto; background: none; image-rendering: pixelated; }
   .member { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; padding: 12px; border-radius: 14px; background: var(--raised); }
   .member .portrait { width: 108px; height: 108px; border-radius: 12px; background: linear-gradient(#8ccdf7 62%, #82cc6c 62%); }
-  .about { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: start; min-width: 0; }
-  .about .name { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; width: 100%; margin: 0; }
-  .about .name b { font: 600 1.125rem/1.2 var(--display); }
-  .about .name i { font: 500 .9375rem/1.2 var(--display); font-style: normal; color: var(--muted); }
+  .info { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: start; min-width: 0; }
+  .info .name { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; width: 100%; margin: 0; }
+  .info .name b { font: 600 1.125rem/1.2 var(--display); }
+  .info .name i { font: 500 .9375rem/1.2 var(--display); font-style: normal; color: var(--muted); }
   .stat { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; align-items: center; gap: 8px; width: 100%; margin: 0; font: 500 .8125rem/1 var(--display); font-variant-numeric: tabular-nums; color: var(--muted); }
   .stat .track { height: 6px; background: var(--ground); }
   .stat .xp .fill { background: #4aa6ee; }
   .moves { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 2px 0; padding: 0; list-style: none; }
   .moves li { display: flex; align-items: baseline; gap: 6px; padding: 2px 8px; border-radius: 8px; background: var(--surface); font-size: .8125rem; color: var(--muted); }
   .moves b, .detail .word b { font: 700 .9375rem/1.3 var(--jp); color: var(--ink); }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .shelf { margin: 6px 0 0; font: 600 1rem/1.2 var(--display); }
+  .rest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+  .tile { display: grid; justify-items: center; gap: 2px; min-width: 0; padding: 6px 6px 8px; border: 2px solid transparent; border-radius: 12px; background: var(--raised); color: var(--ink); font: 600 .9375rem/1.2 var(--jp); cursor: pointer; }
+  .tile .portrait { width: 56px; height: 56px; border-radius: 8px; background: linear-gradient(#8ccdf7 62%, #82cc6c 62%); }
+  .tile small { font: 500 .75rem/1.2 var(--display); color: var(--muted); }
+  .tile .track { width: 100%; height: 4px; background: var(--ground); }
+  .tile.on { border-color: var(--accent); }
+  .tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .rested { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 12px; background: var(--raised); }
+  .rested .portrait { width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(#8ccdf7 62%, #82cc6c 62%); }
+  .rested .name { display: grid; gap: 2px; margin: 0; min-width: 0; font: 500 .8125rem/1.2 var(--display); color: var(--muted); }
+  .rested .name b { font: 600 1rem/1.2 var(--display); color: var(--ink); }
+  .back:disabled { opacity: .5; cursor: default; }
   .note { margin: 0; color: var(--muted); font-size: .9375rem; }
   .tally { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0; }
   .tally b { margin-right: 4px; font: 600 1rem/1.2 var(--display); }
