@@ -157,6 +157,8 @@ export const ICONS: Record<string, string[]> = {
   onsenegg: ['...ooo...', '..ommmo..', '.ommwmmo.', '.ommmmmo.', 'ooooooooo', 'onNNNNNno', '.ooooooo.'],
   dango: ['.ooo.ooo.ooo.', 'opppommmogggo', 'opwpommmogggo', 'opppommmogggo', 'opppommmogggo', 'opppommmogggo', '.ooo.ooo.ooo.'],
   miniplush: ['oo...oo', 'onooono', 'onnnnno', 'oknnnko', 'onntnno', '.ooooo.'],
+  poo: ['...sss...', '..s...s..', '....o....', '...oro...', '..orrro..', '.orkrkro.', 'orrrrrrro', 'ooooooooo'],
+  ailseykey: ['...sss...', '..s...s..', '..ooooo..', '.okkkkko.', 'okkttttko', 'oktkttkto', '.ottttto.', '.olllllo.', '..oLLLo..'],
   keychain: ['..sss..', '.s...s.', '..sss..', '...s...', '.ooooo.', 'orrrrro', 'orwrrro', 'orrrrro', '.ooooo.'],
   mikofig: ['..ooo..', '.okkko.', '.ottto.', '.ommmo.', 'ommmmmo', '.orrro.', '.orrro.', '.ooooo.'],
   aoifig: ['..ooo..', '.oBBBo.', '.ottto.', '.okkko.', 'okkkkko', '.okkko.', '.okkko.', '.ooooo.'],

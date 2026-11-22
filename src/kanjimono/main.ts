@@ -21,7 +21,7 @@ const sideEl = document.querySelector<HTMLElement>('.side')!;
 const choicesEl = document.getElementById('choices')!;
 const T = 16;
 
-interface Save { map: string; x: number; y: number; dir: string; party: Fighter[]; box: Fighter[]; seen: string[]; caught: string[]; charms: number; starter?: string; chapter: 'home' | 'dojo' | 'choose' | 'journey'; trials: LevelId[]; active: string[]; done: string[]; yen: number; bag: Record<string, number>; prizes: string[]; rest: { map: string; x: number; y: number } }
+interface Save { map: string; x: number; y: number; dir: string; party: Fighter[]; box: Fighter[]; seen: string[]; caught: string[]; charms: number; starter?: string; chapter: 'home' | 'dojo' | 'choose' | 'journey'; trials: LevelId[]; active: string[]; done: string[]; yen: number; bag: Record<string, number>; prizes: string[]; gifts?: string[]; rest: { map: string; x: number; y: number } }
 const KEY = 'kanjimon.save.v2';
 let dex = new Map<string, Species>();
 let all: Species[] = [];
@@ -69,6 +69,23 @@ try { haru = localStorage.getItem('kanjimon.look.v1') ?? 'hero'; } catch {}
 const GUESTS: Record<string, string> = { lukas: 'Lukas', ailsey: 'Ailsey' };
 const guest = Object.keys(GUESTS).find((id) => new URLSearchParams(location.search).has(id));
 if (guest) { haru = guest; kids = true; }
+
+// On Lukas's page, Ailsey is browsing the shelves of every 6-7 Kombini, with something new to say in each town.
+if (guest === 'lukas') {
+  const chat = ['village', 'kawabe', 'onsen', 'castle', 'minato', 'matsuri'].map((town, i) => [town, [
+    "Hi Lukas! It's getting hotter now in Sydney. I hope you're doing well in here.",
+    'My favourite snack is this poo shaped chocolate and this poo shaped chips. What do you like, Lukas?',
+    "My family is coming here soon! Let's all spend time together.",
+    'Hey, this spaghetti says it has wee flavour. Isn\'t it weird???',
+    "This rice's brand is Emi Sensei's Gohan. I heard really good things about it.",
+    "Want a joke? Knock knock... Who's there? It's Ailsey. Ailsey who? Ailsey you soonnn!",
+  ][i]] as const);
+  const gifts: Record<string, string> = { village: 'Poo keychain (brown)', kawabe: 'Poo keychain (gold)', onsen: 'Poo keychain (pink)', castle: 'Poo keychain (blue)', minato: 'Poo keychain (green)', matsuri: 'Ailsey keychain' };
+  for (const [town, line] of chat) {
+    // Once the story is finished she has a plan for the two of them.
+    MAPS[`shop-${town}`].npcs.push({ x: 9, y: 7, name: 'Ailsey', look: 'ailsey', lines: [line], gift: gifts[town], extra: () => (save.trials.length >= LEVELS.length ? ['Hey, we should go to Sydney together soon!'] : []) });
+  }
+}
 
 function spelled<T extends HTMLElement>(el: T, raw: string) {
   const text = guest ? raw.replaceAll('Haru', GUESTS[guest]) : raw;
@@ -355,6 +372,21 @@ async function blessing() {
   });
 }
 
+// Ailsey's present, once in each shop: some pocket money and a capsule with a keychain inside.
+async function giveGift(n: Npc) {
+  const given = (save.gifts ??= []);
+  if (!given.includes(save.map)) {
+    given.push(save.map);
+    await say(`${n.name}: Good luck on your adventure, oh and here you can use this!`);
+    save.yen += 250;
+    save.prizes.push(n.gift!);
+    sfx.caught();
+    store();
+    await say(`You received ¥250 and a gachapon capsule!\nThe capsule pops open. You got: ${n.gift}`);
+  }
+  for (const line of n.extra?.() ?? []) await say(`${n.name}: ${line}`);
+}
+
 async function talk() {
   const [dx, dy] = DIRS[save.dir];
   const [ax, ay] = [save.x + dx, save.y + dy];
@@ -370,6 +402,7 @@ async function talk() {
   facing = n;
   const busy = await questTalk(n);
   if (!busy) for (const line of n.guide ? [bearTip()] : n.mom ? momLines() : n.lines) await say(`${n.name}: ${line}`);
+  if (!busy && n.gift) await giveGift(n);
   if (n.shop) await konbini();
   if (n.charms) await charmShop(n.charms);
   if (n.heal && save.party.length) {

@@ -2,7 +2,7 @@ import { SIGNS, type LevelId } from './story.ts';
 
 export const SOLID = '~THRWtsPKwVcbonSCjexyihQplBkLvzgaMGEDNIJ';
 
-export interface Npc { x: number; y: number; name: string; look?: string; lines: string[]; heal?: boolean; shop?: boolean; charms?: string; master?: LevelId; guide?: boolean; mom?: boolean; after?: string }
+export interface Npc { x: number; y: number; name: string; look?: string; lines: string[]; heal?: boolean; shop?: boolean; charms?: string; master?: LevelId; guide?: boolean; mom?: boolean; after?: string; gift?: string; extra?: () => string[] }
 export interface Door { x: number; y: number; to: string; tx: number; ty: number; dir: string }
 export interface Gate { quest?: string; trial?: LevelId; line: string }
 export interface GameMap { name: string; levels?: [number, number]; rows: string[]; east?: string; west?: string; gate?: Gate; npcs: Npc[]; doors?: Door[]; room?: boolean; sky?: string; tune?: string }
