@@ -159,6 +159,8 @@ export const ICONS: Record<string, string[]> = {
   miniplush: ['oo...oo', 'onooono', 'onnnnno', 'oknnnko', 'onntnno', '.ooooo.'],
   poo: ['...sss...', '..s...s..', '....o....', '...oro...', '..orrro..', '.orkrkro.', 'orrrrrrro', 'ooooooooo'],
   ailseykey: ['...sss...', '..s...s..', '..ooooo..', '.okkkkko.', 'okkttttko', 'oktkttkto', '.ottttto.', '.olllllo.', '..oLLLo..'],
+  gachatop: ['....ooooooo....', '..ooccbbbbboo..', '.occbbbbbbbbBo.', '.ocbbbbbbbbbBo.', 'ocbbbbbbbbbbBBo', 'obbbbbbbbbbbBBo', 'obbbbbbbbbbbBBo', 'ooooooooooooooo'],
+  gachabot: ['ommmmmmmmmmmsso', 'ommmmmmmmmmmsso', 'ommmmmmmmmmmsso', '.ommmmmmmmmmso.', '.ommmmmmmmmmso.', '..oommmmmmmoo..', '....ooooooo....'],
   keychain: ['..sss..', '.s...s.', '..sss..', '...s...', '.ooooo.', 'orrrrro', 'orwrrro', 'orrrrro', '.ooooo.'],
   mikofig: ['..ooo..', '.okkko.', '.ottto.', '.ommmo.', 'ommmmmo', '.orrro.', '.orrro.', '.ooooo.'],
   aoifig: ['..ooo..', '.oBBBo.', '.ottto.', '.okkko.', 'okkkkko', '.okkko.', '.okkko.', '.ooooo.'],

@@ -372,6 +372,46 @@ async function blessing() {
   });
 }
 
+// A capsule wobbles, cracks open and the prize pops out, in its own little scene above the dialogue.
+async function gachapon(prize: string, text: string) {
+  const k = KEEPSAKES[prize] ?? { icon: 'capsule', jp: prize };
+  const box = document.createElement('div');
+  box.className = 'gacha';
+  box.dataset.stage = 'wobble';
+  const cap = document.createElement('div');
+  cap.className = 'cap';
+  const top = iconOf('gachatop'), bot = iconOf('gachabot');
+  top.className = 'half top';
+  bot.className = 'half bot';
+  cap.append(top, bot);
+  const toy = iconOf(k.icon, k.tint);
+  toy.className = 'toy';
+  const rays = Object.assign(document.createElement('i'), { className: 'rays' });
+  const stars = Array.from({ length: 10 }, (_, i) => {
+    const star = Object.assign(document.createElement('i'), { className: 'star', textContent: '✦' });
+    star.style.setProperty('--a', `${i * 36}deg`);
+    star.style.setProperty('--d', `${14 + (i % 3) * 4}cqw`);
+    return star;
+  });
+  const name = Object.assign(document.createElement('b'), { className: 'prize', textContent: prize });
+  box.append(rays, cap, toy, ...stars, name);
+  stageEl.append(box);
+  sfx.pick();
+  await pause(still ? 300 : 500);
+  if (!still) { sfx.pick(); await pause(450); sfx.pick(); await pause(450); }
+  box.dataset.stage = 'open';
+  sfx.caught();
+  flashScreen(0.45, '#fff4c0');
+  await pause(still ? 300 : 700);
+  box.dataset.stage = 'show';
+  sfx.level();
+  await pause(still ? 200 : 500);
+  await say(text);
+  box.classList.add('leaving');
+  await pause(still ? 50 : 260);
+  box.remove();
+}
+
 // Ailsey's present, once in each shop: some pocket money and a capsule with a keychain inside.
 async function giveGift(n: Npc) {
   const given = (save.gifts ??= []);
@@ -380,9 +420,9 @@ async function giveGift(n: Npc) {
     await say(`${n.name}: Good luck on your adventure, oh and here you can use this!`);
     save.yen += 250;
     save.prizes.push(n.gift!);
-    sfx.caught();
     store();
-    await say(`You received ¥250 and a gachapon capsule!\nThe capsule pops open. You got: ${n.gift}`);
+    await say('You received ¥250 and a gachapon capsule!');
+    await gachapon(n.gift!, `The capsule pops open. You got: ${n.gift}`);
   }
   for (const line of n.extra?.() ?? []) await say(`${n.name}: ${line}`);
 }
@@ -506,8 +546,7 @@ async function useItem(target?: Fighter) {
     save.bag[item.id]--;
     const prize = PRIZES[rand(PRIZES.length)], again = save.prizes.includes(prize);
     save.prizes.push(prize);
-    sfx.caught();
-    await say(`The capsule pops open!\nYou got: ${prize}${again ? ' (another one!)' : ''}`);
+    await gachapon(prize, `The capsule pops open!\nYou got: ${prize}${again ? ' (another one!)' : ''}`);
     store();
     return false;
   }

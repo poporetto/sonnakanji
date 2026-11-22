@@ -148,6 +148,33 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .card.danger .fill { animation: pulse .7s ease-in-out infinite alternate; }
   @keyframes rise { from { opacity: 0; translate: 0 8px; scale: .7; } 25% { opacity: 1; scale: 1.15; } 70% { opacity: 1; } to { opacity: 0; translate: 0 -28px; scale: 1; } }
   @keyframes slam { from { opacity: 0; transform: translate(-50%, -50%) scale(1.5); } 16% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 82% { opacity: 1; transform: translate(-50%, -50%) scale(1); } to { opacity: 0; transform: translate(-50%, -50%) scale(.96); } }
+  /* The capsule scene: it sits above the dialogue box, which stays in front. */
+  .gacha { --px: calc(100cqw / 240); position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding-bottom: 42%; background: radial-gradient(ellipse at 50% 30%, #0a0c2480 0, #0a0c24e6 90%); pointer-events: none; transition: opacity .25s; }
+  .gacha.leaving { opacity: 0; }
+  .gacha > * { grid-area: 1 / 1; }
+  .gacha .cap { display: grid; align-content: start; width: 21cqw; transform-origin: 50% 90%; }
+  .gacha[data-stage='wobble'] .cap { animation: wobble .45s ease-in-out 2; }
+  .gacha .top { aspect-ratio: 15 / 8; }
+  .gacha .bot { aspect-ratio: 15 / 7; }
+  .gacha .half { display: block; width: 100%; height: auto; align-self: start; image-rendering: pixelated; background: none; border-radius: 0; }
+  .gacha[data-stage='open'] .top, .gacha[data-stage='show'] .top { animation: lid .55s ease-in forwards; }
+  .gacha[data-stage='open'] .bot, .gacha[data-stage='show'] .bot { animation: shell .55s ease-in forwards; }
+  .gacha .toy { width: 18cqw; height: auto; background: none; border-radius: 0; image-rendering: pixelated; opacity: 0; scale: .2; filter: drop-shadow(0 calc(var(--px) * 2) 0 #0006); }
+  .gacha[data-stage='open'] .toy { animation: pop .6s cubic-bezier(.2, 1.6, .4, 1) forwards; }
+  .gacha[data-stage='show'] .toy { opacity: 1; scale: 1; animation: bob 1s ease-in-out infinite alternate; }
+  .gacha .rays { width: 60cqw; height: 60cqw; border-radius: 50%; opacity: 0; background: repeating-conic-gradient(#ffe58a99 0 8deg, #0000 8deg 24deg); mask: radial-gradient(#000 20%, #0000 68%); }
+  .gacha[data-stage='open'] .rays, .gacha[data-stage='show'] .rays { animation: rays 2.4s linear forwards; }
+  .gacha .star { color: #ffe58a; font-style: normal; font-size: 5cqw; opacity: 0; text-shadow: 0 0 6px #fff8; }
+  .gacha[data-stage='open'] .star { animation: spark .9s ease-out forwards; }
+  .gacha .prize { align-self: end; justify-self: center; margin-bottom: 3cqw; padding: 1cqw 3cqw; border-radius: 99px; background: #1f2044; border: 2px solid #ffe58a; color: #fff; font: 700 clamp(.75rem, 3.4cqw, 1rem)/1.2 var(--display); opacity: 0; translate: 0 8px; transition: opacity .3s, translate .3s; }
+  .gacha[data-stage='show'] .prize { opacity: 1; translate: 0 0; }
+  @keyframes wobble { 0%, 100% { rotate: 0deg; } 25% { rotate: -16deg; } 75% { rotate: 16deg; } }
+  @keyframes lid { to { translate: -9cqw -16cqw; rotate: -40deg; opacity: 0; } }
+  @keyframes shell { to { translate: 7cqw 9cqw; rotate: 22deg; opacity: 0; } }
+  @keyframes pop { 0% { opacity: 0; scale: .2; translate: 0 6cqw; } 60% { opacity: 1; scale: 1.25; translate: 0 -4cqw; } 100% { opacity: 1; scale: 1; translate: 0 0; } }
+  @keyframes bob { to { translate: 0 -1.5cqw; } }
+  @keyframes rays { 0% { opacity: 0; rotate: 0deg; scale: .4; } 25% { opacity: 1; } 100% { opacity: .55; rotate: 90deg; scale: 1; } }
+  @keyframes spark { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0) scale(.4); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(1.3); } }
   @keyframes pulse { to { opacity: .45; } }
 
   .panel { display: flex; flex-direction: column; }
@@ -163,7 +190,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .side { display: grid; gap: 12px; align-content: start; min-width: 0; }
   .panel { height: 216px; overflow-y: auto; overscroll-behavior: contain; padding: 16px; border-radius: 18px; background: var(--surface); }
   /* Outside battle, dialogue sits on the game screen. */
-  .stage > .panel { position: absolute; inset: auto 2.5cqw 2.5cqw; height: 108px; padding: 10px 28px 10px 14px; overflow: hidden; border: 2px solid var(--line); border-radius: 14px; box-shadow: 0 6px 16px -8px #05061a; }
+  .stage > .panel { position: absolute; z-index: 4; inset: auto 2.5cqw 2.5cqw; height: 108px; padding: 10px 28px 10px 14px; overflow: hidden; border: 2px solid var(--line); border-radius: 14px; box-shadow: 0 6px 16px -8px #05061a; }
   .stage > .panel .more { position: absolute; right: 10px; bottom: 10px; }
   .stage > .panel #text { margin: 0; }
   .stage > .panel #text span { font-size: .9375rem; line-height: 1.35; }
@@ -334,6 +361,8 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   }
   @media (prefers-reduced-motion: reduce) {
     .fill, .ghost, #choices button { transition: none; }
+    .gacha .cap, .gacha .rays, .gacha .star { display: none; }
+    .gacha[data-stage='open'] .toy { animation: none; opacity: 1; scale: 1; }
     .more { animation: none; }
     .pop, .callout { animation-name: fade; }
     .card.danger .fill { animation: none; }

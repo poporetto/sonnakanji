@@ -121,7 +121,7 @@ export const KEEPSAKES: Record<string, Keepsake> = {
   'Poo keychain (pink)': { icon: 'poo', jp: 'うんち', tint: '#ff8ab0', note: 'A pink poo. It smells of strawberries, which is somehow worse.' },
   'Poo keychain (blue)': { icon: 'poo', jp: 'うんち', tint: '#4aa6ee', note: 'A blue poo. Nobody can explain what flavour it is.' },
   'Poo keychain (green)': { icon: 'poo', jp: 'うんち', tint: '#74bf48', note: 'A green poo. It is trying its best to look healthy.' },
-  'Ailsey keychain': { icon: 'ailseykey', jp: 'アイルシー', note: 'A tiny Ailsey with a purple dress. It looks like it is about to tell you a joke.' },
+  'Ailsey keychain': { icon: 'ailseykey', jp: 'エルシー', note: 'A tiny Ailsey with a purple dress. It looks like it is about to tell you a joke.' },
   'Mini Kanji Bear plushie': { icon: 'miniplush', jp: 'ミニぬいぐるみ', note: 'Small enough for a pocket. It still looks disappointed in your handwriting.' },
   '火 keychain': { icon: 'keychain', jp: '火', tint: '#e0483e', note: 'Warm to the touch. Probably just your pocket.' },
   '水 keychain': { icon: 'keychain', jp: '水', tint: '#4aa6ee', note: 'It sloshes when you shake it. Nobody knows why.' },
