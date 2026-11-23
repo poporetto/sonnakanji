@@ -2774,12 +2774,12 @@
   },
   "巨": {
     "meaning": "huge",
-    "memory": "A huge angular frame has a tiny inner shelf.",
+    "memory": "A huge open frame has a little square bay on its upright.",
     "parts": [
       "open-sided frame (匚)",
-      "middle bar"
+      "attached middle bay"
     ],
-    "visual": "A thick, very large square frame open on the right wraps around one short inset rectangular bar. Boy stands tiny beside it to give scale. No scenery around the frame.",
+    "visual": "Build a tall upright on the left with long top and bottom beams extending right like an open-sided wooden frame. Halfway up, attach a short closed rectangular storage bay to that same left upright. The bay shares the upright as its left wall and has its own short top, right and bottom walls. Leave clear gaps above and below the bay. The boy stands tiny outside to give scale.",
     "reviewStatus": "reviewed"
   },
   "震": {
@@ -3509,7 +3509,7 @@
       "water (氵)",
       "paired wings over bird (翟)"
     ],
-    "visual": "Three drops descend along the left. On right two compact matching folded wings with marks sit above one upright bird with distinct horizontal plumage lines. Boy helps rinse the lowest feather in a little drop.",
+    "visual": "Three drops descend along the far left. On the upper right, two matching folded wings sit shoulder to shoulder in one horizontal row, with their tips aligned, a small gap between them and two marks in each wing. One smaller upright bird with four wing stripes is centered directly below the pair. Boy helps rinse the bird near the bottom.",
     "reviewStatus": "reviewed"
   },
   "塔": {
