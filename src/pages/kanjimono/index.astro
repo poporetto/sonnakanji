@@ -59,7 +59,7 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
         </div>
         <footer class="hint">
           <p><kbd>Arrows</kbd> walk <kbd>Space</kbd> talk <kbd>1-9</kbd> choose <kbd>Esc</kbd> back <kbd>X</kbd> menu <kbd>M</kbd> settings</p>
-          <div class="links"><button class="back" id="open-settings" type="button">Settings</button><a class="back" href="/">Back to SonnaKanji</a></div>
+          <div class="links"><button class="back" id="open-settings" type="button">Settings</button><a class="back" href="/"><span aria-hidden="true">←</span> Back to SonnaKanji</a></div>
         </footer>
       </div>
     </main>
@@ -334,9 +334,11 @@ const description = 'Kanjimono is a free pixel adventure in Japan. Choose a star
   .field input { width: 72px; font-variant-numeric: tabular-nums; }
   .tools { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 10px 0; }
   .tool { min-height: 38px; padding: 4px 8px; border: 0; border-radius: 8px; background: var(--raised); color: var(--ink); font: 500 .875rem/1.15 var(--display); cursor: pointer; }
-  .links { display: flex; gap: 6px; }
+  .links { display: flex; align-items: center; gap: 8px; }
   .back { padding: 3px 11px 4px; border: 0; cursor: pointer; border-radius: 8px; background: var(--raised); color: var(--ink); font: 600 .875rem/1.4 var(--display); text-decoration: none; box-shadow: inset 0 1px 0 #ffffff24, 0 2px 0 #0b0c20; transition: background-color .15s, translate .06s, box-shadow .06s; }
   .back:hover { background: var(--line); }
+  /* The way back to the site stands out a little from the other tools. */
+  a.back { padding: 5px 14px 6px; color: var(--accent); box-shadow: inset 0 0 0 1.5px #ffc85780, 0 2px 0 #0b0c20; }
   .back:active { translate: 0 2px; box-shadow: inset 0 1px 0 #0000002e; }
 
   @media (pointer: coarse) { .pad { display: grid; } .hint p { display: none; } }

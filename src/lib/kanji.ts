@@ -49,8 +49,8 @@ export const byLevel = (level: string) => allKanji.filter((k) => k.level === lev
 export const LEVELS = [
   { id: 'N5', slug: 'n5', beta: false, blurb: 'The first 79 kanji: numbers, days, people and everyday verbs.' },
   { id: 'N4', slug: 'n4', beta: false, blurb: 'The next 166 kanji: family, places, seasons and daily life.' },
-  { id: 'N3', slug: 'n3', beta: true, blurb: 'Kanji for everyday reading: news headlines, signs and simple articles.' },
-  { id: 'N2', slug: 'n2', beta: true, blurb: 'Kanji for work, newspapers and general adult reading.' },
+  { id: 'N3', slug: 'n3', beta: false, blurb: 'Kanji for everyday reading: news headlines, signs and simple articles.' },
+  { id: 'N2', slug: 'n2', beta: false, blurb: 'Kanji for work, newspapers and general adult reading.' },
   { id: 'N1', slug: 'n1', beta: true, blurb: 'The advanced set, for literature, editorials and specialist writing.' },
 ] as const;
 
