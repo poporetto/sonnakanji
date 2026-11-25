@@ -1,5 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
+import { artPath } from '../lib/kanji';
+
+const MENU = [
+  { title: 'Flashcards', modes: [
+    { value: 'meaning', name: 'Meaning', sub: 'See the kanji, recall its meaning' },
+    { value: 'reading', name: 'Reading', sub: 'See the kanji, recall how it is read' },
+    { value: 'recall', name: 'Recall', sub: 'See the meaning, picture the kanji' },
+  ] },
+  { title: 'Games', modes: [
+    { value: 'quiz', name: 'Quiz', sub: 'Choose the meaning from four' },
+    { value: 'picture', name: 'Picture quiz', sub: 'See a drawing, choose its kanji' },
+    { value: 'match', name: 'Pairs', sub: 'Match each drawing to its kanji' },
+  ] },
+];
 ---
 <Base
   title="Free JLPT kanji SRS review, N5 to N1 | SonnaKanji"
@@ -17,16 +31,32 @@ import Base from '../layouts/Base.astro';
         <div class="streak"><b id="s-streak">–</b><span>Day streak</span></div>
       </div>
       <form id="settings" class="settings">
+        <div class="menu">
+          {MENU.map((group) => (
+            <fieldset>
+              <legend>{group.title}</legend>
+              <div class="modes">
+                {group.modes.map((m) => (
+                  <label class={`mode mode-${m.value}`}>
+                    <input type="radio" name="mode" value={m.value} aria-describedby="mode-about" />
+                    <span class="scene" aria-hidden="true">
+                      {m.value === 'meaning' && <span class="card spin"><b class="side" lang="ja">山</b><span class="side rear"><img src={artPath('山')} alt="" width="64" height="64" /></span></span>}
+                      {m.value === 'reading' && <><img class="hero" src={artPath('犬')} alt="" width="86" height="86" /><i class="bubble" lang="ja">いぬ</i></>}
+                      {m.value === 'recall' && <><i class="word">fire</i><span class="card spin"><b class="side" lang="ja">？</b><b class="side rear" lang="ja">火</b></span></>}
+                      {m.value === 'quiz' && <><b class="glyph" lang="ja">木</b><span class="dots"><u>fish</u><u class="yes">tree</u><u>rain</u><u>dog</u></span></>}
+                      {m.value === 'picture' && <><img class="hero" src={artPath('魚')} alt="" width="86" height="86" /><b class="what" lang="ja">？</b></>}
+                      {m.value === 'match' && <><span class="card mini spin"><img class="side" src="/mascot/bear.webp" alt="" width="38" height="30" /><span class="side rear"><img src={artPath('鳥')} alt="" width="42" height="42" /></span></span><span class="card mini spin"><img class="side" src="/mascot/bear.webp" alt="" width="38" height="30" /><b class="side rear" lang="ja">鳥</b></span></>}
+                    </span>
+                    <span class="name">{m.name}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+          <p class="about" id="mode-about" data-about={JSON.stringify(Object.fromEntries(MENU.flatMap((g) => g.modes.map((m) => [m.value, m.sub]))))}></p>
+        </div>
         <label>Level
           <span class="select"><select name="level"><option value="all">All levels</option><option value="N5">N5</option><option value="N4">N4</option><option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1 (beta)</option></select></span>
-        </label>
-        <label>Test me on
-          <span class="select"><select name="mode">
-            <option value="meaning">Kanji → meaning</option>
-            <option value="reading">Kanji → reading</option>
-            <option value="recall">Meaning → kanji</option>
-            <option value="quiz">Quiz (multiple choice)</option>
-          </select></span>
         </label>
         <label>New cards per day
           <span class="select"><select name="newPerDay"><option>5</option><option>10</option><option>20</option><option>50</option></select></span>
@@ -39,16 +69,22 @@ import Base from '../layouts/Base.astro';
     <section id="session" hidden>
       <div class="progress"><span id="remaining"></span><button class="link" id="quit">End session</button></div>
       <div class="trail" id="trail" aria-hidden="true">
-        <img class="walker" src="/mascot/bear.webp" alt="" width="38" height="30" />
+        <span class="q-cheer" id="f-cheer" lang="ja" hidden></span>
+        <img class="walker" id="f-bear" src="/mascot/bear.webp" alt="" width="38" height="30" />
         <div class="trail-track"><i></i></div>
       </div>
-      <div class="flash" id="flash" tabindex="0" role="button" aria-label="Show answer">
-        <span class="swipe-tag again" id="tag-again">Again</span>
-        <span class="swipe-tag good" id="tag-good">Good</span>
-        <div id="front"></div>
-        <div id="back" aria-live="polite" hidden></div>
+      <div class="deck" id="deck">
+        <div class="flip" id="flip">
+          <div class="flash" id="flash" tabindex="0" role="button" aria-label="Show answer">
+            <span class="swipe-tag again" id="tag-again">Again</span>
+            <span class="swipe-tag good" id="tag-good">Good</span>
+            <div id="front"></div>
+            <div id="back" aria-live="polite" hidden></div>
+          </div>
+        </div>
       </div>
       <p class="hint muted" id="hint"></p>
+      <button class="btn peek" id="peek" type="button">Peek at the drawing</button>
       <div class="grades" id="grades" hidden></div>
     </section>
 
@@ -72,6 +108,30 @@ import Base from '../layouts/Base.astro';
       <button class="btn primary q-next" id="q-next" hidden>Next</button>
     </section>
 
+    <section id="match" hidden>
+      <div class="progress"><span id="m-count"></span><button class="link" id="m-quit">End game</button></div>
+      <div id="m-intro">
+        <h2>Meet the kanji</h2>
+        <p class="muted">Each drawing follows its kanji's shape. Take a look, then find the pairs.</p>
+        <ul class="m-list" id="m-list"></ul>
+        <button class="btn primary q-next" id="m-ready">I'm ready!</button>
+      </div>
+      <div id="m-play" hidden>
+        <div class="q-hud">
+          <span class="q-points"><b id="m-score">0</b> points</span>
+          <span class="q-combo" id="m-combo"></span>
+        </div>
+        <div class="trail" id="m-trail" aria-hidden="true">
+          <span class="q-cheer" id="m-cheer" lang="ja" hidden></span>
+          <img class="walker" id="m-bear" src="/mascot/bear.webp" alt="" width="38" height="30" />
+          <div class="trail-track"><i></i></div>
+        </div>
+        <div class="m-board" id="m-board"></div>
+        <p class="m-note" id="m-note"></p>
+      </div>
+      <p class="sr-only" id="m-status" role="status"></p>
+    </section>
+
     <section id="done" hidden>
       <div id="confetti" aria-hidden="true"></div>
       <div class="award">
@@ -81,7 +141,7 @@ import Base from '../layouts/Base.astro';
       <h2 id="done-title">Nice work!</h2>
       <p id="done-msg"></p>
       <div class="q-result" id="q-result" hidden>
-        <div><b id="r-right"></b><span>First try</span></div>
+        <div><b id="r-right"></b><span id="r-label"></span></div>
         <div><b id="r-score"></b><span id="r-best"></span></div>
         <div><b id="r-combo"></b><span>Best combo</span></div>
       </div>
@@ -107,18 +167,85 @@ import Base from '../layouts/Base.astro';
   .stats .streak span { color: var(--on-tint); }
   .settings { display: grid; gap: 10px; margin-bottom: 16px; }
   .settings label { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 800; font-size: 15px; }
+  .menu { display: grid; gap: 14px; margin-bottom: 6px; }
+  .menu fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+  .menu legend { padding: 0; margin-bottom: 8px; font-weight: 800; font-size: 15px; }
+  .modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .settings .mode {
+    position: relative; display: grid; grid-template-rows: 1fr auto; gap: 6px; justify-content: stretch; text-align: center; padding: 8px 4px 11px; border-radius: 22px; overflow-wrap: anywhere;
+    background: radial-gradient(circle at 50% 34%, #ffffffb8, #fff0 68%) var(--t0); color: var(--on-tint); cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 6px 0 color-mix(in srgb, var(--tint, var(--t0)) 78%, #4a3868); margin-bottom: 6px; transition: transform .14s cubic-bezier(.2, .8, .2, 1), box-shadow .14s; --tint: var(--t0); background-color: var(--tint);
+  }
+  .settings .mode-reading { --tint: var(--t1); }
+  .settings .mode-recall { --tint: var(--t2); }
+  .settings .mode-quiz { --tint: var(--t3); }
+  .settings .mode-picture { --tint: var(--t4); }
+  .settings .mode-match { --tint: var(--t0); }
+  .mode input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .mode .name { font: 600 16px/1.2 var(--display); }
+  .mode .scene { position: relative; display: flex; align-items: center; justify-content: center; gap: 5px; height: 92px; }
+  .mode .hero { display: block; transform-origin: 50% 90%; }
+  .mode .glyph { font: 700 42px/1 var(--jp); }
+  .mode .scene i { border-radius: 11px; background: #fff; font: 700 14px/1.2 var(--body); box-shadow: 0 2px 0 #0000001a; }
+  .mode .bubble { position: absolute; top: 0; left: 2px; padding: 4px 8px; transform-origin: 80% 110%; }
+  .mode .bubble::after { content: ""; position: absolute; right: 10px; bottom: -5px; border: 5px solid transparent; border-width: 6px 6px 0 0; border-top-color: #fff; }
+  .mode .scene .word { padding: 5px 8px; }
+  .mode .card { position: relative; width: 70px; height: 80px; transform-style: preserve-3d; flex: none; }
+  .mode .word + .card { width: 50px; height: 66px; }
+  .mode .card .side { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 2px #00000014; backface-visibility: hidden; -webkit-backface-visibility: hidden; font: 700 40px/1 var(--jp); }
+  .mode .card img.side { width: 100%; height: 100%; object-fit: contain; padding: 6px; background: #fff; }
+  .mode .card .rear { transform: rotateY(180deg); }
+  .mode .card.mini { width: 46px; height: 60px; rotate: -5deg; }
+  .mode .card.mini + .mini { rotate: 5deg; }
+  .mode .card.mini .side { font-size: 30px; border-radius: 11px; }
+  .mode .dots { display: grid; gap: 3px; width: 44px; }
+  .mode .dots u { padding: 2px 0; border-radius: 7px; background: #fff; text-decoration: none; font: 700 12px/1.25 var(--body); }
+  .mode .dots .yes { background: var(--t2); box-shadow: 0 0 0 2px #2f9467; }
+  .mode .what { position: absolute; top: -2px; left: 4px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #7f55d6; color: #fff; font: 800 18px/1 var(--jp); }
+  /* Each tile acts out its game, one after another, so the menu never fidgets all at once. */
+  @media (prefers-reduced-motion: no-preference) {
+    .mode .spin { animation: spin 9s cubic-bezier(.4, 0, .2, 1) var(--wait, 0s) infinite; }
+    .mode-recall { --wait: 3s; }
+    .mode-match { --wait: 7.5s; }
+    .mode .mini + .mini { animation-delay: calc(var(--wait) + .35s); }
+    .mode .bubble { animation: speak 9s cubic-bezier(.2, 1.3, .4, 1) 1.5s infinite; }
+    .mode-reading .hero { animation: jig 9s ease-in-out 1.5s infinite; }
+    .mode .yes { animation: tick 9s cubic-bezier(.2, 1.3, .4, 1) 4.5s infinite; }
+    .mode-picture .hero { animation: jig 9s ease-in-out 6s infinite; }
+    .mode .what { animation: speak 9s cubic-bezier(.2, 1.3, .4, 1) 6s infinite; }
+  }
+  .mode:has(:checked) { transform: translateY(4px); box-shadow: 0 2px 0 color-mix(in srgb, var(--tint) 78%, #4a3868), 0 0 0 4px var(--accent); }
+  .mode:has(:checked)::after { content: "✓"; position: absolute; top: -10px; right: -7px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font: 800 15px/1 var(--body); animation: pop .3s cubic-bezier(.16, 1, .3, 1); pointer-events: none; }
+  .mode:has(:checked) .scene { animation: cheer .6s cubic-bezier(.2, .8, .2, 1); }
+  @keyframes spin { 0%, 3% { transform: rotateY(0); } 10%, 24% { transform: rotateY(180deg); } 31%, 100% { transform: rotateY(360deg); } }
+  @keyframes speak { 0%, 12%, 100% { transform: none; } 2% { transform: scale(.4); } 6% { transform: scale(1.18) rotate(-5deg); } }
+  @keyframes jig { 0%, 14%, 100% { transform: none; } 3% { transform: scaleY(.9); } 6% { transform: translateY(-7px) rotate(-5deg); } 9% { transform: rotate(5deg); } }
+  @keyframes tick { 0%, 14%, 100% { transform: none; } 4% { transform: scale(.85); } 8% { transform: scale(1.18); } }
+  @keyframes cheer { 35% { transform: scale(1.12) rotate(-4deg); } 65% { transform: scale(.97) rotate(3deg); } }
+  .mode:has(:focus-visible) { outline: 3px solid var(--p1); outline-offset: 7px; }
+  @media (hover: hover) {
+    .mode:hover:not(:has(:checked)) { transform: translateY(-4px); box-shadow: 0 10px 0 color-mix(in srgb, var(--tint) 78%, #4a3868); }
+    .mode:hover .hero, .mode:hover .glyph { scale: 1.08; }
+  }
+  .settings .mode:active { transform: translateY(6px); box-shadow: 0 0 0 color-mix(in srgb, var(--tint) 78%, #4a3868); }
+  @media (max-width: 359px) {
+    .modes { gap: 8px; }
+    .mode .name { white-space: nowrap; }
+    .mode .name { font-size: 14px; }
+    .mode .scene { gap: 4px; zoom: .8; height: 92px; }
+  }
+  .about { margin: 0; min-height: 22px; text-align: center; font-size: 15px; font-weight: 700; color: var(--muted); }
   .select { position: relative; display: block; min-width: 0; }
   .select::after {
     content: ""; position: absolute; top: 50%; right: 14px; width: 12px; height: 12px; margin-top: -6px; background: var(--muted); pointer-events: none; transform: rotate(90deg);
     -webkit-mask: var(--chevron) center / contain no-repeat; mask: var(--chevron) center / contain no-repeat;
   }
   .settings select { appearance: none; -webkit-appearance: none; min-height: 44px; max-width: 100%; font: 700 16px var(--body); padding: 8px 34px 8px 14px; border-radius: 14px; border: 0; background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); cursor: pointer; }
-  .start { width: 100%; padding: 14px; font-size: 18px; }
+  .start { width: 100%; padding: 14px; font-size: 18px; position: sticky; bottom: 14px; z-index: 5; }
   .start:disabled { background: var(--wash); color: var(--muted); cursor: default; box-shadow: none; transform: none; }
   .backup { margin-top: 18px; font-size: 15px; font-weight: 700; color: var(--muted); }
   .backup a { display: inline-block; padding-block: 11px; }
   .progress { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-  #trail { margin-block: 36px 14px; }
   .link { background: none; border: 0; color: inherit; text-decoration: underline; text-underline-offset: 3px; font: inherit; cursor: pointer; padding: 10px 0; margin-block: -10px; }
   .flash {
     position: relative; background: var(--surface); border-radius: var(--radius); box-shadow: 0 0 0 1px var(--line);
@@ -140,7 +267,36 @@ import Base from '../layouts/Base.astro';
   .swipe-tag { position: absolute; top: 12px; z-index: 2; font: 800 14px var(--body); padding: 3px 10px; border-radius: 10px; opacity: 0; color: var(--on-tint); }
   .swipe-tag.again { right: 12px; background: var(--t0); }
   .swipe-tag.good { left: 12px; background: var(--t2); }
-  .hint { text-align: center; font-size: 13px; font-weight: 700; min-height: 20px; margin: 14px 0 10px; }
+  .flash { cursor: grab; }
+  .flash:not(.revealed) { cursor: pointer; }
+  .deck { position: relative; perspective: 1100px; }
+  .deck::before, .deck::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); background: color-mix(in srgb, var(--t3) 50%, var(--surface)); box-shadow: 0 0 0 1px var(--line); transition: transform .3s cubic-bezier(.16, 1, .3, 1); }
+  .deck::before { transform: translateY(9px) rotate(1.6deg); }
+  .deck::after { transform: translateY(7px) rotate(-1.4deg); background: color-mix(in srgb, var(--t4) 50%, var(--surface)); }
+  .deck[data-left="1"]::before, .deck[data-left="1"]::after, .deck[data-left="2"]::before { transform: none; }
+  .flip { position: relative; z-index: 1; }
+  .flip.turn { animation: turn .5s cubic-bezier(.2, 1.3, .4, 1); }
+  .flip.dealt { animation: dealt .35s cubic-bezier(.16, 1, .3, 1); }
+  .flash.revealed #back > * { animation: rise .35s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(.12s + var(--i, 0) * 60ms); }
+  .flash .pic button { padding: 0; border: 0; background: none; border-radius: 18px; cursor: pointer; }
+  .flash .pic button img { display: block; }
+  .flash .pic img.wiggle { animation: matched .6s cubic-bezier(.2, .8, .2, 1); }
+  .flash .peeked { display: block; width: 150px; height: 150px; margin: 14px auto 0; border-radius: 18px; background: var(--t1); animation: peek .5s cubic-bezier(.16, 1, .3, 1); }
+  .peek { display: block; margin: 0 auto; }
+  .peek[hidden] { display: none; }
+  .grades button { animation: pop .3s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(var(--i) * 45ms); }
+  .fly { position: fixed; z-index: 20; margin: 0; pointer-events: none; animation: fly .45s cubic-bezier(.4, 0, .9, .6) forwards; }
+  .fly .swipe-tag { opacity: 0; }
+  @keyframes turn { from { transform: rotateY(-90deg) scale(.94); } }
+  @keyframes dealt { from { transform: translateY(14px) scale(.94); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+  @keyframes peek { from { opacity: 0; transform: scale(.7) rotate(-6deg); filter: blur(8px); } }
+  @keyframes fly { to { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); } }
+  .stats div { animation: pop .35s cubic-bezier(.16, 1, .3, 1) backwards; }
+  .stats div:nth-child(2) { animation-delay: 50ms; }
+  .stats div:nth-child(3) { animation-delay: 100ms; }
+  .stats div:nth-child(4) { animation-delay: 150ms; }
+  .hint { text-align: center; font-size: 13px; font-weight: 700; min-height: 20px; margin: 24px 0 10px; }
   .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .grades button { min-height: 56px; padding: 8px 2px; display: grid; gap: 1px; justify-items: center; touch-action: manipulation; color: var(--on-tint); min-width: 0; }
   .grades button:nth-child(1) { background: var(--t0); }
@@ -154,13 +310,13 @@ import Base from '../layouts/Base.astro';
   .q-combo { padding: 4px 14px; border-radius: 999px; background: var(--t1); color: var(--on-tint); font-weight: 800; }
   .q-combo:empty { visibility: hidden; }
   .q-combo.bump { animation: bump .35s cubic-bezier(.2, .8, .2, 1); }
-  #q-trail { margin-block: 60px 14px; }
+  #trail, #q-trail, #m-trail { margin-block: 60px 14px; }
   .q-cheer {
     position: absolute; bottom: 44px; left: clamp(0px, calc(var(--done, 0%) - 48px), calc(100% - 130px)); width: 130px; text-align: center; pointer-events: none;
     font: 800 17px/1.2 var(--jp); color: var(--ink);
   }
   .q-cheer.say { animation: say .4s cubic-bezier(.16, 1, .3, 1); }
-  #q-bear.hop { animation: hop .6s cubic-bezier(.3, .6, .4, 1); }
+  #f-bear.hop, #q-bear.hop, #m-bear.hop { animation: hop .6s cubic-bezier(.3, .6, .4, 1); }
   .q-card { min-height: 244px; cursor: default; overflow: hidden; }
   .q-card:focus { outline: none; }
   .q-card.hit { animation: bump .35s cubic-bezier(.2, .8, .2, 1); cursor: pointer; }
@@ -190,6 +346,47 @@ import Base from '../layouts/Base.astro';
   .q-choice.faded { opacity: .4; }
   .q-next { width: 100%; margin-top: 14px; padding: 14px; font-size: 18px; scroll-margin-bottom: 16px; }
   @media (hover: hover) { .q-choice:not([aria-disabled]):hover { transform: translateY(-2px); } }
+  .q-portrait { display: block; width: 180px; height: 180px; margin: 0 auto; background: var(--t1); border-radius: 22px; }
+  .q-kanji { font: 700 36px/1.1 var(--jp); }
+  #m-intro h2 { font-size: 34px; margin: 14px 0 4px; }
+  #m-intro p { margin: 0; }
+  .m-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .m-meet { min-width: 0; padding: 6px 4px 10px; border-radius: 20px; text-align: center; color: var(--on-tint); overflow-wrap: anywhere; animation: pop .35s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(var(--i) * 70ms); }
+  .m-meet img { display: block; width: 100%; aspect-ratio: 1; }
+  .m-meet b { display: block; font: 700 32px/1.15 var(--jp); }
+  .m-meet small { display: block; font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .m-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .m-tile {
+    position: relative; min-width: 0; aspect-ratio: 1; padding: 0; border: 0; border-radius: 20px; background: none; color: var(--ink); cursor: pointer; perspective: 700px;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent; animation: deal .45s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(var(--i) * 45ms);
+  }
+  .m-inner { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .42s cubic-bezier(.3, 1.35, .5, 1); }
+  .m-tile.up .m-inner { transform: rotateY(180deg); }
+  .m-face { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 20px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .m-back { background: var(--back); box-shadow: inset 0 0 0 5px #ffffff80; }
+  .m-back img { width: 56%; height: auto; opacity: .85; }
+  .m-front { transform: rotateY(180deg); align-content: center; background: var(--surface); box-shadow: inset 0 0 0 2px var(--line); }
+  .m-front img { width: 80%; aspect-ratio: 1; background: var(--t1); border-radius: 14px; }
+  .m-front small { width: 100%; padding-inline: 6px; font: 700 12px/1.3 var(--body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .m-kanji { font: 700 clamp(48px, 15vw, 72px)/1 var(--jp); }
+  .m-tile.matched { cursor: default; animation: matched .6s cubic-bezier(.2, .8, .2, 1) .25s; }
+  .m-tile.matched .m-front { box-shadow: inset 0 0 0 4px var(--p2); background: var(--t2); color: var(--on-tint); transition: background .3s .25s; }
+  .m-tile.miss { animation: shake .4s .35s; }
+  .m-tile.miss .m-front { box-shadow: inset 0 0 0 4px var(--p0); }
+  .m-board.wave .m-tile { animation: wave .6s cubic-bezier(.3, .6, .4, 1) calc(var(--i) * 70ms); }
+  @media (hover: hover) { .m-tile:not(.up):hover .m-inner { transform: translateY(-4px) rotate(-2deg); } }
+  .m-note { min-height: 72px; margin: 14px 0 0; padding: 10px 14px; border-radius: 16px; background: var(--wash); font-weight: 500; line-height: 1.4; }
+  .m-note b { font-size: 20px; }
+  .m-note.say { animation: say .4s cubic-bezier(.16, 1, .3, 1); }
+  .fx-burst, .fx-float { position: fixed; z-index: 40; width: 0; height: 0; pointer-events: none; }
+  .fx-burst i { position: absolute; width: 10px; height: 10px; margin: -5px; border-radius: 3px; animation: burst .95s cubic-bezier(.1, .8, .3, 1) forwards; }
+  .fx-burst .fx-star { width: 24px; height: 24px; margin: -12px; -webkit-mask: var(--star-mask) center / contain no-repeat; mask: var(--star-mask) center / contain no-repeat; }
+  .fx-float b { position: absolute; left: 0; top: 0; padding: 2px 12px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font: 700 18px/1.4 var(--display); white-space: nowrap; animation: float 1s cubic-bezier(.16, 1, .3, 1) forwards; }
+  @keyframes deal { from { opacity: 0; transform: translateY(60px) rotate(14deg) scale(.6); } }
+  @keyframes matched { 35% { transform: scale(1.1) rotate(-3deg); } 65% { transform: scale(.97) rotate(2deg); } }
+  @keyframes wave { 40% { transform: translateY(-20px) rotate(4deg); } 75% { transform: translateY(4px); } }
+  @keyframes burst { 65% { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(160deg); } to { opacity: 0; transform: translate(var(--dx), calc(var(--dy) + 26px)) rotate(220deg) scale(.4); } }
+  @keyframes float { from { opacity: 0; transform: translate(-50%, -20%) scale(.6); } 25% { opacity: 1; } 70% { opacity: 1; } to { opacity: 0; transform: translate(-50%, -64px); } }
   .q-result { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 370px; margin: 16px auto; }
   .q-result div { padding: 10px 4px; border-radius: 16px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); }
   .q-result b { display: block; font: 600 28px/1.2 var(--display); font-variant-numeric: tabular-nums; }
@@ -233,11 +430,21 @@ import Base from '../layouts/Base.astro';
     introducedToday, touchStreak, type Mode, type Store,
   } from '../lib/srs';
   import { buildRound, rank, ROUND, shuffle } from '../lib/quiz';
-  import { startQuiz, type QuizResult } from '../lib/quiz-game';
+  import { startQuiz } from '../lib/quiz-game';
+  import { matchRank, PAIRS, pickPairs } from '../lib/match';
+  import { startMatch } from '../lib/match-game';
+  import { burst, calm, CHEERS, el, floatText, pick, replay } from '../lib/game-fx';
   import { attachSwipe } from '../lib/swipe';
   import { Rating, type Grade } from 'ts-fsrs';
 
   interface C { k: string; l: string; m: string[]; on: string[]; kun: string[]; n: string; a: string; u: string }
+
+  // What any game hands to the finish screen.
+  interface GameResult {
+    score: number; bestCombo: number; bestKey: 'quizBest' | 'pictureBest' | 'matchBest';
+    stat: string; statLabel: string; perfect: boolean;
+    stamp: { title: string; stamp: string[]; label: string } | null;
+  }
 
   const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
   const form = $<HTMLFormElement>('settings');
@@ -257,7 +464,7 @@ import Base from '../layouts/Base.astro';
   let revealed = false;
 
   const show = (name: 'setup' | 'session' | 'done') => {
-    for (const s of ['setup', 'session', 'quiz', 'done']) $(s).hidden = s !== name;
+    for (const s of ['setup', 'session', 'quiz', 'match', 'done']) $(s).hidden = s !== name;
   };
   const inLevel = () => cards.filter((c) => store.settings.level === 'all' || c.l === store.settings.level).map((c) => c.k);
 
@@ -265,6 +472,7 @@ import Base from '../layouts/Base.astro';
     const now = new Date();
     const list = inLevel();
     const s = store.settings;
+    $('mode-about').textContent = JSON.parse($('mode-about').dataset.about!)[s.mode];
     const { due, fresh, learned } = summarize(store, list, s.mode, now);
     const room = Math.max(s.newPerDay - introducedToday(store, s.mode, now), 0);
     const newToday = Math.min(fresh, room);
@@ -272,10 +480,17 @@ import Base from '../layouts/Base.astro';
     $('s-new').textContent = String(newToday);
     $('s-learned').textContent = String(learned);
     $('s-streak').textContent = String(currentStreak(store, now));
-    if (s.mode === 'quiz') {
+    if (s.mode === 'quiz' || s.mode === 'picture') {
       // A quiz can always be played; kanji that aren't due are just for practice.
       start.disabled = false;
       start.textContent = `Start quiz, ${ROUND} questions`;
+      return;
+    }
+    if (s.mode === 'match') {
+      start.disabled = false;
+      start.textContent = `Start matching, ${PAIRS} pairs`;
+      // Matching has no schedule of its own.
+      for (const id of ['s-due', 's-new', 's-learned']) $(id).textContent = '–';
       return;
     }
     start.disabled = due + newToday === 0;
@@ -299,16 +514,44 @@ import Base from '../layouts/Base.astro';
   function writeForm() {
     const s = store.settings;
     (form.elements.namedItem('level') as HTMLSelectElement).value = s.level;
-    (form.elements.namedItem('mode') as HTMLSelectElement).value = s.mode;
+    (form.elements.namedItem('mode') as RadioNodeList).value = s.mode;
     (form.elements.namedItem('newPerDay') as HTMLSelectElement).value = String(s.newPerDay);
   }
 
-  function el(tag: string, cls: string, text?: string, lang?: string) {
-    const n = document.createElement(tag);
-    n.className = cls;
-    if (text !== undefined) n.textContent = text;
-    if (lang) n.lang = lang;
-    return n;
+  // A copy of the graded card flies off, so the next card is ready straight away.
+  const EXITS: Record<number, [string, string, string]> = {
+    [Rating.Again]: ['-110vw', '40px', '-14deg'],
+    [Rating.Hard]: ['30vw', '90vh', '10deg'],
+    [Rating.Good]: ['110vw', '40px', '14deg'],
+    [Rating.Easy]: ['20vw', '-110vh', '8deg'],
+  };
+  function flyOff(rating: Grade) {
+    if (calm()) return;
+    const box = flash.getBoundingClientRect();
+    const ghost = flash.cloneNode(true) as HTMLElement;
+    ghost.removeAttribute('id');
+    ghost.querySelectorAll('[id]').forEach((n) => n.removeAttribute('id'));
+    ghost.inert = true;
+    ghost.setAttribute('aria-hidden', 'true');
+    ghost.classList.add('fly');
+    ghost.style.cssText = `left:${box.left}px;top:${box.top}px;width:${box.width}px;height:${box.height}px`;
+    const [x, y, r] = EXITS[rating];
+    ghost.style.setProperty('--x', x);
+    ghost.style.setProperty('--y', y);
+    ghost.style.setProperty('--r', r);
+    document.body.append(ghost);
+    setTimeout(() => ghost.remove(), 460);
+  }
+
+  // Every grade gets the same fuss, so there's no reason to grade kindly.
+  function react(rating: Grade, wait: string) {
+    const again = rating === Rating.Again;
+    const cheer = $('f-cheer');
+    cheer.textContent = again ? 'ドンマイ！' : pick(CHEERS)[0];
+    cheer.hidden = false;
+    replay(cheer, 'say');
+    replay($('f-bear'), 'hop');
+    floatText($('hint'), again ? `Back in ${wait}` : `See you in ${wait}`);
   }
 
   function renderCard() {
@@ -331,6 +574,11 @@ import Base from '../layouts/Base.astro';
     flash.style.transition = 'none';
     flash.style.transform = '';
     flash.style.opacity = '';
+    for (const id of ['tag-again', 'tag-good']) $(id).style.opacity = '';
+    $('deck').dataset.left = String(Math.min(queue.length, 3));
+    $('peek').hidden = false;
+    $('flip').classList.remove('turn');
+    replay($('flip'), 'dealt');
 
     if (mode === 'recall') {
       front.append(el('div', 'prompt', c.m.slice(0, 3).join(', ')), el('div', 'ask', 'What is the kanji? Picture it, then reveal.'));
@@ -342,7 +590,15 @@ import Base from '../layouts/Base.astro';
     const art = document.createElement('img');
     art.src = c.a;
     art.alt = `Drawing for ${c.k}`;
-    pic.append(art);
+    const poke = el('button', '') as HTMLButtonElement;
+    poke.type = 'button';
+    poke.setAttribute('aria-label', 'Wiggle the drawing');
+    poke.append(art);
+    poke.addEventListener('click', () => {
+      replay(art, 'wiggle');
+      burst(art, 10);
+    });
+    pic.append(poke);
     pic.append(el('div', 'big', c.k, 'ja'));
     back.append(pic, el('div', 'answer', c.m.join(', ')));
     if (c.on.length) {
@@ -360,6 +616,18 @@ import Base from '../layouts/Base.astro';
     link.href = c.u;
     link.target = '_blank';
     back.append(link);
+    [...back.children].forEach((n, i) => (n as HTMLElement).style.setProperty('--i', String(i)));
+  }
+
+  // A hint before the answer: the drawing without its meaning.
+  function peek() {
+    if (revealed || !queue.length || $('peek').hidden) return;
+    const art = el('img', 'peeked') as HTMLImageElement;
+    art.src = byKanji.get(queue[0])!.a;
+    art.alt = 'Hint: the drawing for this kanji';
+    $('front').append(art);
+    $('peek').hidden = true;
+    flash.focus({ preventScroll: true });
   }
 
   function reveal() {
@@ -369,14 +637,18 @@ import Base from '../layouts/Base.astro';
     $('front').hidden = true;
     $('back').hidden = false;
     flash.classList.add('revealed');
+    $('peek').hidden = true;
+    $('flip').classList.remove('dealt');
+    replay($('flip'), 'turn');
     flash.removeAttribute('role');
     flash.removeAttribute('tabindex');
     flash.removeAttribute('aria-label');
-    $('hint').textContent = 'Swipe left for Again, right for Good, or press 1 to 4';
+    $('hint').textContent = 'Swipe or drag left for Again, right for Good, or press 1 to 4';
     const now = new Date();
     const times = preview(store, c, mode, now);
-    const row = GRADES.map(({ rating, label, key }) => {
+    const row = GRADES.map(({ rating, label, key }, i) => {
       const b = el('button', 'btn') as HTMLButtonElement;
+      b.style.setProperty('--i', String(i));
       b.type = 'button';
       b.append(label, el('small', '', formatInterval(times[rating], now)));
       b.title = `Shortcut: ${key}`;
@@ -387,21 +659,24 @@ import Base from '../layouts/Base.astro';
     $('grades').hidden = false;
   }
 
-  function rate(rating: Grade) {
+  function rate(rating: Grade, swiped = false) {
     if (!revealed) return;
     const now = new Date();
     const c = queue.shift()!;
     practised.add(c);
     const due = grade(store, c, mode, rating, now);
+    // A swiped card has already left.
+    if (!swiped) flyOff(rating);
     saveStore(store);
     reviewed++;
     // Cards due again within the sitting come back at the end of the queue.
     if (+due - +now < 20 * 60000) queue.push(c);
-    if (queue.length) renderCard();
-    else finish();
+    if (!queue.length) return finish();
+    renderCard();
+    react(rating, formatInterval(due, now));
   }
 
-  function finish(quiz?: QuizResult) {
+  function finish(game?: GameResult) {
     const now = new Date();
     const all = cards.map((c) => c.k);
     const count = practised.size;
@@ -411,26 +686,26 @@ import Base from '../layouts/Base.astro';
     $('stamp').hidden = !reviewed;
     $('done-title').textContent = reviewed ? 'Nice work!' : 'See you next time';
 
-    const stamp = quiz?.answered.length ? rank(quiz.right, quiz.answered.length, quiz.answered.length < ROUND) : null;
+    const stamp = game?.stamp;
     const lines = stamp?.stamp ?? ['よくでき', 'ました'];
     $('stamp').firstElementChild!.replaceChildren(...lines.flatMap((t, i) => (i ? [document.createElement('br'), t] : [t])));
     $('stamp').setAttribute('aria-label', stamp?.label ?? 'Stamp: well done');
-    // A round ended early isn't a perfect one, however well it was going.
     if (stamp) $('done-title').textContent = stamp.title;
     $('done-msg').hidden = !!stamp;
     $('q-result').hidden = !stamp;
     $('replay').hidden = !stamp;
-    if (quiz && stamp) {
-      const record = quiz.score > store.quizBest;
+    if (game && stamp) {
+      const record = game.score > store[game.bestKey];
       if (record) {
-        store.quizBest = quiz.score;
+        store[game.bestKey] = game.score;
         saveStore(store);
       }
-      $('r-right').textContent = `${quiz.right}/${quiz.answered.length}`;
-      $('r-score').textContent = String(quiz.score);
-      $('r-best').textContent = record ? 'New best!' : `Best ${store.quizBest}`;
+      $('r-right').textContent = game.stat;
+      $('r-label').textContent = game.statLabel;
+      $('r-score').textContent = String(game.score);
+      $('r-best').textContent = record ? 'New best!' : `Best ${store[game.bestKey]}`;
       $('r-best').parentElement!.classList.toggle('record', record);
-      $('r-combo').textContent = String(quiz.bestCombo);
+      $('r-combo').textContent = String(game.bestCombo);
     }
 
     const shown = [...practised].slice(0, 15);
@@ -452,7 +727,7 @@ import Base from '../layouts/Base.astro';
     }), ...(hidden > 0 ? [Object.assign(el('li', 'more-count'), { textContent: `+${hidden}` })] : []));
 
     const next = nextDue(store, inLevel(), mode);
-    $('next-up').textContent = quiz || !reviewed || !next
+    $('next-up').textContent = game || !reviewed || !next
       ? ''
       : next <= now ? 'More cards are ready now.' : `Your next card is ready in ${formatWait(next, now)}.`;
 
@@ -464,11 +739,11 @@ import Base from '../layouts/Base.astro';
     $('milestone').hidden = !line;
 
     show('done');
-    const perfect = quiz?.right === ROUND;
-    if (line || perfect) celebrate();
+    if (reviewed) setTimeout(() => { if (!$('done').hidden) burst($('stamp'), 18); }, 450);
+    if (line || game?.perfect) celebrate();
   }
 
-  // Confetti is kept for milestones and perfect quiz rounds, so it still means something after months of use.
+  // Confetti is kept for milestones and outstanding game rounds, so it still means something after months of use.
   function celebrate() {
     const box = $('confetti');
     const colors = ['--t0', '--t1', '--t2', '--t3', '--t4'];
@@ -484,7 +759,8 @@ import Base from '../layouts/Base.astro';
 
   function begin() {
     mode = store.settings.mode;
-    if (mode === 'quiz') return beginQuiz();
+    if (mode === 'quiz' || mode === 'picture') return beginQuiz(mode === 'picture');
+    if (mode === 'match') return beginMatch();
     queue = buildQueue(store, inLevel(), mode, store.settings.newPerDay, new Date());
     reviewed = 0;
     practised = new Set();
@@ -494,39 +770,82 @@ import Base from '../layouts/Base.astro';
     streakBefore = currentStreak(store, now);
     if (!queue.length) return;
     show('session');
+    $('f-cheer').hidden = true;
     renderCard();
   }
 
-  function beginQuiz() {
+  function startGame() {
     const now = new Date();
-    const round = buildRound(store, inLevel(), store.settings.newPerDay, now);
-    const scheduled = new Set(round.scheduled);
     reviewed = 0;
     practised = new Set();
     learnedBefore = summarize(store, cards.map((c) => c.k), mode, now).learned;
     streakBefore = currentStreak(store, now);
+  }
+
+  function practise(k: string) {
+    saveStore(store);
+    practised.add(k);
+    reviewed++;
+  }
+
+  function beginQuiz(pictures: boolean) {
+    const round = buildRound(store, inLevel(), store.settings.newPerDay, new Date(), mode);
+    const scheduled = new Set(round.scheduled);
+    startGame();
     show('quiz');
     startQuiz(shuffle(round.queue), {
       cards,
+      pictures,
       onAnswer: (k, correct) => {
         const at = new Date();
-        if (scheduled.has(k)) grade(store, k, 'quiz', correct ? Rating.Good : Rating.Again, at);
+        if (scheduled.has(k)) grade(store, k, mode, correct ? Rating.Good : Rating.Again, at);
         else touchStreak(store, at);
-        saveStore(store);
-        practised.add(k);
-        reviewed++;
+        practise(k);
       },
-      onFinish: finish,
+      onFinish: ({ answered, right, score, bestCombo }) => finish({
+        score, bestCombo,
+        bestKey: pictures ? 'pictureBest' : 'quizBest',
+        stat: `${right}/${answered.length}`,
+        statLabel: 'First try',
+        // A round ended early isn't a perfect one, however well it was going.
+        stamp: answered.length ? rank(right, answered.length, answered.length < ROUND) : null,
+        perfect: right === ROUND,
+      }),
+    });
+  }
+
+  function beginMatch() {
+    const level = new Set(inLevel());
+    const pairs = pickPairs(store, cards.filter((c) => level.has(c.k)), new Date());
+    startGame();
+    show('match');
+    startMatch(pairs, {
+      // Finding a pair is part memory, part luck, so it counts for the streak but not the schedule.
+      onPair: (k) => {
+        touchStreak(store, new Date());
+        practise(k);
+      },
+      onFinish: ({ found, misses, finished, score, bestCombo }) => {
+        const stamp = found.length ? matchRank(misses, finished) : null;
+        finish({
+          score, bestCombo, stamp,
+          bestKey: 'matchBest',
+          stat: String(misses),
+          statLabel: misses === 1 ? 'Miss' : 'Misses',
+          perfect: finished && misses <= 3,
+        });
+      },
     });
   }
 
   flash.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('a')) return;
+    if ((e.target as HTMLElement).closest('a, button')) return;
     reveal();
   });
   attachSwipe(flash, {
     canSwipe: () => revealed,
-    onSwipe: (dir) => rate(dir === 'left' ? Rating.Again : Rating.Good),
+    onSwipe: (dir) => rate(dir === 'left' ? Rating.Again : Rating.Good, true),
+    mouse: true,
     onMove: (dx) => {
       $('tag-again').style.opacity = String(Math.min(Math.max(-dx, 0) / 90, 1));
       $('tag-good').style.opacity = String(Math.min(Math.max(dx, 0) / 90, 1));
@@ -539,12 +858,18 @@ import Base from '../layouts/Base.astro';
       e.preventDefault();
       reveal();
     }
+    if (e.key.toLowerCase() === 'h') peek();
     const g = GRADES.find((x) => x.key === e.key);
     if (g) rate(g.rating);
   });
 
-  form.addEventListener('change', readForm);
+  form.addEventListener('change', (e) => {
+    readForm();
+    const tile = (e.target as Element).closest('.mode');
+    if (tile) burst(tile, 12);
+  });
   start.addEventListener('click', begin);
+  $('peek').addEventListener('click', peek);
   $('quit').addEventListener('click', () => finish());
   $('replay').addEventListener('click', begin);
   $('again').addEventListener('click', () => { show('setup'); refresh(); });

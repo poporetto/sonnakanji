@@ -1,6 +1,6 @@
 import { createEmptyCard, fsrs, generatorParameters, Rating, type Card, type Grade } from 'ts-fsrs';
 
-export type Mode = 'meaning' | 'reading' | 'recall' | 'quiz';
+export type Mode = 'meaning' | 'reading' | 'recall' | 'quiz' | 'picture' | 'match';
 export const GRADES: { rating: Grade; label: string; key: string }[] = [
   { rating: Rating.Again, label: 'Again', key: '1' },
   { rating: Rating.Hard, label: 'Hard', key: '2' },
@@ -16,8 +16,10 @@ export interface Store {
   settings: { level: 'all' | 'N5' | 'N4' | 'N3' | 'N2' | 'N1'; mode: Mode; newPerDay: number };
   // Consecutive days with at least one review.
   streak: { day: string; count: number };
-  // Highest score in a quiz round.
+  // Highest score in a round of each game.
   quizBest: number;
+  pictureBest: number;
+  matchBest: number;
 }
 
 const KEY = 'sonnakanji.srs.v1';
@@ -30,6 +32,8 @@ export const emptyStore = (): Store => ({
   settings: { level: 'all', mode: 'meaning', newPerDay: 10 },
   streak: { day: '', count: 0 },
   quizBest: 0,
+  pictureBest: 0,
+  matchBest: 0,
 });
 
 export const dayOf = (d: Date) =>

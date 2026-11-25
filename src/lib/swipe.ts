@@ -1,12 +1,13 @@
-// Touch-only horizontal drag. Browsers keep vertical scrolling because the
+// Horizontal drag, touch-only unless `mouse` is set. Browsers keep vertical scrolling because the
 // target sets touch-action: pan-y, and they fire pointercancel if they take over.
 export interface SwipeOptions {
   canSwipe?: (dir: 'left' | 'right') => boolean;
   onSwipe: (dir: 'left' | 'right') => void;
   onMove?: (dx: number) => void;
+  mouse?: boolean;
 }
 
-export function attachSwipe(el: HTMLElement, { canSwipe = () => true, onSwipe, onMove }: SwipeOptions) {
+export function attachSwipe(el: HTMLElement, { canSwipe = () => true, onSwipe, onMove, mouse = false }: SwipeOptions) {
   let startX = 0;
   let startT = 0;
   let id: number | null = null;
@@ -21,7 +22,7 @@ export function attachSwipe(el: HTMLElement, { canSwipe = () => true, onSwipe, o
   };
 
   el.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'mouse' || id !== null) return;
+    if (id !== null || (e.pointerType === 'mouse' && (!mouse || e.button !== 0 || !canSwipe('left')))) return;
     id = e.pointerId;
     startX = e.clientX;
     startT = e.timeStamp;
@@ -31,6 +32,13 @@ export function attachSwipe(el: HTMLElement, { canSwipe = () => true, onSwipe, o
   el.addEventListener('pointermove', (e) => {
     if (e.pointerId !== id) return;
     dx = e.clientX - startX;
+    // Keep hold of the card when a mouse leaves it; small moves stay clicks.
+    if (e.pointerType === 'mouse') {
+      // The button was let go outside the card.
+      if (!e.buttons) return settle();
+      if (Math.abs(dx) < 6 && !el.hasPointerCapture(e.pointerId)) return;
+      el.setPointerCapture(e.pointerId);
+    }
     const blocked = !canSwipe(dx < 0 ? 'left' : 'right');
     const shown = blocked ? dx * 0.2 : dx;
     el.style.transform = `translateX(${shown}px) rotate(${shown / 60}deg)`;
@@ -54,4 +62,7 @@ export function attachSwipe(el: HTMLElement, { canSwipe = () => true, onSwipe, o
   el.addEventListener('pointercancel', (e) => {
     if (e.pointerId === id) settle();
   });
+
+  // Dragging the picture or link would otherwise start the browser's own drag.
+  if (mouse) el.addEventListener('dragstart', (e) => e.preventDefault());
 }

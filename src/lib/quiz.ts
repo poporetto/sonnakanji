@@ -1,5 +1,5 @@
 // Quiz rules only, no DOM, so they can be tested on their own.
-import { buildQueue, type Store } from './srs.ts';
+import { buildQueue, type Mode, type Store } from './srs.ts';
 
 export interface QuizCard { k: string; l: string; m: string[] }
 export type Rng = () => number;
@@ -19,7 +19,7 @@ export function shuffle<T>(list: readonly T[], rng: Rng = Math.random) {
 }
 
 // "to see", "See" and "see (a film)" all count as one meaning.
-const plain = (m: string) => m.toLowerCase().replace(/\(.*?\)/g, '').replace(/^(to|the|an?) /, '').trim();
+export const plain = (m: string) => m.toLowerCase().replace(/\(.*?\)/g, '').replace(/^(to|the|an?) /, '').trim();
 
 // Wrong answers come from the same level, and never share any sense with the right one.
 export function buildChoices(card: QuizCard, all: QuizCard[], rng: Rng = Math.random): QuizCard[] {
@@ -36,8 +36,8 @@ export function buildChoices(card: QuizCard, all: QuizCard[], rng: Rng = Math.ra
 }
 
 // Due and new cards are scheduled. The rest of the round is practice: kanji already met in any mode, then unseen ones in teaching order.
-export function buildRound(store: Store, kanji: string[], newPerDay: number, now: Date, rng: Rng = Math.random) {
-  const scheduled = buildQueue(store, kanji, 'quiz', newPerDay, now).slice(0, ROUND);
+export function buildRound(store: Store, kanji: string[], newPerDay: number, now: Date, mode: Mode = 'quiz', rng: Rng = Math.random) {
+  const scheduled = buildQueue(store, kanji, mode, newPerDay, now).slice(0, ROUND);
   const taken = new Set(scheduled);
   const met = new Set(Object.keys(store.cards).map((key) => key.slice(key.indexOf(':') + 1)));
   const rest = kanji.filter((k) => !taken.has(k));

@@ -43,6 +43,12 @@ test('quiz answers leave the flashcard schedules alone', () => {
   assert.deepEqual(Object.keys(s.cards), ['quiz:一']);
 });
 
+test('the picture quiz keeps its own schedule', () => {
+  const s = emptyStore();
+  grade(s, '一', 'quiz', Rating.Easy, now);
+  assert.equal(buildRound(s, kanji, 3, now, 'picture').scheduled[0], '一');
+});
+
 test('points reward speed and combos, within limits', () => {
   assert.equal(points(1, 0), 150);
   assert.equal(points(1, 60), 100);
