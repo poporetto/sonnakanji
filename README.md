@@ -30,6 +30,9 @@ production domain automatically; set `SITE_URL` in Vercel to override it.
 | `art-source/hand/` | Curated | Transparent N5, N4, N3 and N2 illustration sources that take priority over scenes |
 | `art-source/*-shape-briefs.json` | Hand | Visual memory cues and component layouts for custom illustrations |
 | `art-source/review/` | Generated | Contact sheets for reviewing the illustration sets |
+| `src/data/component-slugs.json` | Hand | Permanent URL per component page; existing entries never change |
+| `src/data/lastmod.json` | `npm run lastmod` | Sitemap dates; rerun before committing content changes |
+| `src/styles/*-font.css` | `npm run fonts` | Trimmed Japanese font rules; rerun after updating Fontsource |
 | `public/art/` | `npm run art` | WebP files from hand sources and SVGs from scenes; rerun after editing either |
 
 `npm run data` caches every response in `.cache/`, so reruns are offline and

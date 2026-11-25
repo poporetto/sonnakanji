@@ -54,6 +54,6 @@ const jsonLd = {
   ],
 };
 ---
-<Base {title} {description} {jsonLd} prefetch={[kanjiPath(next.kanji), kanjiPath(prev.kanji)]}>
+<Base {title} {description} {jsonLd} shareImage={`/og/kanji/${slugOf(k.kanji)}.jpg`} shareAlt={`${k.kanji} means ${k.meanings[0]}: ${k.mnemonic}`} prefetch={[kanjiPath(next.kanji), kanjiPath(prev.kanji)]}>
   <KanjiCard {k} {position} total={sameLevel.length} {prev} {next} />
 </Base>

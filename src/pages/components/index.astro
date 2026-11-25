@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { hubs, hubForms, hubPath } from '../../lib/links';
+---
+<Base
+  title="Kanji Components and Their Meanings | SonnaKanji"
+  description={`${hubs.length} common kanji components, what to picture for each one, and every JLPT kanji from N5 to N1 that uses it.`}
+>
+  <h1>Kanji components</h1>
+  <p class="muted lead">Most kanji are built from smaller parts. These {hubs.length} aren't JLPT kanji on their own, but knowing them makes the kanji that use them easier to picture. The most common come first.</p>
+  <ul class="parts-grid">
+    {hubs.map((g, i) => (
+      <li><a href={hubPath(g)} style={`background:var(--t${i % 5})`}>
+        <b lang="ja">{hubForms(g)}</b><span>{g.name}</span><small>{g.kanji.length} kanji</small>
+      </a></li>
+    ))}
+  </ul>
+</Base>
+
+<style>
+  h1 { font-size: clamp(36px, 8vw, 52px); margin: 12px 0 8px; }
+  .lead { max-width: 60ch; }
+  .parts-grid { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .parts-grid a { display: grid; justify-items: center; gap: 4px; padding: 16px 10px; border-radius: var(--radius); color: var(--on-tint); text-decoration: none; }
+  .parts-grid b { font: 500 40px/1.1 var(--jp); }
+  .parts-grid span { font-weight: 600; text-transform: capitalize; }
+  .parts-grid small { font-size: 13px; }
+</style>

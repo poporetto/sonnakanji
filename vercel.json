@@ -1,5 +1,11 @@
 {
   "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(art|glyphs|mascot|og)/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
+    }
+  ],
   "redirects": [
     {
       "source": "/kanji/%E6%97%A5/",

@@ -1,0 +1,15 @@
+---
+import { kanjiPath, type Kanji } from '../lib/kanji';
+interface Props { list: Kanji[] }
+---
+<ul class="klinks">
+  {Astro.props.list.map((x) => <li><a href={kanjiPath(x.kanji)}><b lang="ja">{x.kanji}</b><span>{x.meanings[0]}</span></a></li>)}
+</ul>
+
+<style is:global>
+  .klinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .klinks a { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 12px; border-radius: 14px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); color: var(--ink); text-decoration: none; }
+  .klinks b { font: 500 22px/1 var(--jp); }
+  .klinks span { font-size: 14px; color: var(--muted); }
+  @media (hover: hover) { .klinks a:hover span { color: var(--ink); } }
+</style>

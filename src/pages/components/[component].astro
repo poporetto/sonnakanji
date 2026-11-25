@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import KanjiTile from '../../components/KanjiTile.astro';
+import { LEVELS } from '../../lib/kanji';
+import { hubs, hubForms, hubPath, hubSlug } from '../../lib/links';
+
+export function getStaticPaths() {
+  return hubs.map((g) => ({ params: { component: hubSlug(g) }, props: { g } }));
+}
+const { g } = Astro.props;
+const forms = hubForms(g);
+const title = `${forms} Kanji Component: "${g.name}" in ${g.kanji.length} JLPT Kanji | SonnaKanji`;
+const few = g.kanji.slice(0, 3).map((k) => `${k.kanji} (${k.meanings[0]})`).join(', ');
+const description = `The ${forms} component, remembered as "${g.name}", appears in ${g.kanji.length} JLPT kanji, including ${few}. See each one with a picture and mnemonic.`;
+const levels = LEVELS.map((l) => ({ l, list: g.kanji.filter((k) => k.level === l.id) })).filter((x) => x.list.length);
+const url = new URL(hubPath(g), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Kanji components', item: new URL('/components/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: forms, item: url },
+  ],
+};
+---
+<Base {title} {description} {jsonLd}>
+  <p class="crumb"><a href="/components/">Kanji components</a></p>
+  <h1>Kanji with <span lang="ja">{forms}</span>, “{g.name}”</h1>
+  <p class="muted lead">Spot <span lang="ja">{forms}</span> in a kanji and think of “{g.name}”. It appears in {g.kanji.length} JLPT kanji, such as {few}.</p>
+  {levels.map(({ l, list }) => (
+    <section>
+      <h2><a href={`/jlpt/${l.slug}/`}>JLPT {l.id}</a></h2>
+      <ul class="grid">{list.map((k, i) => <li><KanjiTile {k} index={i} /></li>)}</ul>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .crumb { margin: 0; font-size: 14px; font-weight: 600; }
+  .crumb a { display: inline-block; padding-block: 11px; }
+  h1 { font-size: clamp(32px, 7vw, 48px); margin: 0 0 8px; }
+  .lead { max-width: 60ch; }
+  h2 { font-size: 22px; margin: 28px 0 12px; }
+  h2 a { color: inherit; text-decoration: none; }
+</style>

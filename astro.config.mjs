@@ -12,6 +12,6 @@ export default defineConfig({
   site,
   redirects,
   trailingSlash: 'always',
-  build: { format: 'directory' },
+  build: { format: 'directory', concurrency: 8 },
   prefetch: false,
 });

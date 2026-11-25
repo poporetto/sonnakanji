@@ -9,6 +9,8 @@
     "preview": "astro preview",
     "data": "node scripts/build-data.mjs",
     "art": "node scripts/build-art.mjs",
+    "fonts": "node scripts/build-fonts.mjs",
+    "lastmod": "node scripts/build-lastmod.mjs",
     "slugs": "node scripts/build-slugs.mjs",
     "test": "node --test src/lib/*.test.ts src/kanjimono/*.test.ts"
   },
@@ -18,6 +20,8 @@
     "@fontsource/m-plus-rounded-1c": "^5.3.0",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.4.5",
+    "fontkitten": "^1.0.3",
+    "sharp": "^0.35.5",
     "ts-fsrs": "^6.0.0",
     "wanakana": "^5.3.1"
   },
