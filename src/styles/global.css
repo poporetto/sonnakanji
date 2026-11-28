@@ -80,6 +80,10 @@ main { padding-block: 8px 48px; }
 .site-bar nav a[aria-current] { background: var(--accent); color: var(--on-accent); }
 .site-foot { color: var(--muted); font-size: 14px; padding-block: 8px 28px; }
 .site-foot p { margin: 0; }
+.foot-follow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding-bottom: 14px; }
+.foot-follow span { color: var(--ink); font: 600 16px var(--display); margin-right: 4px; }
+.foot-follow a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); color: var(--ink); font-weight: 600; text-decoration: none; }
+@media (max-width: 520px) { .foot-follow span { flex-basis: 100%; } }
 .foot-links { display: flex; flex-wrap: wrap; gap: 0 16px; }
 .foot-links a { display: inline-block; padding-block: 11px; }
 

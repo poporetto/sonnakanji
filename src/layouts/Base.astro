@@ -82,6 +82,21 @@ const shareUrl = new URL(shareImage, Astro.site).href;
     <main><div class="wrap"><slot /></div></main>
     <footer class="site-foot">
       <div class="wrap">
+        <p class="foot-follow">
+          <span>Follow SonnaKanji</span>
+          <a href="https://www.instagram.com/sonnakanjidesu/" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="3.8" /><path d="M17 7h.01" /></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/sonnakanji" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M17 3.5h-2.5a4 4 0 0 0-4 4v13M7 12.5h8.5" /></svg>
+            Facebook
+          </a>
+          <a href="https://x.com/_sonnakanji" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m5 4.5 14 15M19 4.5l-14 15" /></svg>
+            X
+          </a>
+        </p>
         <p>Built on open data from KANJIDIC, Wiktionary, Wikimedia Commons and KanjiVG.</p>
         <p class="foot-links"><a href="/learn-kanji-with-pictures/">How to learn kanji with pictures</a><a href="/components/">Kanji components</a><a href="/kanjimono/">Play Kanjimono</a><a href="/about/">Sources and licences</a></p>
       </div>
