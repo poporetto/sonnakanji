@@ -33,3 +33,12 @@ test('N1 cards with their final drawing drop the Beta tag; the rest keep it', ()
   if (draft) assert.match(page(slugOf[draft.kanji]), /class="chip">Beta</);
   for (const k of kanji.filter((k) => k.level === 'N2')) assert.doesNotMatch(page(slugOf[k.kanji]), /class="chip">Beta</);
 });
+
+test('every URL the site has ever used still lands on a page', async () => {
+  const vercel = JSON.parse(readFileSync('vercel.json', 'utf8')) as { redirects: { source: string; destination: string }[]; headers?: unknown[] };
+  const retired = JSON.parse(readFileSync('src/data/retired-slugs.json', 'utf8')) as Record<string, string>;
+  assert.ok(vercel.headers?.length, 'vercel.json lost its cache headers');
+  const to = new Map(vercel.redirects.map((r) => [r.source, r.destination]));
+  for (const [old, k] of Object.entries(retired)) assert.equal(to.get(`/kanji/${old}/`), `/kanji/${slugOf[k]}/`);
+  for (const dest of to.values()) assert.ok(readdirSync(`dist${dest}`).includes('index.html'), `${dest} is not a page`);
+});

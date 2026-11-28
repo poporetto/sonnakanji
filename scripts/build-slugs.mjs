@@ -33,7 +33,16 @@ const redirects = records.filter((r) => r.level === 'N5' || r.level === 'N4').ma
   destination: `/kanji/${slugs[r.kanji]}/`,
   permanent: true,
 }));
+// Slugs the number kanji had on launch day, before they switched to their common on'yomi.
+const retired = read('src/data/retired-slugs.json');
+for (const [old, kanji] of Object.entries(retired)) {
+  if (used.has(old)) throw new Error(`Retired slug ${old} is in use again`);
+  redirects.push({ source: `/kanji/${old}/`, destination: `/kanji/${slugs[kanji]}/`, permanent: true });
+}
 // The game's first name, kept alive for anyone with the old link.
 redirects.push({ source: '/kanjimon/', destination: '/kanjimono/', permanent: true });
-writeFileSync(path.join(ROOT, 'vercel.json'), `${JSON.stringify({ trailingSlash: true, redirects }, null, 2)}\n`);
+// Keep the headers and any other settings; only the redirects are generated.
+const vercelFile = path.join(ROOT, 'vercel.json');
+const vercel = existsSync(vercelFile) ? read('vercel.json') : { trailingSlash: true };
+writeFileSync(vercelFile, `${JSON.stringify({ ...vercel, redirects }, null, 2)}\n`);
 console.log(Object.keys(slugs).length, 'slugs;', Object.values(slugs).slice(0, 6).join(' '));

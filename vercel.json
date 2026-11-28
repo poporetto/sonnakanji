@@ -3,7 +3,12 @@
   "headers": [
     {
       "source": "/(art|glyphs|mascot|og)/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -1230,6 +1235,71 @@
     {
       "source": "/kanji/%E6%98%A0/",
       "destination": "/kanji/reflect-utsuru/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/one-hito/",
+      "destination": "/kanji/one-ichi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/ten-too/",
+      "destination": "/kanji/ten-juu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/two-futa/",
+      "destination": "/kanji/two-ni/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/three-mi/",
+      "destination": "/kanji/three-san/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/five-itsu/",
+      "destination": "/kanji/five-go/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/four-yo/",
+      "destination": "/kanji/four-shi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/nine-kokono/",
+      "destination": "/kanji/nine-kyuu/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/eight-ya/",
+      "destination": "/kanji/eight-hachi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/six-mu/",
+      "destination": "/kanji/six-roku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/seven-nana/",
+      "destination": "/kanji/seven-shichi/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/hundred-momo/",
+      "destination": "/kanji/hundred-hyaku/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/thousand-chi/",
+      "destination": "/kanji/thousand-sen/",
+      "permanent": true
+    },
+    {
+      "source": "/kanji/ten-thousand-yorozu/",
+      "destination": "/kanji/ten-thousand-man/",
       "permanent": true
     },
     {
