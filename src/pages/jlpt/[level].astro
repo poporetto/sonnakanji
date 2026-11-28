@@ -1,13 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
 import KanjiTile from '../../components/KanjiTile.astro';
-import { byLevel, kanjiPath, LEVELS } from '../../lib/kanji';
+import { byLevel, finishedIn, kanjiPath, LEVELS } from '../../lib/kanji';
 
 export function getStaticPaths() {
   return LEVELS.map((l) => ({ params: { level: l.slug }, props: { level: l } }));
 }
 const { level } = Astro.props;
 const list = byLevel(level.id);
+const finished = finishedIn(level.id);
 const title = level.beta
   ? `All ${list.length.toLocaleString('en')} JLPT ${level.id} kanji with mnemonics (beta) | SonnaKanji`
   : `All ${list.length} JLPT ${level.id} kanji with mnemonics | SonnaKanji`;
@@ -25,7 +26,7 @@ const jsonLd = {
 <Base {title} {description} {jsonLd}>
   <h1>JLPT {level.id} kanji{level.beta && <span class="beta">Beta</span>}</h1>
   {level.beta
-    ? <p class="muted">{level.blurb} This level is in beta, so its drawings and mnemonics are first drafts and may change. Kanji you've reviewed get a star.</p>
+    ? <p class="muted">{level.blurb} This level is in beta: {finished.toLocaleString('en')} of its {list.length.toLocaleString('en')} kanji have their final drawings, and the rest are first drafts that may change. Kanji you've reviewed get a star.</p>
     : <p class="muted">{level.blurb} Open any card for its picture, mnemonic and readings. Kanji you've reviewed get a star.</p>}
   <p class="actions">
     <a class="btn primary" href={`/review/?level=${level.id}`}>Review {level.id}</a>

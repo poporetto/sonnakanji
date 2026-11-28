@@ -55,7 +55,10 @@ export const LEVELS = [
 ] as const;
 
 const betaLevels: Set<string> = new Set(LEVELS.filter((l) => l.beta).map((l) => l.id));
-export const isBeta = (k: Kanji) => betaLevels.has(k.level);
+const drawn = handArt as Record<string, string>;
+// A card in a beta level leaves beta once its final drawing arrives.
+export const isBeta = (k: Kanji) => betaLevels.has(k.level) && !drawn[k.kanji];
+export const finishedIn = (level: string) => byLevel(level).filter((k) => drawn[k.kanji]).length;
 
 export const partName = (p: KanjiPart) => names[p.original ?? p.el ?? ''] ?? names[p.el ?? ''] ?? null;
 export const slugOf = (c: string) => (slugs as Record<string, string>)[c];
